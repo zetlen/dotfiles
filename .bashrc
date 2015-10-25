@@ -63,7 +63,7 @@ function prompt_callback() {
     echo " [\[\033[0;36m\]$(git describe --tags --always 2> /dev/null)\[\033[0;37m\]]"
   fi
 }
-gitprompt_shell=.bash-git-prompt/gitprompt.sh
+gitprompt_shell=~/.bash-git-prompt/gitprompt.sh
 if [ -f $gitprompt_shell ]; then
   . $gitprompt_shell
   if [ -f ~/.git-completion.bash ]; then
