@@ -10,7 +10,7 @@
 [pull]
 	rebase = true
 [push]
-	default = upstream
+#	default = upstream
 [core]
 	excludesfile = /Users/james_zetlen/.gitignore_global
 	autocrlf = input
