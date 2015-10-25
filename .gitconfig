@@ -1,0 +1,79 @@
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	ui = auto
+	interactive = auto
+[user]
+	name = zetlen
+	email = zetlen@gmail.com
+[pull]
+	rebase = true
+[push]
+	default = upstream
+[core]
+	excludesfile = /Users/james_zetlen/.gitignore_global
+	autocrlf = input
+	editor = vim
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[diff]
+	tool = Kaleidoscope
+[difftool]
+	prompt = false
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
+	keepBackup = false
+[mergetool]
+	prompt = false
+	keepBackup = false
+[merge]
+	tool = Kaleidoscope
+[alias]
+	s = status
+	a = !git add . && git status
+	au = !git add -u . && git status
+	aa = !git add . && git add -u . && git status
+	c = commit
+	cm = commit -m
+	ca = commit --amend # careful
+	ac = !git add . && git commit
+	acm = !git add . && git commit -m
+	l = log --graph --all --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
+	ll = log --stat --abbrev-commit
+	d = diff --color-words
+	dh = diff --color-words head
+	dl = diff --color-words head^1 head
+	dc = diff --cached --color-words
+	dt = difftool --dir-diff
+	master = checkout master
+	shove = !git push && git push --follow-tags
+	backone = reset --soft HEAD^
+	nb = checkout -b
+	pr = pull --rebase
+	nevermind = checkout -f
+	alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
+	co = checkout
+	slt = !git log --date=short --format='%an %Cgreen%ad %Creset%s %b' `git describe --tags --abbrev=0`..HEAD
+	dslt = !git log --stat --abbrev-commit -p `git describe --tags --abbrev=0`..HEAD
+	zip = archive HEAD --format zip -o 
+	ia = merge-base --is-ancestor
+	ds = describe --tags --always
+[filter "media"]
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f
+[credential]
+	helper = osxkeychain
+[filter "utf8bom"]
+	clean = utf8bomcat
+	smudge = utf8bomcat
+[filter "hawser"]
+	clean = git hawser clean %f
+	smudge = git hawser smudge %f
+	required = true
+[filter "lfs"]
+	clean = git lfs clean %f
+	smudge = git lfs smudge %f
+	required = true
