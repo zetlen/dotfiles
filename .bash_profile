@@ -65,6 +65,7 @@ function prompt_callback() {
 }
 gitprompt_shell=~/.bash-git-prompt/gitprompt.sh
 if [ -f $gitprompt_shell ]; then
+  GIT_PROMPT_THEME="Custom"
   . $gitprompt_shell
   if [ -f ~/.git-completion.bash ]; then
     . ~/.git-completion.bash
