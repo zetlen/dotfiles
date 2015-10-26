@@ -399,6 +399,13 @@ Plugin 'groenewege/vim-less' " syntax highlighting
 
 " }}}
 
+" Filetype: Jade {{{
+
+Plugin 'digitaltoad/vim-jade.git'
+autocmd BufNewFile,BufReadPost *.jade set filetype=jade
+
+" }}}
+
 " Filetype: Markdown {{{
 
 Plugin 'jtratner/vim-flavored-markdown' " syntax highlighting
