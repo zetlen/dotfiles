@@ -68,9 +68,11 @@ function prompt_callback() {
     echo " [\[\033[0;36m\]$(git describe --tags --always 2> /dev/null)\[\033[0;37m\]]"
   fi
 }
+
 gitprompt_shell=~/.bash-git-prompt/gitprompt.sh
 if [ -f $gitprompt_shell ]; then
   GIT_PROMPT_THEME="Custom"
+  GIT_PROMPT_STATUS_COMMAND=gitstatus_pre-1.7.10.sh
   . $gitprompt_shell
 else
   echo "Git prompt not found. Run this: git clone https://github.com/magicmonty/bash-git-prompt.git ~/.bash-git-prompt"
