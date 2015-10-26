@@ -17,6 +17,11 @@ alias emacs="/usr/local/bin/emacs"
 alias unixify="find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix"
 alias sb=subl
 
+function exists {
+  declare -f -F $1 > /dev/null
+  return $?
+}
+
 function tabcwd {
   tabname ${PWD##*/}
 }
@@ -67,16 +72,16 @@ gitprompt_shell=~/.bash-git-prompt/gitprompt.sh
 if [ -f $gitprompt_shell ]; then
   GIT_PROMPT_THEME="Custom"
   . $gitprompt_shell
-  if [ -f ~/.git-completion.bash ]; then
-    . ~/.git-completion.bash
-    __git_complete g __git_main
-  elif [ -f /etc/bash_completion.d/git ]; then
-    . /etc/bash_completion.d/git
-    __git_complete g __git_main
-  fi
 else
   echo "Git prompt not found. Run this: git clone https://github.com/magicmonty/bash-git-prompt.git ~/.bash-git-prompt"
 fi
+
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+elif [ -f /etc/bash_completion.d/git ]; then
+  . /etc/bash_completion.d/git
+fi
+exists __git_complete && __git_complete g __git_main
 
 export PATH=/usr/local/share/npm/bin:/opt/local/bin:/opt/local/sbin:$PATH
 
