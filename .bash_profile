@@ -69,8 +69,11 @@ if [ -f $gitprompt_shell ]; then
   . $gitprompt_shell
   if [ -f ~/.git-completion.bash ]; then
     . ~/.git-completion.bash
+    __git_complete g __git_main
+  elif [ -f /etc/bash_completion.d/git ]; then
+    . /etc/bash_completion.d/git
+    __git_complete g __git_main
   fi
-  __git_complete g __git_main
 else
   echo "Git prompt not found. Run this: git clone https://github.com/magicmonty/bash-git-prompt.git ~/.bash-git-prompt"
 fi
