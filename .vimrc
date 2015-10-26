@@ -96,12 +96,110 @@ let g:airline_powerline_fonts = 1 " use special fonts, not unicode simulations
 let mapleader = ","   "<leader> is comma
 let g:mapleader = "," "<leader> is comma everywhere
 
+" let's get rid of some bad habits
+
+fun! HabitNag()
+  echo "no bad habits. ':call BadHabits()' to exit"
+endfun
+
+fun! NoBadHabits()
+
+  vnoremap <buffer> h <Esc>:call HabitNag()<CR>
+  vnoremap <buffer> j <Esc>:call HabitNag()<CR>
+  vnoremap <buffer> k <Esc>:call HabitNag()<CR>
+  vnoremap <buffer> l <Esc>:call HabitNag()<CR>
+
+  " Display line motions
+  vnoremap <buffer> gj <Esc>:call HabitNag()<CR>
+  vnoremap <buffer> gk <Esc>:call HabitNag()<CR>
+  nnoremap <buffer> gk <Esc>:call HabitNag()<CR>
+  nnoremap <buffer> gj <Esc>:call HabitNag()<CR>
+
+  nnoremap <buffer> h <Esc>:call HabitNag()<CR>
+  nnoremap <buffer> j <Esc>:call HabitNag()<CR>
+  nnoremap <buffer> k <Esc>:call HabitNag()<CR>
+  nnoremap <buffer> l <Esc>:call HabitNag()<CR>
+
+  nnoremap <buffer> <Left> <Esc>:call HabitNag()<CR>
+  nnoremap <buffer> <Right> <Esc>:call HabitNag()<CR>
+  nnoremap <buffer> <Up> <Esc>:call HabitNag()<CR>
+  nnoremap <buffer> <Down> <Esc>:call HabitNag()<CR>
+  nnoremap <buffer> <PageUp> <Esc>:call HabitNag()<CR>
+  nnoremap <buffer> <PageDown> <Esc>:call HabitNag()<CR>
+
+  inoremap <buffer> <Left> <Esc>:call HabitNag()<CR>
+  inoremap <buffer> <Right> <Esc>:call HabitNag()<CR>
+  inoremap <buffer> <Up> <Esc>:call HabitNag()<CR>
+  inoremap <buffer> <Down> <Esc>:call HabitNag()<CR>
+  inoremap <buffer> <PageUp> <Esc>:call HabitNag()<CR>
+  inoremap <buffer> <PageDown> <Esc>:call HabitNag()<CR>
+
+  vnoremap <buffer> <Left> <Esc>:call HabitNag()<CR>
+  vnoremap <buffer> <Right> <Esc>:call HabitNag()<CR>
+  vnoremap <buffer> <Up> <Esc>:call HabitNag()<CR>
+  vnoremap <buffer> <Down> <Esc>:call HabitNag()<CR>
+  vnoremap <buffer> <PageUp> <Esc>:call HabitNag()<CR>
+  vnoremap <buffer> <PageDown> <Esc>:call HabitNag()<CR>
+
+endfun
+
+fun! BadHabits()
+
+  set backspace=indent,eol,start
+
+  silent! nunmap <buffer> <Left>
+  silent! nunmap <buffer> <Right>
+  silent! nunmap <buffer> <Up>
+  silent! nunmap <buffer> <Down>
+  silent! nunmap <buffer> <PageUp>
+  silent! nunmap <buffer> <PageDown>
+
+  silent! iunmap <buffer> <Left>
+  silent! iunmap <buffer> <Right>
+  silent! iunmap <buffer> <Up>
+  silent! iunmap <buffer> <Down>
+  silent! iunmap <buffer> <PageUp>
+  silent! iunmap <buffer> <PageDown>
+
+  silent! vunmap <buffer> <Left>
+  silent! vunmap <buffer> <Right>
+  silent! vunmap <buffer> <Up>
+  silent! vunmap <buffer> <Down>
+  silent! vunmap <buffer> <PageUp>
+  silent! vunmap <buffer> <PageDown>
+
+  silent! vunmap <buffer> h
+  silent! vunmap <buffer> j
+  silent! vunmap <buffer> k
+  silent! vunmap <buffer> l
+  silent! vunmap <buffer> +
+
+  silent! nunmap <buffer> h
+  silent! nunmap <buffer> j
+  silent! nunmap <buffer> k
+  silent! nunmap <buffer> l
+  silent! nunmap <buffer> +
+
+  " respect word wrap when moving up and down lines
+  nnoremap j gj
+  nnoremap k gk
+
+endfun
+
+autocmd VimEnter,BufNewFile,BufReadPost * silent! call NoBadHabits()
+
+" ,/ and ,? find blank lines
+nnoremap <leader>/ /^\s*$<cr>:noh<cr>
+vnoremap <leader>/ /^\s*$<cr>:noh<cr>
+nnoremap <leader>? ?^\s*$<cr>:noh<cr>
+vnoremap <leader>? ?^\s*$<cr>:noh<cr>
+
 " commenting code
 Plugin 'tomtom/tcomment_vim'
 
-" respect word wrap when moving up and down lines
-nnoremap j gj
-nnoremap k gk
+" quickly toggle relativenumber
+nnoremap <leader>n :set relativenumber!<cr>
+vnoremap <leader>n :set relativenumber!<cr>
 
 " highlight last inserted text
 nnoremap gV `[v`]
