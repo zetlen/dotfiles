@@ -417,9 +417,9 @@ let g:vim_markdown_folding_disabled=1
 
 function s:MarkdownMode()
   setlocal filetype=ghmarkdown
-  colorscheme solarized
+  " colorscheme solarized
   set laststatus=2
-  set background=light
+  " set background=light
   AirlineRefresh
 endfunction
 
