@@ -10,6 +10,7 @@ alias ls='ls -p'
 alias cd..='cd ..'
 alias a='printf "\e]1;irc\a"; autossh -t -M 0 khmer@aram.xkcd.com "tmux attach -d"'
 alias r="rsync -av -f\"- .git/\" --progress"
+alias t="tmux attach -d"
 alias g=git
 alias n=npm
 alias e=mvim
