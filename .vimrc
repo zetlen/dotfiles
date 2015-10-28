@@ -186,7 +186,7 @@ fun! BadHabits()
 
 endfun
 
-autocmd VimEnter,BufNewFile,BufReadPost * silent! call NoBadHabits()
+" autocmd VimEnter,BufNewFile,BufReadPost * silent! call NoBadHabits()
 
 " ,/ and ,? find blank lines
 nnoremap <leader>/ /^\s*$<cr>:noh<cr>
