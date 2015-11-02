@@ -372,6 +372,7 @@ Plugin 'pangloss/vim-javascript'      " indentation
 Plugin 'Shutnik/jshint2.vim'          " JSHint command
 
 function s:JsSetup()
+  setlocal filetype=javascript
   colorscheme distinguished
   set background=dark
   set laststatus=2
