@@ -273,6 +273,10 @@ set nowb                    " Don't write backup file
 set noswapfile              " Boy are .swps annoying huh
 Plugin 'tpope/vim-fugitive' " git interactions
 
+" mouse stuff
+set mouse=a
+set ttymouse=xterm2
+
 " }}}
 
 " Netrw {{{
