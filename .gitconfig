@@ -22,14 +22,15 @@
 [difftool]
 	prompt = false
 [mergetool "Kaleidoscope"]
+	keepBackup = false
 	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-	trustExitCode = true
-	keepBackup = false
+	trustexitcode = true
 [mergetool]
-	prompt = false
 	keepBackup = false
+	prompt = false
 [merge]
 	tool = Kaleidoscope
+	conflictstyle = diff3
 [alias]
 	s = status
 	a = !git add . && git status
