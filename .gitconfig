@@ -10,7 +10,7 @@
 [pull]
 	rebase = true
 [push]
-#	default = upstream
+	default = matching
 [core]
 	excludesfile = /Users/james_zetlen/.gitignore_global
 	autocrlf = input
@@ -78,5 +78,3 @@
 	clean = git lfs clean %f
 	smudge = git lfs smudge %f
 	required = true
-[push]
-	default = matching
