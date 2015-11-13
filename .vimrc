@@ -368,6 +368,7 @@ inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
 
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|\.git\/'
 Plugin 'kien/ctrlp.vim' " plugin for Sublime Text-like CtrlP
+nnoremap <leader><c-p> :CtrlPMRUFiles<cr>
 
 " }}}
 
