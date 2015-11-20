@@ -261,6 +261,9 @@ nnoremap <leader><space> :noh<cr>
 vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 
+" Silver Searcher and friends!
+Plugin 'rking/ag.vim'
+
 " }}}
 
 " OS Interoperation {{{
