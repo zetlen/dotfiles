@@ -49,7 +49,7 @@
 	dc = diff --cached --color-words
 	dt = difftool --dir-diff
 	master = checkout master
-	shove = !git push && git push --follow-tags
+  shove = push --follow-tags
 	backone = reset --soft HEAD^
 	nb = checkout -b
 	pr = pull --rebase
