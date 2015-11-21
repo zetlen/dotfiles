@@ -92,3 +92,7 @@ export PATH=/usr/local/share/npm/bin:/opt/local/bin:/opt/local/sbin:$PATH
 export PATH="/usr/local/heroku/bin:$PATH"
 
 [ ! -f ~/.bashrc.local  ] || . ~/.bashrc.local
+
+if command -v tmux>/dev/null; then
+  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && (tmux attach -d || tmux new-session -n $(perl -e 'srand; rand($.) < 1 && ($line = $_) while <>; print $line;' /usr/share/dict/words))
+fi
