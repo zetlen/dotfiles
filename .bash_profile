@@ -58,13 +58,12 @@ function sprunge {
 }
 
 function rmext() {
-if [ -z "$1" ]
-    then
-        echo "Supply an extension"
-    else
-        ext="*.${1}"
-        find . -name $ext -exec rm -r {} \;
-    fi
+  if [ -z "$1" ]; then
+    echo "Supply an extension"
+  else
+    ext="*.${1}"
+    find . -name $ext -exec rm -r {} \;
+  fi
 }
 
 alias ..='cd ..' # up a directory

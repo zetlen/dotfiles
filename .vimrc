@@ -388,7 +388,7 @@ Plugin 'jelera/vim-javascript-syntax' " syntax highlighting
 Plugin 'pangloss/vim-javascript'      " indentation
 Plugin 'Shutnik/jshint2.vim'          " JSHint command
 
-function s:JsSetup()
+function! s:JsSetup()
   setlocal filetype=javascript
   colorscheme distinguished
   set background=dark
@@ -437,7 +437,7 @@ let g:instant_markdown_autostart = 0    " don't launch a browser for each file!
 " markdown mode requires this, see https://github.com/plasticboy/vim-markdown
 let g:vim_markdown_folding_disabled=1
 
-function s:MarkdownMode()
+function! s:MarkdownMode()
   setlocal filetype=ghmarkdown
   " colorscheme solarized
   set laststatus=2
@@ -461,7 +461,7 @@ let g:simple_todo_tick_symbol = 'x'
 nnoremap \] :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>
 
 " open todo list
-command Todo :e ~/Dropbox/todo.mdown | /\[ \]/
+command! Todo :e ~/Dropbox/todo.mdown | /\[ \]/
 
 " }}}
 
