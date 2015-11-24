@@ -293,6 +293,14 @@ Plugin 'tpope/vim-fugitive' " git interactions
 set mouse=a
 set ttymouse=xterm2
 
+" repl stuff
+Plugin 'sjl/tslime.vim'
+let g:tslime_always_current_session = 1
+let g:tslime_always_current_window = 1
+vnoremap <C-c><C-c> <Plug>SendSelectionToTmux
+nnoremap <C-c><C-c> <Plug>NormalModeSendToTmux
+nnoremap <C-c>r <Plug>SetTmuxVars
+
 " }}}
 
 " Netrw {{{
