@@ -17,6 +17,7 @@ alias e=mvim
 alias emacs="/usr/local/bin/emacs"
 alias unixify="find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix"
 alias sb=subl
+alias sicp-repl="racket -i -p neil/sicp -l xrepl"
 
 function exists {
   declare -f -F $1 > /dev/null
