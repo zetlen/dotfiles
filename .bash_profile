@@ -24,16 +24,28 @@ function exists {
   return $?
 }
 
-function tabcwd {
-  tabname ${PWD##*/}
+function winname {
+  printf "\e]1;$1\a"
 }
 
-function tabname {
-  printf "\e]1;$1\a"
+function tmuxwinname {
+  tmux rename-window $1
+}
+
+function tmux_winname_pwd {
+  tmuxwinname `basename $PWD`
 }
 
 function mdcd {
     mkdir -p $1 && cd $1
+}
+
+function random_word {
+  perl -e 'srand; rand($.) < 1 && ($line = $_) while <>; print $line;' /usr/share/dict/words
+}
+
+function tmux_winname_randomword {
+  tmuxwinname `random_word`
 }
 
 function sprunge {
@@ -66,7 +78,7 @@ alias myip="ifconfig | grep -E '(192|10)'"
 
 function prompt_callback() {
   if [[ -e "$(git rev-parse --git-dir 2> /dev/null)" ]]; then
-    tabcwd
+    tmux_winname_pwd
     echo " [\[\033[0;36m\]$(git describe --tags --always 2> /dev/null)\[\033[0;37m\]]"
   fi
 }
@@ -95,5 +107,5 @@ export PATH="/usr/local/heroku/bin:$PATH"
 [ ! -f ~/.bashrc.local  ] || . ~/.bashrc.local
 
 if command -v tmux>/dev/null; then
-  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && (tmux attach -d || tmux new-session -n $(perl -e 'srand; rand($.) < 1 && ($line = $_) while <>; print $line;' /usr/share/dict/words))
+  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && (tmux attach -d || tmux new-session) || tmux_winname_randomword
 fi
