@@ -36,6 +36,7 @@
 	a = !git add . && git status
 	au = !git add -u . && git status
 	aa = !git add . && git add -u . && git status
+	ap = add -p
 	c = commit
 	cm = commit -m
 	ca = commit --amend # careful
