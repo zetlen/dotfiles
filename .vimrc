@@ -322,7 +322,7 @@ function! s:JsSetup()
   hi TabChars guifg=#990000 ctermfg=red
   match TabChars /\t/
   hi NonText guifg=#990000 ctermfg=red
-  AirlineRefresh
+  AirlineTheme dark
 endfunction
 
 augroup javascript
@@ -336,11 +336,21 @@ augroup END
 
 Plugin 'elzr/vim-json' " syntax highlighting
 
+augroup json
+  au!
+  au BufRead,BufNewFile *.json call s:JsSetup()
+augroup END
+
 " }}}
 
 " Filetype: Less {{{
 
 Plugin 'groenewege/vim-less' " syntax highlighting
+
+augroup less
+  au!
+  au BufRead,BufNewFile *.less call s:JsSetup()
+augroup END
 
 " }}}
 
