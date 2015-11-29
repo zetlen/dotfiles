@@ -40,8 +40,13 @@ function mdcd {
     mkdir -p $1 && cd $1
 }
 
+
 function random_word {
   perl -e 'srand; rand($.) < 1 && ($line = $_) while <>; print $line;' /usr/share/dict/words
+}
+
+function googlebot {
+voices=($(say -v '?' | awk '{print $1}')); while :; do random_word | tee /dev/tty | say -v ${voices[$RANDOM % ${#voices[@]} ]}; done
 }
 
 function tmux_winname_randomword {
