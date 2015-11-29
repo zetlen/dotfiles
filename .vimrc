@@ -112,6 +112,10 @@ Plugin 'tomtom/tcomment_vim'
 nnoremap <leader>n :set relativenumber!<cr>
 vnoremap <leader>n :set relativenumber!<cr>
 
+" better word wrap
+set formatoptions=l
+set lbr
+
 " highlight last inserted text
 nnoremap gV `[v`]
 
