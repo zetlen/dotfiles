@@ -387,6 +387,18 @@ augroup END
 
 " }}}
 
+" Filetype: Scheme {{{
+
+function! s:SchemeRacketMode()
+  set filetype=scheme
+  set lisp
+endfunction
+
+augroup scheme
+  au!
+  au BufNewFile,BufReadPost *.rkt,*.rktl call s:SchemeRacketMode()
+augroup END
+
 " Todo List {{{
 
 Plugin 'zetlen/vim-simple-todo'
