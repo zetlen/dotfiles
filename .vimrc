@@ -363,19 +363,21 @@ autocmd BufNewFile,BufReadPost *.jade set filetype=jade
 
 " Filetype: Markdown {{{
 
-Plugin 'jtratner/vim-flavored-markdown' " syntax highlighting
+Plugin 'tpope/vim-markdown' " syntax highlighting
 Plugin 'suan/vim-instant-markdown'      " preview in realtime browser
 let g:instant_markdown_autostart = 0    " don't launch a browser for each file!
 
 " markdown mode requires this, see https://github.com/plasticboy/vim-markdown
 let g:vim_markdown_folding_disabled=1
 
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'javascript', 'scheme']
+
 function! s:MarkdownMode()
-  setlocal filetype=ghmarkdown
-  " colorscheme solarized
+  setlocal filetype=markdown
+  colorscheme PaperColor
   set laststatus=2
-  " set background=light
-  AirlineRefresh
+  set background=light
+  AirlineTheme light
 endfunction
 
 augroup markdown
