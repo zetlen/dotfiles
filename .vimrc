@@ -312,22 +312,24 @@ Plugin 'pangloss/vim-javascript'      " indentation
 Plugin 'Shutnik/jshint2.vim'          " JSHint command
 
 function! s:JsSetup()
-  setlocal filetype=javascript
-  colorscheme distinguished
   set background=dark
-  set laststatus=2
   set cc=80
   hi IndentGuidesEven guibg=#222222
   hi IndentGuidesOdd guibg=#272727
   hi TabChars guifg=#990000 ctermfg=red
   match TabChars /\t/
   hi NonText guifg=#990000 ctermfg=red
-  AirlineTheme dark
+  if exists("g:airline_section_a")
+    AirlineTheme dark
+  endif
+  set laststatus=2
+  colorscheme distinguished
 endfunction
 
 augroup javascript
   au!
-  au BufRead,BufNewFile *.js,*.es6 call s:JsSetup()
+  au BufRead,BufNewFile,BufEnter *.js,*.es6 :setf javascript
+  au FileType javascript :call s:JsSetup()
 augroup END
 
 " }}}
@@ -338,7 +340,7 @@ Plugin 'elzr/vim-json' " syntax highlighting
 
 augroup json
   au!
-  au BufRead,BufNewFile *.json call s:JsSetup()
+  au FileType json :call s:JsSetup()
 augroup END
 
 " }}}
@@ -349,7 +351,7 @@ Plugin 'groenewege/vim-less' " syntax highlighting
 
 augroup less
   au!
-  au BufRead,BufNewFile *.less call s:JsSetup()
+  au FileType less :call s:JsSetup()
 augroup END
 
 " }}}
@@ -382,7 +384,7 @@ endfunction
 
 augroup markdown
     au!
-    au BufNewFile,BufRead *.mdown,*.md,*.markdown call s:MarkdownMode()
+    au BufNewFile,BufRead *.mdown,*.md,*.markdown :call s:MarkdownMode()
 augroup END
 
 " }}}
@@ -396,7 +398,7 @@ endfunction
 
 augroup scheme
   au!
-  au BufNewFile,BufReadPost *.rkt,*.rktl call s:SchemeRacketMode()
+  au BufNewFile,BufReadPost *.rkt,*.rktl :call s:SchemeRacketMode()
 augroup END
 
 " Todo List {{{
