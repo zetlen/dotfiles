@@ -375,16 +375,18 @@ let g:vim_markdown_folding_disabled=1
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'javascript', 'scheme']
 
 function! s:MarkdownMode()
-  setlocal filetype=markdown
-  colorscheme PaperColor
-  set laststatus=2
   set background=light
-  AirlineTheme light
+  if exists("g:airline_section_a")
+    AirlineTheme light
+  endif
+  set laststatus=2
+  colorscheme PaperColor
 endfunction
 
 augroup markdown
-    au!
-    au BufNewFile,BufRead *.mdown,*.md,*.markdown :call s:MarkdownMode()
+  au!
+  au BufNewFile,BufRead,BufEnter *.mdown,*.md,*.markdown :setf markdown
+  au FileType :call s:MarkdownMode()
 augroup END
 
 " }}}
