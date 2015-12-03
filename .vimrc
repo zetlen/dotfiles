@@ -401,7 +401,7 @@ endfunction
 
 augroup scheme
   au!
-  au BufNewFile,BufReadPost *.rkt,*.rktl :call s:SchemeRacketMode()
+  au BufNewFile,BufReadPost,BufEnter *.rkt,*.rktl :call s:SchemeRacketMode()
 augroup END
 
 " Todo List {{{
