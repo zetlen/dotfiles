@@ -386,7 +386,7 @@ endfunction
 augroup markdown
   au!
   au BufNewFile,BufRead,BufEnter *.mdown,*.md,*.markdown :setf markdown
-  au FileType :call s:MarkdownMode()
+  au FileType markdown :call s:MarkdownMode()
 augroup END
 
 " }}}
