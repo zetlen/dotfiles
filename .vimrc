@@ -31,10 +31,11 @@ Plugin 'VundleVim/Vundle.vim'
 
 " Colors {{{
 
-set t_Co=256                    " 256 color terminal
-set background=dark             " because it's how i feel on the inside
-syntax enable                   " all syntaces, forever!
-Plugin 'flazz/vim-colorschemes' " install a few more colorschemes
+set t_Co=256                         " 256 color terminal
+set background=dark                  " because it's how i feel on the inside
+syntax enable                        " all syntaces, forever!
+Plugin 'flazz/vim-colorschemes'      " install a few more colorschemes
+Plugin 'qualiabyte/vim-colorstepper' " cycle through colorschemes
 
 " }}}
 
