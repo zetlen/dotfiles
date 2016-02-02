@@ -46,6 +46,7 @@ set shiftwidth=2                         " tab size of reindent > < operations
 set expandtab                            " always spaces, everywhere, forever
 set autoindent                           " guess smart indents
 set smarttab                             " respond reasonably to tab key
+Plugin 'editorconfig/editorconfig-vim'   " Use editorconfig
 Plugin 'godlygeek/tabular'               " :Tabularize alignment command
 Plugin 'nathanaelkane/vim-indent-guides' " indent guides on left
 autocmd VimEnter * :IndentGuidesEnable   " turn it on by default
