@@ -365,6 +365,13 @@ autocmd BufNewFile,BufReadPost *.jade set filetype=jade
 
 " }}}
 
+" Filetype: DustJS {{{
+
+Plugin 'jimmyhchan/dustjs.vim' " syntax highlighting
+autocmd BufNewFile,BufReadPost *.dust,*.dustjs set filetype=dustjs
+
+" }}}
+
 " Filetype: Markdown {{{
 
 Plugin 'tpope/vim-markdown' " syntax highlighting
