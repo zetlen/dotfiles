@@ -80,7 +80,7 @@ set sessionoptions-=options " don't export every option to new sessions
 
 set list
 if &listchars ==# 'eol:$'
-  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+ " extra listchars
+  set listchars=tab:\|\ ,trail:-,extends:>,precedes:<,nbsp:+ " extra listchars
 endif
 
 " Airline!
