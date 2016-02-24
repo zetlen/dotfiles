@@ -41,9 +41,9 @@ Plugin 'qualiabyte/vim-colorstepper' " cycle through colorschemes
 
 " Spaces and Tabs {{{
 
-set tabstop=2                            " visual spaces per tab
-set shiftwidth=2                         " tab size of reindent > < operations
-set expandtab                            " always spaces, everywhere, forever
+set tabstop=4                            " visual spaces per tab
+set shiftwidth=4                         " tab size of reindent > < operations
+set noexpandtab                          " always spaces, everywhere, forever EXCEPT PAYPAL
 set autoindent                           " guess smart indents
 set smarttab                             " respond reasonably to tab key
 Plugin 'editorconfig/editorconfig-vim'   " Use editorconfig
