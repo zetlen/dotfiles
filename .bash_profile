@@ -20,6 +20,9 @@ alias sb=subl
 alias sicp-repl="racket -i -p neil/sicp -l xrepl"
 alias pwnusr="sudo chown -R $(whoami) /usr/local"
 
+# paypal stuff
+alias nuclear='echo BOOM && rm -rf ./node_modules && npm cache clean'
+
 function exists {
   declare -f -F $1 > /dev/null
   return $?

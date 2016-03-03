@@ -80,12 +80,13 @@ set sessionoptions-=options " don't export every option to new sessions
 
 set list
 if &listchars ==# 'eol:$'
-  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+ " extra listchars
+  set listchars=tab:\|\ ,trail:-,extends:>,precedes:<,nbsp:+ " extra listchars
 endif
 
 " Airline!
 Plugin 'bling/vim-airline'        " powerline bottom bar, in vimscript only
 let g:airline_powerline_fonts = 1 " use special fonts, not unicode simulations
+let g:airline#extensions#tabline#enabled = 1    " when no splits show all buffers
 
 " note that 'filetype plugin indent on' must be set after vundle is done
 " otherwise that would be right here
@@ -278,6 +279,8 @@ if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim
 endif
 
+Plugin 'ternjs/tern_for_vim' " tern omnicomplete server
+
 Plugin 'Raimondi/delimitMate' " autocomplete brackets and quotes
 let delimitMate_expand_cr = 1   " create closing brace on <cr>
 let delimitMate_expand_space = 1
@@ -300,6 +303,17 @@ nnoremap <leader><c-p> :CtrlPMRUFiles<cr>
 
 " }}}
 
+" Syntastic {{{
+Plugin 'scrooloose/syntastic.git'
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 1
+let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_javascript_eslint_exec = 'eslint_d'
+" }}}
+
 " Filetype: Hypr {{{
 
 Plugin 'Glench/Vim-Jinja2-Syntax'
@@ -311,7 +325,7 @@ autocmd BufNewFile,BufReadPost *.hypr,*.hypr.live set filetype=jinja
 
 Plugin 'jelera/vim-javascript-syntax' " syntax highlighting
 Plugin 'pangloss/vim-javascript'      " indentation
-Plugin 'Shutnik/jshint2.vim'          " JSHint command
+Plugin 'mxw/vim-jsx'                  " JSX highlighting and indenting
 
 function! s:JsSetup()
   set background=dark
@@ -324,7 +338,7 @@ function! s:JsSetup()
   if exists("g:airline_section_a")
     AirlineTheme dark
   endif
-  set laststatus=2
+  nnoremap <buffer> gd :TernDef<cr>
   colorscheme distinguished
 endfunction
 
