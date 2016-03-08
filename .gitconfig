@@ -7,8 +7,6 @@
 [user]
 	name = zetlen
 	email = zetlen@gmail.com
-[pull]
-	rebase = true
 [push]
 	default = simple
 [core]
