@@ -86,7 +86,22 @@ endif
 " Airline!
 Plugin 'bling/vim-airline'        " powerline bottom bar, in vimscript only
 let g:airline_powerline_fonts = 1 " use special fonts, not unicode simulations
-let g:airline#extensions#tabline#enabled = 1    " when no splits show all buffers
+let g:airline_mode_map = {
+      \ '__' : '-',
+      \ 'n'  : 'N',
+      \ 'i'  : 'I',
+      \ 'R'  : 'R',
+      \ 'c'  : 'C',
+      \ 'v'  : 'V',
+      \ 'V'  : 'V',
+      \ '' : 'V',
+      \ 's'  : 'S',
+      \ 'S'  : 'S',
+      \ '' : 'S',
+      \ }
+let g:airline_exclude_preview = 1
+let g:airline#extensions#branch#enabled = 0
+let g:airline#extensions#syntastic#enabled = 0
 
 " note that 'filetype plugin indent on' must be set after vundle is done
 " otherwise that would be right here
