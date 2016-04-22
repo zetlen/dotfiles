@@ -246,49 +246,12 @@ nnoremap <C-c>r <Plug>SetTmuxVars
 
 " Netrw {{{
 
-" let g:netrw_browse_split=4
-" let g:netrw_liststyle=1                     " thin (change to 3 for tree)
 let g:netrw_banner=0                        " no banner
-" let g:netrw_altv=1                          " open files on right
 let g:netrw_preview=1                       " open previews vertically
 let g:netrw_list_hide='.*\.swp$,.DS_Store$' " hide vim swp files and osx files
-" let g:netrw_winsize = -28                   " good size
+let g:netrw_altfile = 1                     " don't add netrw browsers to buffer list maybe
 Plugin 'tpope/vim-vinegar'
 
-" maybe never mind to this. project drawers aren't good with split windows.
-" com!  -nargs=* -bar -bang -complete=dir  Lexplore  call netrw#Lexplore(<q-args>, <bang>0)
-"
-" fun! Lexplore(dir)
-"   if exists("t:netrw_lexbufnr")
-"   " close down netrw explorer window
-"   let lexwinnr = bufwinnr(t:netrw_lexbufnr)
-"   if lexwinnr != -1
-"     let curwin = winnr()
-"     exe lexwinnr."wincmd w"
-"     close
-"     exe curwin."wincmd w"
-"   endif
-"   unlet t:netrw_lexbufnr
-"
-"   else
-"     " open netrw explorer window in the dir of current file
-"     " (even on remote files)
-"     let path = substitute(exists("b:netrw_curdir")? b:netrw_curdir : expand("%:p"), '^\(.*[/\\]\)[^/\\]*$','\1','e')
-"     exe "topleft vertical ".((g:netrw_winsize > 0)? (g:netrw_winsize*winwidth(0))/100 : -g:netrw_winsize) . " new"
-"     if a:dir != ""
-"       exe "Explore ".a:dir
-"     else
-"       exe "Explore ".path
-"     endif
-"     setlocal winfixwidth
-"     let t:netrw_lexbufnr = bufnr("%")
-"   endif
-" endfun
-" " open project pane
-" nnoremap <silent> <C-E> :call Lexplore('')<CR>
-" vnoremap <silent> <C-E> :call Lexplore('')<CR>
-" inoremap <silent> <C-E> :call Lexplore('')<CR>
-"
 " }}}
 
 " Autocomplete {{{
