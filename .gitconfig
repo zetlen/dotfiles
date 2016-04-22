@@ -13,6 +13,7 @@
 	excludesfile = /Users/james_zetlen/.gitignore_global
 	autocrlf = input
 	editor = vim
+	pager = less -x 1,5
 [difftool "Kaleidoscope"]
 	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [diff]
