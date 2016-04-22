@@ -339,7 +339,6 @@ function! s:JsSetup()
     AirlineTheme dark
   endif
   nnoremap <buffer> gd :TernDef<cr>
-  colorscheme distinguished
 endfunction
 
 augroup javascript
@@ -459,7 +458,7 @@ filetype plugin indent on    " required
 " }}}
 
 " Color Scheme Default {{{
-colorscheme sorcerer
+colorscheme monoacc
 set laststatus=2
 " }}}
 
