@@ -35,7 +35,6 @@ set t_Co=256                         " 256 color terminal
 set background=dark                  " because it's how i feel on the inside
 syntax enable                        " all syntaces, forever!
 Plugin 'flazz/vim-colorschemes'      " install a few more colorschemes
-Plugin 'qualiabyte/vim-colorstepper' " cycle through colorschemes
 
 " }}}
 
@@ -265,19 +264,20 @@ if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim
 endif
 
-Plugin 'ternjs/tern_for_vim' " tern omnicomplete server
+" Plugin 'ternjs/tern_for_vim' " tern omnicomplete server
+Plugin 'Valloric/YouCompleteMe' " giving this a shot
 
 Plugin 'Raimondi/delimitMate' " autocomplete brackets and quotes
 let delimitMate_expand_cr = 1   " create closing brace on <cr>
 let delimitMate_expand_space = 1
 let delimitMate_excluded_ft = "mail,txt,ghmarkdown,markdown"  " exclude filetypes
 
-set completeopt=longest,menuone " sort by longest, always display menu
-set complete-=i                 " remove caseignored matches
-
-" simulate a Down keypress to keep an item highlighted as you type
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+" set completeopt=longest,menuone " sort by longest, always display menu
+" set complete-=i                 " remove caseignored matches
+"
+" " simulate a Down keypress to keep an item highlighted as you type
+" inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+"   \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 " }}}
 
@@ -338,7 +338,7 @@ function! s:JsSetup()
   if exists("g:airline_section_a")
     AirlineTheme dark
   endif
-  nnoremap <buffer> gd :TernDef<cr>
+  nnoremap <buffer> gd :GoToDefinition<cr>
 endfunction
 
 augroup javascript
@@ -425,6 +425,8 @@ augroup scheme
   au BufNewFile,BufReadPost,BufEnter *.rkt,*.rktl :call s:SchemeRacketMode()
 augroup END
 
+" }}}
+
 " Todo List {{{
 
 Plugin 'zetlen/vim-simple-todo'
@@ -469,7 +471,9 @@ set laststatus=2
 " endif
 " }}}
 
+" Load Local {{{
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
+" }}}
 " vim:foldmethod=marker:foldlevel=0
