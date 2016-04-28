@@ -460,7 +460,7 @@ filetype plugin indent on    " required
 " }}}
 
 " Color Scheme Default {{{
-colorscheme monoacc
+colorscheme apprentice
 set laststatus=2
 " }}}
 
