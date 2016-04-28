@@ -38,10 +38,6 @@ function tmuxwinname {
   tmux rename-window $1
 }
 
-function tmux_winname_pwd {
-  tmuxwinname `basename $PWD`
-}
-
 function mdcd {
     mkdir -p $1 && cd $1
 }
@@ -87,8 +83,9 @@ alias -- -="cd -" # - to go back
 alias myip="ifconfig | grep -E '(192|10)'"
 
 function prompt_callback() {
-  if [[ -e "$(git rev-parse --git-dir 2> /dev/null)" ]]; then
-    tmux_winname_pwd
+  local GITDIR=$(git rev-parse --show-toplevel 2> /dev/null)
+  if [[ -e $GITDIR ]]; then
+    tmuxwinname "[$(basename $GITDIR)]"
     echo " [\[\033[0;36m\]$(git describe --tags --always 2> /dev/null)\[\033[0;37m\]]"
   fi
 }
