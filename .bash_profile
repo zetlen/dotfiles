@@ -13,6 +13,7 @@ alias r="rsync -av -f\"- .git/\" --progress"
 alias t="tmux attach -d"
 alias g=git
 alias n=npm
+alias nenv='node -v && npm -v'
 alias e=mvim
 alias p="lpass show -c --password"
 alias emacs="/usr/local/bin/emacs"
@@ -32,10 +33,6 @@ function winname {
 
 function tmuxwinname {
   tmux rename-window $1
-}
-
-function tmux_winname_pwd {
-  tmuxwinname `basename $PWD`
 }
 
 function mdcd {
@@ -83,8 +80,9 @@ alias -- -="cd -" # - to go back
 alias myip="ifconfig | grep -E '(192|10)'"
 
 function prompt_callback() {
-  if [[ -e "$(git rev-parse --git-dir 2> /dev/null)" ]]; then
-    tmux_winname_pwd
+  local GITDIR=$(git rev-parse --show-toplevel 2> /dev/null)
+  if [[ -e $GITDIR ]]; then
+    tmuxwinname "[$(basename $GITDIR)]"
     echo " [\[\033[0;36m\]$(git describe --tags --always 2> /dev/null)\[\033[0;37m\]]"
   fi
 }

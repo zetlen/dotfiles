@@ -298,6 +298,20 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
 let g:syntastic_javascript_checkers = ['eslint']
 " let g:syntastic_javascript_eslint_exec = 'eslint_d'
+Plugin 'pmsorhaindo/syntastic-local-eslint.vim'
+
+function! s:SyntaxSetup()
+  let s:es6lintrc = findfile('.eslintes6rc')
+  if filereadable(s:es6lintrc)
+    let b:syntastic_javascript_eslint_args = "-c " . s:es6lintrc
+  endif
+endfunction
+
+augroup syntaxcheckers
+  au!
+  au BufRead,BufNewFile,BufEnter *.es6 :call s:SyntaxSetup()
+augroup END
+
 " }}}
 
 " Filetype: Hypr {{{
@@ -446,7 +460,7 @@ filetype plugin indent on    " required
 " }}}
 
 " Color Scheme Default {{{
-colorscheme monoacc
+colorscheme apprentice
 set laststatus=2
 " }}}
 
