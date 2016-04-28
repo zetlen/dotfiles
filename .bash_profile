@@ -13,6 +13,7 @@ alias r="rsync -av -f\"- .git/\" --progress"
 alias t="tmux attach -d"
 alias g=git
 alias n=npm
+alias nenv='node -v && npm -v'
 alias e=mvim
 alias p="lpass show -c --password"
 alias emacs="/usr/local/bin/emacs"
