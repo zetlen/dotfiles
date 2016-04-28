@@ -338,7 +338,7 @@ function! s:JsSetup()
   if exists("g:airline_section_a")
     AirlineTheme dark
   endif
-  nnoremap <buffer> gd :GoToDefinition<cr>
+  nnoremap <buffer> gd :YcmCompleter GoToDefinition<cr>
 endfunction
 
 augroup javascript
