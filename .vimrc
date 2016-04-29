@@ -339,6 +339,7 @@ function! s:JsSetup()
     AirlineTheme dark
   endif
   nnoremap <buffer> gd :YcmCompleter GoToDefinition<cr>
+  nnoremap <buffer> gr :YcmCompleter GoToReferences<cr>
 endfunction
 
 augroup javascript
