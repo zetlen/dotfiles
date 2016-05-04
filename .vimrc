@@ -284,7 +284,7 @@ let delimitMate_excluded_ft = "mail,txt,ghmarkdown,markdown"  " exclude filetype
 " CtrlP Options {{{
 
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|\.git\/'
-Plugin 'kien/ctrlp.vim' " plugin for Sublime Text-like CtrlP
+Plugin 'ctrlpvim/ctrlp.vim' " plugin for Sublime Text-like CtrlP
 nnoremap <leader><c-p> :CtrlPMRUFiles<cr>
 
 " }}}
