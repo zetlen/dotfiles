@@ -129,6 +129,9 @@ vnoremap <leader>/ /^\s*$<cr>:noh<cr>
 nnoremap <leader>? ?^\s*$<cr>:noh<cr>
 vnoremap <leader>? ?^\s*$<cr>:noh<cr>
 
+" quickly kill quickfixes and loclists
+noremap <leader>c :windo lcl\|ccl<cr>
+
 " commenting code
 Plugin 'tomtom/tcomment_vim'
 
