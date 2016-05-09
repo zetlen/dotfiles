@@ -327,7 +327,7 @@ autocmd BufNewFile,BufReadPost *.hypr,*.hypr.live set filetype=jinja
 " Filetype: JavaScript {{{
 
 Plugin 'jelera/vim-javascript-syntax' " syntax highlighting
-Plugin 'pangloss/vim-javascript'      " indentation
+Plugin 'gavocanov/vim-js-indent'      " indentation
 Plugin 'mxw/vim-jsx'                  " JSX highlighting and indenting
 
 function! s:JsSetup()
