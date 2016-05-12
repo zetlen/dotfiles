@@ -286,6 +286,7 @@ Plugin 'tpope/vim-surround'
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|\.git\/'
 Plugin 'ctrlpvim/ctrlp.vim' " plugin for Sublime Text-like CtrlP
 nnoremap <leader><c-p> :CtrlPMRUFiles<cr>
+let g:ctrlp_max_files = 25000
 
 " }}}
 
