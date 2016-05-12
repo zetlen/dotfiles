@@ -267,7 +267,9 @@ if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim
 endif
 
-" Plugin 'ternjs/tern_for_vim' " tern omnicomplete server
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_key_list_select_completion = ["<TAB>","<Down>"]
 Plugin 'Valloric/YouCompleteMe' " giving this a shot
 
 Plugin 'Raimondi/delimitMate' " autocomplete brackets and quotes
@@ -275,12 +277,7 @@ let delimitMate_expand_cr = 1   " create closing brace on <cr>
 let delimitMate_expand_space = 1
 let delimitMate_excluded_ft = "mail,txt,ghmarkdown,markdown"  " exclude filetypes
 
-" set completeopt=longest,menuone " sort by longest, always display menu
-" set complete-=i                 " remove caseignored matches
-"
-" " simulate a Down keypress to keep an item highlighted as you type
-" inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-"   \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+Plugin 'tpope/vim-surround'
 
 " }}}
 
@@ -289,6 +286,7 @@ let delimitMate_excluded_ft = "mail,txt,ghmarkdown,markdown"  " exclude filetype
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|\.git\/'
 Plugin 'ctrlpvim/ctrlp.vim' " plugin for Sublime Text-like CtrlP
 nnoremap <leader><c-p> :CtrlPMRUFiles<cr>
+let g:ctrlp_max_files = 25000
 
 " }}}
 
