@@ -199,11 +199,6 @@ set smartcase  " but only ignore case when search is all lower case
 " turn off search highlight
 nnoremap <leader><space> :noh<cr>
 
-" Visual mode pressing * or # searches for the current selection
-" Super useful! From an idea by Michael Naumann
-vnoremap <silent> * :call VisualSelection('f')<CR>
-vnoremap <silent> # :call VisualSelection('b')<CR>
-
 " Silver Searcher and friends!
 Plugin 'rking/ag.vim'
 
