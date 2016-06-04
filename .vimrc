@@ -346,6 +346,12 @@ augroup END
 
 " }}}
 
+" Filetype: TypeScript {{{
+
+Plugin 'leafgarland/typescript-vim'
+
+" }}}
+
 " Filetype: JSON {{{
 
 Plugin 'elzr/vim-json' " syntax highlighting
