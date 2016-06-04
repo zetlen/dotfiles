@@ -22,6 +22,7 @@ alias sb=subl
 alias sicp-repl="racket -i -p neil/sicp -l xrepl"
 alias pwnusr="sudo chown -R $(whoami) /usr/local"
 alias ycmupdate="~/.vim/bundle/YouCompleteMe/install.py --tern-completer"
+alias dockme="/Applications/Docker/Docker\ Quickstart\ Terminal.app/Contents/Resources/Scripts/start.sh"
 
 function exists {
   declare -f -F $1 > /dev/null
