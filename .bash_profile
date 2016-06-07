@@ -104,6 +104,25 @@ elif [ -f /etc/bash_completion.d/git ]; then
 fi
 exists __git_complete && __git_complete g __git_main
 
+__lpass_complete_name()
+{
+    local cur=$2
+    local matches
+
+    # matches on full path
+    matches=$(lpass ls | egrep "^$cur" | awk '{print $1}')
+    # matches on leaves
+    matches+=$(lpass ls | egrep "/$cur" | sed -e "s/ \[id.*//g" | \
+               awk -F '/' '{print $NF}')
+
+    local IFS=$'\n'
+    COMPREPLY=($(compgen -W "$matches" "$cur"))
+    if [[ ! -z $COMPREPLY ]]; then
+        COMPREPLY=($(printf "%q\n" "${COMPREPLY[@]}"))
+    fi
+}
+complete -o default -F __lpass_complete_name p
+
 export PATH=/usr/local/share/npm/bin:/opt/local/bin:/opt/local/sbin:$PATH
 
 ### Added by the Heroku Toolbelt
