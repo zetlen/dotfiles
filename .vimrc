@@ -346,6 +346,13 @@ augroup END
 
 " }}}
 
+" Filetype: TypeScript {{{
+
+Plugin 'leafgarland/typescript-vim' " syntax highlighting
+autocmd BufNewFile,BufRead *.ts,*.tsx setlocal filetype=typescript
+
+" }}}
+
 " Filetype: JSON {{{
 
 Plugin 'elzr/vim-json' " syntax highlighting
