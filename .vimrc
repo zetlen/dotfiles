@@ -200,7 +200,10 @@ set smartcase  " but only ignore case when search is all lower case
 nnoremap <leader><space> :noh<cr>
 
 " Silver Searcher and friends!
-Plugin 'rking/ag.vim'
+Plugin 'mileszs/ack.vim'
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 
 " }}}
 
