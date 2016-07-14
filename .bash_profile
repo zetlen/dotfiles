@@ -13,6 +13,7 @@ alias r="rsync -av -f\"- .git/\" --progress"
 alias t="tmux attach -d"
 alias g=git
 alias n=npm
+alias nr='npm run'
 alias nenv='node -v && npm -v'
 alias e=mvim
 alias p="lpass show -c --password"
@@ -21,7 +22,21 @@ alias unixify="find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix"
 alias sb=subl
 alias sicp-repl="racket -i -p neil/sicp -l xrepl"
 alias pwnusr="sudo chown -R $(whoami) /usr/local"
-alias ycmupdate="~/.vim/bundle/YouCompleteMe/install.py --tern-completer"
+alias dockme="/Applications/Docker/Docker\ Quickstart\ Terminal.app/Contents/Resources/Scripts/start.sh"
+
+function update-vim {
+  read -p "Are you sure? This quits all thine vims. [y/N]" -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    sudo killall vim 2> /dev/null
+    brew upgrade && brew update && vim +PluginUpdate +qall && ~/.vim/bundle/YouCompleteMe/install.py --tern-completer
+  fi
+}
+
+function free-port {
+  kill -9 $(lsof -t -i tcp:$1)
+}
 
 function exists {
   declare -f -F $1 > /dev/null
@@ -97,6 +112,9 @@ else
   echo "Git prompt not found. Run this: git clone https://github.com/magicmonty/bash-git-prompt.git ~/.bash-git-prompt"
 fi
 
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+fi
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 elif [ -f /etc/bash_completion.d/git ]; then

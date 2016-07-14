@@ -200,7 +200,10 @@ set smartcase  " but only ignore case when search is all lower case
 nnoremap <leader><space> :noh<cr>
 
 " Silver Searcher and friends!
-Plugin 'rking/ag.vim'
+Plugin 'mileszs/ack.vim'
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 
 " }}}
 
@@ -293,6 +296,9 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_typescript_tsc_fname = ''
+let g:syntastic_sass_checkers=["sass_lint"]
+let g:syntastic_scss_checkers=["sass_lint"]
 " let g:syntastic_javascript_eslint_exec = 'eslint_d'
 Plugin 'pmsorhaindo/syntastic-local-eslint.vim'
 
@@ -322,6 +328,9 @@ autocmd BufNewFile,BufReadPost *.hypr,*.hypr.live set filetype=jinja
 Plugin 'jelera/vim-javascript-syntax' " syntax highlighting
 Plugin 'gavocanov/vim-js-indent'      " indentation
 Plugin 'mxw/vim-jsx'                  " JSX highlighting and indenting
+Plugin 'maksimr/vim-jsbeautify'       " beautification
+
+
 
 function! s:JsSetup()
   set background=dark
@@ -336,6 +345,8 @@ function! s:JsSetup()
   endif
   nnoremap <buffer> gd :YcmCompleter GoToDefinition<cr>
   nnoremap <buffer> gr :YcmCompleter GoToReferences<cr>
+  nnoremap <buffer> gR :YcmCompleter RefactorRename<space>
+  vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
 endfunction
 
 augroup javascript
@@ -372,6 +383,12 @@ augroup less
   au!
   au FileType less :call s:JsSetup()
 augroup END
+
+" }}}
+
+" Filetype: Sass {{{
+
+Plugin 'gcorne/vim-sass-lint' " syntastic plugin
 
 " }}}
 
