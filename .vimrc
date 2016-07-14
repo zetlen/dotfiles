@@ -327,6 +327,9 @@ autocmd BufNewFile,BufReadPost *.hypr,*.hypr.live set filetype=jinja
 Plugin 'jelera/vim-javascript-syntax' " syntax highlighting
 Plugin 'gavocanov/vim-js-indent'      " indentation
 Plugin 'mxw/vim-jsx'                  " JSX highlighting and indenting
+Plugin 'maksimr/vim-jsbeautify'       " beautification
+
+
 
 function! s:JsSetup()
   set background=dark
