@@ -296,6 +296,8 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_sass_checkers=["sass_lint"]
+let g:syntastic_scss_checkers=["sass_lint"]
 " let g:syntastic_javascript_eslint_exec = 'eslint_d'
 Plugin 'pmsorhaindo/syntastic-local-eslint.vim'
 
@@ -374,6 +376,12 @@ augroup less
   au!
   au FileType less :call s:JsSetup()
 augroup END
+
+" }}}
+
+" Filetype: Sass {{{
+
+Plugin 'gcorne/vim-sass-lint' " syntastic plugin
 
 " }}}
 
