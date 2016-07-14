@@ -22,8 +22,21 @@ alias unixify="find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix"
 alias sb=subl
 alias sicp-repl="racket -i -p neil/sicp -l xrepl"
 alias pwnusr="sudo chown -R $(whoami) /usr/local"
-alias ycmupdate="~/.vim/bundle/YouCompleteMe/install.py --tern-completer"
 alias dockme="/Applications/Docker/Docker\ Quickstart\ Terminal.app/Contents/Resources/Scripts/start.sh"
+
+function update-vim {
+  read -p "Are you sure? This quits all thine vims. [y/N]" -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    sudo killall vim 2> /dev/null
+    brew upgrade && brew update && vim +PluginUpdate +qall && ~/.vim/bundle/YouCompleteMe/install.py --tern-completer
+  fi
+}
+
+function free-port {
+  kill -9 $(lsof -t -i tcp:$1)
+}
 
 function exists {
   declare -f -F $1 > /dev/null
