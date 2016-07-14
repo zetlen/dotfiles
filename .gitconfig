@@ -5,8 +5,8 @@
 	ui = auto
 	interactive = auto
 [user]
-	name = James Zetlen
-	email = jzetlen@paypal.com
+	name = zetlen
+	email = zetlen@gmail.com
 [push]
 	default = simple
 [core]
