@@ -344,6 +344,8 @@ function! s:JsSetup()
   endif
   nnoremap <buffer> gd :YcmCompleter GoToDefinition<cr>
   nnoremap <buffer> gr :YcmCompleter GoToReferences<cr>
+  nnoremap <buffer> gR :YcmCompleter RefactorRename<space>
+  vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
 endfunction
 
 augroup javascript
