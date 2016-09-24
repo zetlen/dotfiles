@@ -147,5 +147,5 @@ export PATH="/usr/local/heroku/bin:$PATH"
 [ ! -f ~/.bashrc.local  ] || . ~/.bashrc.local
 
 if command -v tmux>/dev/null; then
-  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && (tmux attach -d || tmux new-session) || tmux_winname_randomword
+	[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && (tmux attach -d || tmux new-session -s $(random_word)) || tmux_winname_randomword
 fi
