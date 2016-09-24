@@ -17,7 +17,6 @@ alias nr='npm run'
 alias nenv='node -v && npm -v'
 alias e=mvim
 alias p="lpass show -c --password"
-alias emacs="/usr/local/bin/emacs"
 alias unixify="find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix"
 alias sb=subl
 alias sicp-repl="racket -i -p neil/sicp -l xrepl"
@@ -54,7 +53,6 @@ function tmuxwinname {
 function mdcd {
     mkdir -p $1 && cd $1
 }
-
 
 function random_word {
   perl -e 'srand; rand($.) < 1 && ($line = $_) while <>; print $line;' /usr/share/dict/words
@@ -141,7 +139,7 @@ __lpass_complete_name()
 }
 complete -o default -F __lpass_complete_name p
 
-export PATH=/usr/local/share/npm/bin:/opt/local/bin:/opt/local/sbin:$PATH
+export PATH=$HOME/bin:/usr/local/share/npm/bin:/opt/local/bin:/opt/local/sbin:$PATH
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
