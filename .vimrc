@@ -187,6 +187,11 @@ endfunction
 map <leader>h :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+" make splits go down and right
+set splitbelow
+set splitright
+
 " }}}
 
 " Searching {{{
@@ -334,12 +339,9 @@ Plugin 'maksimr/vim-jsbeautify'       " beautification
 
 function! s:JsSetup()
   set background=dark
-  set cc=80
-  hi IndentGuidesEven guibg=#222222
-  hi IndentGuidesOdd guibg=#272727
-  hi TabChars guifg=#990000 ctermfg=red
-  match TabChars /\t/
-  hi NonText guifg=#990000 ctermfg=red
+  set cc=100
+  hi IndentGuidesEven guibg=#222222 ctermbg=233 ctermfg=233
+  hi IndentGuidesOdd guibg=#444444 ctermbg=232 ctermfg=232
   if exists("g:airline_section_a")
     AirlineTheme dark
   endif
@@ -481,7 +483,7 @@ filetype plugin indent on    " required
 " }}}
 
 " Color Scheme Default {{{
-colorscheme apprentice
+colorscheme Tomorrow-Night-Bright
 set laststatus=2
 " }}}
 
