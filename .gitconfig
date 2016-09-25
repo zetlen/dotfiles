@@ -49,7 +49,7 @@
 	dc = diff --cached --color-words
 	dt = difftool --dir-diff
 	master = checkout master
-  shove = push --follow-tags
+	shove = push --follow-tags
 	backone = reset --soft HEAD^
 	nb = checkout -b
 	pr = pull --rebase
@@ -61,6 +61,7 @@
 	zip = archive HEAD --format zip -o 
 	ia = merge-base --is-ancestor
 	ds = describe --tags --always
+	pn = push -u origin
 [filter "media"]
 	required = true
 	clean = git media clean %f
