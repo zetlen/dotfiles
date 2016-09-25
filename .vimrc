@@ -152,7 +152,7 @@ set whichwrap+=<,>,h,l         " left and right can move over lines
 set nrformats-=octal           " don't assume 0-leader numbers are octal
 
 set timeout                    " no weird delay in bindings
-set timeoutlen=1000            " if weird delay is there, it's short
+set timeoutlen=100            " if weird delay is there, it's short
 set ttimeoutlen=10             " no delay on escape, though.
 
 if !&scrolloff
