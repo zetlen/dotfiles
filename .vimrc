@@ -340,8 +340,8 @@ Plugin 'maksimr/vim-jsbeautify'       " beautification
 function! s:JsSetup()
   set background=dark
   set cc=100
-  hi IndentGuidesEven guibg=#222222 ctermbg=233 ctermfg=233
-  hi IndentGuidesOdd guibg=#444444 ctermbg=232 ctermfg=232
+  hi IndentGuidesEven guibg=#121212 guifg=#121212 ctermbg=233 ctermfg=233
+  hi IndentGuidesOdd guibg=#1c1c1c guifg=#1c1c1c ctermbg=232 ctermfg=232
   if exists("g:airline_section_a")
     AirlineTheme dark
   endif
@@ -488,10 +488,11 @@ set laststatus=2
 " }}}
 
 " GUI Only Options {{{
-" if has("gui_running")
-"     set transparency=3
-"     au GUIEnter * set fullscreen
-" endif
+if has("gui_running")
+    set transparency=3
+	set guifont=Input:h12
+	set linespace=2
+endif
 " }}}
 
 " Load Local {{{
