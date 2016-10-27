@@ -149,3 +149,5 @@ export PATH="/usr/local/heroku/bin:$PATH"
 if command -v tmux>/dev/null; then
 	[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && (tmux attach -d || tmux new-session -s $(random_word)) || tmux_winname_randomword
 fi
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
