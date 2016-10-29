@@ -84,6 +84,22 @@ function rmext() {
   fi
 }
 
+function configure_osx_as_zetlen() {
+  read -p "Write finder and nvram default tweaks? [y/N]" -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    echo "NVRAM: Always verbose boot..." &&
+    sudo nvram boot-args="-v" &&
+    echo "Finder: Hide desktop icons..." &&
+    defaults write com.apple.finder CreateDesktop false &&
+    echo "Finder: Show hidden files..." &&
+    defaults write com.apple.finder AppleShowAllFiles YES &&
+    echo "Finder: Restart to take effect..." &&
+    killall Finder
+  fi
+}
+
 alias ..='cd ..' # up a directory
 alias ...='cd ../../'
 alias ....='cd ../../../'
