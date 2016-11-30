@@ -152,7 +152,7 @@ set whichwrap+=<,>,h,l         " left and right can move over lines
 set nrformats-=octal           " don't assume 0-leader numbers are octal
 
 set timeout                    " no weird delay in bindings
-set timeoutlen=1000            " if weird delay is there, it's short
+set timeoutlen=100            " if weird delay is there, it's short
 set ttimeoutlen=10             " no delay on escape, though.
 
 if !&scrolloff
@@ -162,6 +162,15 @@ if !&sidescrolloff
   set sidescrolloff=5          " at least five columns to the right of it
 endif
 set display+=lastline
+
+" bar cursor for insert mode
+if exists('$TMUX')
+	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+	let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+	let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
 
 " don't close window when deleting buffer
 command! Bclose call <SID>BufcloseCloseIt()

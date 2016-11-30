@@ -10,7 +10,6 @@ alias ls='ls -p'
 alias cd..='cd ..'
 alias a='printf "\e]1;irc\a"; autossh -t -M 0 khmer@aram.xkcd.com "tmux attach -d"'
 alias r="rsync -av -f\"- .git/\" --progress"
-alias t="tmux attach -d"
 alias g=git
 alias n=npm
 alias nr='npm run'
@@ -22,6 +21,14 @@ alias sb=subl
 alias sicp-repl="racket -i -p neil/sicp -l xrepl"
 alias pwnusr="sudo chown -R $(whoami) /usr/local"
 alias dockme="/Applications/Docker/Docker\ Quickstart\ Terminal.app/Contents/Resources/Scripts/start.sh"
+
+function t {
+  if [ -z "$1" ]; then
+    tmux attach -d || tmux new -s home
+  else
+    tmux attach -d -t $1 || tmux new -s $1
+  fi
+}
 
 function update-vim {
   read -p "Are you sure? This quits all thine vims. [y/N]" -r
@@ -81,6 +88,22 @@ function rmext() {
   else
     ext="*.${1}"
     find . -name $ext -exec rm -r {} \;
+  fi
+}
+
+function configure_osx_as_zetlen() {
+  read -p "Write finder and nvram default tweaks? [y/N]" -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    echo "NVRAM: Always verbose boot..." &&
+    sudo nvram boot-args="-v" &&
+    echo "Finder: Hide desktop icons..." &&
+    defaults write com.apple.finder CreateDesktop false &&
+    echo "Finder: Show hidden files..." &&
+    defaults write com.apple.finder AppleShowAllFiles YES &&
+    echo "Finder: Restart to take effect..." &&
+    killall Finder
   fi
 }
 
@@ -147,7 +170,7 @@ export PATH="/usr/local/heroku/bin:$PATH"
 [ ! -f ~/.bashrc.local  ] || . ~/.bashrc.local
 
 if command -v tmux>/dev/null; then
-	[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && (tmux attach -d || tmux new-session -s $(random_word)) || tmux_winname_randomword
+	[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && t || tmux_winname_randomword
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
