@@ -4,6 +4,8 @@ export EDITOR="vim"
 export HISTSIZE=1000000 # 1 million lines in history, why not?
 export HISTCONTROL=ignoredups
 
+export COLONPIPE="zetlen@colonpipe.org:~/colonpipe.org/"
+
 alias la='ls -lahAFG'
 alias l='ls -lahp'
 alias ls='ls -p'
@@ -85,12 +87,14 @@ function rmext() {
 }
 
 function configure_osx_as_zetlen() {
-  read -p "Write finder and nvram default tweaks? [y/N]" -r
+  read -p "Make OSX config tweaks? [y/N]" -r
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]
   then
     echo "NVRAM: Always verbose boot..." &&
     sudo nvram boot-args="-v" &&
+    echo "LoginWindow: Set login message..." &&
+    sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "🕉" &&
     echo "Finder: Hide desktop icons..." &&
     defaults write com.apple.finder CreateDesktop false &&
     echo "Finder: Show hidden files..." &&
