@@ -10,7 +10,7 @@ alias la='ls -lahAFG'
 alias l='ls -lahp'
 alias ls='ls -p'
 alias cd..='cd ..'
-alias a='printf "\e]1;irc\a"; autossh -t -M 0 khmer@aram.xkcd.com "t irssi"'
+alias a='printf "\e]1;irc\a"; autossh -t -M 0 khmer@aram.xkcd.com "tmux attach -d -t irssi || tmux new -s irssi"'
 alias r="rsync -av -f\"- .git/\" --progress"
 alias g=git
 alias n=npm
@@ -173,8 +173,8 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 [ ! -f ~/.bashrc.local  ] || . ~/.bashrc.local
 
-if command -v tmux>/dev/null; then
-	[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && t || tmux_winname_randomword
-fi
+# if command -v tmux>/dev/null; then
+# 	[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && t || tmux_winname_randomword
+# fi
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
