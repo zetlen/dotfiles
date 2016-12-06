@@ -133,8 +133,8 @@ else
   echo "Git prompt not found. Run this: git clone https://github.com/magicmonty/bash-git-prompt.git ~/.bash-git-prompt"
 fi
 
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  . $(brew --prefix)/etc/bash_completion
+if [ -f $(brew --prefix 2> /dev/null)/etc/bash_completion ]; then
+  . $(brew --prefix 2> /dev/null)/etc/bash_completion
 fi
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
