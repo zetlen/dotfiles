@@ -27,7 +27,7 @@ for file in ${REPO}/.*; do
     continue;
   fi
   echo Symlinking $FILENAME;
-  ln -s "$file" ~/"$FILENAME" && COPIED=$((COPIED+1));
+  ln -s "$file" "$TARGET" && COPIED=$((COPIED+1));
 done
 
 if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
