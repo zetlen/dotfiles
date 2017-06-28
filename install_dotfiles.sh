@@ -34,3 +34,7 @@ if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim;
 fi
 echo $COPIED dotfiles symlinked to homedir.
+
+if [ ! -f ~/.git-completion.bash ]; then
+  curl https://cdn.rawgit.com/git/git/master/contrib/completion/git-completion.bash > ~/.git-completion.bash
+fi

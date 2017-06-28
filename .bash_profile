@@ -133,7 +133,9 @@ function prompt_callback() {
 gitprompt_shell=~/.bash-git-prompt/gitprompt.sh
 if [ -f $gitprompt_shell ]; then
   GIT_PROMPT_THEME="Custom"
-  GIT_PROMPT_STATUS_COMMAND=gitstatus_pre-1.7.10.sh
+  # GIT_PROMPT_STATUS_COMMAND=gitstatus_pre-1.7.10.sh
+  GIT_PROMPT_SHOW_UNTRACKED_FILES=no
+  GIT_PROMPT_FETCH_REMOTE_STATUS=0
   . $gitprompt_shell
 else
   echo "Git prompt not found. Run this: git clone https://github.com/magicmonty/bash-git-prompt.git ~/.bash-git-prompt"
