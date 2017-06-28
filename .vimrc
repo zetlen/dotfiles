@@ -429,12 +429,12 @@ let g:vim_markdown_folding_disabled=1
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'javascript', 'scheme']
 
 function! s:MarkdownMode()
-  set background=light
-  if exists("g:airline_section_a")
-    AirlineTheme light
-  endif
-  set laststatus=2
-  colorscheme PaperColor
+  " set background=light
+  " if exists("g:airline_section_a")
+  "   AirlineTheme light
+  " endif
+  " set laststatus=2
+  colorscheme Pencil
 endfunction
 
 augroup markdown
