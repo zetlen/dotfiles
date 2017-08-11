@@ -18,13 +18,9 @@ alias nr='npm run'
 alias nenv='printf "node $(node -v)\nnpm $(npm -v)\nyarn $(yarn --version)\n"'
 alias y=yarn
 alias yr='yarn run'
-alias e=mvim
 alias p="lpass show -c --password"
 alias unixify="find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix"
-alias sb=subl
-alias sicp-repl="racket -i -p neil/sicp -l xrepl"
 alias pwnusr="sudo chown -R $(whoami) /usr/local"
-alias dockme="/Applications/Docker/Docker\ Quickstart\ Terminal.app/Contents/Resources/Scripts/start.sh"
 
 function t {
   if [ -z "$1" ]; then
@@ -140,7 +136,6 @@ if [ -f $gitprompt_shell ]; then
 else
   echo "Git prompt not found. Run this: git clone https://github.com/magicmonty/bash-git-prompt.git ~/.bash-git-prompt"
 fi
-
 if [ -f $(brew --prefix 2> /dev/null)/etc/bash_completion ]; then
   . $(brew --prefix 2> /dev/null)/etc/bash_completion
 fi
