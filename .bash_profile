@@ -19,10 +19,28 @@ alias nenv='printf "node $(node -v)\nnpm $(npm -v)\nyarn $(yarn --version)\n"'
 alias y=yarn
 alias yr='yarn run'
 alias p="lpass show -c --password"
+alias t='task'
 alias unixify="find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix"
 alias pwnusr="sudo chown -R $(whoami) /usr/local"
 
-function t {
+function two-minute-rule {
+  local warning="display notification \"${*}\" with title"
+  {
+    for i in {4..1}; do
+      left=$(expr $i \* 30)
+      osascript -e "$warning \"${left}s left\"";
+      sleep 30;
+    done;
+    osascript -e "$warning \"Time expired\"";
+  } & disown
+}
+alias 2mr='two-minute-rule'
+
+function 2mt {
+  2mr $(task _get ${1}.description)
+}
+
+function tma {
   if [ -z "$1" ]; then
     tmux attach -d || tmux new -s home
   else
@@ -145,6 +163,8 @@ elif [ -f /etc/bash_completion.d/git ]; then
   . /etc/bash_completion.d/git
 fi
 exists __git_complete && __git_complete g __git_main
+
+exists _task && complete -o nospace -F _task t
 
 __lpass_complete_name()
 {

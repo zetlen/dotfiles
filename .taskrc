@@ -1,0 +1,15 @@
+taskd.certificate=~/.config/task/private.certificate.pem
+taskd.key=~/.config/task/private.key.pem
+taskd.ca=~/.config/task/ca.cert.pem
+taskd.server=taskwarrior.inthe.am:53589
+taskd.credentials=inthe_am/zetlen/71bdd803-4558-489c-be24-87a82a20c5fa
+taskd.trust=ignore hostname
+weekstart=monday
+urgency.user.tag.tq.coefficient=99
+uda.xemail.type=string
+uda.xemail.label=Has Email?
+uda.xemail.values=magento,gmail
+uda.xfile.label=Has Physical File?
+uda.xfile.type=string
+uda.xlink.type=string
+uda.xlink.label=Link
