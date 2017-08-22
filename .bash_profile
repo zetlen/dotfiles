@@ -137,11 +137,17 @@ alias -- -="cd -" # - to go back
 alias myip="ifconfig | grep -E '(192|10)'"
 
 function prompt_callback() {
+  local EXTRAS="/ » "
+  local TASKCTX=$(task _get rc.context 2> /dev/null)
+  if [[ -n $TASKCTX ]]; then
+    EXTRAS="${EXTRAS} \[\033[0;32m\][t: \[\033[0;37m\]${TASKCTX}\[\033[0;32m\]]"
+  fi
   local GITDIR=$(git rev-parse --show-toplevel 2> /dev/null)
   if [[ -e $GITDIR ]]; then
     tmuxwinname "[$(basename $GITDIR)]"
-    echo " [\[\033[0;36m\]$(git describe --tags --always 2> /dev/null)\[\033[0;37m\]]"
+    EXTRAS="${EXTRAS} [\[\033[0;36m\]$(git describe --tags --always 2> /dev/null)\[\033[0;37m\]]"
   fi
+  if [[ -n $EXTRAS ]]; then echo $EXTRAS; fi
 }
 
 gitprompt_shell=~/.bash-git-prompt/gitprompt.sh
