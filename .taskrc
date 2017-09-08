@@ -33,6 +33,9 @@ urgency.user.tag.make_appt.coefficient=5
 ### objects or behaviors for which I need to control consumption
 urgency.user.project.Personal.Totems.coefficient=-15
 
+### the Personal.MonthlyTickler project is for things that shouldn't be ordered in priority
+### the urgency can be lower
+urgency.user.project.Personal.MonthlyTickler.coefficient=-5
 
 ## user defined attributes
 
@@ -62,10 +65,10 @@ uda.xphone.type=string
 context.bed=-to_watch -at_office -on_road -ring_ring -in_home_office
 
 ### i'm at the office
-context.office=-at_home -on_road -hide_yo -tidy_up -treat_yo -be_dumb
+context.office=-at_home -on_road -hide_yo -tidy_up -treat_yo -be_dumb -someday
 
 ### i'm working from home on a weekday
-context.wfh=-on_road -at_office -be_dumb
+context.wfh=-on_road -at_office -be_dumb -someday
 
 ### it's the weekend
 context.weekend=-at_office -ring_ring -quick_q
