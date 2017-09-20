@@ -1,4 +1,4 @@
-TTMUX_SESSIONS=$(tmux list-panes -a -F "#{session_name}%#{session_alerts}")
+TTMUX_SESSIONS=$(tmux list-sessions -F "#{session_name}%#{session_alerts}")
 TTMUX_CURRENT_SESSION=$(tmux display-message -p '#S')
 TLIST=""
 for s in $TTMUX_SESSIONS; do

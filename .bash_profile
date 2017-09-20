@@ -43,7 +43,7 @@ function 2mt {
 
 function tma {
   if [ -z "$1" ]; then
-    tmux attach -d || tmux new -s home
+    tmux attach -d || tmux new -s main
   else
     tmux attach -d -t $1 || tmux new -s $1
   fi
