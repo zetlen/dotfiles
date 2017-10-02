@@ -23,6 +23,11 @@ alias t='task'
 alias someday='task add project:Personal.MonthlyTickler wait:1m'
 alias unixify="find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix"
 alias pwnusr="sudo chown -R $(whoami) /usr/local"
+alias killexif="exiftool -all= "
+
+function tosomeday {
+  task $1 modify project:Personal.MonthlyTickler wait:1m +someday
+}
 
 function two-minute-rule {
   local warning="display notification \"${*}\" with title"
@@ -42,11 +47,11 @@ function 2mt {
 }
 
 function tma {
+  sname=$1;
   if [ -z "$1" ]; then
-    tmux attach -d || tmux new -s main
-  else
-    tmux attach -d -t $1 || tmux new -s $1
+    sname="main";
   fi
+  tmux attach -d -t $sname || tmux new -s $sname
 }
 
 function update-vim {
