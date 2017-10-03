@@ -39,7 +39,7 @@ function winname {
 }
 
 function tmuxwinname {
-  tmux rename-window $1
+  command -v tmux > /dev/null && [[ $TERM =~ screen ]] && [ -n $TMUX ] && tmux rename-window $1
 }
 
 function mdcd {
@@ -147,7 +147,7 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 OSRC=~/.bashrc.$(uname)
 
-[ ! -f "$OSRC" ] && printf "No OS-specific bashrc for $OSRC" || . $OSRC
+[ ! -f "$OSRC" ] && printf "No OS-specific bashrc for $OSRC\n" || . $OSRC
 
 [ ! -f ~/.bashrc.local  ] || . ~/.bashrc.local
 
