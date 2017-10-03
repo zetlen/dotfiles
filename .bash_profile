@@ -29,45 +29,6 @@ function tosomeday {
   task $1 modify project:Personal.MonthlyTickler wait:1m +someday
 }
 
-function two-minute-rule {
-  local warning="display notification \"${*}\" with title"
-  {
-    for i in {4..1}; do
-      left=$(expr $i \* 30)
-      osascript -e "$warning \"${left}s left\"";
-      sleep 30;
-    done;
-    osascript -e "$warning \"Time expired\"";
-  } & disown
-}
-alias 2mr='two-minute-rule'
-
-function 2mt {
-  2mr $(task _get ${1}.description)
-}
-
-function tma {
-  sname=$1;
-  if [ -z "$1" ]; then
-    sname="main";
-  fi
-  tmux attach -d -t $sname || tmux new -s $sname
-}
-
-function update-vim {
-  read -p "Are you sure? This quits all thine vims. [y/N]" -r
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]]
-  then
-    sudo killall vim 2> /dev/null
-    brew upgrade && brew update && vim +PluginUpdate +qall && ~/.vim/bundle/YouCompleteMe/install.py --tern-completer
-  fi
-}
-
-function free-port {
-  kill -9 $(lsof -t -i tcp:$1)
-}
-
 function exists {
   declare -f -F $1 > /dev/null
   return $?
@@ -115,24 +76,6 @@ function rmext() {
   fi
 }
 
-function configure_osx_as_zetlen() {
-  read -p "Make OSX config tweaks? [y/N]" -r
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]]
-  then
-    echo "NVRAM: Always verbose boot..." &&
-    sudo nvram boot-args="-v" &&
-    echo "LoginWindow: Set login message..." &&
-    sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "🕉" &&
-    echo "Finder: Hide desktop icons..." &&
-    defaults write com.apple.finder CreateDesktop false &&
-    echo "Finder: Show hidden files..." &&
-    defaults write com.apple.finder AppleShowAllFiles YES &&
-    echo "Finder: Restart to take effect..." &&
-    killall Finder
-  fi
-}
-
 alias ..='cd ..' # up a directory
 alias ...='cd ../../'
 alias ....='cd ../../../'
@@ -166,7 +109,7 @@ if [ -f $gitprompt_shell ]; then
 else
   echo "Git prompt not found. Run this: git clone https://github.com/magicmonty/bash-git-prompt.git ~/.bash-git-prompt"
 fi
-if [ -f $(brew --prefix 2> /dev/null)/etc/bash_completion ]; then
+if [[ -f $(brew --prefix 2> /dev/null)/etc/bash_completion ]]; then
   . $(brew --prefix 2> /dev/null)/etc/bash_completion
 fi
 if [ -f ~/.git-completion.bash ]; then
@@ -201,6 +144,10 @@ export PATH=$HOME/bin:/usr/local/share/npm/bin:/opt/local/bin:/opt/local/sbin:/u
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+OSRC=~/.bashrc.$(uname)
+
+[ ! -f "$OSRC" ] && printf "No OS-specific bashrc for $OSRC" || . $OSRC
 
 [ ! -f ~/.bashrc.local  ] || . ~/.bashrc.local
 
