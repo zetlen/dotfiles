@@ -25,6 +25,31 @@ alias unixify="find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix"
 alias pwnusr="sudo chown -R $(whoami) /usr/local"
 alias killexif="exiftool -all= "
 
+function tma {
+  sname=$1;
+  if [ -z "$1" ]; then
+    sname="main";
+  fi
+  tmux attach -d -t $sname || tmux new -s $sname
+}
+
+function human-duration {
+  local T=$1
+  local D=$((T/60/60/24))
+  local H=$((T/60/60%24))
+  local M=$((T/60%60))
+  local S=$((T%60))
+  (( $D > 0 )) && printf '%d days ' $D
+  (( $H > 0 )) && printf '%d hours ' $H
+  (( $M > 0 )) && printf '%d minutes ' $M
+  (( $D > 0 || $H > 0 || $M > 0 )) && printf 'and '
+  printf '%d seconds\n' $S
+}
+
+function isodate {
+  date -u +"%Y-%m-%dT%H:%M:%SZ"
+}
+
 function tosomeday {
   task $1 modify project:Personal.MonthlyTickler wait:1m +someday
 }

@@ -16,31 +16,6 @@ function configure_osx_as_zetlen() {
   fi
 }
 
-function two-minute-rule {
-  local warning="display notification \"${*}\" with title"
-  {
-    for i in {4..1}; do
-      left=$(expr $i \* 30)
-      osascript -e "$warning \"${left}s left\"";
-      sleep 30;
-    done;
-    osascript -e "$warning \"Time expired\"";
-  } & disown
-}
-alias 2mr='two-minute-rule'
-
-function 2mt {
-  2mr $(task _get ${1}.description)
-}
-
-function tma {
-  sname=$1;
-  if [ -z "$1" ]; then
-    sname="main";
-  fi
-  tmux attach -d -t $sname || tmux new -s $sname
-}
-
 function update-vim {
   read -p "Are you sure? This quits all thine vims. [y/N]" -r
   echo
@@ -53,5 +28,125 @@ function update-vim {
 
 function free-port {
   kill -9 $(lsof -t -i tcp:$1)
+}
+
+########################
+# tmr
+
+export tmr_logfile="tmrlog.json"
+export tmr_version="0.1.0"
+export tmr_logpath="${HOME}/${tmr_logfile}"
+
+export current_tmr_name=""
+export current_tmr_start=""
+export current_tmr_end=""
+export current_tmr_duration=""
+
+function __tmr-review {
+  echo
+  jq -r \
+    '["Name", "Took", "Began"], ["-------", "-------", "-------"], ('"$1"' | map([.name, .human_duration, (.start_date | todateiso8601)]) | .[]) | @tsv' $tmr_logpath | column -s $'\t' -t
+  echo
+}
+
+function tmr-review {
+  __tmr-review ".data"
+}
+
+function __ensure-tmr {
+  touch $tmr_logpath
+  if [ ! -s "${tmr_logpath}" ]; then
+    jq -n --arg version "${tmr_version}" '{ version: $version, data: [] }' > ${tmr_logpath}
+  fi
+}
+
+function __get-current-tmr {
+  __ensure-tmr
+  local IFS=$'\t'
+  current_tmr=($(jq -r '.current | [.name, .start_date] | @tsv' $tmr_logpath))
+  unset IFS
+  current_tmr_name="${current_tmr[0]}"
+  if [ -n "$current_tmr_name" ]; then
+    current_tmr_start="${current_tmr[1]}"
+    current_tmr_end=$(date +%s)
+    current_tmr_duration=$(($current_tmr_end-$current_tmr_start))
+  else
+    return 1;
+  fi
+}
+
+function __blank-tmr {
+  current_tmr_start=""
+  current_tmr_end=""
+  current_tmr_duration=""
+}
+
+function start-new-tmr {
+  if __get-current-tmr; then
+    printf "\nCannot start new TMR task: already doing $current_tmr. \nRun finish-current-tmr or cancel-current-tmr to stop.\n\n"
+    return 1;
+  else
+    new_tmr="${*}"
+    jq \
+      --argjson start_date $(date +%s) \
+      --arg name "$new_tmr" \
+      '.current = { start_date: $start_date, name: $name }' $tmr_logpath | sponge $tmr_logpath
+  fi
+}
+
+function finish-current-tmr {
+  if __get-current-tmr; then
+    jq \
+      --argjson duration $current_tmr_duration \
+      --arg human_duration "$(human-duration $current_tmr_duration)" \
+      '.data += [{ name: .current.name, start_date: .current.start_date, duration: $duration, human_duration: $human_duration }] | .current = null' \
+      $tmr_logpath | sponge $tmr_logpath
+    __tmr-review ".data | .[-1:]"
+    __blank-tmr
+  else
+    printf "\nCannot finish current TMR task: no current task detected.\n\n"
+    return 1;
+  fi
+}
+
+function cancel-current-tmr {
+  if __get-current-tmr; then
+    printf "\nCancelled TMR task: \n\t$current_tmr_name\nat $(human-duration $current_tmr_duration)\n\n"
+    jq '.current = null' $tmr_logpath | sponge $tmr_logpath
+    __blank-tmr
+  else
+    printf "\nCannot cancel current TMR task: no current task detected.\n\n"
+    return 1;
+  fi
+}
+
+function two-minute-rule {
+  new_tmr="${*}"
+  if (start-new-tmr $new_tmr); then
+    local warning="display notification \"$new_tmr\" with title"
+    {
+      for i in {4..1}; do
+        __get-current-tmr
+        if [ "$current_tmr_name" == "$new_tmr" ]; then
+          left=$(expr $i \* 30)
+          osascript -e "$warning \"${left}s left\"";
+          sleep 30;
+        else
+          break;
+        fi
+      done;
+      __get-current-tmr
+      if [ "$current_tmr_name" == "$new_tmr" ]; then
+        osascript -e "$warning \"Time expired\"";
+      fi
+    } & disown
+  fi
+}
+alias 2mr='two-minute-rule'
+alias 2mrcancel='cancel-current-tmr'
+alias 2mrdone='finish-current-tmr'
+
+function 2mt {
+  2mr $(task _get ${1}.description)
 }
 
