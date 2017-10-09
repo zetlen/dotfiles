@@ -29,14 +29,6 @@ urgency.user.tag.tq.coefficient=99
 ### typically the urgency for these should be higher
 urgency.user.tag.make_appt.coefficient=5
 
-### the Personal.Totems project is for personally relaxing
-### objects or behaviors for which I need to control consumption
-urgency.user.project.Personal.Totems.coefficient=-15
-
-### the Personal.MonthlyTickler project is for things that shouldn't be ordered in priority
-### the urgency can be lower
-urgency.user.project.Personal.MonthlyTickler.coefficient=-5
-
 ## user defined attributes
 
 ### xemail indicates whether a task has an email waiting in the inbox or "next"
@@ -65,10 +57,10 @@ uda.xphone.type=string
 context.bed=-to_watch -at_office -on_road -ring_ring -in_home_office
 
 ### i'm at the office
-context.office=-at_home -on_road -hide_yo -tidy_up -treat_yo -be_dumb -someday
+context.office=-at_home -on_road -hide_yo -tidy_up -treat_yo -be_dumb -someday project.not:Personal.MonthlyTickler project.not:Personal.Totems
 
 ### i'm working from home on a weekday
-context.wfh=-on_road -at_office -be_dumb -someday
+context.wfh=-on_road -at_office -be_dumb -someday project.not:Personal.MonthlyTickler project.not:Personal.Totems
 
 ### it's the weekend
 context.weekend=-at_office -ring_ring -quick_q
@@ -81,3 +73,4 @@ report._reviewed.sort=reviewed+,modified+
 report._reviewed.filter=( reviewed.none: or reviewed.before:now-1week ) and ( +PENDING or +WAITING )
 color.uda.xemail.magento=underline on rgb001
 color.uda.xemail.gmail=underline on rgb010
+context=wfh
