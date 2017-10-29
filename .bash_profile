@@ -30,7 +30,7 @@ function tma {
   if [ -z "$1" ]; then
     sname="main";
   fi
-  tmux attach -d -t $sname || tmux new -s $sname
+  tmux attach -d -t $sname || tmux new -s $sname 
 }
 
 function human-duration {
@@ -118,8 +118,10 @@ function prompt_callback() {
   fi
   local GITDIR=$(git rev-parse --show-toplevel 2> /dev/null)
   if [[ -e $GITDIR ]]; then
+    GIT_DESCRIBE_OUTPUT=$(git describe --tags --always 2> /dev/null)
+    export GIT_REPO_SUMMARY="[$GITDIR:$GIT_DESCRIBE_OUTPUT]"
     tmuxwinname "[$(basename $GITDIR)]"
-    EXTRAS="${EXTRAS} [\[\033[0;36m\]$(git describe --tags --always 2> /dev/null)\[\033[0;37m\]]"
+    EXTRAS="${EXTRAS} [\[\033[0;36m\]${GIT_DESCRIBE_OUTPUT}\[\033[0;37m\]]"
   fi
   if [[ -n $EXTRAS ]]; then echo $EXTRAS; fi
 }
@@ -176,8 +178,8 @@ OSRC=~/.bashrc.$(uname)
 
 [ ! -f ~/.bashrc.local  ] || . ~/.bashrc.local
 
-# if command -v tmux>/dev/null; then
-# 	[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && t || tmux_winname_randomword
-# fi
+if command -v tmux>/dev/null; then
+	[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && t || tmux_winname_randomword
+fi
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
