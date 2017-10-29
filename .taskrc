@@ -57,7 +57,10 @@ uda.xphone.type=string
 context.bed=-to_watch -at_office -on_road -ring_ring -in_home_office
 
 ### i'm at the office
-context.office=-at_home -on_road -hide_yo -tidy_up -treat_yo -be_dumb -someday project.not:Personal.MonthlyTickler project.not:Personal.Totems
+context.office=-at_home -on_road -hide_yo -tidy_up -treat_yo -be_dumb -someday project.not:Personal
+
+### i'm super focused
+context.magento=-at_home -on_road -hide_yo -tidy_up -be_dumb -someday project.not:Personal
 
 ### i'm working from home on a weekday
 context.wfh=-on_road -at_office -be_dumb -someday project.not:Personal.MonthlyTickler project.not:Personal.Totems
@@ -73,4 +76,9 @@ report._reviewed.sort=reviewed+,modified+
 report._reviewed.filter=( reviewed.none: or reviewed.before:now-1week ) and ( +PENDING or +WAITING )
 color.uda.xemail.magento=underline on rgb001
 color.uda.xemail.gmail=underline on rgb010
-context=wfh
+report.ln.columns=project.indented,description,id,depends,xemail.indicator,xfile.indicator,xlink,tags.count
+report.ln.description=Tasks with external references
+report.ln.filter=(status:pending or status:waiting) and (xemail.not: or xfile.not: or xlink.not: or depends.not: )
+report.ln.labels=Project,Description,ID,Depends,📧,📂,Link,🏷
+report.ln.sort=project+\/,urgency-
+context=office

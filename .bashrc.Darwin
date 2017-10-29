@@ -167,6 +167,19 @@ function cancel-current-tmr {
 }
 
 function two-minute-rule {
+  # TODO: add progress
+  # progress_flag="$1"
+  # progress_time="$2"
+  # numre='^[0-9]+([.][0-9]+)?$'
+  # if [ "$progress_flag" == "-p" ]; then
+  #   if ! [[ $progress_time =~ $re ]]; then
+  #     echo "[tmr] -p needs a number argument" >&2;
+  #     return 1;
+  #   else
+  #
+  #   fi
+  # fi
+
   new_tmr="${*}"
   if (start-new-tmr $new_tmr); then
     local warning="display notification \"$new_tmr\" with title"
