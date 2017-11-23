@@ -1,5 +1,8 @@
 # my taskrc is good
 
+# Files
+data.location=~/.task
+
 
 ## taskd
 ### inthe.am configuration
@@ -81,4 +84,3 @@ report.ln.description=Tasks with external references
 report.ln.filter=(status:pending or status:waiting) and (xemail.not: or xfile.not: or xlink.not: or depends.not: )
 report.ln.labels=Project,Description,ID,Depends,📧,📂,Link,🏷
 report.ln.sort=project+\/,urgency-
-context=office

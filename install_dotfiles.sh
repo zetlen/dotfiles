@@ -38,3 +38,18 @@ echo $COPIED dotfiles symlinked to homedir.
 if [ ! -f ~/.git-completion.bash ]; then
   curl https://cdn.rawgit.com/git/git/master/contrib/completion/git-completion.bash > ~/.git-completion.bash
 fi
+
+write_taskrc() {
+  printf 'include ~/.dotfiles/inc.%s.taskrc\n' $1 > ~/.taskrc
+}
+
+if which task > /dev/null; then
+  if [ -a ~/.taskrc ]; then
+    read -p "Overwrite existing .taskrc? Y/n" -n 1 -r
+    echo    # (optional) move to a new line
+    [[ $REPLY =~ ^[Yy]$ ]] && write_taskrc "default";
+  else
+    write_taskrc "default";
+  fi
+fi
+
