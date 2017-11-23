@@ -19,6 +19,7 @@ alias nenv='printf "node $(node -v)\nnpm $(npm -v)\nyarn $(yarn --version)\n"'
 alias y=yarn
 alias yr='yarn run'
 alias p="lpass show -c --password"
+alias u="lpass show -c --username"
 alias t='task'
 alias someday='task add project:Personal.MonthlyTickler wait:1m'
 alias unixify="find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix"
@@ -166,6 +167,7 @@ __lpass_complete_name()
     fi
 }
 complete -o default -F __lpass_complete_name p
+complete -o default -F __lpass_complete_name u
 
 export PATH=$HOME/bin:/usr/local/share/npm/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:$PATH
 
