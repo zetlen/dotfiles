@@ -459,6 +459,12 @@ augroup END
 
 " }}}
 
+" Other Filetypes {{{
+
+autocmd BufNewFile,BufReadPost *.taskrc set filetype=taskrc
+
+" }}}
+
 " Todo List {{{
 
 Plugin 'zetlen/vim-simple-todo'
