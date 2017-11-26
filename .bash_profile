@@ -21,7 +21,7 @@ alias yr='yarn run'
 alias p="lpass show -c --password"
 alias u="lpass show -c --username"
 alias t='task'
-alias someday='task add project:Personal.MonthlyTickler wait:1m'
+alias someday='task add +someday'
 alias unixify="find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix"
 alias pwnusr="sudo chown -R $(whoami) /usr/local"
 alias killexif="exiftool -all= "
@@ -52,7 +52,7 @@ function isodate {
 }
 
 function tosomeday {
-  task $1 modify project:Personal.MonthlyTickler wait:1m +someday
+  task $1 modify +someday
 }
 
 function exists {
