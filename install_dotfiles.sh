@@ -40,7 +40,7 @@ if [ ! -f ~/.git-completion.bash ]; then
 fi
 
 write_taskrc() {
-  printf 'include ~/.dotfiles/inc.%s.taskrc\n' $1 > ~/.taskrc
+  printf 'include ~/.dotfiles/lib/%s.taskrc\n' $1 > ~/.taskrc
 }
 
 if which task > /dev/null; then
