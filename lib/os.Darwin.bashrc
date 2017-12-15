@@ -22,7 +22,7 @@ function update-vim {
   if [[ $REPLY =~ ^[Yy]$ ]]
   then
     sudo killall vim 2> /dev/null
-    brew upgrade && brew update && vim +PluginUpdate +qall && ~/.vim/bundle/YouCompleteMe/install.py --tern-completer
+    brew upgrade && brew update && vim +PlugUpgrade +PlugUpdate +qall
   fi
 }
 
