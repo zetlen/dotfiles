@@ -47,14 +47,6 @@ function human-duration {
   printf '%d seconds\n' $S
 }
 
-function isodate {
-  date -u +"%Y-%m-%dT%H:%M:%SZ"
-}
-
-function tosomeday {
-  task $1 modify +someday
-}
-
 function exists {
   declare -f -F $1 > /dev/null
   return $?
