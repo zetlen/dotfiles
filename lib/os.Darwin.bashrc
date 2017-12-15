@@ -6,7 +6,7 @@ function configure_osx_as_zetlen() {
     echo "NVRAM: Always verbose boot..." &&
     sudo nvram boot-args="-v" &&
     echo "LoginWindow: Set login message..." &&
-    sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "🕉" &&
+    sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "a james zetlen joint 🕉" &&
     echo "Finder: Hide desktop icons..." &&
     defaults write com.apple.finder CreateDesktop false &&
     echo "Finder: Show hidden files..." &&
