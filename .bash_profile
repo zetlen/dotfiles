@@ -24,7 +24,7 @@ alias t='task'
 alias someday='task add +someday'
 alias unixify="find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix"
 alias pwnusr="sudo chown -R $(whoami) /usr/local"
-alias killexif="exiftool -all= "
+alias exifkill="exiftool -all= "
 
 function tma {
   sname=$1;
