@@ -104,8 +104,12 @@ alias -- -="cd -" # - to go back
 alias myip="ifconfig | grep -E '(192|10)'"
 
 function prompt_callback() {
-  local EXTRAS="/ » "
+  local EXTRAS=" / » "
   local TASKCTX=$(task _get rc.context 2> /dev/null)
+  if exists 2m-status; then
+    TASKSTATUS=$(2m-status -s)
+    if [ -n "$TASKSTATUS" ]; then EXTRAS="\n   \[\033[7m\]2m task in progress: ${TASKSTATUS}\n\[\033[0m\]${EXTRAS}"; fi
+  fi
   if [[ -n $TASKCTX ]]; then
     EXTRAS="${EXTRAS} \[\033[0;32m\][t: \[\033[0;37m\]${TASKCTX}\[\033[0;32m\]]"
   fi

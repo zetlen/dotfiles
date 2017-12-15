@@ -30,182 +30,48 @@ function free-port {
   kill -9 $(lsof -t -i tcp:$1)
 }
 
-########################
-# tmr
-
-export tmr_logfile="tmrlog.json"
-export tmr_version="0.1.1"
-export tmr_logpath="${HOME}/${tmr_logfile}"
-
-export current_tmr_name=""
-export current_tmr_start=""
-export current_tmr_end=""
-export current_tmr_duration=""
-
-function __tmr-review-jq {
-cat <<'JQ_START'
-# recipe for printing a tsv review of TMRs with jq
-
-# util to join on space
-def sjoin: [.[] | tostring] | join(" ");
-
-# year accessor for dates
-def get_year: .  | gmtime | .[0];
-
-# string formatting for date
-def label_time_interval($l):
-  . as $t
-  | if $t == 1 then $l else ($l + "s") end
-  | [$t, .]
-  | sjoin;
-
-# date strflocaltime formatting
-def date_format_for:
-  "%a %Y/%m/%d %I:%M%p" as $f
-  | if (now | get_year) != (. | get_year) then $f else ($f | sub("%Y/"; "")) end;
-
-# print humanized durations
-def human_duration:
-  { day: (. /60/60/24 | floor), hour: (. /60/60%24), minute: (. /60%60), second: (. %60) }
-  | to_entries
-  | map(select(.value > 0 or .key == "second"))
-  | map(. as $v | $v.value | label_time_interval($v.key))
-  | (. | length) as $len
-  | if $len > 2 then ((.[:-2] | map(. + ",")) + .[-2:]) else . end
-  | if $len > 1 then (.[:-1] + ["and", last]) else . end
-  | sjoin;
-JQ_START
-echo $1
-cat <<'JQ_END'
-# format item as a row
-| map(
-  . as $r
-  | 
-  [.name, (.duration | human_duration), (.start_date | strflocaltime(. | date_format_for))])
-# add column headers and separators to beginning
-| [["Name", "Took", "Began"], ["-------", "-------", "-------"]] + .
-# display as tab separated values
-| .[] | @tsv
-JQ_END
-}
-
-function __tmr-review {
-  echo
-  jq -r -f <(__tmr-review-jq "$1") $tmr_logpath | column -s $'\t' -t -x
-  echo
-}
-
-function tmr-review-cancelled {
-  __tmr-review ".data.cancelled"
-}
-
-function tmr-review-completed {
-  __tmr-review ".data.completed"
-}
-
-function __ensure-tmr {
-  touch $tmr_logpath
-  if [ ! -s "${tmr_logpath}" ]; then
-    jq -n --arg version "${tmr_version}" '{ version: $version, data: { cancelled: [], completed: [] } }' > ${tmr_logpath}
+function __2m_notify {
+  if [ -z "$1" ]; then
+    tmux source-file ~/.tmux.conf
+    return $?
   fi
+  local msg="$1"
+  local title=""
+  local left="$2"
+  local duration=$(2m status -t)
+  local status=0
+
+  case 1:${left:--} in
+    ($((left<0))*)
+      title="${duration} ⏱  ${left#-}s over 😬"
+      tmux set -g status-left-bg colour0
+      tmux set -g status-left-fg colour196
+    ;;
+    (1:*[!0-9]*|1:0*[89]*)
+      msg="Error in __2m_notify script; \$left was $left"
+      title="2m error"
+      status=1
+      tmux set -g status-left-bg colour9
+      tmux set -g status-left-fg colour255
+    ;;
+    ($((left>0))*)
+      title="${duration} ⏱ "
+      tmux set -g status-left-bg colour0
+      tmux set -g status-left-fg colour83
+    ;;
+    ($((left==0))*)
+      title='Two minutes are up 😤 WYD'
+      tmux set -g status-left-bg colour0
+      tmux set -g status-left-fg colour226
+    ;;
+  esac
+
+  local applescript="display notification \"${msg}\" with title \"${title}\""
+  if ! osascript -e "$applescript"; then echo "Error in applescript: $applescript"; fi
+  local tmsg="\t📝  $msg 💬  \t $title "
+  tmux set -g status-left-length ${#tmsg}
+  tmux set -g status-left "$tmsg"
+
+  return $status
 }
-
-function __get-current-tmr {
-  __ensure-tmr
-  local IFS=$'\t'
-  current_tmr=($(jq -r '.current | [.name, .start_date] | @tsv' $tmr_logpath))
-  unset IFS
-  current_tmr_name="${current_tmr[0]}"
-  if [ -n "$current_tmr_name" ]; then
-    current_tmr_start="${current_tmr[1]}"
-    current_tmr_end=$(date +%s)
-    current_tmr_duration=$(($current_tmr_end-$current_tmr_start))
-  else
-    return 1;
-  fi
-}
-
-function __blank-tmr {
-  current_tmr_start=""
-  current_tmr_end=""
-  current_tmr_duration=""
-}
-
-function start-new-tmr {
-  if __get-current-tmr; then
-    printf "\nCannot start new TMR task: already doing $current_tmr. \nRun finish-current-tmr or cancel-current-tmr to stop.\n\n"
-    return 1;
-  else
-    new_tmr="${*}"
-    jq \
-      --argjson start_date $(date +%s) \
-      --arg name "$new_tmr" \
-      '.current = { start_date: $start_date, name: $name }' $tmr_logpath | sponge $tmr_logpath
-  fi
-}
-
-function __end-tmr {
-  if __get-current-tmr; then
-    jq \
-      --argjson duration $current_tmr_duration \
-      '.data.'"$1"' += [{ name: .current.name, start_date: .current.start_date, duration: $duration }] | .current = null' \
-      $tmr_logpath | sponge $tmr_logpath
-    __tmr-review ".data.$1 | .[-1:]"
-    __blank-tmr
-  else
-    printf "\n[tmr] no current task detected\n\n"
-    return 1;
-  fi
-}
-
-function finish-current-tmr {
-  __end-tmr "completed"
-}
-
-function cancel-current-tmr {
-  __end-tmr "cancelled"
-}
-
-function two-minute-rule {
-  # TODO: add progress
-  # progress_flag="$1"
-  # progress_time="$2"
-  # numre='^[0-9]+([.][0-9]+)?$'
-  # if [ "$progress_flag" == "-p" ]; then
-  #   if ! [[ $progress_time =~ $re ]]; then
-  #     echo "[tmr] -p needs a number argument" >&2;
-  #     return 1;
-  #   else
-  #
-  #   fi
-  # fi
-
-  new_tmr="${*}"
-  if (start-new-tmr $new_tmr); then
-    local warning="display notification \"$new_tmr\" with title"
-    {
-      for i in {4..1}; do
-        __get-current-tmr
-        if [ "$current_tmr_name" == "$new_tmr" ]; then
-          left=$(expr $i \* 30)
-          osascript -e "$warning \"${left}s left\"";
-          sleep 30;
-        else
-          break;
-        fi
-      done;
-      __get-current-tmr
-      if [ "$current_tmr_name" == "$new_tmr" ]; then
-        osascript -e "$warning \"Time expired\"";
-      fi
-    } & disown
-  fi
-}
-alias 2mr='two-minute-rule'
-alias 2mrcancel='cancel-current-tmr'
-alias 2mrdone='finish-current-tmr'
-
-function 2mt {
-  2mr $(task _get ${1}.description)
-}
-
+. ~/.dotfiles/lib/2m/2m.sh
