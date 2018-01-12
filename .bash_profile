@@ -151,9 +151,9 @@ __lpass_complete_name()
     local matches
 
     # matches on full path
-    matches=$(lpass ls | egrep "^$cur" | awk '{print $1}')
+    matches=$(lpass ls --sync=no | egrep "^$cur" | awk '{print $1}')
     # matches on leaves
-    matches+=$(lpass ls | egrep "/$cur" | sed -e "s/ \[id.*//g" | \
+    matches+=$(lpass ls --sync=no | egrep "/$cur" | sed -e "s/ \[id.*//g" | \
                awk -F '/' '{print $NF}')
 
     local IFS=$'\n'
