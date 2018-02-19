@@ -75,3 +75,5 @@ function __2m_notify {
   return $status
 }
 . ~/.dotfiles/lib/2m/2m.sh
+
+export PATH="$(brew --prefix homebrew/php/php70)/bin:$PATH"

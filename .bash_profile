@@ -13,11 +13,6 @@ alias cd..='cd ..'
 alias a='printf "\e]1;irc\a"; autossh -t -M 0 khmer@aram.xkcd.com "tmux attach -d -t irssi || tmux new -s irssi"'
 alias r="rsync -av -f\"- .git/\" --progress"
 alias g=git
-alias n=npm
-alias nr='npm run'
-alias nenv='printf "node $(node -v)\nnpm $(npm -v)\nyarn $(yarn --version)\n"'
-alias y=yarn
-alias yr='yarn run'
 alias p="lpass show -c --password"
 alias u="lpass show -c --username"
 alias t='task'
@@ -25,6 +20,8 @@ alias someday='task add +someday'
 alias unixify="find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix"
 alias pwnusr="sudo chown -R $(whoami) /usr/local"
 alias exifkill="exiftool -all= "
+
+. ~/.dotfiles/lib/helpers-node.sh
 
 function tma {
   sname=$1;
@@ -177,7 +174,7 @@ OSRC=~/.dotfiles/lib/os.$(uname).bashrc
 [ ! -f ~/.bashrc.local  ] || . ~/.bashrc.local
 
 if command -v tmux>/dev/null; then
-	[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && t || tmux_winname_randomword
+	tmux_winname_randomword
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
