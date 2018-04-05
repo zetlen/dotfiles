@@ -161,6 +161,7 @@ __lpass_complete_name()
 }
 complete -o default -F __lpass_complete_name p
 complete -o default -F __lpass_complete_name u
+complete -o default -F __lpass_complete_name 'lpass show'
 
 export PATH=$HOME/bin:/usr/local/share/npm/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:$PATH
 
