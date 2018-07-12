@@ -1961,9 +1961,9 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>445 449 550 278 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>389 356 796 473 0 0 1440 877 </string>
+	<string>679 513 796 473 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 717 877 0 0 1440 877 </string>
+	<string>0 1057 1920 454 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>0 459 633 418 0 0 1440 877 </string>
 	<key>New Bookmarks</key>
@@ -3378,6 +3378,8 @@
 	<false/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>503265586.70187002</real>
+	<key>OnlyWhenMoreTabs</key>
+	<false/>
 	<key>OpenTmuxWindowsIn</key>
 	<integer>0</integer>
 	<key>PMPrintingExpandedStateForPrint2</key>
@@ -3419,6 +3421,8 @@
 	<string>/Users/jzetlen/.dotfiles</string>
 	<key>Print In Black And White</key>
 	<true/>
+	<key>PromptOnQuit</key>
+	<false/>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedAlternateAppNameKey</key>
@@ -3428,7 +3432,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-04-30T13:23:05Z</date>
+	<date>2018-06-04T16:31:58Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SmartPlacement</key>

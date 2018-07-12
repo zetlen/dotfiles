@@ -120,18 +120,19 @@ function prompt_callback() {
   if [[ -n $EXTRAS ]]; then echo $EXTRAS; fi
 }
 
-gitprompt_shell=~/.bash-git-prompt/gitprompt.sh
-if [ -f $gitprompt_shell ]; then
-  GIT_PROMPT_THEME="Custom"
-  # GIT_PROMPT_STATUS_COMMAND=gitstatus_pre-1.7.10.sh
-  GIT_PROMPT_SHOW_UNTRACKED_FILES=no
-  GIT_PROMPT_FETCH_REMOTE_STATUS=0
-  . $gitprompt_shell
+__HOMEBREW_PREFIX=$(brew --prefix 2> /dev/null)
+if [ -f "$__HOMEBREW_PREFIX/opt/bash-git-prompt/share/gitprompt.sh" ]; then
+    __GIT_PROMPT_DIR="$__HOMEBREW_PREFIX/opt/bash-git-prompt/share"
+    GIT_PROMPT_THEME="Custom"
+    # GIT_PROMPT_STATUS_COMMAND=gitstatus_pre-1.7.10.sh
+    GIT_PROMPT_SHOW_UNTRACKED_FILES=no
+    GIT_PROMPT_FETCH_REMOTE_STATUS=0
+    source "$__GIT_PROMPT_DIR/gitprompt.sh"
 else
-  echo "Git prompt not found. Run this: git clone https://github.com/magicmonty/bash-git-prompt.git ~/.bash-git-prompt"
+  echo "Git prompt not found. Run brew install bash-git-prompt"
 fi
-if [[ -f $(brew --prefix 2> /dev/null)/etc/bash_completion ]]; then
-  . $(brew --prefix 2> /dev/null)/etc/bash_completion
+if [[ -f ${__HOMEBREW_PREFIX}/etc/bash_completion ]]; then
+  . ${__HOMEBREW_PREFIX}/etc/bash_completion
 fi
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
