@@ -1,3 +1,18 @@
+
+take_osx_config_snapshot() {
+  manualSettingsDir=~/.dotfiles/lib/settings/darwin
+  tar -cvvvPf darwin.snapshot.tar -T ~/.dotfiles/lib/snapshots/darwin.txt
+  if [[ -d "$manualSettingsDir" ]] && [[ -n "$(ls $manualSettingsDir)" ]]; then
+    tarPath="$(pwd)/darwin.snapshot.tar"
+    cd $manualSettingsDir && tar -rf $tarPath * && cd -
+  fi
+  tar -tvf darwin.snapshot.tar
+}
+
+apply_osx_config_snapshot() {
+  tar -xvvvwPf $1
+}
+
 function configure_osx_as_zetlen() {
   read -p "Make OSX config tweaks? [y/N]" -r
   echo
