@@ -26,7 +26,9 @@ function configure_osx_as_zetlen() {
     defaults write com.apple.finder CreateDesktop false &&
     echo "Finder: Show hidden files..." &&
     defaults write com.apple.finder AppleShowAllFiles YES &&
-    echo "Finder: Restart to take effect..." &&
+    echo "Keyboard: Normal key repeat and not special chars..." && 
+    defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false &&
+    echo "Finder: Restart io take effect..." &&
     killall Finder
   fi
 }
@@ -37,7 +39,15 @@ function update-vim {
   if [[ $REPLY =~ ^[Yy]$ ]]
   then
     sudo killall vim 2> /dev/null
-    brew upgrade && brew update && vim +PlugUpgrade +PlugUpdate +qall
+    if brew upgrade && brew update && vim +PlugUpgrade +PlugUpdate +qall; then
+      read -p "Try to compile YouCompleteMe with cd ~/.vim/plugged/YouCompleteMe/ && ./install.py --js-completer?" -r
+      echo
+      if [[ $REPLY =~ ^[Yy]$ ]]
+      then
+        echo Installing YouCompleteMe...
+        cd ~/.vim/plugged/YouCompleteMe/ && ./install.py --js-completer
+      fi
+    fi
   fi
 }
 
