@@ -169,6 +169,8 @@ export PATH=$HOME/bin:/usr/local/share/npm/bin:/opt/local/bin:/opt/local/sbin:/u
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
+[ ! -f ~/.bashrc ] || . ~/.bashrc
+
 OSRC=~/.dotfiles/lib/os.$(uname).bashrc
 
 [ ! -f "$OSRC" ] && printf "No OS-specific bashrc at $OSRC\n" || . $OSRC
