@@ -6,11 +6,12 @@
 	interactive = auto
 [user]
 	name = zetlen
-	email = zetlen@gmail.com
+	email = jzetlen@adobe.com
+	signingkey = 6776B54894A43E99
 [push]
 	default = simple
 [core]
-	excludesfile = /Users/james_zetlen/.gitignore_global
+	excludesfile = /Users/jzetlen/.gitignore_global
 	autocrlf = input
 	editor = vim
 	pager = less -x 1,5
@@ -84,3 +85,5 @@
 [merge "npm-merge-driver"]
 	name = automatically merge npm lockfiles
 	driver = npx npm-merge-driver merge %A %O %B %P
+[commit]
+	gpgsign = true
