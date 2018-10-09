@@ -2,12 +2,20 @@
 
 n() {
   if [ -f "./yarn.lock" ]; then
-    printf "A yarn.lock file is present in this folder.\\nUse 'npm' to force using npm, or use 'y' for yarn instead.\\n"
-    return 1;
+    echo yarn.lock detected, running yarn instead
+    yarn "$@"
+  else
+    npm "$@"
   fi
-  npm "$@"
 }
-alias nr='npm run'
+nr() {
+  if [ -f "./yarn.lock" ]; then
+    echo yarn.lock detected, running yarn run instead
+    yarn run "$@"
+  else
+    npm run "$@"
+  fi
+}
 alias nenv='printf "node $(node -v)\nnpm $(npm -v)\nyarn $(yarn --version)\n"'
 alias nreset='rm -rf ./node_modules && npm install'
 alias y=yarn
