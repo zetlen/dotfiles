@@ -1,3 +1,18 @@
+function require_tools {
+  MISSING_TOOLS=()
+  while read $REQUIRED_TOOL; do
+    command -v $REQUIRED_TOOL > /dev/null
+    if [ "$?" -ne "0" ]; then
+      MISSING_TOOLS+=("$REQUIRED_TOOL")
+    fi
+  done < $1
+  if [ ${#MISSING_TOOLS} -ne '0' ]; then
+    echo Install these missing tools for everything to work:
+    for TOOL in ${MISSING_TOOLS[@]}; do echo $TOOL; done
+    return 1
+  fi
+}
+
 REPO=$(git rev-parse --show-toplevel)
 REPONAME=$(basename $REPO)
 EXPECTED_REPONAME=".dotfiles"
@@ -36,7 +51,7 @@ fi
 echo $COPIED dotfiles symlinked to homedir.
 
 if [ ! -f ~/.git-completion.bash ]; then
-  curl https://cdn.rawgit.com/git/git/master/contrib/completion/git-completion.bash > ~/.git-completion.bash
+  curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash > ~/.git-completion.bash
 fi
 
 write_taskrc() {
@@ -53,3 +68,6 @@ if which task > /dev/null; then
   fi
 fi
 
+OSREQUIRED=~/.dotfiles/lib/os.$(uname).required_tools.txt
+
+[ -f "$OSREQUIRED" ] && require_tools $OSREQUIRED
