@@ -1,16 +1,18 @@
+# tell shellcheck to allow conditional sourcing
+# shellcheck disable=1090 
 
 take_osx_config_snapshot() {
   manualSettingsDir=~/.dotfiles/lib/settings/darwin
   tar -cvvvPf darwin.snapshot.tar -T ~/.dotfiles/lib/snapshots/darwin.txt
   if [[ -d "$manualSettingsDir" ]] && [[ -n "$(ls $manualSettingsDir)" ]]; then
     tarPath="$(pwd)/darwin.snapshot.tar"
-    cd $manualSettingsDir && tar -rf $tarPath * && cd -
+    cd "$manualSettingsDir" && tar -rf "$tarPath" ./* && cd - || return
   fi
   tar -tvf darwin.snapshot.tar
 }
 
 apply_osx_config_snapshot() {
-  tar -xvvvwPf $1
+  tar -xvvvwPf "$1"
 }
 
 function configure_osx_as_zetlen() {
@@ -52,5 +54,7 @@ function update-vim {
 }
 
 function free-port {
-  kill -9 $(lsof -t -i tcp:$1)
+  kill -9 "$(lsof -t -i tcp:"$1")"
 }
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
