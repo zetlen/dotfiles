@@ -54,3 +54,18 @@ function update-vim {
 function free-port {
   kill -9 $(lsof -t -i tcp:$1)
 }
+
+__HOMEBREW_PREFIX=$(brew --prefix 2> /dev/null)
+if [ -f "$__HOMEBREW_PREFIX/opt/bash-git-prompt/share/gitprompt.sh" ]; then
+    __GIT_PROMPT_DIR="$__HOMEBREW_PREFIX/opt/bash-git-prompt/share"
+    GIT_PROMPT_THEME="Custom"
+    # GIT_PROMPT_STATUS_COMMAND=gitstatus_pre-1.7.10.sh
+    GIT_PROMPT_SHOW_UNTRACKED_FILES=no
+    GIT_PROMPT_FETCH_REMOTE_STATUS=0
+    source "$__GIT_PROMPT_DIR/gitprompt.sh"
+else
+  echo "Git prompt not found. Run brew install bash-git-prompt"
+fi
+if [[ -f ${__HOMEBREW_PREFIX}/etc/bash_completion ]]; then
+  . ${__HOMEBREW_PREFIX}/etc/bash_completion
+fi
