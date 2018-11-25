@@ -57,19 +57,21 @@ function free-port {
   kill -9 "$(lsof -t -i tcp:"$1")"
 }
 
+tmux bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel pbcopy
+
 __HOMEBREW_PREFIX=$(brew --prefix 2> /dev/null)
 if [ -f "$__HOMEBREW_PREFIX/opt/bash-git-prompt/share/gitprompt.sh" ]; then
     __GIT_PROMPT_DIR="$__HOMEBREW_PREFIX/opt/bash-git-prompt/share"
-    GIT_PROMPT_THEME="Custom"
+    export GIT_PROMPT_THEME="Custom"
     # GIT_PROMPT_STATUS_COMMAND=gitstatus_pre-1.7.10.sh
-    GIT_PROMPT_SHOW_UNTRACKED_FILES=no
-    GIT_PROMPT_FETCH_REMOTE_STATUS=0
+    export GIT_PROMPT_SHOW_UNTRACKED_FILES=no
+    export GIT_PROMPT_FETCH_REMOTE_STATUS=0
     source "$__GIT_PROMPT_DIR/gitprompt.sh"
 else
   echo "Git prompt not found. Run brew install bash-git-prompt"
 fi
 if [[ -f ${__HOMEBREW_PREFIX}/etc/bash_completion ]]; then
-  . ${__HOMEBREW_PREFIX}/etc/bash_completion
+  . "${__HOMEBREW_PREFIX}/etc/bash_completion"
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
