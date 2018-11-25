@@ -222,6 +222,7 @@ set nobackup                " Backup is what Time Machine is for
 set nowb                    " Don't write backup file
 set noswapfile              " Boy are .swps annoying huh
 Plug 'tpope/vim-fugitive' " git interactions
+Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " mouse stuff
 set mouse=a

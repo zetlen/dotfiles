@@ -96,12 +96,6 @@ function rmext() {
   fi
 }
 
-alias ..='cd ..' # up a directory
-alias ...='cd ../../'
-alias ....='cd ../../../'
-alias .....='cd ../../../../'
-alias ......='cd ../../../../../'
-alias -- -="cd -" # - to go back
 # narrow down ifconfig output to find roughly my ip
 alias myip="ifconfig | grep -E '(192|10)'"
 
@@ -125,20 +119,6 @@ function prompt_callback() {
   if [[ -n "$EXTRAS" ]]; then echo "$EXTRAS"; fi
 }
 
-__HOMEBREW_PREFIX=$(brew --prefix 2> /dev/null)
-if [ -f "$__HOMEBREW_PREFIX/opt/bash-git-prompt/share/gitprompt.sh" ]; then
-    __GIT_PROMPT_DIR="$__HOMEBREW_PREFIX/opt/bash-git-prompt/share"
-    export GIT_PROMPT_THEME="Custom"
-    # GIT_PROMPT_STATUS_COMMAND=gitstatus_pre-1.7.10.sh
-    export GIT_PROMPT_SHOW_UNTRACKED_FILES=no
-    export GIT_PROMPT_FETCH_REMOTE_STATUS=0
-    source "$__GIT_PROMPT_DIR/gitprompt.sh"
-else
-  echo "Git prompt not found. Run brew install bash-git-prompt"
-fi
-if [[ -f ${__HOMEBREW_PREFIX}/etc/bash_completion ]]; then
-  . "${__HOMEBREW_PREFIX}/etc/bash_completion"
-fi
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 elif [ -f /etc/bash_completion.d/git ]; then
