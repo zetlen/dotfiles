@@ -64,7 +64,8 @@
 	ds = describe --tags --always
 	pn = push -u origin
   addfork = "!f(){ echo $(git remote get-url origin) $1 | sed -Ee 's,github.com([/:])[^/]+(.*) (.*),github.com\\1\\3\\2,' | xargs git remote add $1; git fetch $1; }; f"
-  inplay = branch --sort=-committerdate --list -vv --no-merged
+  inplay = "!git branch -vv --sort=-committerdate --format='%(align:20)%(color:green)%(committerdate:relative)%(color:reset)%(end)%(align:'$(($(tput cols) - 30))')%(color:yellow)%(refname:short)%(color:reset)%(color:blue)[%(upstream:trackshort)]%(color:reset)%(end) %(align:20,right)%(color:white)%(authorname)%(color:reset)%(end)'"
+
 
 [filter "media"]
 	required = true
