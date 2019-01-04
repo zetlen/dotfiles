@@ -57,7 +57,9 @@ function free-port {
   kill -9 "$(lsof -t -i tcp:"$1")"
 }
 
-tmux bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel pbcopy
+if [[ "$IN_TMUX" -eq "1" ]]; then
+  tmux bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel pbcopy
+fi
 
 __HOMEBREW_PREFIX=$(brew --prefix 2> /dev/null)
 if [ -f "$__HOMEBREW_PREFIX/opt/bash-git-prompt/share/gitprompt.sh" ]; then

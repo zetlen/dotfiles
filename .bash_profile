@@ -9,6 +9,12 @@ export HISTCONTROL=ignoredups
 
 export COLONPIPE="zetlen@colonpipe.org:~/colonpipe.org/"
 
+if command -v tmux > /dev/null && [[ $TERM =~ screen ]] && [ -n "$TMUX" ]; then
+  IN_TMUX=1
+else
+  IN_TMUX=
+fi
+
 alias la='ls -lahAFG'
 alias l='ls -lahp'
 alias ls='ls -p'
@@ -26,6 +32,10 @@ alias exifkill="exiftool -all= "
 . ~/.dotfiles/lib/helpers-node.sh
 
 function tma {
+  if [[ "$IN_TMUX" -ne "1" ]]; then
+    echo Already in tmux.
+    return 1
+  fi
   sname=$1;
   if [ -z "$1" ]; then
     sname="main";
@@ -56,7 +66,7 @@ function winname {
 }
 
 function tmuxwinname {
-  command -v tmux > /dev/null && [[ $TERM =~ screen ]] && [ -n "$TMUX" ] && tmux rename-window "$1"
+  $IN_TMUX && tmux rename-window "$1"
 }
 
 function mdcd {
