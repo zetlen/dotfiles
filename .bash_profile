@@ -10,7 +10,7 @@ export HISTCONTROL=ignoredups
 export COLONPIPE="zetlen@colonpipe.org:~/colonpipe.org/"
 
 if command -v tmux > /dev/null && [[ $TERM =~ screen ]] && [ -n "$TMUX" ]; then
-  IN_TMUX=1
+  IN_TMUX="1"
 else
   IN_TMUX=
 fi
@@ -32,7 +32,7 @@ alias exifkill="exiftool -all= "
 . ~/.dotfiles/lib/helpers-node.sh
 
 function tma {
-  if [[ "$IN_TMUX" -ne "1" ]]; then
+  if [[ "$IN_TMUX" -eq "1" ]]; then
     echo Already in tmux.
     return 1
   fi
@@ -66,7 +66,9 @@ function winname {
 }
 
 function tmuxwinname {
-  $IN_TMUX && tmux rename-window "$1"
+  if [[ "$IN_TMUX" -eq "1" ]]; then
+    tmux rename-window "$1"
+  fi
 }
 
 function mdcd {
@@ -142,7 +144,7 @@ exists _task && complete -o nospace -F _task t
 
 __lpass_complete_name()
 {
-    local cur=$2
+    local cur="$2"
     local matches
 
     # matches on full path
@@ -153,6 +155,7 @@ __lpass_complete_name()
 
     while IFS=$'\n' read -r line; do COMPREPLY+=("$line"); done < <(compgen -W "$matches" "$cur")
 }
+
 complete -o default -F __lpass_complete_name p
 complete -o default -F __lpass_complete_name u
 complete -o default -F __lpass_complete_name 'lpass show'
