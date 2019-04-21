@@ -131,10 +131,19 @@ function prompt_callback() {
   if [[ -n "$EXTRAS" ]]; then echo "$EXTRAS"; fi
 }
 
+if [ -f /usr/local/etc/bash_completion ]; then
+  # tell shellcheck to stop complaining about conditional includes
+  # shellcheck disable=1091
+  . /usr/local/etc/bash_completion
+fi
+
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
-elif [ -f /etc/bash_completion.d/git ]; then
+elif [ -f /usr/local/etc/bash_completion.d/git ]; then
   # tell shellcheck to stop complaining about conditional includes
+  # shellcheck disable=1091
+  . /usr/local/etc/bash_completion.d/git
+elif [ -f /etc/bash_completion.d/git ]; then
   # shellcheck disable=1091
   . /etc/bash_completion.d/git
 fi
@@ -181,3 +190,5 @@ if command -v tmux>/dev/null; then
 	tmux_winname_randomword
 fi
 
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
