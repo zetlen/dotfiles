@@ -1,0 +1,4 @@
+#!/bin/sh
+#
+# Disabled hooks for this repository using jzetlen dotfiles.
+(echo >&2 "$BASH_SOURCE hook disabled")
