@@ -8,9 +8,6 @@
 /Users/jzetlen/.composer/config.json
 /Users/jzetlen/.composer/keys.dev.pub
 /Users/jzetlen/.composer/keys.tags.pub
-/Users/jzetlen/.config/task/ca.cert.pem
-/Users/jzetlen/.config/task/private.certificate.pem
-/Users/jzetlen/.config/task/private.key.pem
 /Users/jzetlen/.netrc
 /Users/jzetlen/.now/auth.json
 /Users/jzetlen/.now/config.json

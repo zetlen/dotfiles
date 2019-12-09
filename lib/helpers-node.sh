@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 
-function n {
+n() {
   if [ -f "./yarn.lock" ]; then
     echo yarn.lock detected, running yarn instead
     yarn "$@"
@@ -9,7 +9,7 @@ function n {
   fi
 }
 
-function nr {
+nr() {
   if [ -f "./yarn.lock" ]; then
     echo yarn.lock detected, running yarn run instead
     yarn run "$@"
