@@ -33,6 +33,16 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 export PATH="$PATH:$HOME/.rvm/bin"
 
+colorlist() {
+  local colors=$1
+  echo "showing $colors ansi colors:"
+  for ((n = 0; n < $colors; n++)); do
+    printf " [%d] $(tput setaf $n)%s$(tput sgr0)" $n "wMwMwMwMwMwMwMwMwMwMwMwMwMwMwMwMwMwMwMwMwMwMw
+"
+  done
+  echo
+}
+
 # POSIX-compatible contains(string, substring)
 #
 # Returns 0 if the specified string contains the specified substring,
