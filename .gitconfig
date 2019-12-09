@@ -5,7 +5,7 @@ branch = auto
 ui = auto
 interactive = auto
 [user]
-name = zetlen
+# name = zetlen
 email = jzetlen@adobe.com
 signingkey = 6776B54894A43E99
 [push]
