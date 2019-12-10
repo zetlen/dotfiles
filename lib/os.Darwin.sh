@@ -34,7 +34,8 @@ configure_osx_as_zetlen() {
 }
 
 update_vim() {
-  read -p "Are you sure? This quits all thine vims. [y/N]" -r
+  echo "Are you sure? This quits all thine vims. [y/N]"
+  read -r
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]; then
     sudo killall vim 2>/dev/null

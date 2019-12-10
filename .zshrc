@@ -70,7 +70,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git node nvm)
+plugins=(git node nvm git-prompt)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -106,7 +106,6 @@ BULLETTRAIN_PROMPT_ORDER=(
   context
   dir
   nvm
-  git
 )
 
 BULLETTRAIN_TIME_12HR=true
