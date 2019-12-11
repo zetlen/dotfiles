@@ -1,10 +1,16 @@
 #!/usr/bin/env zsh
 
+# This import must be changed if DOTFILE_PATH changes.
+. ~/.dotfiles/lib/common.sh
+
+OSNAME="$(uname)"
+
+add_os_rc "$OSNAME" "zsh"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/jzetlen/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -70,7 +76,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git node nvm git-prompt)
+plugins=(git node nvm)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -106,15 +112,15 @@ BULLETTRAIN_PROMPT_ORDER=(
   context
   dir
   nvm
+  git
 )
 
+BULLETTRAIN_GIT_BG=default
+BULLETTRAIN_GIT_PROMPT_CMD="\$(${DOTFILE_PATH}/lib/porcelain_${OSNAME} -zsh)"
+
+BULLETTRAIN_PROMPT_CHAR="\u2041"
 BULLETTRAIN_TIME_12HR=true
 BULLETTRAIN_TIME_BG=152
 BULLETTRAIN_NVM_FG=16
-
-# This import must be changed if DOTFILE_PATH changes.
-. ~/.dotfiles/lib/common.sh
-
-add_os_rc "$(uname)" "zsh"
 
 [ ! -f ~/.zshrc.local ] || . ~/.zshrc.local

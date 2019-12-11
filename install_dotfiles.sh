@@ -54,6 +54,10 @@ if [ -s "$BASH_VERSION" ] && [ ! -f ~/.git-completion.bash ]; then
   curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash >~/.git-completion.bash
 fi
 
-OSREQUIRED="$DOTFILE_PATH/lib/os.$(uname).required_tools.txt"
+OSNAME="$(uname)"
+
+OSREQUIRED="$DOTFILE_PATH/lib/os.${OSNAME}.required_tools.txt"
 
 [ -f "$OSREQUIRED" ] && require_tools $OSREQUIRED
+
+chmod u+x "$DOTFILE_PATH/lib/porcelain_${OSNAME}"
