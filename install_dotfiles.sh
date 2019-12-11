@@ -1,3 +1,5 @@
+source "$HOME/.dotfiles/lib/common.sh"
+
 function require_tools() {
   MISSING_TOOLS=()
   while read $REQUIRED_TOOL; do
