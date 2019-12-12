@@ -19,6 +19,9 @@ alias p="lpass show -c --password"
 alias u="lpass show -c --username"
 alias unixify="find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix"
 alias exifkill="exiftool -all= "
+mdcd() {
+    mkdir -p "$*" && cd "$*" || return
+}
 
 export PATH="/usr/local/heroku/bin:$HOME/bin:/usr/local/share/npm/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:$HOME/.cargo/bin:$HOME/.yarn/bin:$PATH:$HOME/.composer/vendor/bin:$HOME/.rvm/bin"
 
