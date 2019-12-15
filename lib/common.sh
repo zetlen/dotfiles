@@ -25,13 +25,7 @@ export PATH="/usr/local/heroku/bin:$HOME/bin:/usr/local/share/npm/bin:/opt/local
 [ -s "$HOME/.rvm/scripts/rvm" ] && . "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 colorlist() {
-  local colors=$1
-  echo "showing $colors ansi colors:"
-  for ((n = 0; n < $colors; n++)); do
-    printf " [%d] $(tput setaf $n)%s$(tput sgr0)" $n "wMwMwMwMwMwMwMwMwMwMwMwMwMwMwMwMwMwMwMwMwMwMw
-"
-  done
-  echo
+   for i in {0..255}; do print -Pn "%${i}F${(l:3::0:)i}%f " ${${(M)$((i%8)):#7}:+$'\n'}; done
 }
 
 # POSIX-compatible contains(string, substring)

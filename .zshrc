@@ -16,7 +16,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="bullet-train"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -105,21 +105,5 @@ export LANG=en_US.UTF-8
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-BULLETTRAIN_PROMPT_ORDER=(
-  time
-  status
-  context
-  dir
-  git
-)
-
-BULLETTRAIN_GIT_BG=default
-BULLETTRAIN_GIT_PROMPT_CMD="\$(${DOTFILE_PATH}/lib/porcelain_${OSNAME} -zsh)"
-
-BULLETTRAIN_PROMPT_CHAR="\u2041"
-BULLETTRAIN_TIME_12HR=true
-BULLETTRAIN_TIME_BG=152
-BULLETTRAIN_NVM_FG=16
 
 [ ! -f ~/.zshrc.local ] || . ~/.zshrc.local
