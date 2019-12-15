@@ -20,18 +20,9 @@ alias u="lpass show -c --username"
 alias unixify="find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix"
 alias exifkill="exiftool -all= "
 
-export PATH="$HOME/.yarn/bin:$PATH"
-export PATH="$PATH:$HOME/.composer/vendor/bin"
-export PATH="$HOME/.cargo/bin:$PATH"
-
-export PATH=$HOME/bin:/usr/local/share/npm/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:$PATH
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+export PATH="/usr/local/heroku/bin:$HOME/bin:/usr/local/share/npm/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:$HOME/.cargo/bin:$HOME/.yarn/bin:$PATH:$HOME/.composer/vendor/bin:$HOME/.rvm/bin"
 
 [ -s "$HOME/.rvm/scripts/rvm" ] && . "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
-export PATH="$PATH:$HOME/.rvm/bin"
 
 colorlist() {
   local colors=$1
