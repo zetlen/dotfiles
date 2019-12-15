@@ -111,7 +111,6 @@ BULLETTRAIN_PROMPT_ORDER=(
   status
   context
   dir
-  nvm
   git
 )
 
