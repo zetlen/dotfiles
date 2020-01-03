@@ -61,5 +61,3 @@ OSNAME="$(uname)"
 OSREQUIRED="$DOTFILE_PATH/lib/os.${OSNAME}.required_tools.txt"
 
 [ -f "$OSREQUIRED" ] && require_tools $OSREQUIRED
-
-chmod u+x "$DOTFILE_PATH/lib/porcelain_${OSNAME}"
