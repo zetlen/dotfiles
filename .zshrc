@@ -83,7 +83,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git node)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -151,3 +151,11 @@ bindkey -M vicmd "${terminfo[knp]}" end-of-buffer-or-history
 bindkey -M vicmd "${terminfo[kcbt]}" reverse-menu-complete
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# BEGIN SNIPPET: Magento Cloud CLI configuration
+HOME=${HOME:-'/Users/jzetlen'}
+export PATH="$HOME/"'.magento-cloud/bin':"$PATH"
+if [ -f "$HOME/"'.magento-cloud/shell-config.rc' ]; then . "$HOME/"'.magento-cloud/shell-config.rc'; fi # END SNIPPET
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
