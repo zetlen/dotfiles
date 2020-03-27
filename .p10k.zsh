@@ -375,16 +375,18 @@
   }
 
   function p10k-on-pre-prompt() { 
-    p10k display '1/*'=show
+    p10k display '1/left/dir|1/left/vcs|1/right/node_version|1/right/time|2|empty_line'=show 'ruler'=hide
   }
   
   function p10k-on-post-prompt() { 
     if is_new_commit; then
+      p10k display '1/left/vcs|1/right/node_version|1/right/time'=show '1/left/dir|2|empty_line|ruler'=hide
       LAST_GIT_COMMIT=${VCS_STATUS_COMMIT}
     elif is_new_dir; then
+      p10k display '1/left/dir|1/right/time'=show '1/left/dir|1/right/node_version|2|empty_line|ruler'=hide
       LAST_PROMPT_DIR=$PWD
     else
-      p10k display '1/*'=hide
+      p10k display '2'=show '1/left/dir|1/left/vcs|1/right/node_version|1/right/time|empty_line|ruler'=hide
     fi
   }
 
@@ -434,10 +436,7 @@
       res+="${meta}:${clean}${(V)VCS_STATUS_REMOTE_BRANCH//\%/%%}"  # escape %
     fi
     
-    if is_new_commit; then
-      THIS_ABBREV_COMMIT=${VCS_STATUS_COMMIT:0:5}
-      res+=" ${clean}${(g::)icons[VCS_COMMIT_ICON]} ${last}$(git reflog --skip=1 --abbrev=5 -n 1 --pretty=format:%h) ${POWERLEVEL9K_VCS_NEXTCOMMIT_ICON} ${clean}$THIS_ABBREV_COMMIT"
-    fi
+      res+=" ${clean}${(g::)icons[VCS_COMMIT_ICON]} ${last}$(git reflog --skip=1 --abbrev=5 -n 1 --pretty=format:%h) ${POWERLEVEL9K_VCS_NEXTCOMMIT_ICON} ${clean}${VCS_STATUS_COMMIT:0:5}"
     
     # ⇣42 if behind the remote.
     (( VCS_STATUS_COMMITS_BEHIND )) && res+=" ${clean}⇣${VCS_STATUS_COMMITS_BEHIND}"
