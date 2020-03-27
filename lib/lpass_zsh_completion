@@ -144,7 +144,7 @@ _lpass_complete_uniqenames(){
     if [ -n "$i" ]; then
       entries+=("$i")
     fi
-  done < <(lpass ls --sync auto --format "%an" --color=never)
+  done < <(lpass ls --sync no --format "%an" --color=never)
   compadd -a entries
 }
 
@@ -155,7 +155,7 @@ _lpass_complete_groups() {
     if [ -n "$i" ]; then
       entries+=("$i")
     fi
-  done < <(lpass ls --sync auto --format "%aN" --color=never | grep -E "\/$")
+  done < <(lpass ls --sync no --format "%aN" --color=never | grep -E "\/$")
   compadd -a entries
 }
 
