@@ -4,6 +4,8 @@ status = auto
 branch = auto
 ui = auto
 interactive = auto
+[interactive]
+diffFilter = delta --color-only
 [user]
 # name = zetlen
 email = jzetlen@adobe.com
@@ -14,7 +16,9 @@ default = simple
 excludesfile = /Users/jzetlen/.gitignore_global
 autocrlf = input
 editor = vim
-pager = less -x 1,5
+pager = delta
+[delta]
+line-numbers = true
 [difftool "Kaleidoscope"]
 cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [diff]
