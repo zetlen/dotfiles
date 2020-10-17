@@ -39,7 +39,7 @@ let g:indent_guides_auto_colors = 0
 set encoding=utf-8     " show unicode chars
 set noshowmode         " airline handles mode display
 set number             " show line numbers
-set relativenumber     " relative to current line
+" set relativenumber     " relative to current line
 set wildmenu           " command autocomplete view
 set lazyredraw         " supposedly for performance, revisit this
 set showmatch          " show matching brackets
@@ -64,25 +64,25 @@ if &listchars ==# 'eol:$'
 endif
 
 " Airline!
-Plug 'bling/vim-airline'        " powerline bottom bar, in vimscript only
-let g:airline_powerline_fonts = 1 " use special fonts, not unicode simulations
-let g:airline_mode_map = {
-      \ '__' : '-',
-      \ 'n'  : 'N',
-      \ 'i'  : 'I',
-      \ 'R'  : 'R',
-      \ 'c'  : 'C',
-      \ 'v'  : 'V',
-      \ 'V'  : 'V',
-      \ '' : 'V',
-      \ 's'  : 'S',
-      \ 'S'  : 'S',
-      \ '' : 'S',
-      \ }
-let g:airline_exclude_preview = 1
-let g:airline#extensions#branch#enabled = 0
-let g:airline#extensions#syntastic#enabled = 0
-filetype plugin indent on
+" Plug 'bling/vim-airline'        " powerline bottom bar, in vimscript only
+" let g:airline_powerline_fonts = 1 " use special fonts, not unicode simulations
+" let g:airline_mode_map = {
+"       \ '__' : '-',
+"       \ 'n'  : 'N',
+"       \ 'i'  : 'I',
+"       \ 'R'  : 'R',
+"       \ 'c'  : 'C',
+"       \ 'v'  : 'V',
+"       \ 'V'  : 'V',
+"       \ '' : 'V',
+"       \ 's'  : 'S',
+"       \ 'S'  : 'S',
+"       \ '' : 'S',
+"       \ }
+" let g:airline_exclude_preview = 1
+" let g:airline#extensions#branch#enabled = 0
+" let g:airline#extensions#syntastic#enabled = 0
+" filetype plugin indent on
 
 " }}}
 
@@ -222,19 +222,19 @@ set nobackup                " Backup is what Time Machine is for
 set nowb                    " Don't write backup file
 set noswapfile              " Boy are .swps annoying huh
 Plug 'tpope/vim-fugitive' " git interactions
-Plug 'tmux-plugins/vim-tmux-focus-events'
+" Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " mouse stuff
 set mouse=a
 set ttymouse=xterm2
 
 " repl stuff
-Plug 'sjl/tslime.vim'
-let g:tslime_always_current_session = 1
-let g:tslime_always_current_window = 1
-vnoremap <C-c><C-c> <Plug>SendSelectionToTmux
-nnoremap <C-c><C-c> <Plug>NormalModeSendToTmux
-nnoremap <C-c>r <Plug>SetTmuxVars
+" Plug 'sjl/tslime.vim'
+" let g:tslime_always_current_session = 1
+" let g:tslime_always_current_window = 1
+" vnoremap <C-c><C-c> <Plug>SendSelectionToTmux
+" nnoremap <C-c><C-c> <Plug>NormalModeSendToTmux
+" nnoremap <C-c>r <Plug>SetTmuxVars
 
 " }}}
 
@@ -254,25 +254,25 @@ if &history < 1000
   set history=1000            " more command history
 endif
 
-" Load matchit.vim, but only if the user hasn't installed a newer version.
-if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
-  runtime! macros/matchit.vim
-endif
-
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_key_list_select_completion = ["<TAB>","<Down>"]
-function! BuildYCM(info)
-  if a:info.status == 'installed' || a:info.force
-    !./install.py --tern-completer
-  endif
-endfunction
-Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
-
-Plug 'Raimondi/delimitMate' " autocomplete brackets and quotes
-let delimitMate_expand_cr = 1   " create closing brace on <cr>
-let delimitMate_expand_space = 1
-let delimitMate_excluded_ft = "mail,txt,ghmarkdown,markdown"  " exclude filetypes
+" " Load matchit.vim, but only if the user hasn't installed a newer version.
+" if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+"   runtime! macros/matchit.vim
+" endif
+"
+" let g:ycm_autoclose_preview_window_after_completion = 1
+" let g:ycm_autoclose_preview_window_after_insertion = 1
+" let g:ycm_key_list_select_completion = ["<TAB>","<Down>"]
+" function! BuildYCM(info)
+"   if a:info.status == 'installed' || a:info.force
+"     !./install.py --tern-completer
+"   endif
+" endfunction
+" Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+"
+" Plug 'Raimondi/delimitMate' " autocomplete brackets and quotes
+" let delimitMate_expand_cr = 1   " create closing brace on <cr>
+" let delimitMate_expand_space = 1
+" let delimitMate_excluded_ft = "mail,txt,ghmarkdown,markdown"  " exclude filetypes
 
 Plug 'tpope/vim-surround'
 
@@ -280,39 +280,39 @@ Plug 'tpope/vim-surround'
 
 " CtrlP Options {{{
 
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|\.build\|\.git\/'
-Plug 'ctrlpvim/ctrlp.vim' " plugin for Sublime Text-like CtrlP
-nnoremap <leader><c-p> :CtrlPMRUFiles<cr>
-let g:ctrlp_max_files = 25000
+" let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|\.build\|\.git\/'
+" Plug 'ctrlpvim/ctrlp.vim' " plugin for Sublime Text-like CtrlP
+" nnoremap <leader><c-p> :CtrlPMRUFiles<cr>
+" let g:ctrlp_max_files = 25000
 
 " }}}
 
 " Syntastic {{{
 Plug 'vim-syntastic/syntastic'
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 1
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_typescript_tsc_fname = ''
-let g:syntastic_sass_checkers=["sass_lint"]
-let g:syntastic_scss_checkers=["sass_lint"]
-" let g:syntastic_javascript_eslint_exec = 'eslint_d'
-Plug 'pmsorhaindo/syntastic-local-eslint.vim'
-
-function! s:SyntaxSetup()
-  let s:es6lintrc = findfile('.eslintes6rc')
-  if filereadable(s:es6lintrc)
-    let b:syntastic_javascript_eslint_args = "-c " . s:es6lintrc
-  endif
-endfunction
-
-augroup syntaxcheckers
-  au!
-  au BufRead,BufNewFile,BufEnter *.es6 :call s:SyntaxSetup()
-augroup END
-
+"
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_check_on_wq = 1
+" let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_typescript_tsc_fname = ''
+" let g:syntastic_sass_checkers=["sass_lint"]
+" let g:syntastic_scss_checkers=["sass_lint"]
+" " let g:syntastic_javascript_eslint_exec = 'eslint_d'
+" Plug 'pmsorhaindo/syntastic-local-eslint.vim'
+"
+" function! s:SyntaxSetup()
+"   let s:es6lintrc = findfile('.eslintes6rc')
+"   if filereadable(s:es6lintrc)
+"     let b:syntastic_javascript_eslint_args = "-c " . s:es6lintrc
+"   endif
+" endfunction
+"
+" augroup syntaxcheckers
+"   au!
+"   au BufRead,BufNewFile,BufEnter *.es6 :call s:SyntaxSetup()
+" augroup END
+"
 " }}}
 
 " Filetype: JavaScript {{{
@@ -320,7 +320,7 @@ augroup END
 Plug 'jelera/vim-javascript-syntax' " syntax highlighting
 Plug 'gavocanov/vim-js-indent'      " indentation
 Plug 'mxw/vim-jsx'                  " JSX highlighting and indenting
-Plug 'maksimr/vim-jsbeautify'       " beautification
+" Plug 'maksimr/vim-jsbeautify'       " beautification
 
 
 
@@ -355,51 +355,51 @@ autocmd BufNewFile,BufRead *.ts,*.tsx setlocal filetype=typescript
 
 " Filetype: JSON {{{
 
-Plug 'elzr/vim-json' " syntax highlighting
-
-augroup json
-  au!
-  au FileType json :call s:JsSetup()
-augroup END
+" Plug 'elzr/vim-json' " syntax highlighting
+"
+" augroup json
+"   au!
+"   au FileType json :call s:JsSetup()
+" augroup END
 
 " }}}
 
 " Filetype: Less {{{
 
-Plug 'groenewege/vim-less' " syntax highlighting
-
-augroup less
-  au!
-  au FileType less :call s:JsSetup()
-augroup END
+" Plug 'groenewege/vim-less' " syntax highlighting
+"
+" augroup less
+"   au!
+"   au FileType less :call s:JsSetup()
+" augroup END
 
 " }}}
 
 " Filetype: Sass {{{
 
-Plug 'gcorne/vim-sass-lint' " syntastic plugin
+" Plug 'gcorne/vim-sass-lint' " syntastic plugin
 
 " }}}
 
 " Filetype: Markdown {{{
 
-Plug 'tpope/vim-markdown' " syntax highlighting
-Plug 'suan/vim-instant-markdown'      " preview in realtime browser
-let g:instant_markdown_autostart = 0    " don't launch a browser for each file!
+" Plug 'tpope/vim-markdown' " syntax highlighting
+" Plug 'suan/vim-instant-markdown'      " preview in realtime browser
+" let g:instant_markdown_autostart = 0    " don't launch a browser for each file!
 
 " markdown mode requires this, see https://github.com/plasticboy/vim-markdown
-let g:vim_markdown_folding_disabled=1
-
-let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'javascript', 'scheme']
-
-function! s:MarkdownMode()
-  " set background=light
-  " if exists("g:airline_section_a")
-  "   AirlineTheme light
-  " endif
-  " set laststatus=2
-  colorscheme Pencil
-endfunction
+" let g:vim_markdown_folding_disabled=1
+"
+" let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'javascript', 'scheme']
+"
+" function! s:MarkdownMode()
+"   " set background=light
+"   " if exists("g:airline_section_a")
+"   "   AirlineTheme light
+"   " endif
+"   " set laststatus=2
+"   colorscheme Pencil
+" endfunction
 
 augroup markdown
   au!
@@ -425,10 +425,10 @@ augroup END
 
 " Other Filetypes {{{
 
-Plug 'vito-c/jq.vim'
-autocmd BufNewFile,BufReadPost *.taskrc set filetype=taskrc
-autocmd BufNewFile,BufReadPost *.bashrc set filetype=sh
-let g:is_bash = 1
+" Plug 'vito-c/jq.vim'
+" autocmd BufNewFile,BufReadPost *.taskrc set filetype=taskrc
+" autocmd BufNewFile,BufReadPost *.bashrc set filetype=sh
+" let g:is_bash = 1
 
 " }}}
 
@@ -445,11 +445,11 @@ set laststatus=2
 " }}}
 
 " GUI Only Options {{{
-if has("gui_running")
-    set transparency=3
-	set guifont=Input:h12
-	set linespace=2
-endif
+" if has("gui_running")
+"     set transparency=3
+" 	set guifont=Input:h12
+" 	set linespace=2
+" endif
 " }}}
 
 " Load Local {{{
