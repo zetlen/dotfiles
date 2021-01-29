@@ -21,6 +21,3 @@ alias nenv='printf "node $(node -v)\nnpm $(npm -v)\nyarn $(yarn --version)\n"'
 alias nreset='rm -rf ./node_modules && npm install'
 alias y=yarn
 alias yr='yarn run'
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh" # This loads nvm
