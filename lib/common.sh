@@ -7,6 +7,7 @@ export HISTSIZE=1000000 # 1 million lines in history, why not?
 export HISTCONTROL=ignoredups
 
 export COLONPIPE="zetlen@colonpipe.org:~/colonpipe.org/"
+export JAVA_HOME="`/usr/libexec/java_home`"
 
 alias la='ls -lahAFG'
 alias l='ls -lahp'
