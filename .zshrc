@@ -80,7 +80,7 @@ install_antibody_plugins() {
 }
 
 # set default node in lieu of having a default node in the system
-command -v node || nvm use default
+command -v node > /dev/null || nvm use default
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
