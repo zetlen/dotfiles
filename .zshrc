@@ -76,7 +76,7 @@ install_antibody_plugins() {
   do
     echo $plugin >> $(realpath ~/.zsh_plugins.txt)
   done
-  antibody bundle < ~/.zsh_plugins.txt > $(realpath ~/.zsh_plugins.sh) && source ~/.zsh_plugins.sh
+  antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh && source ~/.zsh_plugins.sh
 }
 
 # set default node in lieu of having a default node in the system
