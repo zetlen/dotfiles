@@ -98,3 +98,5 @@ driver = npx npm-merge-driver merge %A %O %B %P
 gpgsign = true
 [gpg]
 program = gpg
+[pull]
+	rebase = false
