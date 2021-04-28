@@ -1910,7 +1910,7 @@
 	<key>EnableProxyIcon</key>
 	<false/>
 	<key>EscapeShellCharsWithBackslash</key>
-	<false/>
+	<true/>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
 	<key>HideMenuBarInFullscreen</key>
@@ -4952,8 +4952,6 @@
 		</dict>
 	</dict>
 	<key>PreserveWindowSizeWhenTabBarVisibilityChanges</key>
-	<true/>
-	<key>PreventEscapeSequenceFromClearingHistory</key>
 	<true/>
 	<key>Print In Black And White</key>
 	<true/>
