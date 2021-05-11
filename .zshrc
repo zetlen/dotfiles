@@ -68,16 +68,17 @@ bindkey -M vicmd "${terminfo[kcbt]}" reverse-menu-complete
 # configure fast-zsh-nvm plugin
 AUTO_LOAD_NVMRC_FILES=true
 
-# antibody static config
-source ~/.zsh_plugins.sh
-
 install_antibody_plugins() {
   for plugin in "$@"
   do
     echo $plugin >> $(realpath ~/.zsh_plugins.txt)
   done
-  antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh && source ~/.zsh_plugins.sh
+  antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh && . ~/.zsh_plugins.sh
 }
+
+if command -v antibody > /dev/null; then
+  [ -e "${HOME}/.zsh_plugins.sh" ] && . ~/.zsh_plugins.sh || install_antibody_plugins
+fi
 
 # set default node in lieu of having a default node in the system
 command -v node > /dev/null || nvm use default
