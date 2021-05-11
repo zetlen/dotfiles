@@ -3,3 +3,4 @@
 **/query.state*
 **/autorun*
 **/snapshot.tar
+.zsh_plugins.sh

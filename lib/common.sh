@@ -12,6 +12,11 @@ export JAVA_HOME="`/usr/libexec/java_home`"
 alias la='ls -lahAFG'
 alias l='ls -lahp'
 alias ls='ls -p'
+if command -v exa &>/dev/null; then
+  alias l='exa -lahF --color-scale --git'
+  alias la='l --sort=accessed'
+  alias lt='l --sort=modified'
+fi
 alias cd..='cd ..'
 alias a='printf "\e]1;irc\a"; autossh -t -M 0 khmer@aram.xkcd.com "tmux attach -d -t irssi || tmux new -s irssi"'
 alias r="rsync -av -f\"- .git/\" --progress"
