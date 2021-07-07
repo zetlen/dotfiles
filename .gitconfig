@@ -6,14 +6,9 @@ ui = auto
 interactive = auto
 [interactive]
 diffFilter = delta --color-only
-[user]
-# name = zetlen
-email = jzetlen@adobe.com
-signingkey = 6776B54894A43E99
 [push]
 default = simple
 [core]
-excludesfile = /Users/jzetlen/.gitignore_global
 autocrlf = input
 editor = vim
 pager = delta
@@ -100,3 +95,5 @@ gpgsign = true
 program = gpg
 [pull]
 	rebase = false
+[init]
+	defaultBranch = main
