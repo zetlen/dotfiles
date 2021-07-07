@@ -71,8 +71,6 @@ rrbi = "!f(){ git checkout $1 && git pull && git checkout - && git rebase -i $1;
 required = true
 clean = git media clean %f
 smudge = git media smudge %f
-[credential]
-helper = osxkeychain
 [filter "utf8bom"]
 clean = utf8bomcat
 smudge = utf8bomcat
