@@ -1,3 +1,5 @@
+#!/bin/bash
+
 source "$HOME/.dotfiles/lib/common.sh"
 
 function require_tools() {
@@ -63,3 +65,24 @@ OSNAME="$(uname)"
 OSREQUIRED="$DOTFILE_PATH/lib/os.${OSNAME}.required_tools.txt"
 
 [ -f "$OSREQUIRED" ] && require_tools $OSREQUIRED
+
+echo 'Writing .gitconfig...'
+git config --global include.path ${DOTFILE_PATH}lib/gitconfig/common.gitconfig 'common.gitconfig'
+OSGITCONFIG="${DOTFILE_PATH}lib/gitconfig/os.${OSNAME}.gitconfig"
+[ -f "$OSGITCONFIG" ] && git config --global include.path $OSGITCONFIG "os.${OSNAME}.gitconfig"
+
+for file in ${REPO}/lib/gitconfig/tool.*.gitconfig; do
+  TOOLBASENAME="$(basename $file)"
+  TOOLNAME="${TOOLBASENAME#tool.}"
+  TOOLNAME="${TOOLNAME%.gitconfig}"
+  if command -v "$TOOLNAME" &>/dev/null; then
+    echo Found "$(which $TOOLNAME)"
+    git config --global include.path $file "${TOOLBASENAME}"
+  else
+    echo The "$TOOLNAME" command could not be found in PATH, skipping include "$file"
+  fi
+done
+
+echo 'Wrote gitconfig includes:'
+git config --show-origin --global --get-all include.path
+

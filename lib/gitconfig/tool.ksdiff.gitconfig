@@ -1,0 +1,14 @@
+[difftool "Kaleidoscope"]
+cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[diff]
+tool = Kaleidoscope
+[mergetool "Kaleidoscope"]
+keepBackup = false
+cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+trustexitcode = true
+[mergetool]
+keepBackup = false
+prompt = false
+[merge]
+tool = Kaleidoscope
+conflictstyle = diff3

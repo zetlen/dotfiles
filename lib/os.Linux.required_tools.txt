@@ -1,2 +1,5 @@
-tmux
 xclip
+delta
+meld
+libsecret
+antibody
