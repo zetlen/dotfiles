@@ -54,12 +54,6 @@ endfunction
 " }}}
 " Plugin Setup {{{
 
-set nocompatible              " be iMproved, required
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
 call plug#begin('~/.vim/plugged')
 
 " }}}
@@ -83,7 +77,6 @@ set smarttab                             " respond reasonably to tab key
 Plug 'editorconfig/editorconfig-vim'   " Use editorconfig
 Plug 'godlygeek/tabular'               " :Tabularize alignment command
 Plug 'nathanaelkane/vim-indent-guides' " indent guides on left
-autocmd VimEnter * :IndentGuidesEnable   " turn it on by default
 let g:indent_guides_auto_colors = 0
 
 " }}}
@@ -494,7 +487,11 @@ call plug#end()
 " }}}
 
 " Color Scheme Default {{{
-colorscheme Tomorrow-Night-Bright
+try
+  colorscheme Tomorrow-Night-Bright
+catch /^Vim\%((\a\+)\)\=:E185/
+    " deal with it
+endtry
 set laststatus=2
 " }}}
 
