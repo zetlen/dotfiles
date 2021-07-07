@@ -4,32 +4,13 @@ status = auto
 branch = auto
 ui = auto
 interactive = auto
-[interactive]
-diffFilter = delta --color-only
 [push]
 default = simple
 [core]
 autocrlf = input
 editor = vim
-pager = delta
-[delta]
-line-numbers = true
-[difftool "Kaleidoscope"]
-cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
-[diff]
-tool = Kaleidoscope
 [difftool]
 prompt = false
-[mergetool "Kaleidoscope"]
-keepBackup = false
-cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-trustexitcode = true
-[mergetool]
-keepBackup = false
-prompt = false
-[merge]
-tool = Kaleidoscope
-conflictstyle = diff3
 [alias]
 s = status
 a = !git add . && git status
@@ -87,13 +68,7 @@ enabled = true
 [merge "npm-merge-driver"]
 name = automatically merge npm lockfiles
 driver = npx npm-merge-driver merge %A %O %B %P
-[commit]
-gpgsign = true
-[gpg]
-program = gpg
 [pull]
 	rebase = false
 [init]
 	defaultBranch = main
-[include]
-  path = ~/.gitconfig.local
