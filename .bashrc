@@ -3,6 +3,9 @@
 # tell shellcheck to allow conditional sourcing
 # shellcheck disable=1090
 
+export HISTSIZE=1000000 # 1 million lines in history, why not?
+export HISTCONTROL=ignoredups
+
 # This import must be changed if DOTFILE_PATH changes.
 . ~/.dotfiles/lib/common.sh
 

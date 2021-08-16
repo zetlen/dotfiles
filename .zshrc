@@ -18,8 +18,15 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 alias p10k_update="git -C ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k pull"
 # User configuration
 
-unsetopt share_history
-setopt append_history
+# good history
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=100000
+SAVEHIST=10000
+setopt histignoredups
+setopt histignorespace
+setopt histreduceblanks
+setopt histfcntllock
+setopt histexpiredupsfirst
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
