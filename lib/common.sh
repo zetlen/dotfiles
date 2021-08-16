@@ -3,9 +3,6 @@
 export SVN_EDITOR="vim"
 export EDITOR="vim"
 
-export HISTSIZE=1000000 # 1 million lines in history, why not?
-export HISTCONTROL=ignoredups
-
 export COLONPIPE="zetlen@colonpipe.org:~/colonpipe.org/"
 export JAVA_HOME
 if [ -x "/usr/libexec/java_home" ]; then
