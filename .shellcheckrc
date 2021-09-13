@@ -1,0 +1,4 @@
+# quit complaining about dynamic paths
+
+source-path=SCRIPTDIR
+disable=SC1090,SC1091
