@@ -1,5 +1,5 @@
-xclip
-delta
-meld
-libsecret
-antibody
+gpg for signing commits and emails
+libsecret for strong cryptography through gpg
+antibody for managing zsh package
+nvm for managing Node packages
+tmux for persistent session

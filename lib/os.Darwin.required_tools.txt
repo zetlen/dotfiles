@@ -1,0 +1,7 @@
+gpg for signing git commits and msgs
+antibody for managing zsh plugins
+brew for managing MacOS packages
+ksdiff opens the Kaleidoscope GUI for git difftool
+vim for editing mind, losing text
+tmux for persistent sessions on remote services
+nvm for managing nodejs versions
