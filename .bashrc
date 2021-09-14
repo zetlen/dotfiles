@@ -76,4 +76,7 @@ complete -o default -F __lpass_complete_name 'lpass show'
 
 add_os_rc "$(uname)" "bash"
 
+NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
 [ ! -f ~/.bashrc.local ] || . ~/.bashrc.local
