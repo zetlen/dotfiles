@@ -172,6 +172,12 @@ set lbr
 " highlight last inserted text
 nnoremap gV `[v`]
 
+" make regexes very magic all the time
+" thus enabling modern regex features
+nnoremap / /\v
+vnoremap / /\v
+
+
 set backspace=indent,eol,start " backspace can move over lines
 set whichwrap+=<,>,h,l         " left and right can move over lines
 
