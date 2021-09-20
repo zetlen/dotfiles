@@ -89,6 +89,13 @@ if [ -t 1 ]; then
 	fi
 fi
 
+function sesh() {
+	local name
+	name="$(hostname -s)"
+	printf '\e]1;%s\a' "$name"
+	autossh -t -M 0 $1 "tmux attach -d -t $name || tmux new -s $name"
+}
+
 
 alias la='ls -lahAFG'
 alias l='ls -lahp'
@@ -99,7 +106,6 @@ if command -v exa >/dev/null; then
 	alias lt='l --sort=modified'
 fi
 alias cd..='cd ..'
-alias a='printf "\e]1;irc\a"; autossh -t -M 0 khmer@aram.xkcd.com "tmux attach -d -t irssi || tmux new -s irssi"'
 alias r="rsync -av -f\"- .git/\" --progress"
 alias g=git
 alias p="lpass show -c --password"
