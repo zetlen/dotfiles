@@ -21,6 +21,7 @@ set statusline+=»
 set statusline+=\ 
 set statusline+=%5*
 set statusline+=%l
+set statusline+=:%c
 set statusline+=/
 set statusline+=%L
 set statusline+=%1*
@@ -302,24 +303,24 @@ if &history < 1000
 endif
 
 " " Load matchit.vim, but only if the user hasn't installed a newer version.
-" if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
-"   runtime! macros/matchit.vim
-" endif
-"
-" let g:ycm_autoclose_preview_window_after_completion = 1
-" let g:ycm_autoclose_preview_window_after_insertion = 1
-" let g:ycm_key_list_select_completion = ["<TAB>","<Down>"]
-" function! BuildYCM(info)
-"   if a:info.status == 'installed' || a:info.force
-"     !./install.py --tern-completer
-"   endif
-" endfunction
-" Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
-"
-" Plug 'Raimondi/delimitMate' " autocomplete brackets and quotes
-" let delimitMate_expand_cr = 1   " create closing brace on <cr>
-" let delimitMate_expand_space = 1
-" let delimitMate_excluded_ft = "mail,txt,ghmarkdown,markdown"  " exclude filetypes
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+  runtime! macros/matchit.vim
+endif
+
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_key_list_select_completion = ["<TAB>","<Down>"]
+function! BuildYCM(info)
+  if a:info.status == 'installed' || a:info.force
+    !./install.py --tern-completer
+  endif
+endfunction
+Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+
+Plug 'Raimondi/delimitMate' " autocomplete brackets and quotes
+let delimitMate_expand_cr = 1   " create closing brace on <cr>
+let delimitMate_expand_space = 1
+let delimitMate_excluded_ft = "mail,txt,ghmarkdown,markdown"  " exclude filetypes
 
 Plug 'tpope/vim-surround'
 
@@ -327,38 +328,38 @@ Plug 'tpope/vim-surround'
 
 " CtrlP Options {{{
 
-" let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|\.build\|\.git\/'
-" Plug 'ctrlpvim/ctrlp.vim' " plugin for Sublime Text-like CtrlP
-" nnoremap <leader><c-p> :CtrlPMRUFiles<cr>
-" let g:ctrlp_max_files = 25000
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|\.build\|\.git\/'
+Plug 'ctrlpvim/ctrlp.vim' " plugin for Sublime Text-like CtrlP
+nnoremap <leader><c-p> :CtrlPMRUFiles<cr>
+let g:ctrlp_max_files = 25000
 
 " }}}
 
 " Syntastic {{{
 Plug 'vim-syntastic/syntastic'
 "
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 0
-" let g:syntastic_check_on_wq = 1
-" let g:syntastic_javascript_checkers = ['eslint']
-" let g:syntastic_typescript_tsc_fname = ''
-" let g:syntastic_sass_checkers=["sass_lint"]
-" let g:syntastic_scss_checkers=["sass_lint"]
-" " let g:syntastic_javascript_eslint_exec = 'eslint_d'
-" Plug 'pmsorhaindo/syntastic-local-eslint.vim'
-"
-" function! s:SyntaxSetup()
-"   let s:es6lintrc = findfile('.eslintes6rc')
-"   if filereadable(s:es6lintrc)
-"     let b:syntastic_javascript_eslint_args = "-c " . s:es6lintrc
-"   endif
-" endfunction
-"
-" augroup syntaxcheckers
-"   au!
-"   au BufRead,BufNewFile,BufEnter *.es6 :call s:SyntaxSetup()
-" augroup END
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 1
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_typescript_tsc_fname = ''
+let g:syntastic_sass_checkers=["sass_lint"]
+let g:syntastic_scss_checkers=["sass_lint"]
+" let g:syntastic_javascript_eslint_exec = 'eslint_d'
+Plug 'pmsorhaindo/syntastic-local-eslint.vim'
+
+function! s:SyntaxSetup()
+  let s:es6lintrc = findfile('.eslintes6rc')
+  if filereadable(s:es6lintrc)
+    let b:syntastic_javascript_eslint_args = "-c " . s:es6lintrc
+  endif
+endfunction
+
+augroup syntaxcheckers
+  au!
+  au BufRead,BufNewFile,BufEnter *.es6 :call s:SyntaxSetup()
+augroup END
 "
 " }}}
 
