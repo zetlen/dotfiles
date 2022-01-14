@@ -69,6 +69,10 @@ bindkey -M vicmd "${terminfo[kcbt]}" reverse-menu-complete
 # configure fast-zsh-nvm plugin
 AUTO_LOAD_NVMRC_FILES=true
 
+if [ -n "$IS_VSCODE_TERMINAL" ]; then
+	LOAD_NVMRC_ON_INIT=true
+fi
+
 install_antibody_plugins() {
   for plugin in "$@"
   do
