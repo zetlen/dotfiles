@@ -11,6 +11,8 @@ if [ -x "/usr/libexec/java_home" ]; then
 	JAVA_HOME="$(/usr/libexec/java_home)"
 fi
 
+export GPG_TTY=$(tty)
+
 #### friendly logging ####
 # color codes, blank until we know colors are supported
 __flog_color_standout=""
