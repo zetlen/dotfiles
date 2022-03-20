@@ -153,3 +153,4 @@ add_os_rc() {
 
 dotfile "lib/helpers-node.sh"
 dotfile "lib/helpers-tmux.sh"
+dotfile "lib/helpers-local.sh"
