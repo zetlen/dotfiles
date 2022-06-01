@@ -39,6 +39,11 @@ bindkey -v
 # get rid of keytimeout for command mode
 export KEYTIMEOUT=1
 
+# Enable Ctrl-x-e to edit command line
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
+
 bindkey "^?" backward-delete-char
 bindkey "${terminfo[kend]}" end-of-line
 bindkey "${terminfo[khome]}" beginning-of-line
