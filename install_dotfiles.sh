@@ -7,11 +7,16 @@ OSNAME="$(uname)"
 MISSING_TOOLS=()
 AVAILABLE_TOOLS=()
 
+die_bc() {
+	flog_error "$#"
+	exit 1
+}
+
 if REPO_PATH=$(git rev-parse --show-toplevel); then
 	TAGFMT="-wip-$(date '+%H%M%Z')"
 	flog_log "Installing zetlen dotfiles version" "${__flog_color_yellow}$(git describe --dirty="$TAGFMT" --tags --always)${__flog_color_normal}"
 else
-	flog_error "Cannot continue. This script must be run from the root of the zetlen/dotfiles Git repository, but no Git repository was detected."
+	die_bc "Cannot continue. This script must be run from the root of the zetlen/dotfiles Git repository, but no Git repository was detected."
 fi
 
 # prefixing all the step functions as a namespace
@@ -23,12 +28,11 @@ __zdi_steps[1]="Verifying paths"
 function __zdi_step1() {
 	EXPECTED_REPO_PATH="${HOME}/.dotfiles"
 	if [ "$REPO_PATH" != "$EXPECTED_REPO_PATH" ]; then
-		flog_error "Cannot continue. This repo is located in the directory ${REPO_PATH}, but it only works if it is checked out in ${EXPECTED_REPO_PATH}."
-		return 1
+		die_bc "Cannot continue. This repo is located in the directory ${REPO_PATH}, but it only works if it is checked out in ${EXPECTED_REPO_PATH}."
 	fi
 	flog_success "Repo path is $REPO_PATH"
 	if [ "$(pwd)" != "$REPO_PATH" ]; then
-		flog_error "Cannot continue from current directory $(pwd). This script must be executed from its own directory, which is ${REPO_PATH}."
+		die_bc "Cannot continue from current directory $(pwd). This script must be executed from its own directory, which is ${REPO_PATH}."
 		return 1
 	fi
 	flog_success "Current directory is repo root"
@@ -215,6 +219,7 @@ function __zdi_run_step() {
 	desc="${__zdi_steps[$1]}"
 	flog_log ''
 	flog_log "${__flog_color_standout}${desc}${__flog_color_normal} ($1 of $TOTAL_STEPS)"
+  read -p "Press any key to continue or Ctrl-C to stop"
 	flog_indent 2
 	"$fn"
 	flog_indent -2
