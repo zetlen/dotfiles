@@ -1,4 +1,3 @@
-libsecret for strong cryptography through gpg
+git-credential-manager-core for securing git credentials
 xclip for working with system clipboard
 tmux for persistent sessions on remote servers
-meld opens the Meld GUI for git difftool

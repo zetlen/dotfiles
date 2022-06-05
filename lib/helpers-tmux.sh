@@ -2,7 +2,6 @@
 
 if command -v tmux >/dev/null && contains "$TERM" "screen" && [ -n "$TMUX" ]; then
 	IN_TMUX="1"
-	GPG_TTY=$(tty)
 else
 	IN_TMUX=
 fi
