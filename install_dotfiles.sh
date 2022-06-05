@@ -188,7 +188,10 @@ function __zdi_step5() {
 
 __zdi_steps[6]="Download bash-only extras"
 function __zdi_step6() {
-	[ -f "$HOME/.bash-git-prompt/gitprompt.sh" ] || flog_warn "Git prompt not found. Clone bash-git-prompt repository to .bash-git-prompt"
+	if [ ! -f "$HOME/.bash-git-prompt/gitprompt.sh" ]; then
+    flog_warn "Git prompt not found. Cloning bash-git-prompt repository to .bash-git-prompt"
+    git clone --depth=1 https://github.com/magicmonty/bash-git-prompt.git "$HOME/.bash-git-prompt"
+  fi
 	if [ -s "$BASH_VERSION" ] && [ ! -f ~/.git-completion.bash ]; then
 		TO_DOWNLOAD="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 		flog_warn "Missing ~/.git-completion.bash file. Downloading $TO_DOWNLOAD"
