@@ -108,7 +108,8 @@ if command -v exa >/dev/null; then
 	alias lt='l --sort=modified'
 fi
 alias cd..='cd ..'
-alias r="rsync -av -f\"- .git/\" --progress"
+alias r="rsync -avhzPC" # skip .git and other common skips
+alias rr="rsync -avhzP" # don't skip that
 alias g=git
 alias p="lpass show -c --password"
 alias u="lpass show -c --username"
