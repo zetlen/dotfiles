@@ -1,6 +1,3 @@
-# must happen before initialization of p10k or other async things
-GPG_TTY=$TTY
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -121,3 +118,7 @@ zinit for \
 
 # To customize prompt, run `p10k configure` or edit ~/.dotfiles/.p10k.zsh.
 [[ ! -f ~/.dotfiles/.p10k.zsh ]] || source ~/.dotfiles/.p10k.zsh
+#
+# must happen after initialization of p10k and other async things
+GPG_TTY=$TTY
+
