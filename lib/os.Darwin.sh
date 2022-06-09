@@ -33,23 +33,6 @@ configure_osx_as_zetlen() {
 	fi
 }
 
-update_vim() {
-	echo "Are you sure? This quits all thine vims. [y/N]"
-	read -r
-	echo
-	if [[ $REPLY =~ ^[Yy]$ ]]; then
-		sudo killall vim 2>/dev/null
-		if brew upgrade && brew update && vim +PlugUpgrade +PlugUpdate +qall; then
-			read -p "Try to compile YouCompleteMe with cd ~/.vim/plugged/YouCompleteMe/ && python3 ./install.py --all" -r
-			echo
-			if [[ $REPLY =~ ^[Yy]$ ]]; then
-				echo Installing YouCompleteMe...
-				cd ~/.vim/plugged/YouCompleteMe/ && python3 ./install.py --all
-			fi
-		fi
-	fi
-}
-
 free_port() {
 	kill -9 "$(lsof -t -i tcp:"$1")"
 }
