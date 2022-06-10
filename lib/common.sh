@@ -61,7 +61,7 @@ if [ -t 1 ]; then
 		__flog_color_green="$(tput setaf 2)"
 		__flog_color_yellow="$(tput setaf 3)"
 
-    __flog_sym_success=$'\xE2\x9C\x94\xEF\xB8\x8E'
+		__flog_sym_success=$'\xE2\x9C\x94\xEF\xB8\x8E'
 		__flog_sym_warn=$'\xE2\x9A\xA0'
 		__flog_sym_error=$'\xE2\x9C\x96\xEF\xB8\x8E'
 
@@ -84,9 +84,9 @@ if [ -t 1 ]; then
 		function flog_error() {
 			__flog_loglevel "$__flog_color_red" "$__flog_sym_error" "$*"
 		}
-    function flog_success() {
+		function flog_success() {
 			__flog_loglevel "$__flog_color_green" "$__flog_sym_success" "$*"
-    }
+		}
 
 	fi
 fi
@@ -97,7 +97,6 @@ function sesh() {
 	printf '\e]1;%s\a' "$name"
 	autossh -t -M 0 $1 "tmux attach -d -t $name || tmux new -s $name"
 }
-
 
 alias la='ls -lahAFG'
 alias l='ls -lahp'
