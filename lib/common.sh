@@ -156,7 +156,6 @@ add_os_rc() {
 	dotfile "lib/os.${THE_OS}.${THE_SHELL}rc" 2>/dev/null || true
 }
 
-dotfile "lib/helpers-node.sh"
-dotfile "lib/helpers-tmux.sh"
-dotfile "lib/helpers-local.sh"
-dotfile "lib/helpers-vim.sh"
+for file in "$DOTFILE_PATH"/lib/helpers-*.sh; do
+	. "$file"
+done
