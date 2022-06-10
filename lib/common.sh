@@ -31,16 +31,16 @@ flog_indent() {
 }
 
 # fallback style
-function flog_log() {
+flog_log() {
 	echo -e "[INFO]: ${__flog_tab}$*"
 }
-function flog_warn() {
+flog_warn() {
 	echo -e "[WARNING]: ${__flog_tab}$*" >&2
 }
-function flog_error() {
+flog_error() {
 	echo -e "[ERROR]: ${__flog_tab}$*" >&2
 }
-function flog_success() {
+flog_success() {
 	echo -e "[SUCCESS]: ${__flog_tab}$*"
 }
 
@@ -64,11 +64,11 @@ if [ -t 1 ]; then
 		__flog_sym_error=$'\xE2\x9C\x96\xEF\xB8\x8E'
 
 		# and make the logging functions human-friendly
-		function flog_log() {
+		flog_log() {
 			echo -e "${__flog_tab}${*}${__flog_color_normal}"
 		}
 
-		function __flog_loglevel() {
+		__flog_loglevel() {
 			local sym
 			local prefix
 			sym="$1${__flog_color_standout} $2 ${__flog_color_normal}$1"
@@ -76,20 +76,20 @@ if [ -t 1 ]; then
 			shift
 			flog_log "$sym $*"
 		}
-		function flog_warn() {
+		flog_warn() {
 			__flog_loglevel "$__flog_color_yellow" "$__flog_sym_warn" "$*"
 		}
-		function flog_error() {
+		flog_error() {
 			__flog_loglevel "$__flog_color_red" "$__flog_sym_error" "$*"
 		}
-		function flog_success() {
+		flog_success() {
 			__flog_loglevel "$__flog_color_green" "$__flog_sym_success" "$*"
 		}
 
 	fi
 fi
 
-function sesh() {
+sesh() {
 	local name
 	name="$(hostname -s)"
 	printf '\e]1;%s\a' "$name"
