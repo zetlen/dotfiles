@@ -71,13 +71,6 @@ bindkey -M vicmd "${terminfo[kpp]}" beginning-of-buffer-or-history
 bindkey -M vicmd "${terminfo[knp]}" end-of-buffer-or-history
 bindkey -M vicmd "${terminfo[kcbt]}" reverse-menu-complete
 
-# configure fast-zsh-nvm plugin
-AUTO_LOAD_NVMRC_FILES=true
-
-if [ -n "$IS_VSCODE_TERMINAL" ]; then
-	LOAD_NVMRC_ON_INIT=true
-fi
-
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
