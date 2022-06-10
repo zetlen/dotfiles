@@ -1,5 +1,0 @@
-romkatv/powerlevel10k
-mafredri/zsh-async
-allanjamesvestal/fast-zsh-nvm
-jeffreytse/zsh-vi-mode
-chrisands/zsh-yarn-completions
