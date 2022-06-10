@@ -1,6 +1,6 @@
 gpg for signing git commits and msgs
-zinit for managing zsh plugins
 vim for editing my mind, and losing text
+asdf for tool version management
 exa improves the ls command
 delta (git-delta) improves the git pager a lot
 lpass for using lastpass credentials

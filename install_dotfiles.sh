@@ -202,13 +202,6 @@ function __zdi_step6() {
 		curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash >~/.git-completion.bash
 	fi
 	flog_success "Git prompt and completion are installed."
-	NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-	if [ ! -e "$NVM_DIR/nvm.sh" ]; then
-		TO_DOWNLOAD="https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh"
-		flog_warn "nvm is not installed. Downloading and running $TO_DOWNLOAD"
-		curl -o- "$TO_DOWNLOAD" | bash
-	fi
-	flog_success "NVM is installed."
 }
 
 TOTAL_STEPS="${#__zdi_steps[@]}"
