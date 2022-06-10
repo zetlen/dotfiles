@@ -17,6 +17,9 @@ add_os_rc "$OSNAME" "zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 # User configuration
 
+# tweaks
+setopt +o nomatch
+
 # good history
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=100000
