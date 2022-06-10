@@ -67,4 +67,6 @@ add_os_rc "$(uname)" "bash"
 
 . "$HOME"/.asdf/completions/asdf.bash
 
+export GPG_TTY=$(tty)
+
 [ ! -f ~/.bashrc.local ] || . ~/.bashrc.local
