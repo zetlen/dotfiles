@@ -45,7 +45,7 @@ export KEYTIMEOUT=1
 # Enable Ctrl-x-e to edit command line
 autoload -U edit-command-line
 zle -N edit-command-line
-bindkey -M vicmd v edit-command-line
+bindkey '^X^E' edit-command-line
 
 bindkey "^?" backward-delete-char
 bindkey "${terminfo[kend]}" end-of-line
