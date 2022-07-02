@@ -3,10 +3,22 @@
 export HISTSIZE=1000000 # 1 million lines in history, why not?
 export HISTCONTROL=ignoredups
 
+try_src() {
+	for spath in "$@"
+	do
+		[ -a "$spath" ] && [ -r "$spath" ] && . "$spath"
+	done
+}
+
+try_homesrc() {
+	for spath in "$@"
+	do
+		try_src "$HOME/$spath"
+	done
+}
+
 # This import must be changed if DOTFILE_PATH changes.
 . ~/.dotfiles/lib/common.sh
-
-dotfile "lib/helpers-tmux.sh"
 
 function prompt_callback() {
 	local EXTRAS
@@ -21,52 +33,23 @@ function prompt_callback() {
 	if [ -n "$EXTRAS" ]; then echo "$EXTRAS"; fi
 }
 
-if [ -f /usr/local/etc/bash_completion ]; then
-	# tell shellcheck to stop complaining about conditional includes
-	# shellcheck disable=1091
-	. /usr/local/etc/bash_completion
-fi
+try_src "${__HOMEBREW_PREFIX}/etc/bash_completion"
 
-if [ -f ~/.git-completion.bash ]; then
-	. ~/.git-completion.bash
-elif [ -f /usr/local/etc/bash_completion.d/git ]; then
-	# tell shellcheck to stop complaining about conditional includes
-	# shellcheck disable=1091
-	. /usr/local/etc/bash_completion.d/git
-elif [ -f /etc/bash_completion.d/git ]; then
-	# shellcheck disable=1091
-	. /etc/bash_completion.d/git
-fi
+try_homesrc ".bash-git-prompt/gitprompt.sh"
+
+try_src /usr/local/etc/bash_completion \
+	"${__HOMEBREW_PREFIX}/etc/bash_completion"
+
+try_homesrc .git-completion.bash || try_src \
+	/etc/bash_completion.d/git \
+	/usr/local/etc/bash_completion.d/git \
 
 [ -x "$(command -v __git_complete)" ] && __git_complete g __git_main
 
-#!/bin/bash
-
-if [[ -f ${__HOMEBREW_PREFIX}/etc/bash_completion ]]; then
-	. "${__HOMEBREW_PREFIX}/etc/bash_completion"
-fi
-
-__lpass_complete_name() {
-	local cur="$2"
-	local matches
-
-	# matches on full path
-	matches=$(lpass ls --sync=no | grep -E "^$cur" | awk '{print $1}')
-	# matches on leaves
-	matches+=$(lpass ls --sync=no | grep -E "/$cur" | sed -e "s/ \\[id.*//g" |
-		awk -F '/' '{print $NF}')
-
-	while IFS=$'\n' read -r line; do COMPREPLY+=("$line"); done < <(compgen -W "$matches" "$cur")
-}
-
-complete -o default -F __lpass_complete_name p
-complete -o default -F __lpass_complete_name u
-complete -o default -F __lpass_complete_name 'lpass show'
-
 add_os_rc "$(uname)" "bash"
 
-. "$HOME"/.asdf/completions/asdf.bash
+try_homesrc .cargo/env .asdf/completions/asdf.bash
+
+try_homesrc .bashrc.local
 
 export GPG_TTY=$(tty)
-
-[ ! -f ~/.bashrc.local ] || . ~/.bashrc.local
