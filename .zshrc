@@ -29,13 +29,12 @@ setopt histignorespace
 setopt histreduceblanks
 setopt histfcntllock
 setopt histexpiredupsfirst
+setopt appendhistory
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
-
-[ ! -f ~/.zshrc.local ] || . ~/.zshrc.local
 
 # vim keybindings
 bindkey -v
@@ -90,24 +89,26 @@ if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
 fi
 
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
+# autoload -Uz _zinit
+# (( ${+_comps} )) && _comps[zinit]=_zinit
 
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
-zinit light-mode for \
-    zdharma-continuum/zinit-annex-as-monitor \
-    zdharma-continuum/zinit-annex-bin-gem-node \
-    zdharma-continuum/zinit-annex-patch-dl \
-    zdharma-continuum/zinit-annex-rust
+zinit light-mode for zdharma-continuum/zinit-annex-as-monitor zdharma-continuum/zinit-annex-bin-gem-node zdharma-continuum/zinit-annex-patch-dl zdharma-continuum/zinit-annex-rust
 
 ### End of Zinit's installer chunk
 
-zinit for \
-  romkatv/powerlevel10k \
-  mafredri/zsh-async \
-  jeffreytse/zsh-vi-mode \
-  chrisands/zsh-yarn-completions \
+### Beginning of Zinit's configuration chunk
+
+zinit light romkatv/powerlevel10k
+
+zinit wait lucid for mafredri/zsh-async jeffreytse/zsh-vi-mode chrisands/zsh-yarn-completions \
+
+zinit wait lucid for \
+   atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+       zdharma-continuum/fast-syntax-highlighting
+
+# End of Zinit's configuration chunk
 
 # To customize prompt, run `p10k configure` or edit ~/.dotfiles/.p10k.zsh.
 [[ ! -f ~/.dotfiles/.p10k.zsh ]] || source ~/.dotfiles/.p10k.zsh
@@ -115,3 +116,4 @@ zinit for \
 # must happen after initialization of p10k and other async things
 GPG_TTY=$TTY
 
+[ ! -f ~/.zshrc.local ] || . ~/.zshrc.local
