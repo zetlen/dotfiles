@@ -94,7 +94,11 @@ source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
-zinit light-mode for zdharma-continuum/zinit-annex-as-monitor zdharma-continuum/zinit-annex-bin-gem-node zdharma-continuum/zinit-annex-patch-dl zdharma-continuum/zinit-annex-rust
+zinit light-mode for \
+	zdharma-continuum/zinit-annex-as-monitor \
+	zdharma-continuum/zinit-annex-bin-gem-node \
+	zdharma-continuum/zinit-annex-patch-dl \
+	zdharma-continuum/zinit-annex-rust
 
 ### End of Zinit's installer chunk
 
@@ -102,15 +106,16 @@ zinit light-mode for zdharma-continuum/zinit-annex-as-monitor zdharma-continuum/
 
 zinit light romkatv/powerlevel10k
 
-zinit wait lucid for \
-	mafredri/zsh-async \
-	jeffreytse/zsh-vi-mode \
-	chrisands/zsh-yarn-completions \
-	redxtech/zsh-asdf-direnv
+zinit pack"bgn+keys" for fzf
 
 zinit wait lucid for \
-   atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
-       zdharma-continuum/fast-syntax-highlighting
+	OMZL::clipboard.zsh \
+	mafredri/zsh-async \
+	jeffreytse/zsh-vi-mode \
+	redxtech/zsh-asdf-direnv \
+	Game4Move78/zsh-bitwarden \
+	atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+		zdharma-continuum/fast-syntax-highlighting
 
 # End of Zinit's configuration chunk
 
