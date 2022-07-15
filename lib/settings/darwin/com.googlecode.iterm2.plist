@@ -8,6 +8,8 @@
 	<true/>
 	<key>AllowClipboardAccess</key>
 	<false/>
+	<key>AlternateMouseScroll</key>
+	<true/>
 	<key>BadgeFont</key>
 	<string>Fira Code</string>
 	<key>BadgeFontIsBold</key>
