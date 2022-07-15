@@ -34,7 +34,19 @@ configure_osx_as_zetlen() {
 }
 
 free_port() {
-	kill -9 "$(lsof -t -i tcp:"$1")"
+	local pids="$(lsof -t -i tcp:"$1" | xargs)"
+	if [ -z "$pids" ]; then
+		echo "Found no processes bound to port $1"
+	else
+		echo "Processes bound to port $1:"
+		echo "$pids" | tr ' ' ',' | xargs ps -o pid,command -p
+		echo "Kill them [y/N]?"
+		read -r
+		echo
+		if [[ $REPLY =~ ^[Yy]$ ]]; then
+			kill -9 $pids
+		fi
+	fi
 }
 
 if [ "$IN_TMUX" -eq "1" ]; then
