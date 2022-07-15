@@ -33,22 +33,6 @@ configure_osx_as_zetlen() {
 	fi
 }
 
-free_port() {
-	local pids="$(lsof -t -i tcp:"$1" | xargs)"
-	if [ -z "$pids" ]; then
-		echo "Found no processes bound to port $1"
-	else
-		echo "Processes bound to port $1:"
-		echo "$pids" | tr ' ' ',' | xargs ps -o pid,command -p
-		echo "Kill them [y/N]?"
-		read -r
-		echo
-		if [[ $REPLY =~ ^[Yy]$ ]]; then
-			kill -9 $pids
-		fi
-	fi
-}
-
 if [ "$IN_TMUX" -eq "1" ]; then
 	tmux bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel pbcopy
 fi
