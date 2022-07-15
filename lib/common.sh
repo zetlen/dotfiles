@@ -143,6 +143,23 @@ contains() {
 	fi
 }
 
+free_port() {
+	local pids="$(lsof -t -i tcp:"$1" | xargs)"
+	if [ -z "$pids" ]; then
+		echo "Found no processes bound to port $1"
+	else
+		echo "Processes bound to port $1:"
+		echo "$pids" | tr ' ' ',' | xargs ps -o pid,command -p
+		echo "Kill them [y/N]?"
+		read -r
+		echo
+		if [[ $REPLY =~ ^[Yy]$ ]]; then
+			kill -9 $pids
+		fi
+	fi
+}
+
+
 DOTFILE_PATH="$HOME/.dotfiles/"
 
 # POSIX-compatible sourcing
