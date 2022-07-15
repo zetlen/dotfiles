@@ -102,7 +102,11 @@ zinit light-mode for zdharma-continuum/zinit-annex-as-monitor zdharma-continuum/
 
 zinit light romkatv/powerlevel10k
 
-zinit wait lucid for mafredri/zsh-async jeffreytse/zsh-vi-mode chrisands/zsh-yarn-completions \
+zinit wait lucid for \
+	mafredri/zsh-async \
+	jeffreytse/zsh-vi-mode \
+	chrisands/zsh-yarn-completions \
+	redxtech/zsh-asdf-direnv
 
 zinit wait lucid for \
    atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
