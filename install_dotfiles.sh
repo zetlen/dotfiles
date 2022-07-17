@@ -158,8 +158,8 @@ function __zdi_step3() {
 
 __zdi_steps[4]="Writing gitconfig"
 function __zdi_step4() {
-  git config --global user.name = "$(whoami)"
-  git config --global user.email = "zetlen@gmail.com"
+  git config --global user.name "$(whoami)"
+  git config --global user.email "zetlen@gmail.com"
 	git config --global include.path "${DOTFILE_PATH}"lib/gitconfig/common.gitconfig 'common.gitconfig'
 	OSGITCONFIG="${DOTFILE_PATH}lib/gitconfig/os.${OSNAME}.gitconfig"
 	[ -f "$OSGITCONFIG" ] && git config --global include.path "$OSGITCONFIG" "os.${OSNAME}.gitconfig"
