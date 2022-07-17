@@ -112,6 +112,7 @@ alias p="lpass show -c --password"
 alias u="lpass show -c --username"
 alias unixify="find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix"
 alias exifkill="exiftool -all= "
+alias wvim='vim -u ~/.vimrc_txt'
 
 mdcd() {
 	mkdir -p "$*" && cd "$*" || return
