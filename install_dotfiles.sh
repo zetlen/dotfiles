@@ -101,59 +101,7 @@ function __zdi_step2() {
 
 __zdi_steps[3]="Symlinking dotfiles to homedir"
 function __zdi_step3() {
-	NOCOPY=('.' '..' '.git' '.gitignore' '.editorconfig' '.shellcheckrc')
-	NOCOPYTYPE=('swp')
-	NUM_SYMLINKED=0
-	NUM_IGNORED=0
-	NUM_SKIPPED=0
-	flog_log "Ignoring:"
-	flog_indent 1
-	for to_ignore in "${NOCOPY[@]}"; do
-		flog_log "$to_ignore"
-		NUM_IGNORED=$((NUM_IGNORED + 1))
-	done
-	for to_ignore in "${NOCOPYTYPE[@]}"; do
-		flog_log ".${to_ignore} files"
-		NUM_IGNORED=$((NUM_IGNORED + 1))
-	done
-	flog_indent -1
-	flog_log "${__flog_color_yellow}Linking:"
-	flog_indent 1
-	for file in "${REPO_PATH}"/.*; do
-		FILENAME=$(basename "$file")
-		TARGET=~/"$FILENAME"
-		for to_ignore in "${NOCOPY[@]}"; do
-			if [ "$FILENAME" == "$to_ignore" ]; then
-				continue 2
-			fi
-		done
-		for to_ignore in "${NOCOPYTYPE[@]}"; do
-			if [ "${FILENAME##*.}" == "$to_ignore" ]; then
-				continue 2
-			fi
-		done
-		if [ -L "$TARGET" ]; then
-			EXISTING_SYMLINK=$(realpath "$TARGET")
-			if [ "$file" != "$EXISTING_SYMLINK" ]; then
-				flog_warn "Not symlinking $FILENAME because $TARGET exists and is a symlink to ${EXISTING_SYMLINK}."
-				NUM_SKIPPED=$((NUM_SKIPPED + 1))
-				continue
-			fi
-			rm "$TARGET"
-		elif [ -e "$TARGET" ]; then
-			flog_warn "Not symlinking $FILENAME because $TARGET already exists."
-			NUM_SKIPPED=$((NUM_SKIPPED + 1))
-			continue
-		fi
-		if ln -s "$file" "$TARGET"; then
-			flog_log "${__flog_color_green}Symlinked ~/${FILENAME} ${__flog_color_normal} -> $file"
-			NUM_SYMLINKED=$((NUM_SYMLINKED + 1))
-		fi
-	done
-	flog_indent -1
-	flog_log "$NUM_IGNORED files ignored by ignore rules."
-	flog_success "$NUM_SYMLINKED dotfiles symlinked to homedir."
-	[ "$NUM_SKIPPED" -gt 0 ] && flog_warn "$NUM_SKIPPED files skipped due to conflicts."
+	cp -saif "$(realpath ${DOTFILE_PATH})/skel/" $HOME
 }
 
 __zdi_steps[4]="Writing gitconfig"
