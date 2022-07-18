@@ -101,7 +101,36 @@ function __zdi_step2() {
 
 __zdi_steps[3]="Symlinking dotfiles to homedir"
 function __zdi_step3() {
-	cp -saif "$(realpath ${DOTFILE_PATH})/skel/" $HOME
+	flog_indent 1
+	src_dir="${DOTFILE_PATH}skel/"
+	for f in $(find $src_dir -type f -exec realpath --relative-to="$src_dir" {} \;); do
+		src_path="${src_dir}$f"
+		tgt_path="$HOME/$f"
+		tgt_dir="$(dirname $tgt_path)" 
+		if [ ! -d "$tgt_dir" ]; then
+			flog_log Creating directory $tgt_dir
+			mkdir -p "$tgt_dir"
+		fi
+		if [ -L "$tgt_path" ]; then
+			tgt_orig="$(realpath $tgt_path)"
+			if [ "$tgt_orig" == "$src_path" ]; then
+				flog_log "$f is already symlinked to $src_path"
+			elif [ "${tgt_orig#$DOTFILE_PATH}" == "$tgt_orig" ]; then
+				flog_warn "Not symlinking $src_path because $f is already symlinked to $tgt_orig."
+			else
+				flog_log "Updating symlink of $f to $src_path"
+				rm "$tgt_path"
+				ln -s "$src_path" "$tgt_path"
+				flog_success "Symlinked $f to $src_path"
+			fi
+		elif [ -f "$tgt_path" ]; then
+			flog_warn "Not symlinking $src_path because $tgt_path already exists."
+		else
+			ln -s "$src_path" "$tgt_path"
+			flog_success "Symlinked $f to $src_path"
+		fi
+	done
+	flog_success All dotfiles symlinked.
 }
 
 __zdi_steps[4]="Writing gitconfig"
