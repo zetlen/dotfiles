@@ -1,2 +1,8 @@
-brew is required for package management
-ksdiff opens the Kaleidoscope GUI for git difftool
+git	required	version control	xcode-select --install
+brew	required	package management	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+vim	required	editing my mind, and losing text	brew install vim
+asdf	optional	tool version management	brew install asdf
+exa	optional	improved ls	brew install exa
+delta	optional	improved git pager	brew install git-delta
+ksdiff	optional	diff gui	open https://kaleidoscope.app
+gpg	optional	signing git commits and msgs	open https://gpgtools.org/
