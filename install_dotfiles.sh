@@ -2,21 +2,23 @@
 # shellcheck disable=SC2059,SC2034
 
 . "$HOME/.dotfiles/lib/common.sh"
+. "$HOME/.dotfiles/lib/logging.sh"
 
-OSNAME="$(uname)"
-MISSING_TOOLS=()
-AVAILABLE_TOOLS=()
+OSNAME="$(get_os_id)"
 
 die_bc() {
-	flog_error "$#"
+	flog_error "Cannot proceed! $@"
 	exit 1
 }
+
+MISSING_TOOLS=()
+AVAILABLE_TOOLS=()
 
 if REPO_PATH=$(git rev-parse --show-toplevel); then
 	TAGFMT="-wip-$(date '+%H%M%Z')"
 	flog_log "Installing zetlen dotfiles version" "${__flog_color_yellow}$(git describe --dirty="$TAGFMT" --tags --always)${__flog_color_normal}"
 else
-	die_bc "Cannot continue. This script must be run from the root of the zetlen/dotfiles Git repository, but no Git repository was detected."
+	die_bc "This script must be run from the root of the zetlen/dotfiles Git repository, but no Git repository was detected."
 fi
 
 # prefixing all the step functions as a namespace
@@ -28,11 +30,11 @@ __zdi_steps[1]="Verifying paths"
 function __zdi_step1() {
 	EXPECTED_REPO_PATH="${HOME}/.dotfiles"
 	if [ "$REPO_PATH" != "$EXPECTED_REPO_PATH" ]; then
-		die_bc "Cannot continue. This repo is located in the directory ${REPO_PATH}, but it only works if it is checked out in ${EXPECTED_REPO_PATH}."
+		die_bc "This repo is located in the directory ${REPO_PATH}, but it only works if it is checked out in ${EXPECTED_REPO_PATH}."
 	fi
 	flog_success "Repo path is $REPO_PATH"
 	if [ "$(pwd)" != "$REPO_PATH" ]; then
-		die_bc "Cannot continue from current directory $(pwd). This script must be executed from its own directory, which is ${REPO_PATH}."
+		die_bc "Current directory is $(pwd). This script must be executed from its own directory, which is ${REPO_PATH}."
 		return 1
 	fi
 	flog_success "Current directory is repo root"
@@ -45,12 +47,7 @@ function __zdi_step2() {
 	__OLDIFS="$IFS"
 	IFS=$'\n'
 
-	REQUIRED_TOOLS=("${DOTFILE_PATH}lib/common.required_tools.txt")
-
-	OS_REQUIRED_TOOLS="${DOTFILE_PATH}lib/os.${OSNAME}.required_tools.txt"
-	if [ -s "$OS_REQUIRED_TOOLS" ]; then
-		REQUIRED_TOOLS+=("$OS_REQUIRED_TOOLS")
-	fi
+	REQUIRED_TOOLS="${DOTFILE_PATH}lib/os/${OSNAME}/tools.txt"
 	flog_log "Required tools for ${OSNAME}:"
 	flog_indent 1
 	PAD_LENGTH=6
@@ -194,6 +191,10 @@ function __zdi_run_step() {
 	"$fn"
 	flog_indent -2
 }
+
+if [ ! -d "${DOTFILE_PATH}lib/os/${OSNAME}/" ]; then
+	die_bc "Unknown OS '${OSNAME}'. Gotta install everything manually."
+fi
 
 if [ -n "$RUN_STEP" ]; then
 	__zdi_run_step "$RUN_STEP"
