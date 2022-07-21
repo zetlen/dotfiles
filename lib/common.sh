@@ -11,13 +11,6 @@ if [ -x "/usr/libexec/java_home" ]; then
 	JAVA_HOME="$(/usr/libexec/java_home)"
 fi
 
-sesh() {
-	local name
-	name="$(hostname -s)"
-	printf '\e]1;%s\a' "$name"
-	autossh -t -M 0 $1 "tmux attach -d -t $name || tmux new -s $name"
-}
-
 alias la='ls -lahAFG'
 alias l='ls -lahp'
 alias ls='ls -p'
@@ -76,30 +69,57 @@ free_port() {
 	fi
 }
 
+normalize_dir() {
+	# Join all arguments by /
+	local IFS=$'/'
+	local the__path="$*"
+	
+	# Remove all multiple slashes ///
+	the__path=$(echo "$the__path" | tr -s /)
 
-DOTFILE_PATH="$HOME/.dotfiles/"
+	# Remove all /./ sequences.
+	the__path=${the__path//\/.\//\/}
+
+	# Remove any final trailing slash.
+	echo "${the__path%/}"
+}
+
+DOTFILE_PATH="$(normalize_dir $HOME .dotfiles)"
 
 # POSIX-compatible sourcing
 dotfile() {
 	# shellcheck disable=SC1090
-	. "$DOTFILE_PATH/$1"
+	. "$(normalize_dir $DOTFILE_PATH $1)"
 }
 
 get_os_id() {
-	if [ -e /etc/os-release ]; then
+	KERNEL_ID="$(uname | tr '[:upper:]' '[:lower:]')";
+	if [ "$KERNEL_ID" == "linux" ] && [ -e /etc/os-release ]; then
 		. /etc/os-release
-		echo $ID
+		echo "$KERNEL_ID/$ID"
 	else
-		uname | tr '[:upper:]' '[:lower:]'
+		echo "$KERNEL_ID"
 	fi
 }
 
+get_os_dotfile_path() {
+	local osid="$(get_os_id)"
+	local ospaths="$(normalize_dir $DOTFILE_PATH os)"
+	local osidpath="$(normalize_dir $ospaths $osid)"
+	if [ ! -d "$osidpath" ]; then
+		osidpath="$(dirname $osidpath)"
+		osidpath="$(normalize_dir $osidpath generic)"
+	fi
+	if [ ! -d "$osidpath" ]; then
+		osidpath="$(normalize_dir $ospaths generic)"
+	fi
+	echo $osidpath
+}
+
 add_os_rc() {
-	THE_OS="$(get_os_id)"
 	THE_SHELL="$2"
 	# fail silently if it doesn't exist
-	dotfile "lib/os.${THE_OS}.sh" 2>/dev/null || true
-	dotfile "lib/os.${THE_OS}.${THE_SHELL}rc" 2>/dev/null || true
+	. "$(get_os_dotfile_path)/.${THE_SHELL}rc" 2>/dev/null || true
 }
 
 for file in "$DOTFILE_PATH"/lib/helpers-*.sh; do

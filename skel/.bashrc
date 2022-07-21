@@ -46,7 +46,7 @@ try_homesrc .git-completion.bash || try_src \
 
 [ -x "$(command -v __git_complete)" ] && __git_complete g __git_main
 
-add_os_rc "$(uname)" "bash"
+add_os_rc "bash"
 
 try_homesrc .cargo/env .asdf/completions/asdf.bash
 

@@ -1,3 +1,0 @@
-git-credential-manager-core for securing git credentials
-xclip for working with system clipboard
-tmux for persistent sessions on remote servers

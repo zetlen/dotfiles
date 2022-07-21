@@ -19,17 +19,29 @@ flog_indent() {
 }
 
 # fallback style
+flog_confirm() {
+	printf "\n[CONFIRM]: %s%s [Y/n]" "${__flog_tab}" "$*"
+	read -r
+	printf "\n"
+	if [[ $REPLY =~ ^[Yy]$ ]]; then
+		echo Y
+		return 0
+	else
+		echo Cancelling
+		return 1
+	fi
+}
 flog_log() {
-	echo -e "[INFO]: ${__flog_tab}$*"
+	printf "[INFO]: ${__flog_tab}%s\n" "$*"
 }
 flog_warn() {
-	echo -e "[WARNING]: ${__flog_tab}$*" >&2
+	printf "[WARNING]: ${__flog_tab}%s\n" "$*" >&2
 }
 flog_error() {
-	echo -e "[ERROR]: ${__flog_tab}$*" >&2
+	printf "[ERROR]: ${__flog_tab}%s\n" "$*" >&2
 }
 flog_success() {
-	echo -e "[SUCCESS]: ${__flog_tab}$*"
+	printf "[SUCCESS]: ${__flog_tab}%s\n" "$*"
 }
 
 # but if stdout is a terminal...
@@ -46,14 +58,30 @@ if [ -t 1 ]; then
 		__flog_color_red="$(tput setaf 1)"
 		__flog_color_green="$(tput setaf 2)"
 		__flog_color_yellow="$(tput setaf 3)"
+		__flog_color_confirm="$(tput setaf 4)"
 
+		__flog_sym_confirm=$'\xC2\xBF'
 		__flog_sym_success=$'\xE2\x9C\x94\xEF\xB8\x8E'
 		__flog_sym_warn=$'\xE2\x9A\xA0'
 		__flog_sym_error=$'\xE2\x9C\x96\xEF\xB8\x8E'
 
 		# and make the logging functions human-friendly
+
+		flog_confirm() {
+			printf "\n"
+			__flog_loglevel "$__flog_color_normal" "$__flog_sym_confirm" "$* [Y/n]"
+			read -r
+			if [[ $REPLY =~ ^[Yy]$ ]]; then
+				echo Y
+				return 0
+			else
+				flog_error Cancelling
+				return 1
+			fi
+		}
+
 		flog_log() {
-			echo -e "${__flog_tab}${*}${__flog_color_normal}"
+			printf "${__flog_tab}%s${__flog_color_normal}\n" "$*"
 		}
 
 		__flog_loglevel() {
