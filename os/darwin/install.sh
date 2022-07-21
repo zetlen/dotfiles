@@ -15,10 +15,10 @@ if i_dont_have brew; then
 	flog_confirm 'install with /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"?'
 fi
 if i_dont_have brew; then
-	flog_warn "Without brew, we can't install vim, asdf, exa, git-delta or many other things"
+	flog_warn "Without brew, we can't install vim, asdf, exa, go, jq, git-delta or many other things"
 else
 	if flog_confirm "Install vim, asdf, exa, git-delta with brew?"; then
-		brew install vim && brew install asdf && brew install exa && brew install git-delta
+		brew install vim && brew install asdf && brew install exa && brew install go && brew install jq && brew install git-delta
 	fi
 	if i_dont_have ksdiff; then
 		flog_confirm "Go to https://kaleidoscope.app to install Kaleidoscope diff?" && open https://kaleidoscope.app
