@@ -120,6 +120,9 @@ zinit wait lucid for \
 # To customize prompt, run `p10k configure` or edit ~/.dotfiles/.p10k.zsh.
 dotfile skel/.p10k.zsh
 
+# zinit-specific aliases
+p() { bw_unlock && bw get password "$1" | pbcopy }
+
 # must happen after initialization of p10k and other async things
 GPG_TTY=$TTY
 
