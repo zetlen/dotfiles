@@ -5,9 +5,10 @@
 . "$HOME/.dotfiles/lib/logging.sh"
 
 OSNAME="$(get_os_id)"
+OSPATH="$(get_os_dotfile_path)"
 
 die_bc() {
-	flog_error "Cannot proceed! $@"
+	flog_error "Cannot proceed! $*"
 	exit 1
 }
 
@@ -27,10 +28,9 @@ fi
 declare -a __zdi_steps
 
 __zdi_steps[1]="Verifying paths"
-function __zdi_step1() {
-	EXPECTED_REPO_PATH="${HOME}/.dotfiles"
-	if [ "$REPO_PATH" != "$EXPECTED_REPO_PATH" ]; then
-		die_bc "This repo is located in the directory ${REPO_PATH}, but it only works if it is checked out in ${EXPECTED_REPO_PATH}."
+__zdi_step1() {
+	if [ "$REPO_PATH" != "$DOTFILE_PATH" ]; then
+		die_bc "This repo is located in the directory ${REPO_PATH}, but it only works if it is checked out in ${DOTFILE_PATH}."
 	fi
 	flog_success "Repo path is $REPO_PATH"
 	if [ "$(pwd)" != "$REPO_PATH" ]; then
@@ -40,76 +40,30 @@ function __zdi_step1() {
 	flog_success "Current directory is repo root"
 }
 
-__zdi_steps[2]="Checking for required tools"
-function __zdi_step2() {
-	# change the separator during this function so it can
-	# be reasonable about newlines
-	__OLDIFS="$IFS"
-	IFS=$'\n'
-
-	REQUIRED_TOOLS="${DOTFILE_PATH}lib/os/${OSNAME}/tools.txt"
-	flog_log "Required tools for ${OSNAME}:"
-	flog_indent 1
-	PAD_LENGTH=6
-	for tool_list in "${REQUIRED_TOOLS[@]}"; do
-		# pad out the first column to the width of the longest command name
-		while read -r tool_line; do
-			# tool command name is the first word of each line
-			# shellcheck disable=SC2001
-			TOOL_NAME=$(echo "$tool_line" | sed 's/ .*//')
-			if [ "${#TOOL_NAME}" -ge $PAD_LENGTH ]; then
-				PAD_LENGTH=${#TOOL_NAME}
-			fi
-		done <"$tool_list"
-
-		TOOL_FORMAT="%s%-${PAD_LENGTH}s${__flog_color_normal}  %s\n"
-		while read -r tool_line; do
-			# use parameter substitution to take the first word of the line
-			TOOL_NAME="${tool_line%% *}"
-			if TOOL_LOC=$(command -v "$TOOL_NAME"); then
-				# if it's a function or a builtin, command -v just repeats the command back to you
-				if [ "$TOOL_LOC" = "$TOOL_NAME" ]; then
-					# and in that case we use "type -t" to say "function" or "builtin"
-					TOOL_LOC=$(type -t "$TOOL_NAME")
-				fi
-				flog_log "$(printf "$TOOL_FORMAT" "${__flog_color_green}" "$TOOL_NAME" "$TOOL_LOC")"
-				AVAILABLE_TOOLS+=("$TOOL_NAME")
-			else
-				MISSING_TOOLS+=("$tool_line")
-				flog_warn "$(printf "$TOOL_FORMAT" "${__flog_color_red}" "$TOOL_NAME" "${__flog_color_standout}${__flog_color_red}missing${__flog_color_normal}")"
-			fi
-		done <"$tool_list"
-	done
-	flog_indent -1
-	if [ ${#MISSING_TOOLS} -ne '0' ]; then
-		flog_warn "\nInstall these missing tools for everything to work:"
-		flog_indent 1
-		for tool in "${MISSING_TOOLS[@]}"; do
-			# wrap the first word, the command name, in standout tags
-			flog_warn "${__flog_color_standout}${tool%% *}${__flog_color_normal} ${__flog_color_yellow}${tool#* }"
-		done
-		flog_indent -1
-		return 1
+__zdi_steps[2]="Checking for OS-specific setup"
+__zdi_step2() {
+	if [ -e "${OSPATH}/install.sh" ]; then
+		"${OSPATH}/install.sh" || die_bc "Error running install script ${OSPATH}/install.sh"
 	else
-		flog_success "All required tools are present on this system already."
+		flog_warn "No install script for OS "$OSNAME" present."
 	fi
-	IFS="$__OLDIFS"
 }
 
 __zdi_steps[3]="Symlinking dotfiles to homedir"
-function __zdi_step3() {
+__zdi_step3() {
 	flog_indent 1
-	src_dir="${DOTFILE_PATH}skel/"
-	for f in $(find $src_dir -type f -exec realpath --relative-to="$src_dir" {} \;); do
-		src_path="${src_dir}$f"
-		tgt_path="$HOME/$f"
+	src_dir="$(normalize_dir $DOTFILE_PATH skel)"
+	for f in $(cd $src_dir && find . -type f -exec bash -c 'echo ${0:2}' {} \;); do
+		src_path="$(normalize_dir $src_dir $f)"
+		tgt_path="$(normalize_dir $HOME $f)"
 		tgt_dir="$(dirname $tgt_path)" 
 		if [ ! -d "$tgt_dir" ]; then
 			flog_log Creating directory $tgt_dir
 			mkdir -p "$tgt_dir"
 		fi
 		if [ -L "$tgt_path" ]; then
-			tgt_orig="$(realpath $tgt_path)"
+			tgt_orig="$(readlink $tgt_path)"
+			tgt_orig="$(normalize_dir $tgt_orig)"
 			if [ "$tgt_orig" == "$src_path" ]; then
 				flog_log "$f is already symlinked to $src_path"
 			elif [ "${tgt_orig#$DOTFILE_PATH}" == "$tgt_orig" ]; then
@@ -131,26 +85,27 @@ function __zdi_step3() {
 }
 
 __zdi_steps[4]="Writing gitconfig"
-function __zdi_step4() {
+__zdi_step4() {
+	GITCONFIG_BASEDIR="$(normalize_dir $DOTFILE_PATH lib/gitconfig)"
   git config --global user.name "$(whoami)"
-  git config --global user.email "zetlen@gmail.com"
-	git config --global include.path "${DOTFILE_PATH}"lib/gitconfig/common.gitconfig 'common.gitconfig'
-	OSGITCONFIG="${DOTFILE_PATH}lib/gitconfig/os.${OSNAME}.gitconfig"
-	[ -f "$OSGITCONFIG" ] && git config --global include.path "$OSGITCONFIG" "os.${OSNAME}.gitconfig"
+	if flog_confirm "Set git user.email to zetlen@gmail.com?" ; then
+		git config --global user.email "zetlen@gmail.com"
+	fi
+	git config --global include.path "${GITCONFIG_BASEDIR}/common.gitconfig" 'common.gitconfig'
+	for TOOL_GITCONFIG in $(find lib/gitconfig -type f -name 'tool.*.gitconfig' -execdir echo {} \;); do
+		TOOL_NAME="${TOOL_GITCONFIG#tool.}"
+		TOOL_NAME="${TOOL_NAME%.gitconfig}"
 
-	for toolname in "${AVAILABLE_TOOLS[@]}"; do
-		GIT_TOOL_CONFIG_BASENAME="tool.${toolname}.gitconfig"
-		GIT_TOOL_INCLUDE_PATH="${REPO_PATH}/lib/gitconfig/${GIT_TOOL_CONFIG_BASENAME}"
-		if [ -s "$GIT_TOOL_INCLUDE_PATH" ]; then
-			flog_success "${__flog_color_green}${toolname}${__flog_color_normal} is available, adding its include to .gitconfig"
-			git config --global include.path "$GIT_TOOL_INCLUDE_PATH" "$GIT_TOOL_CONFIG_BASENAME"
+		if command -v "$TOOL_NAME" &>/dev/null; then
+			flog_success "${__flog_color_green}${TOOL_NAME}${__flog_color_normal} is available, adding its include to .gitconfig"
+			git config --global include.path "${GITCONFIG_BASEDIR}/${TOOL_GITCONFIG}" "$TOOL_GITCONFIG"
 		fi
 	done
 	flog_success "Built .gitconfig"
 }
 
 __zdi_steps[5]="Set up vim"
-function __zdi_step5() {
+__zdi_step5() {
 	if command -v vim &>/dev/null; then
 		if [ ! -e ~/.vim/autoload/plug.vim ]; then
 			TO_DOWNLOAD="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
@@ -165,7 +120,7 @@ function __zdi_step5() {
 }
 
 __zdi_steps[6]="Download bash-only extras"
-function __zdi_step6() {
+__zdi_step6() {
 	if [ ! -f "$HOME/.bash-git-prompt/gitprompt.sh" ]; then
     flog_warn "Git prompt not found. Cloning bash-git-prompt repository to .bash-git-prompt"
     git clone --depth=1 https://github.com/magicmonty/bash-git-prompt.git "$HOME/.bash-git-prompt"
@@ -180,19 +135,20 @@ function __zdi_step6() {
 
 TOTAL_STEPS="${#__zdi_steps[@]}"
 
-function __zdi_run_step() {
+__zdi_run_step() {
 	local desc
 	fn="__zdi_step$1"
 	desc="${__zdi_steps[$1]}"
 	flog_log ''
 	flog_log "${__flog_color_standout}${desc}${__flog_color_normal} ($1 of $TOTAL_STEPS)"
-  read -p "Press any key to continue or Ctrl-C to stop"
-	flog_indent 2
-	"$fn"
-	flog_indent -2
+	if flog_confirm "Proceed?"; then
+		flog_indent 2
+		"$fn"
+		flog_indent -2
+	fi
 }
 
-if [ ! -d "${DOTFILE_PATH}lib/os/${OSNAME}/" ]; then
+if [ ! -d "$OSPATH" ]; then
 	die_bc "Unknown OS '${OSNAME}'. Gotta install everything manually."
 fi
 

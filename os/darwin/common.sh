@@ -1,5 +1,3 @@
-#!/bin/bash
-
 take_osx_config_snapshot() {
 	manualSettingsDir="$DOTFILE_PATH/lib/settings/darwin"
 	tar -cvvvPf darwin.snapshot.tar -T "$DOTFILE_PATH/lib/snapshots/darwin.txt"

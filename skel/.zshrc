@@ -10,7 +10,7 @@ fi
 
 OSNAME="$(uname)"
 
-add_os_rc "$OSNAME" "zsh"
+add_os_rc "zsh"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
