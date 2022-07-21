@@ -100,7 +100,7 @@ dotfile() {
 
 get_os_id() {
 	KERNEL_ID="$(uname | tr '[:upper:]' '[:lower:]')";
-	if [ "$KERNEL_ID" == "linux" ] && [ -e /etc/os-release ]; then
+	if [[ "$KERNEL_ID" == "linux" && -e /etc/os-release ]]; then
 		. /etc/os-release
 		echo "$KERNEL_ID/$ID"
 	else

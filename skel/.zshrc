@@ -8,8 +8,6 @@ fi
 # This import must be changed if DOTFILE_PATH changes.
 . ~/.dotfiles/lib/common.sh
 
-OSNAME="$(uname)"
-
 add_os_rc "zsh"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
