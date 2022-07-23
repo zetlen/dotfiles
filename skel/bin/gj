@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. "$HOME/.dotfiles/lib/common.sh"
+. "$HOME/.dotfiles/lib/logging.sh"
 
 CUSTOM_VIMRC="$HOME/.vimrc_txt"
 JOURNAL_DIR="$HOME/gj"
