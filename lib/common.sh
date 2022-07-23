@@ -124,12 +124,6 @@ sizes() {
 	du -chad "$depth" "$dir" | sort -h
 }
 
-export PATH="/usr/local/heroku/bin:$HOME/bin:/usr/local/share/npm/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:$HOME/.cargo/bin:$HOME/.yarn/bin:$PATH:$HOME/.composer/vendor/bin:$HOME/.rvm/bin:$HOME/Library/Python/3.9/bin"
-
-[ -s "$HOME/.rvm/scripts/rvm" ] && . "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
-[ -s "$HOME/.asdf/asdf.sh" ] && . "$HOME/.asdf/asdf.sh"
-
 # POSIX-compatible contains(string, substring)
 #
 # Returns 0 if the specified string contains the specified substring,
@@ -180,3 +174,10 @@ add_os_rc() {
 for file in "$DOTFILE_PATH"/lib/helpers-*.sh; do
 	. "$file"
 done
+
+export PATH="/usr/local/heroku/bin:$HOME/bin:/usr/local/share/npm/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:$HOME/.cargo/bin:$HOME/.yarn/bin:$PATH:$HOME/.composer/vendor/bin:$HOME/.rvm/bin:$HOME/Library/Python/3.9/bin"
+
+[ -s "$HOME/.rvm/scripts/rvm" ] && . "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+[ -s "$HOME/.asdf/asdf.sh" ] && . "$HOME/.asdf/asdf.sh"
+

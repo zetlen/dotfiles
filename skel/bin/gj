@@ -1,0 +1,31 @@
+#!/bin/sh
+
+CUSTOM_VIMRC="$HOME/.vimrc_txt"
+JOURNAL_DIR="$HOME/journal"
+PREVIEW_CMD='bat \
+  --line-range :$FZF_PREVIEW_LINES \
+  --terminal-width $FZF_PREVIEW_COLUMNS \
+  -f \
+  --paging=never \
+  --style=header \
+  {}'
+
+picker_input() {
+  find "$JOURNAL_DIR" -name '*.md' -print | cut -c $((${#JOURNAL_DIR} + 2))-
+}
+
+picker_output() {
+ picker_input | fzf \
+   --no-clear \
+   --preview="$PREVIEW_CMD" 
+
+}
+
+edit_if_chosen() {
+  if [ -n "$1" ]; then
+    vim -u "$CUSTOM_VIMRC" "$1";
+  fi
+}
+
+cd $JOURNAL_DIR
+edit_if_chosen "$(picker_input | picker_output)"

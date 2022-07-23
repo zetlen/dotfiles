@@ -2,7 +2,7 @@
 set nocompatible
 set t_Co=256           " 256 color terminal
 set encoding=utf-8     " show unicode chars
-set number             " show line numbers
+set nonumber             " show line numbers
 set wildmenu           " command autocomplete view
 set wildchar=<Tab>
 set noerrorbells       " quit beeping
