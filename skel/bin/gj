@@ -1,7 +1,11 @@
 #!/bin/sh
 
+. "$HOME/.dotfiles/lib/common.sh"
+
 CUSTOM_VIMRC="$HOME/.vimrc_txt"
-JOURNAL_DIR="$HOME/journal"
+JOURNAL_DIR="$HOME/gj"
+JOURNAL_REPO="git@got:zetlen/gitjournal.git"
+
 PREVIEW_CMD='bat \
   --line-range :$FZF_PREVIEW_LINES \
   --terminal-width $FZF_PREVIEW_COLUMNS \
@@ -27,5 +31,12 @@ edit_if_chosen() {
   fi
 }
 
+confirm_journal_exists() {
+	if [ ! -d "$JOURNAL_DIR" ]; then
+		flog_error "Your journal is not checked out at $JOURNAL_DIR."
+		flog_confirm "Run 'git clone $JOURNAL_REPO $JOURNAL_DIR' first?" && git clone "$JOURNAL_REPO" "$JOURNAL_DIR"
+	fi
+}
+confirm_journal_exists || exit 1
 cd $JOURNAL_DIR
 edit_if_chosen "$(picker_input | picker_output)"
