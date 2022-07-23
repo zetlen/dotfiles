@@ -26,9 +26,6 @@ if &listchars ==# 'eol:$'
 endif
 " }}}
 
-" Plugin Setup {{{
-" }}}
-
 " Movement and Keybindings {{{
 let mapleader = ","   "<leader> is comma
 let g:mapleader = "," "<leader> is comma everywhere
@@ -96,14 +93,11 @@ set ttymouse=xterm2
 " }}}
 
 " Special Writing Mode {{{
-call plug#begin('~/.vim/plugged')
-Plug 'tpope/vim-markdown' " syntax highlighting
-" Plug 'suan/vim-instant-markdown'      " preview in realtime browser
-" let g:instant_markdown_autostart = 0    " don't launch a browser for each file!
-
-" markdown mode requires this, see https://github.com/plasticboy/vim-markdown
-let g:vim_markdown_folding_disabled=1
+let vim_markdown_preview_github=1
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'javascript', 'scheme']
+
+call plug#begin('~/.vim/plugged')
+Plug 'tpope/vim-fugitive' " git interactions
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/seoul256.vim'
@@ -118,6 +112,8 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 autocmd! VimEnter * Goyo
 autocmd! BufRead nested * Goyo
+
+autocmd BufWritePost * !git add % && git commit -m %
 
 function! s:goyo_enter()
   set syntax=markdown
