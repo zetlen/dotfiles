@@ -26,9 +26,12 @@ flog_confirm() {
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
 		echo Y
 		return 0
-	else
+  elif [[ $REPLY =~ ^[Nn]$ ]]; then
 		echo Cancelling
 		return 1
+  else
+    echo "Y or N"
+    flog_confirm "$*"
 	fi
 }
 flog_log() {
@@ -70,14 +73,18 @@ if [ -t 1 ]; then
 		flog_confirm() {
 			printf "\n"
 			__flog_loglevel "$__flog_color_normal" "$__flog_sym_confirm" "$* [Y/n]"
-			read -r
-			if [[ $REPLY =~ ^[Yy]$ ]]; then
-				echo Y
-				return 0
-			else
-				flog_error Cancelling
-				return 1
-			fi
+      read -r
+      printf "\n"
+      if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo Y
+        return 0
+      elif [[ $REPLY =~ ^[Nn]$ ]]; then
+        echo Cancelling
+        return 1
+      else
+        echo "Y or N"
+        flog_confirm "$*"
+      fi
 		}
 
 		flog_log() {
