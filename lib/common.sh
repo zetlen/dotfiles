@@ -62,7 +62,7 @@ free_port() {
     read -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-      kill -9 $pids
+      echo "$pids" | tr ' ' '\n' | xargs kill -9
     fi
   fi
 }
