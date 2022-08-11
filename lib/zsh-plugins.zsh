@@ -9,6 +9,12 @@ function zsh-plugin-init {
     flog_confirm "$ZPLUGINDIR does not exist. Create?"
     mkdir -p "$ZPLUGINDIR"
   fi
+	updated_sentinel="${HOME}/.config/zsh/.zsh-plugins-updated"
+	[ -f "$updated_sentinel" ] || touch "$updated_sentinel"
+	time_since="$(perl -l -e '$modi = -M $ARGV[0]; printf("%.0f\n", $modi)' "$updated_sentinel")"
+	if (( time_since > 30 )) && flog_confirm "It has been ${time_since} days since updating your plugins. Update them now?"; then
+		zsh-plugin-update
+	fi
 }
 
 # clone a plugin, identify its init file, source it, and add it to your fpath
@@ -33,15 +39,9 @@ function zsh-plugin-load {
 }
 
 function zsh-plugin-update {
-  ZPLUGINDIR=${ZPLUGINDIR:-$HOME/.config/zsh/plugins}
-	updated_sentinel="${HOME}/.config/zsh/.zsh-plugins-updated"
-	[ -f "$updated_sentinel" ] || touch "$updated_sentinel"
-	time_since="$(perl -l -e '$modi = -M $ARGV[0]; printf("%.0f\n", $modi)' "$updated_sentinel")"
-	if (( time_since > 30 )) && flog_confirm "It has been ${time_since} days since updating your plugins. Update them now?"; then
-		for d in $ZPLUGINDIR/*/.git(/); do
-			echo "Updating ${d:h:t}..."
-			command git -C "${d:h}" pull --ff --recurse-submodules --depth 1 --rebase --autostash
-		done
-		touch "$updated_sentinel"
-	fi
+	for d in $ZPLUGINDIR/*/.git(/); do
+		echo "Updating ${d:h:t}..."
+		command git -C "${d:h}" pull --ff --recurse-submodules --depth 1 --rebase --autostash
+	done
+	touch "$updated_sentinel"
 }
