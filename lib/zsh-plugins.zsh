@@ -23,7 +23,7 @@ function zsh-plugin-load {
   ZPLUGINDIR=${ZPLUGINDIR:-${ZDOTDIR:-$HOME/.config/zsh}/plugins}
 	repo="$1"
 	plugin_name=${repo:t}
-	plugin_dir=$ZPLUGINDIR/$plugin_name
+	plugin_dir=${ZPLUGINDIR}${plugin_name}
 	initfile=$plugin_dir/$plugin_name.plugin.zsh
 	if [[ ! -d $plugin_dir ]]; then
 		echo "Cloning $repo"
