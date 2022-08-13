@@ -115,7 +115,7 @@ get_os_dotfile_path() {
 }
 
 add_os_rc() {
-  THE_SHELL="$2"
+  THE_SHELL="$1"
   # fail silently if it doesn't exist
   . "$(get_os_dotfile_path)/.${THE_SHELL}rc" 2>/dev/null || true
 }
