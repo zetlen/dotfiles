@@ -3157,7 +3157,7 @@
 			<key>Draw Powerline Glyphs</key>
 			<true/>
 			<key>Flashing Bell</key>
-			<false/>
+			<true/>
 			<key>Foreground Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -3562,8 +3562,10 @@
 			<false/>
 			<key>Shortcut</key>
 			<string>G</string>
-			<key>Silence Bell</key>
+			<key>Show Mark Indicators</key>
 			<false/>
+			<key>Silence Bell</key>
+			<true/>
 			<key>Smart Selection Rules</key>
 			<array>
 				<dict>
