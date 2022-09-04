@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "debian bashrc"
+#echo "debian bashrc"

@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "fedora bashrc"
+#echo "fedora bashrc"
