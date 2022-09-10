@@ -6,7 +6,7 @@ override_git_prompt_colors() {
 
 	# Place your overrides here
 	GIT_PROMPT_END_USER=" \n${White}${Time12a}${Yellow} \u@\h${ResetColor} $ "
-	GIT_PROMPT_END_ROOT=" \n${White}${Time12a}${Yellow} \u@\h${ResetColor} ${BoldRed}# "
+	GIT_PROMPT_END_ROOT=" \n${White}${Time12a}${Yellow} \u@\h${ResetColor} ${BoldRed}#${ResetColor} "
 }
 
 # load the theme
