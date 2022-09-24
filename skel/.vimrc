@@ -77,7 +77,6 @@ set expandtab                            " always spaces, everywhere, forever
 set autoindent                           " guess smart indents
 set smarttab                             " respond reasonably to tab key
 Plug 'editorconfig/editorconfig-vim'   " Use editorconfig
-Plug 'godlygeek/tabular'               " :Tabularize alignment command
 Plug 'nathanaelkane/vim-indent-guides' " indent guides on left
 let g:indent_guides_auto_colors = 0
 
