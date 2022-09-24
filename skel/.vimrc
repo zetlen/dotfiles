@@ -54,6 +54,7 @@ function! StatuslineMode()
 endfunction
 
 " }}}
+
 " Plugin Setup {{{
 
 call plug#begin('~/.vim/plugged')
@@ -145,12 +146,6 @@ nnoremap k gk
 nnoremap <leader>; :b#<cr>
 vnoremap <leader>; <esc>:b#<cr>
 inoremap <leader>; <esc>:b#<cr>
-
-" ,/ and ,? find blank lines
-nnoremap <leader>/ /^\s*$<cr>:noh<cr>
-vnoremap <leader>/ /^\s*$<cr>:noh<cr>
-nnoremap <leader>? ?^\s*$<cr>:noh<cr>
-vnoremap <leader>? ?^\s*$<cr>:noh<cr>
 
 " quickly kill quickfixes and loclists
 noremap <leader>c :windo lcl\|ccl<cr>
@@ -244,10 +239,36 @@ nnoremap <leader><space> :noh<cr>
 
 " Silver Searcher and friends!
 Plug 'mileszs/ack.vim'
-if executable('ag')
+
+if executable('rg')
+
+" Use ripgrep for searching ⚡️
+" Options include:
+" --vimgrep -> Needed to parse the rg response properly for ack.vim
+" --type-not sql -> Avoid huge sql file dumps as it slows down the search
+" --smart-case -> Search case insensitive if all lowercase pattern, Search
+" case sensitively otherwise
+	let g:ackprg = 'rg --vimgrep --type-not sql --smart-case'
+elseif executable('ag')
+" Use the-silver-searcher for searching
   let g:ackprg = 'ag --vimgrep'
 endif
 
+" Auto close the Quickfix list after pressing '<enter>' on a list item
+let g:ack_autoclose = 1
+
+" Any empty ack search will search for the work the cursor is on
+let g:ack_use_cword_for_empty_search = 1
+
+" Don't jump to first match
+cnoreabbrev Ack Ack!
+
+" Maps <leader>/ so we're ready to type the search keyword
+nnoremap <Leader>/ :Ack!<Space>
+
+" Navigate quickfix list with ease
+nnoremap <silent> [q :cprevious<CR>
+nnoremap <silent> ]q :cnext<CR>
 " }}}
 
 " OS Interoperation {{{
