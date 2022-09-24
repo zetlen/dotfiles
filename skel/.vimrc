@@ -141,9 +141,6 @@ let g:mapleader = "," "<leader> is comma everywhere
 nnoremap j gj
 nnoremap k gk
 
-vnoremap ;; <Esc>
-inoremap ;; <Esc>
-
 " switch quickly between buffers
 nnoremap <leader>; :b#<cr>
 vnoremap <leader>; <esc>:b#<cr>
