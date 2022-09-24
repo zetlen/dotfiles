@@ -94,7 +94,6 @@ set showmatch          " show matching brackets
 set noerrorbells       " quit beeping
 set novisualbell       " i said, quit beeping
 set t_vb=
-Plug 'sjl/gundo.vim' " visual undo
 
 if &tabpagemax < 50
   set tabpagemax=50    " reasonable tab limit
