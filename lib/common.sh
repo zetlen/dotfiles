@@ -2,6 +2,9 @@
 # shellcheck disable=SC1090,SC1091
 # tell shellcheck to quit complaining about dynamic paths
 
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
 export SVN_EDITOR="vim"
 export EDITOR="vim"
 
