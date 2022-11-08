@@ -9,7 +9,8 @@
 		"main",
 		"browser",
 		"exports",
-		"types"
+		"types",
+		"scripts"
 	],
 	"required": [
 		"name",
@@ -17,7 +18,7 @@
 		"version"
 	],
 	"requiredOnPrivate": [],
-	"warnOnPrivate": ["name", "version", "description", "main"],
+	"warnOnPrivate": ["name", "version"],
 	"sortedSubItems": [
 		"dependencies",
 		"devDependencies",
