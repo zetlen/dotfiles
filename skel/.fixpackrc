@@ -1,0 +1,33 @@
+{
+	"sortToTop": [
+		"name",
+		"version",
+		"description",
+		"author",
+		"type",
+		"module",
+		"main",
+		"browser",
+		"exports",
+		"types",
+		"scripts"
+	],
+	"required": [
+		"name",
+		"main",
+		"version"
+	],
+	"requiredOnPrivate": [],
+	"warnOnPrivate": ["name", "version"],
+	"sortedSubItems": [
+		"dependencies",
+		"devDependencies",
+		"exports",
+		"peerDependencies",
+		"scripts",
+		"files",
+		"keywords"
+	],
+	"finalNewLine": true,
+	"indent": 2
+}
