@@ -25,10 +25,10 @@ ac = !git add . && git commit
 acm = !git add . && git commit -m
 l = log --graph --all --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
 ll = log --stat --abbrev-commit
-d = diff 
+d = diff :!package-lock.json :!yarn.lock
 dh = diff head
 dl = diff head^1 head
-dc = diff --cached 
+dc = diff --cached :!package-lock.json :!yarn.lock
 dt = difftool --dir-diff
 master = checkout master
 shove = push --follow-tags
