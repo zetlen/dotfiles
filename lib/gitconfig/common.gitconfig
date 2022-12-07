@@ -48,6 +48,7 @@ addfork = "!f(){ echo $(git remote get-url origin) $1 | sed -Ee 's,github.com([/
 inplay = "!git branch -vv --sort=-committerdate --format='%(align:20)%(color:green)%(committerdate:relative)%(color:reset)%(end)%(align:'$(($(tput cols) - 30))')%(color:yellow)%(refname:short)%(color:reset)%(color:blue)[%(upstream:trackshort)]%(color:reset)%(end) %(align:20,right)%(color:white)%(authorname)%(color:reset)%(end)'"
 nohooks = config --local core.hookspath ~/.dotfiles/lib/disabled-git-hooks
 rrbi = "!f(){ git checkout $1 && git pull && git checkout - && git rebase -i $1; }; f"
+upl = "!f(){ git checkout --ours package-lock.json && npm install && git add package-lock.json; }; f"
 wipa = "!f(){ git add -A && git commit --no-verify -m \"WIP [NO-CI]: $*\"; }; f"
 wip = "!f(){ git commit --no-verify -m \"WIP [NO-CI]: $*\"; }; f"
 
