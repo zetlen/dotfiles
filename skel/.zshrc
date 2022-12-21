@@ -1,46 +1,40 @@
+[ ! -f $HOME/.zshrc.localbefore ] || . $HOME/.zshrc.localbefore
 export LANG=en_US.UTF-8
+export LC_ALL="$LANG"
+export LC_CTYPE="$LANG"
+
+export ZDOTDIR="$HOME"
 
 # This import must be changed if DOTFILE_PATH changes.
 . ~/.dotfiles/lib/common.sh
 
+add_os_rc "zsh"
+
 # raw dog plugin manager
-dotfile lib/zsh-plugins.zsh
+. "$DOTFILE_PATH/lib/zsh-plugins.zsh"
 zsh-plugin-init
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 # The following lines were added by compinstall
 
-zstyle ':completion:*' completer _expand _complete _ignored
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' menu select=long
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-zstyle :compinstall filename "$HOME/.zshrc"
-
-autoload -Uz compinit
-compinit
+#
 # End of lines added by compinstall
-
-add_os_rc "zsh"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
-# tweaks
-setopt +o nomatch
-
 # good history
 HISTFILE="$HOME/.zsh_history"
-HISTSIZE=100000
+HISTSIZE=10000
 SAVEHIST=10000
 setopt histignoredups
 setopt histignorespace
 setopt histreduceblanks
-setopt histfcntllock
 setopt histexpiredupsfirst
 setopt appendhistory
 
@@ -58,15 +52,30 @@ function __my-zsh-keybindings {
 __my-zsh-keybindings
 
 function __my-zsh-completions {
-	fpath=($HOME/.asdf/completions $fpath)
-	eval "$(bw completion --shell zsh); compdef _bw bw;"
+  autoload -Uz compinit
+	if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+		compinit;
+	else
+		compinit -C;
+	fi;
+	zsh-plugin-load Aloxaf/fzf-tab
+  # disable sort when completing `git checkout`
+  zstyle ':completion:*:git-checkout:*' sort false
+  # set descriptions format to enable group support
+  zstyle ':completion:*:descriptions' format '[%d]'
+  # set list-colors to enable filename colorizing
+  zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+  # preview directory's content with exa when completing cd
+  zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1aF --color-scale'
+  # switch group using `,` and `.`
+  zstyle ':fzf-tab:*' switch-group ',' '.'
 }
 
 __my-zsh-completions
 
 function __my-zsh-prompt {
 	zsh-plugin-load romkatv/powerlevel10k
-# To customize prompt, run `p10k configure` or edit ~/.dotfiles/.p10k.zsh.
+	# To customize prompt, run `p10k configure` or edit ~/.dotfiles/.p10k.zsh.
 . "${HOME}/.p10k.zsh"
 }
 
@@ -90,12 +99,10 @@ function _gpg-agent_update-tty_preexec {
 autoload -U add-zsh-hook
 add-zsh-hook preexec _gpg-agent_update-tty_preexec
 
-# If enable-ssh-support is set, fix ssh agent integration
-if [[ $(gpgconf --list-options gpg-agent 2>/dev/null | awk -F: '$1=="enable-ssh-support" {print $10}') = 1 ]]; then
-  unset SSH_AGENT_PID
-  if [[ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]]; then
-    export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-  fi
+# fix ssh agent integration
+unset SSH_AGENT_PID
+if [[ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]]; then
+	export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 fi
 
 [ ! -f ~/.zshrc.local ] || . ~/.zshrc.local

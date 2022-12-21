@@ -3,7 +3,8 @@
 # tell shellcheck to quit complaining about dynamic paths
 
 export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
+export LC_ALL="$LANG"
+export LC_CTYPE="$LANG"
 
 export SVN_EDITOR="vim"
 export EDITOR="vim"
@@ -70,6 +71,7 @@ free_port() {
   fi
 }
 
+# not necessary 90% of the time
 normalize_dir() {
   # Join all arguments by /
   local IFS=$'/'
@@ -85,17 +87,17 @@ normalize_dir() {
   echo "${the__path%/}"
 }
 
-DOTFILE_PATH="$(normalize_dir $HOME .dotfiles)"
+DOTFILE_PATH="$HOME/.dotfiles"
 
 # POSIX-compatible sourcing
 dotfile() {
   # shellcheck disable=SC1090
-  . "$(normalize_dir $DOTFILE_PATH $1)"
+  . "$($DOTFILE_PATH $1)"
 }
 
 get_os_id() {
-  KERNEL_ID="$(uname | tr '[:upper:]' '[:lower:]')"
-  if [[ "$KERNEL_ID" == "linux" && -e /etc/os-release ]]; then
+  KERNEL_ID="$(uname)"
+  if [[ "$KERNEL_ID" == "Linux" && -e /etc/os-release ]]; then
     . /etc/os-release
     echo "$KERNEL_ID/$ID"
   else
@@ -105,14 +107,13 @@ get_os_id() {
 
 get_os_dotfile_path() {
   local osid="$(get_os_id)"
-  local ospaths="$(normalize_dir $DOTFILE_PATH os)"
-  local osidpath="$(normalize_dir $ospaths $osid)"
+  local osidpath="$DOTFILE_PATH/os/$osid"
   if [ ! -d "$osidpath" ]; then
-    osidpath="$(dirname $osidpath)"
-    osidpath="$(normalize_dir $osidpath generic)"
-  fi
-  if [ ! -d "$osidpath" ]; then
-    osidpath="$(normalize_dir $ospaths generic)"
+		osid="$(dirname "$osid")"
+    osidpath="$DOTFILE_PATH/os/$osid/generic"
+		if [ ! -d "$osidpath" ]; then
+			osidpath="$DOTFILE_PATH/os/generic)"
+		fi
   fi
   echo $osidpath
 }
@@ -127,7 +128,7 @@ for file in "$DOTFILE_PATH"/lib/helpers-*.sh; do
   . "$file"
 done
 
-dotfile lib/path.sh
+. "$DOTFILE_PATH/lib/path.sh"
 
 [ -s "$HOME/.rvm/scripts/rvm" ] && . "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
