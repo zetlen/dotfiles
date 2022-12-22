@@ -1,13 +1,17 @@
 
 #### friendly logging ####
 # color codes, blank until we know colors are supported
-__flog_color_standout=""
 __flog_color_normal=""
 __flog_color_red=""
 __flog_color_green=""
 __flog_color_yellow=""
 
 __flog_sym_good=""
+
+__flog_standouton=""
+__flog_standoutoff=""
+__flog_startul="_"
+__flog_endul="_"
 
 __flog_tab_len=0
 __flog_tab=""
@@ -56,7 +60,10 @@ if [ -t 1 ]; then
 	__flog_fancy=1
 
 	if [ -n "$ncolors" ] && [ "$ncolors" -ge 4 ]; then
-		__flog_color_standout="$(tput smso)"
+		__flog_standouton="$(tput smso)"
+		__flog_standoutoff="$(tput rmso)"
+		__flog_startul="$(tput smul)"
+		__flog_endul="$(tput rmul)"
 		__flog_color_normal="$(tput sgr0)"
 		__flog_color_red="$(tput setaf 1)"
 		__flog_color_green="$(tput setaf 2)"
@@ -74,12 +81,11 @@ if [ -t 1 ]; then
 			printf "\n"
 			__flog_loglevel "$__flog_color_normal" "$__flog_sym_confirm" "$* [Y/n]"
       read -r
-      printf "\n"
       if [[ $REPLY =~ ^[Yy]$ ]]; then
-        echo Y
+        echo -n Y
         return 0
       elif [[ $REPLY =~ ^[Nn]$ ]]; then
-        echo Cancelling
+        echo -n Cancelling
         return 1
       else
         echo "Y or N"
@@ -94,7 +100,7 @@ if [ -t 1 ]; then
 		__flog_loglevel() {
 			local sym
 			local prefix
-			sym="$1${__flog_color_standout} $2 ${__flog_color_normal}$1"
+			sym="$1${__flog_standouton} $2 ${__flog_standoutoff}$1"
 			shift
 			shift
 			flog_log "$sym $*"
