@@ -14,7 +14,7 @@ die_bc() {
 
 confirm_cmd() {
 	fmted="$(printf 'Run %s%s%s ?' "$__flog_startul" "$*" "$__flog_endul")"
-	flog_confirm "$fmted" && eval "$tosudo"
+	flog_confirm "$fmted" && eval "$*"
 }
 
 __pkg_is_available() {
