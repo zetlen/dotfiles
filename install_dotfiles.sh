@@ -12,8 +12,60 @@ die_bc() {
 	exit 1
 }
 
-MISSING_TOOLS=()
-AVAILABLE_TOOLS=()
+confirm_cmd() {
+	fmted="$(printf 'Run %s%s%s ?' "$__flog_startul" "$*" "$__flog_endul")"
+	flog_confirm "$fmted" && eval "$tosudo"
+}
+
+__pkg_is_available() {
+	return 1;
+}
+
+__pkg_expected=(
+	zsh
+	git
+	curl
+	vim
+	fzf
+	gpg
+	lsof
+	rsync
+	jq
+)
+
+__pkg_install_all() {
+	flog_warning "Could not detect what package manager to use. The following commands are expected in PATH:"
+	__pkg_get_installable
+	flog_warning "Install may fail without missing packages."
+}
+
+__pkg_get_installable() {
+	local installed_pkgs=()
+	local unavailable_pkgs=()
+	for pkg in "$@"; do
+		if i_dont_have "$pkg"; then
+			if __pkg_is_available "$pkg"; then
+				to_install+=("$pkg")
+			else
+				unavailable_pkgs+=("$pkg")
+			fi
+		else
+			installed_pkgs+=("$pkg")
+		fi
+	done
+	if (( ${#installed_pkgs[@]} )); then
+		flog_success "Already installed: ${installed_pkgs[*]}"
+	fi
+	if (( ${#unavailable_pkgs[@]} )); then
+		flog_error "Not found: ${unavailable_pkgs[*]}"
+	fi
+	if (( ${#to_install[@]} )); then
+		flog_log "To install: ${to_install[*]}"
+		echo "${to_install[*]}"
+	else
+		flog_success "Nothing to install, everything's here."
+	fi
+}
 
 if REPO_PATH=$(git rev-parse --show-toplevel); then
 	TAGFMT="-wip-$(date '+%H%M%Z')"
@@ -40,12 +92,12 @@ __zdi_step1() {
 	flog_success "Current directory is repo root"
 }
 
-__zdi_steps[2]="Checking for OS-specific setup"
+__zdi_steps[2]="Install packages?"
 __zdi_step2() {
-	if [ -e "${OSPATH}/install.sh" ]; then
-		"${OSPATH}/install.sh" || die_bc "Error running install script ${OSPATH}/install.sh"
-	else
+	if [ ! -e "${OSPATH}/install.sh" ]; then
 		flog_warn "No install script for OS "$OSNAME" present."
+	else
+		. "${OSPATH}/install.sh" || die_bc "Error running install script ${OSPATH}/install.sh"
 	fi
 }
 
@@ -114,6 +166,7 @@ __zdi_step5() {
 			curl -fLo ~/.vim/autoload/plug.vim --create-dirs "$TO_DOWNLOAD"
 		fi
 		flog_success "Vim and vim-plug are installed."
+		flog_confirm "Launch vim and update plugins?" && vim +PlugUpgrade +PlugUpdate +qall
 	else
 		flog_warn "Vim is not installed. No Vim plugins attached."
 	fi

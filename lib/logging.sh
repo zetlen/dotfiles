@@ -24,22 +24,20 @@ flog_indent() {
 
 # fallback style
 flog_confirm() {
-	printf "\n[CONFIRM]: %s%s [Y/n]" "${__flog_tab}" "$*"
+	printf "\n[CONFIRM]: %s%s [y/n]" "${__flog_tab}" "$*" >&2
 	read -r
-	printf "\n"
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
-		echo Y
 		return 0
   elif [[ $REPLY =~ ^[Nn]$ ]]; then
 		echo Cancelling
 		return 1
   else
-    echo "Y or N"
+    flog_warn "Y or N please."
     flog_confirm "$*"
 	fi
 }
 flog_log() {
-	printf "[INFO]: ${__flog_tab}%s\n" "$*"
+	printf "[INFO]: ${__flog_tab}%s\n" "$*" >&2
 }
 flog_warn() {
 	printf "[WARNING]: ${__flog_tab}%s\n" "$*" >&2
@@ -48,7 +46,7 @@ flog_error() {
 	printf "[ERROR]: ${__flog_tab}%s\n" "$*" >&2
 }
 flog_success() {
-	printf "[SUCCESS]: ${__flog_tab}%s\n" "$*"
+	printf "[SUCCESS]: ${__flog_tab}%s\n" "$*" >&2
 }
 
 # but if stdout is a terminal...
@@ -78,23 +76,21 @@ if [ -t 1 ]; then
 		# and make the logging functions human-friendly
 
 		flog_confirm() {
-			printf "\n"
 			__flog_loglevel "$__flog_color_normal" "$__flog_sym_confirm" "$* [Y/n]"
       read -r
       if [[ $REPLY =~ ^[Yy]$ ]]; then
-        echo -n Y
         return 0
       elif [[ $REPLY =~ ^[Nn]$ ]]; then
-        echo -n Cancelling
+        flog_warn 'Canceled.'
         return 1
       else
-        echo "Y or N"
+        flog_warn "Y or N please."
         flog_confirm "$*"
       fi
 		}
 
 		flog_log() {
-			printf "${__flog_tab}%s${__flog_color_normal}\n" "$*"
+			printf "${__flog_tab}%s${__flog_color_normal}\n" "$*" >&2
 		}
 
 		__flog_loglevel() {

@@ -73,5 +73,4 @@ alias r='rsync -avhzPC' # skip .git and other common skips
 alias rr='rsync -avhzP' # don't skip that
 alias g=git
 alias unixify="find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix"
-alias exifkill="exiftool -all= "
 alias wvim='vim -u ~/.vimrc_txt'

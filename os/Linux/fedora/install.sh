@@ -1,8 +1,23 @@
-#/bin/sh
-echo "Dunno what package manager exists. Find some way to install stuff"
-echo "git	required	version control"
-echo "vim	required	editing"
-echo "asdf	optional	tool version management"
-echo "exa	optional	improved ls"
-echo "delta	optional	improved git pager"
-echo "gpg	optional	signing things"
+__TO_INSTALL_FEDORA=(
+	zsh
+	git
+	curl
+	lsof
+	wget
+	exa
+	jq
+	vim
+	ripgrep
+	fzf
+	gnupg2
+	bat
+)
+
+__pkg_is_available() {
+	dnf info "$1" &> /dev/null
+}
+
+flog_success "Fedora Linux detected. Using apt package manager."
+__INSTALLABLE="$(__pkg_get_installable ${__TO_INSTALL_FEDORA[@]})"
+confirm_cmd "sudo dnf install -y $__INSTALLABLE"
+
