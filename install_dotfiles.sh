@@ -42,6 +42,7 @@ __pkg_install_all() {
 __pkg_get_installable() {
 	local installed_pkgs=()
 	local unavailable_pkgs=()
+	local to_install=()
 	for pkg in "$@"; do
 		if i_dont_have "$pkg"; then
 			if __pkg_is_available "$pkg"; then
