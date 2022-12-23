@@ -1,8 +1,8 @@
 [ ! -f $HOME/.zshrc.localbefore ] || . $HOME/.zshrc.localbefore
-LANG="en_US.UTF-8"
-LANGUAGE="$LANG"
-LC_ALL="$LANG"
-LC_CTYPE="$LANG"
+export LANG="en_US.UTF-8"
+export LANGUAGE="$LANG"
+export LC_ALL="$LANG"
+export LC_CTYPE="$LANG"
 
 export ZDOTDIR="$HOME"
 
