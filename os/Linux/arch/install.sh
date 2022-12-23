@@ -1,4 +1,5 @@
 __TO_INSTALL=(
+	openssh
 	zsh
 	git
 	curl
