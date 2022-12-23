@@ -26,7 +26,7 @@ __pkg_is_available() {
 }
 
 __pkg_install_all() {
-	pacman-key --init && pacman-key --populate && sudo pacman -Sy --noconfirm archlinux-keyring
+	sudo pacman-key --init && sudo pacman-key --populate && sudo pacman -Sy --noconfirm archlinux-keyring
 	__INSTALLABLE="$(__pkg_get_installable ${__TO_INSTALL[@]})"
 	test -n "$__INSTALLABLE" && confirm_cmd "sudo pacman -Sy --noconfirm $__INSTALLABLE"
 }
