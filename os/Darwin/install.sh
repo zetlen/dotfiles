@@ -19,8 +19,6 @@ __pkg_is_available() {
 	brew info "$1" &> /dev/null
 }
 
-flog_success "MacOS detected."
-
 __pkg_install_all() {
 	if i_dont_have git; then
 		flog_warn "git isn't installed."
@@ -28,7 +26,7 @@ __pkg_install_all() {
 	fi
 	if i_dont_have brew; then
 		flog_warn "brew isn't installed."
-		confirm_cmd '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)'
+		confirm_cmd '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
 	fi
 
 	__INSTALLABLE="$(__pkg_get_installable ${__TO_INSTALL[@]})"
