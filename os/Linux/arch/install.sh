@@ -21,8 +21,8 @@ __pkg_is_installed() {
 
 __pkg_is_available() {
 	local to_check="$1"
-	local apt_search_exp="$(printf '^%s$' "$to_check")"
-	test -n "$(pacman -Ss "$apt_search_exp")"
+	local search_exp="$(printf '^%s$' "$to_check")"
+	test -n "$(pacman -Ssq "$search_exp" | grep "$search_exp")"
 }
 
 __pkg_install_all() {
