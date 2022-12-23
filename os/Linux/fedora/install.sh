@@ -6,7 +6,8 @@ __TO_INSTALL_FEDORA=(
 	wget
 	exa
 	jq
-	vim
+	vim-common
+	vim-enhanced
 	ripgrep
 	fzf
 	gnupg2
