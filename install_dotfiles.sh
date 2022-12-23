@@ -108,6 +108,7 @@ __zdi_step2() {
 		flog_warn "No install script for OS "$OSNAME" present."
 	else
 		. "${OSPATH}/install.sh" || die_bc "Error running install script ${OSPATH}/install.sh"
+		flog_success "Running package install for $OSNAME"
 		__pkg_install_all
 	fi
 }

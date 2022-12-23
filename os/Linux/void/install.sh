@@ -1,9 +1,24 @@
-#!/bin/bash
+__TO_INSTALL_VOID=(
+	zsh
+	git
+	curl
+	lsof
+	wget
+	exa
+	jq
+	vim
+	ripgrep
+	fzf
+	gnupg2
+	bat
+)
 
-. "$HOME/.dotfiles/lib/logging.sh"
+__pkg_is_available() {
+	xbps-query -Rl "$1" &> /dev/null
+}
 
-flog_success "Void Linux detected. Using XBPS package manager."
-
-flog_confirm "Run xbps-install -Su (twice)?" && sudo xbps-install -Su && sudo xbps-install -Su 
-
-flog_confirm "Run xbps-install zsh curl wget git vim ripgrep fzf gnupg2 bat?" && sudo xbps-install zsh git curl wget vim ripgrep fzf gnupg2 bat
+__pkg_install_all() {
+	sudo xbps-install -Su && sudo xbps-install -Su
+	__INSTALLABLE="$(__pkg_get_installable ${__TO_INSTALL_VOID[@]})"
+	test -n "$__INSTALLABLE" && confirm_cmd "sudo xbps-install -y $__INSTALLABLE"
+}
