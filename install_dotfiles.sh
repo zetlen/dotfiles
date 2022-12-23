@@ -17,8 +17,12 @@ confirm_cmd() {
 	flog_confirm "$fmted" && eval "$*"
 }
 
+__pkg_is_installed() {
+	! i_dont_have "$1"
+}
+
 __pkg_is_available() {
-	return 1;
+	false
 }
 
 __pkg_expected=(
@@ -45,7 +49,7 @@ __pkg_get_installable() {
 	local to_install=()
 	flog_log "Checking for packages: $*"
 	for pkg in "$@"; do
-		if i_dont_have "$pkg"; then
+		if i_dont_have "$pkg" && ! __pkg_is_installed "$pkg"; then
 			if __pkg_is_available "$pkg"; then
 				to_install+=("$pkg")
 			else
@@ -100,6 +104,7 @@ __zdi_step2() {
 		flog_warn "No install script for OS "$OSNAME" present."
 	else
 		. "${OSPATH}/install.sh" || die_bc "Error running install script ${OSPATH}/install.sh"
+		__pkg_install_all
 	fi
 }
 
