@@ -1,4 +1,4 @@
-__TO_INSTALL_MACOS=(
+__TO_INSTALL=(
 	exa
 	vim
 	ripgrep
@@ -31,7 +31,7 @@ __pkg_install_all() {
 		confirm_cmd '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)'
 	fi
 
-	__INSTALLABLE="$(__pkg_get_installable ${__TO_INSTALL_MACOS[@]})"
+	__INSTALLABLE="$(__pkg_get_installable ${__TO_INSTALL[@]})"
 	test -n "$__INSTALLABLE" && confirm_cmd "brew install $__INSTALLABLE"
 
 	flog_log "NVRAM: Always verbose boot..." &&

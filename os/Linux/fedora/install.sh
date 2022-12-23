@@ -1,4 +1,4 @@
-__TO_INSTALL_FEDORA=(
+__TO_INSTALL=(
 	zsh
 	git
 	curl
@@ -23,6 +23,6 @@ __pkg_is_available() {
 }
 
 __pkg_install_all() {
-	__INSTALLABLE="$(__pkg_get_installable ${__TO_INSTALL_FEDORA[@]})"
+	__INSTALLABLE="$(__pkg_get_installable ${__TO_INSTALL[@]})"
 	test -n "$__INSTALLABLE" && confirm_cmd "sudo dnf install -y $__INSTALLABLE"
 }

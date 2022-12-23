@@ -1,4 +1,4 @@
-__TO_INSTALL_VOID=(
+__TO_INSTALL=(
 	zsh
 	git
 	curl
@@ -19,6 +19,6 @@ __pkg_is_available() {
 
 __pkg_install_all() {
 	sudo xbps-install -Su && sudo xbps-install -Su
-	__INSTALLABLE="$(__pkg_get_installable ${__TO_INSTALL_VOID[@]})"
+	__INSTALLABLE="$(__pkg_get_installable ${__TO_INSTALL[@]})"
 	test -n "$__INSTALLABLE" && confirm_cmd "sudo xbps-install -y $__INSTALLABLE"
 }

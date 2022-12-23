@@ -1,4 +1,4 @@
-__TO_INSTALL_DEBIAN=(
+__TO_INSTALL=(
 	zsh
 	git
 	curl
@@ -6,11 +6,11 @@ __TO_INSTALL_DEBIAN=(
 	wget
 	exa
 	jq
-	vim
 	ripgrep
 	fzf
 	gnupg2
 	bat
+	vim
 )
 
 __pkg_is_available() {
@@ -20,6 +20,8 @@ __pkg_is_available() {
 }
 __pkg_install_all() {
 	sudo apt update
-	__INSTALLABLE="$(__pkg_get_installable ${__TO_INSTALL_DEBIAN[@]})"
+	flog_log "Must add a PPA to install Vim 9."
+	confirm_cmd "sudo apt install -y software-properties-common && sudo add-apt-repository ppa:jonathonf/vim && sudo apt update"
+	__INSTALLABLE="$(__pkg_get_installable ${__TO_INSTALL[@]})"
 	test -n "$__INSTALLABLE" && confirm_cmd "sudo apt install -y $__INSTALLABLE"
 }
