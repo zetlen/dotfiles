@@ -7,8 +7,7 @@ __TO_INSTALL=(
 	wget
 	exa
 	jq
-	vim-common
-	vim-enhanced
+	vim
 	ripgrep
 	fzf
 	gnupg2
