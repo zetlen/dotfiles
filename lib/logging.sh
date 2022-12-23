@@ -24,7 +24,7 @@ flog_indent() {
 
 # fallback style
 flog_confirm() {
-	if [ "$FLOG_CONFIRM_ALL" -eq "1" ]; then
+	if [ ! -z "$FLOG_CONFIRM_ALL" ]; then
 		return 0;
 	fi
 	printf "\n[CONFIRM]: %s%s [y/n]" "${__flog_tab}" "$*" >&2
@@ -79,7 +79,7 @@ if [ -t 1 ]; then
 		# and make the logging functions human-friendly
 
 		flog_confirm() {
-			if [ "$FLOG_CONFIRM_ALL" -eq "1" ]; then
+			if [ ! -z "$FLOG_CONFIRM_ALL" ]; then
 				return 0;
 			fi
 			__flog_loglevel "$__flog_color_normal" "$__flog_sym_confirm" "$* [Y/n]"
