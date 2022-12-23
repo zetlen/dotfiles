@@ -38,9 +38,9 @@ __pkg_expected=(
 )
 
 __pkg_install_all() {
-	flog_warning "Could not detect what package manager to use. The following commands are expected in PATH:"
+	flog_warn "Could not detect what package manager to use. The following commands are expected in PATH:"
 	__pkg_get_installable
-	flog_warning "Install may fail without missing packages."
+	flog_warn "Install may fail without missing packages."
 }
 
 declare -a installed_pkgs
@@ -104,11 +104,12 @@ __zdi_step1() {
 
 __zdi_steps[2]="Install packages?"
 __zdi_step2() {
+	flog_log "Finding package install routing for $OSNAME..."
 	if [ ! -e "${OSPATH}/install.sh" ]; then
 		flog_warn "No install script for OS "$OSNAME" present."
 	else
 		. "${OSPATH}/install.sh" || die_bc "Error running install script ${OSPATH}/install.sh"
-		flog_success "Running package install for $OSNAME"
+		flog_success "Found ${OSPATH}/install.sh"
 		__pkg_install_all
 	fi
 }
