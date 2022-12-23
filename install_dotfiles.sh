@@ -112,7 +112,7 @@ __zdi_step2() {
 	fi
 }
 
-__zdi_steps[3]="Symlinking dotfiles to homedir"
+__zdi_steps[3]="Installing dotfiles to homedir"
 __zdi_step3() {
 	flog_indent 1
 	src_dir="$(normalize_dir $DOTFILE_PATH skel)"
@@ -130,6 +130,7 @@ __zdi_step3() {
 			if [ "$tgt_orig" == "$src_path" ]; then
 				flog_log "$f is already symlinked to $src_path"
 			elif [ "${tgt_orig#$DOTFILE_PATH}" == "$tgt_orig" ]; then
+				flog_warn "$f is already symlinked to ${tgt_orig}."
 				flog_warn "Not symlinking $src_path because $f is already symlinked to $tgt_orig."
 			else
 				flog_log "Updating symlink of $f to $src_path"
@@ -138,7 +139,18 @@ __zdi_step3() {
 				flog_success "Symlinked $f to $src_path"
 			fi
 		elif [ -f "$tgt_path" ]; then
-			flog_warn "Not symlinking $src_path because $tgt_path already exists."
+			flog_warn "A file already exists at $tgt_path."
+			if flog_confirm "Replace with symlink to ${src_path}?"; then
+				tgt_old_path="${tgt_path}.local"
+				if [ -e "$tgt_old_path" ]; then
+					flog_warn "$tgt_old_path exists as well! Move or remove it first."
+				else
+					mv "$tgt_path" "$tgt_old_path"
+					flog_success "Moved old $tgt_path to $tgt_old_path"
+					ln -s "$src_path" "$tgt_path"
+					flog_success "Symlinked $f to $src_path"
+				fi
+			fi
 		else
 			ln -s "$src_path" "$tgt_path"
 			flog_success "Symlinked $f to $src_path"
