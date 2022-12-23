@@ -19,6 +19,7 @@ __pkg_is_available() {
 	test -n "$(apt-cache search --names-only "$apt_search_exp")"
 }
 __pkg_install_all() {
+	sudo apt update
 	__INSTALLABLE="$(__pkg_get_installable ${__TO_INSTALL_DEBIAN[@]})"
-	test -n "$__INSTALLABLE" && confirm_cmd "sudo apt update && sudo apt install -y $__INSTALLABLE"
+	test -n "$__INSTALLABLE" && confirm_cmd "sudo apt install -y $__INSTALLABLE"
 }
