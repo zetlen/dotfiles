@@ -32,5 +32,5 @@ __pkg_install_all() {
 	fi
 
 	__INSTALLABLE="$(__pkg_get_installable ${__TO_INSTALL_MACOS[@]})"
-	confirm_cmd "brew install $__INSTALLABLE"
+	test -n "$__INSTALLABLE" && confirm_cmd "brew install $__INSTALLABLE"
 }

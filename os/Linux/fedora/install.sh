@@ -24,5 +24,5 @@ __pkg_is_available() {
 __pkg_install_all() {
 	flog_success "Fedora Linux detected. Using dnf package manager."
 	__INSTALLABLE="$(__pkg_get_installable ${__TO_INSTALL_FEDORA[@]})"
-	confirm_cmd "sudo dnf install -y $__INSTALLABLE"
+	test -n "$__INSTALLABLE" && confirm_cmd "sudo dnf install -y $__INSTALLABLE"
 }
