@@ -43,6 +43,7 @@ __pkg_get_installable() {
 	local installed_pkgs=()
 	local unavailable_pkgs=()
 	local to_install=()
+	flog_log "Checking for packages: $*"
 	for pkg in "$@"; do
 		if i_dont_have "$pkg"; then
 			if __pkg_is_available "$pkg"; then
@@ -58,7 +59,7 @@ __pkg_get_installable() {
 		flog_success "Already installed: ${installed_pkgs[*]}"
 	fi
 	if (( ${#unavailable_pkgs[@]} )); then
-		flog_error "Not found: ${unavailable_pkgs[*]}"
+		flog_error "Package manager doesn't have: ${unavailable_pkgs[*]}"
 	fi
 	if (( ${#to_install[@]} )); then
 		flog_log "To install: ${to_install[*]}"
