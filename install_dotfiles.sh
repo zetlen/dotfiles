@@ -43,10 +43,14 @@ __pkg_install_all() {
 	flog_warning "Install may fail without missing packages."
 }
 
+declare -a installed_pkgs
+declare -a unavailable_pkgs
+declare -a to_install
+
 __pkg_get_installable() {
-	local installed_pkgs=()
-	local unavailable_pkgs=()
-	local to_install=()
+	installed_pkgs=()
+	unavailable_pkgs=()
+	to_install=()
 	flog_log "Checking for packages: $*"
 	for pkg in "$@"; do
 		if i_dont_have "$pkg" && ! __pkg_is_installed "$pkg"; then
@@ -75,7 +79,7 @@ __pkg_get_installable() {
 
 if REPO_PATH=$(git rev-parse --show-toplevel); then
 	TAGFMT="-wip-$(date '+%H%M%Z')"
-	flog_log "Installing zetlen dotfiles version" "${__flog_color_yellow}$(git describe --dirty="$TAGFMT" --tags --always)${__flog_color_normal}"
+	flog_log "Installing zetlen dotfiles version" "${__flog_standouton}$(git describe --dirty="$TAGFMT" --tags --always)${__flog_standoutoff}"
 else
 	die_bc "This script must be run from the root of the zetlen/dotfiles Git repository, but no Git repository was detected."
 fi
@@ -163,13 +167,29 @@ __zdi_step4() {
 	flog_success "Built .gitconfig"
 }
 
-__zdi_steps[5]="Set up vim"
+__zdi_steps[5]="Download bash-only extras"
 __zdi_step5() {
-	if command -v vim &>/dev/null; then
+	if [ ! -f "$HOME/.bash-git-prompt/gitprompt.sh" ]; then
+    flog_warn "Git prompt not found. Cloning bash-git-prompt repository to .bash-git-prompt"
+    git clone --depth=1 https://github.com/magicmonty/bash-git-prompt.git "$HOME/.bash-git-prompt"
+  fi
+	if [ -s "$BASH_VERSION" ] && [ ! -f ~/.git-completion.bash ]; then
+		TO_DOWNLOAD="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+		flog_warn "Missing ~/.git-completion.bash file. Downloading ${__flog_startul}${TO_DOWNLOAD}${__flog_endul}"
+		curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash >~/.git-completion.bash
+	fi
+	flog_success "Git prompt and completion are installed."
+}
+
+
+__zdi_steps[6]="Set up vim"
+__zdi_step6() {
+	if ! i_dont_have vim; then
 		if [ ! -e ~/.vim/autoload/plug.vim ]; then
 			TO_DOWNLOAD="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 			flog_warn "Missing vim plugins."
-			flog_log "Downloading ${__flog_color_yellow}${TO_DOWNLOAD}"
+
+			flog_log "Downloading ${__flog_startul}${TO_DOWNLOAD}${__flog_endul}"
 			curl -fLo ~/.vim/autoload/plug.vim --create-dirs "$TO_DOWNLOAD"
 		fi
 		flog_success "Vim and vim-plug are installed."
@@ -178,19 +198,18 @@ __zdi_step5() {
 		flog_warn "Vim is not installed. No Vim plugins attached."
 	fi
 }
-
-__zdi_steps[6]="Download bash-only extras"
-__zdi_step6() {
-	if [ ! -f "$HOME/.bash-git-prompt/gitprompt.sh" ]; then
-    flog_warn "Git prompt not found. Cloning bash-git-prompt repository to .bash-git-prompt"
-    git clone --depth=1 https://github.com/magicmonty/bash-git-prompt.git "$HOME/.bash-git-prompt"
-  fi
-	if [ -s "$BASH_VERSION" ] && [ ! -f ~/.git-completion.bash ]; then
-		TO_DOWNLOAD="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-		flog_warn "Missing ~/.git-completion.bash file. Downloading $TO_DOWNLOAD"
-		curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash >~/.git-completion.bash
+__zdi_steps[7]="Set up zsh"
+__zdi_step7() {
+	if i_dont_have zsh; then
+		flog_error "zsh is not installed!"
+		return 1
+	elif ! grep -qF zsh /etc/shells; then
+		flog_error "zsh was not listed as an acceptable shell in /etc/shells!"
+		return 1
+	elif confirm_cmd "sudo usermod --shell $(which zsh) $(whoami)"; then
+		flog_confirm "Run zsh to set up initial environment?" && zsh
+		flog_success "zsh has been installed!"
 	fi
-	flog_success "Git prompt and completion are installed."
 }
 
 TOTAL_STEPS="${#__zdi_steps[@]}"
