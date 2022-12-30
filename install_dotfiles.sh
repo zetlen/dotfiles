@@ -220,9 +220,9 @@ __zdi_step7() {
 	elif ! grep -qF zsh /etc/shells; then
 		flog_error "zsh was not listed as an acceptable shell in /etc/shells!"
 		return 1
-	elif confirm_cmd "sudo usermod --shell $(command -v zsh) $(whoami)"; then
+	elif [[ "$SHELL" = "$(command -v zsh)" ]] || confirm_cmd "sudo usermod --shell $(command -v zsh) $(whoami)"; then
 		touch "$HOME/.tool-versions"
-		flog_confirm "Run zsh to set up initial environment?" && zsh
+		flog_confirm "Run zsh to set up initial environment?" && zsh "$HOME/.zshrc"
 		flog_success "zsh has been installed!"
 	fi
 }
