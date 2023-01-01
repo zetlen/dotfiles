@@ -15,20 +15,6 @@ add_os_rc "zsh"
 . "$DOTFILE_PATH/lib/zsh-plugins.zsh"
 zsh-plugin-init
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-
-# The following lines were added by compinstall
-
-#
-# End of lines added by compinstall
-
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
 # good history
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000
