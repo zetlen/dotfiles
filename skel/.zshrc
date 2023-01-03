@@ -1,4 +1,7 @@
 [ ! -f $HOME/.zshrc.localbefore ] || . $HOME/.zshrc.localbefore
+
+### LOCALES ###
+
 export LANG="en_US.UTF-8"
 export LANGUAGE="$LANG"
 export LC_ALL="$LANG"
@@ -15,6 +18,8 @@ add_os_rc "zsh"
 . "$DOTFILE_PATH/lib/zsh-plugins.zsh"
 zsh-plugin-init
 
+# OPTIONS
+
 # good history
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000
@@ -24,6 +29,8 @@ setopt histignorespace
 setopt histreduceblanks
 setopt histexpiredupsfirst
 setopt appendhistory
+
+# changing di
 
 export MANPATH="/usr/local/man:$MANPATH"
 
@@ -91,5 +98,8 @@ unset SSH_AGENT_PID
 if [[ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]]; then
 	export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 fi
+
+ASDF_DIRENV_ZSHRC="${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+[ ! -f "$ASDF_DIRENV_ZSHRC" ] && . $ASDF_DIRENV_ZSHRC
 
 [ ! -f ~/.zshrc.local ] || . ~/.zshrc.local
