@@ -19,6 +19,8 @@ DOTFILE_PATH="$HOME/.dotfiles"
 . "$DOTFILE_PATH/lib/logging.sh"
 
 CURRENT_SHELL="$(ps -cp "$$" -o command="")"
+# macos prepends a dash, remove it
+CURRENT_SHELL="${CURRENT_SHELL#\-}"
 
 # glob without breaking in any shell
 ext_matches () {
