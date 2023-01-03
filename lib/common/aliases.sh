@@ -58,7 +58,7 @@ normalize_dir() {
   echo "${the__path%/}"
 }
 
-
+# ls
 if i_dont_have exa; then
 	alias la='ls -lahAFG'
 	alias l='ls -lahp'
@@ -71,6 +71,11 @@ fi
 
 alias r='rsync -avhzPC' # skip .git and other common skips
 alias rr='rsync -avhzP' # don't skip that
+
 alias g=git
-alias unixify="find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix"
+
+# journaling
 alias wvim='vim -u ~/.vimrc_txt'
+
+# old, weird stuff
+alias unixify="find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix"

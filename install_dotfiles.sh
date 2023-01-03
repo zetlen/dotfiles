@@ -104,6 +104,10 @@ __zdi_step1() {
 
 __zdi_steps[2]="Install packages?"
 __zdi_step2() {
+	flog_log "Setting up terminfo..."
+	if ! tic -s "$DOTFILE_PATH/lib/dvtm.info"; then
+		flog_warn "Trouble installing DVTM info. If you're using dvtm you will need to set DVTM_TERM=xterm."
+	fi
 	flog_log "Finding package install routing for $OSNAME..."
 	if [ ! -e "${OSPATH}/install.sh" ]; then
 		flog_warn "No install script for OS "$OSNAME" present."
@@ -220,9 +224,9 @@ __zdi_step7() {
 	elif ! grep -qF zsh /etc/shells; then
 		flog_error "zsh was not listed as an acceptable shell in /etc/shells!"
 		return 1
-	elif confirm_cmd "sudo usermod --shell $(command -v zsh) $(whoami)"; then
+	elif [[ "$SHELL" = "$(command -v zsh)" ]] || confirm_cmd "sudo usermod --shell $(command -v zsh) $(whoami)"; then
 		touch "$HOME/.tool-versions"
-		flog_confirm "Run zsh to set up initial environment?" && zsh
+		flog_confirm "Run zsh to set up initial environment?" && zsh "$HOME/.zshrc"
 		flog_success "zsh has been installed!"
 	fi
 }

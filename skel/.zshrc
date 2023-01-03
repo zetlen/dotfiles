@@ -1,4 +1,7 @@
 [ ! -f $HOME/.zshrc.localbefore ] || . $HOME/.zshrc.localbefore
+
+### LOCALES ###
+
 export LANG="en_US.UTF-8"
 export LANGUAGE="$LANG"
 export LC_ALL="$LANG"
@@ -15,19 +18,7 @@ add_os_rc "zsh"
 . "$DOTFILE_PATH/lib/zsh-plugins.zsh"
 zsh-plugin-init
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-
-# The following lines were added by compinstall
-
-#
-# End of lines added by compinstall
-
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# OPTIONS
 
 # good history
 HISTFILE="$HOME/.zsh_history"
@@ -38,6 +29,8 @@ setopt histignorespace
 setopt histreduceblanks
 setopt histexpiredupsfirst
 setopt appendhistory
+
+# changing di
 
 export MANPATH="/usr/local/man:$MANPATH"
 
@@ -105,5 +98,8 @@ unset SSH_AGENT_PID
 if [[ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]]; then
 	export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 fi
+
+ASDF_DIRENV_ZSHRC="${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+[ ! -f "$ASDF_DIRENV_ZSHRC" ] && . $ASDF_DIRENV_ZSHRC
 
 [ ! -f ~/.zshrc.local ] || . ~/.zshrc.local
