@@ -51,7 +51,8 @@ function __my-zsh-completions {
 		compinit;
 	else
 		compinit -C;
-	fi;
+	fi
+	zsh-plugin-load lukechilds/zsh-better-npm-completion
 	zsh-plugin-load Aloxaf/fzf-tab
   # disable sort when completing `git checkout`
   zstyle ':completion:*:git-checkout:*' sort false
