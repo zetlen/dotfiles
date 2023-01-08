@@ -9,7 +9,7 @@
 	<key>AllowClipboardAccess</key>
 	<false/>
 	<key>AlternateMouseScroll</key>
-	<true/>
+	<false/>
 	<key>BadgeFont</key>
 	<string>Fira Code</string>
 	<key>BadgeFontIsBold</key>
@@ -1921,6 +1921,8 @@
 	<true/>
 	<key>HotKeyBookmark</key>
 	<string>2AC7C15B-DAF0-46C4-9F64-54C04CB18F67</string>
+	<key>HotKeyDoubleTapMaxDelay</key>
+	<real>0.10000000149011612</real>
 	<key>HotKeyTogglesWindow</key>
 	<true/>
 	<key>Hotkey</key>
@@ -1941,6 +1943,8 @@
 	<integer>4</integer>
 	<key>MaxVertically</key>
 	<false/>
+	<key>MinimumWeightDifferenceForBoldFont</key>
+	<integer>5</integer>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -1960,6 +1964,8 @@
 			<string></string>
 			<key>AWDS Window Option</key>
 			<string>No</string>
+			<key>Allow Title Reporting</key>
+			<true/>
 			<key>Ambiguous Double Width</key>
 			<false/>
 			<key>Ansi 0 Color</key>
@@ -5210,6 +5216,8 @@
 			<string>kNextWindowPointerAction</string>
 		</dict>
 	</dict>
+	<key>PreferredBaseDir</key>
+	<string></string>
 	<key>PreserveWindowSizeWhenTabBarVisibilityChanges</key>
 	<true/>
 	<key>Print In Black And White</key>
