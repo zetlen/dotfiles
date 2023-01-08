@@ -80,6 +80,7 @@ __my-zsh-prompt
 function __my-zsh-plugins {
 	zsh-plugin-load zetlen/zsh-bitwarden
 	zsh-plugin-load redxtech/zsh-asdf-direnv
+	zsh-plugin-load olets/zsh-window-title
 }
 
 __my-zsh-plugins

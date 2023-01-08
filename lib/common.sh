@@ -7,6 +7,7 @@ export LC_CTYPE="$LANG"
 
 export SVN_EDITOR="vim"
 export EDITOR="vim"
+export PAGER="less -R"
 
 export JAVA_HOME
 if [ -x "/usr/libexec/java_home" ]; then
