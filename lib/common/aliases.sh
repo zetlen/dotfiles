@@ -8,8 +8,24 @@ sizes() {
   du -chad "$depth" "$dir" | sort -h
 }
 
+find_up () {
+  local path=$(pwd)
+	while [[ "$path" != "" && ! -e "$path/$1" ]]; do
+		path=${path%/*}
+	done
+	echo "$path"
+}
+
+i_have() {
+	command -v "$1" &>/dev/null
+}
+
 i_dont_have() {
-	! command -v "$1" &>/dev/null
+	! i_have "$1"
+}
+
+in_repo() {
+	i_have git && git rev-parse HEAD &>/dev/null
 }
 
 # POSIX-compatible contains(string, substring)

@@ -23,6 +23,21 @@ CURRENT_SHELL="$(ps -cp "$$" -o command="")"
 # macos prepends a dash, remove it
 CURRENT_SHELL="${CURRENT_SHELL#\-}"
 
+
+add_cd_hook() {
+	case "$CURRENT_SHELL" in
+		zsh)
+			autoload -Uz add-zsh-hook
+			add-zsh-hook chpwd $1
+			;;
+		bash)
+			PROMPT_COMMAND="${PROMPT_COMMAND};${1}"
+			;;
+		*)
+			echo "no idea how to set a cd hook in '${CURRENT_SHELL}'"
+	esac
+}
+
 # glob without breaking in any shell
 ext_matches () {
 	find "$DOTFILE_PATH"/lib/common -maxdepth 1 -name "*.${1}*" -print
