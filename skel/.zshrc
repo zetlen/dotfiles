@@ -52,6 +52,7 @@ function __my-zsh-completions {
 	else
 		compinit -C;
 	fi
+	zsh-plugin-load zsh-users/zsh-completions
 	zsh-plugin-load lukechilds/zsh-better-npm-completion
 	zsh-plugin-load chrisands/zsh-yarn-completions
 	zsh-plugin-load Aloxaf/fzf-tab
