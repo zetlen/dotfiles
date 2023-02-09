@@ -50,6 +50,7 @@ nohooks = config --local core.hookspath ~/.dotfiles/lib/disabled-git-hooks
 rrbi = "!f(){ git checkout $1 && git pull && git checkout - && git rebase -i $1; }; f"
 upl = "!f(){ git checkout --ours package-lock.json && npm install && git add package-lock.json; }; f"
 us = restore --staged
+wash = clean -dfX -e '!.tool-versions'
 wipa = "!f(){ git add -A && git commit --no-verify -m \"WIP [NO-CI]: $*\"; }; f"
 wip = "!f(){ git commit --no-verify -m \"WIP [NO-CI]: $*\"; }; f"
 
