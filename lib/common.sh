@@ -41,7 +41,7 @@ add_cd_hook() {
 
 # glob without breaking in any shell
 ext_matches () {
-	find "$DOTFILE_PATH"/lib/common -maxdepth 1 -name "*.${1}*" -print
+	find "$DOTFILE_PATH"/lib/common -maxdepth 1 -name "*.${1}*" -print | sort
 }
 
 # iterate through newline-delimited .sh files
