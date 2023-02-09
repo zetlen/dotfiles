@@ -8,7 +8,7 @@ sizes() {
   du -chad "$depth" "$dir" | sort -h
 }
 
-find_up () {
+find_up() {
   local path=$(pwd)
 	while [[ "$path" != "" && ! -e "$path/$1" ]]; do
 		path=${path%/*}
