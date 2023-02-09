@@ -21,8 +21,6 @@ __pkg_is_available() {
 __pkg_install_all() {
 	sudo locale-gen "en_US.UTF-8"
 	sudo apt update
-	flog_log "Must add a PPA to install Vim 9."
-	confirm_cmd "sudo apt install -y software-properties-common && sudo add-apt-repository ppa:jonathonf/vim && sudo apt update"
 	__INSTALLABLE="$(__pkg_get_installable ${__TO_INSTALL[@]})"
 	test -n "$__INSTALLABLE" && confirm_cmd "sudo apt install -y $__INSTALLABLE"
 }
