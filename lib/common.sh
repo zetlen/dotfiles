@@ -29,6 +29,7 @@ add_cd_hook() {
 		zsh)
 			autoload -Uz add-zsh-hook
 			add-zsh-hook chpwd $1
+			"$1"
 			;;
 		bash)
 			PROMPT_COMMAND="${PROMPT_COMMAND};${1}"
