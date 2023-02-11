@@ -104,6 +104,6 @@ if [[ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]]; then
 fi
 
 ASDF_DIRENV_ZSHRC="${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
-[ ! -f "$ASDF_DIRENV_ZSHRC" ] && . $ASDF_DIRENV_ZSHRC
+[ ! -f "$ASDF_DIRENV_ZSHRC" ] || . $ASDF_DIRENV_ZSHRC
 
 [ ! -f ~/.zshrc.local ] || . ~/.zshrc.local
