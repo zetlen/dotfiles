@@ -3535,7 +3535,7 @@
 			<key>Normal Font</key>
 			<string>BlexMonoNerdFontCompleteM- 14</string>
 			<key>Option Key Sends</key>
-			<integer>0</integer>
+			<integer>2</integer>
 			<key>Prevent Opening in a Tab</key>
 			<true/>
 			<key>Prompt Before Closing 2</key>
@@ -3543,7 +3543,7 @@
 			<key>Reduce Flicker</key>
 			<true/>
 			<key>Right Option Key Sends</key>
-			<integer>0</integer>
+			<integer>2</integer>
 			<key>Rows</key>
 			<integer>80</integer>
 			<key>Screen</key>
