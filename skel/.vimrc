@@ -68,6 +68,8 @@ set background=dark                  " because it's how i feel on the inside
 syntax enable                        " all syntaces, forever!
 Plug 'flazz/vim-colorschemes'      " install a few more colorschemes
 
+Plug 'imsnif/kdl.vim'
+
 " }}}
 
 " Spaces and Tabs {{{
@@ -472,10 +474,6 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
-" }}}
-
-" Syntastic {{{
-Plug 'vim-syntastic/syntastic'
 " }}}
 
 " Filetype: JavaScript {{{
