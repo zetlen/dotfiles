@@ -7,7 +7,7 @@
 	<key>AggressiveBaseCharacterDetection</key>
 	<true/>
 	<key>AllowClipboardAccess</key>
-	<false/>
+	<true/>
 	<key>AlternateMouseScroll</key>
 	<false/>
 	<key>BadgeFont</key>
