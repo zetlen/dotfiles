@@ -104,10 +104,6 @@ __zdi_step1() {
 
 __zdi_steps[2]="Install packages?"
 __zdi_step2() {
-	flog_log "Setting up terminfo..."
-	if ! tic -s "$DOTFILE_PATH/lib/dvtm.info"; then
-		flog_warn "Trouble installing DVTM info. If you're using dvtm you will need to set DVTM_TERM=xterm."
-	fi
 	flog_log "Finding package install routing for $OSNAME..."
 	if [ ! -e "${OSPATH}/install.sh" ]; then
 		flog_warn "No install script for OS "$OSNAME" present."
