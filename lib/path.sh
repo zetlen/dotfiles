@@ -19,9 +19,9 @@ _z_path() {
 		# If this dirname is either relative, duplicate, or nonextant, then
 		# silently ignore this dirname and continue to the next. Note that the
 		# extancy test is the least performant test and hence deferred.
-		[[ "${dirname:0:1}" == '/' &&
-			":${PATH}:" != *":${dirname}:"* &&
-			-d "${dirname}" ]] || continue
+		# UPDATE apr 2023 do not care if it doesn't exist
+
+		[[ "${dirname:0:1}" == '/' && ":${PATH}:" != *":${dirname}:"* ]] || continue
 
 		# Else, this is an existing absolute unique dirname. In this case,
 		# append this dirname to the current ${PATH}.
