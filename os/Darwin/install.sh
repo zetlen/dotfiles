@@ -12,7 +12,13 @@ __TO_INSTALL=(
 )
 
 __pkg_is_installed() {
-	brew list "$1" &> /dev/null
+	if [[ "$1" == "gnupg" ]]; then
+		i_have gpg
+	elif [[ "$1" == "kaleidoscope" ]]; then
+		i_have ksdiff
+	else
+		brew list "$1" &> /dev/null
+	fi
 }
 
 __pkg_is_available() {
