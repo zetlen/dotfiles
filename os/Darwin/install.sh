@@ -9,6 +9,8 @@ __TO_INSTALL=(
 	coreutils
 	kaleidoscope
 	jq
+	rustup
+	neovim
 )
 
 __pkg_is_installed() {

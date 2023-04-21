@@ -11,6 +11,8 @@ __TO_INSTALL=(
 	fzf
 	gnupg2
 	bat
+	neovim
+	rustup
 )
 
 __pkg_is_available() {

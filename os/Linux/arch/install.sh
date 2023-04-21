@@ -8,10 +8,12 @@ __TO_INSTALL=(
 	exa
 	jq
 	vim
+	neovim
 	ripgrep
 	fzf
 	gnupg
 	bat
+	rustup
 )
 
 __pkg_is_installed() {

@@ -12,6 +12,7 @@ __TO_INSTALL=(
 	fzf
 	gnupg2
 	bat
+	neovim
 )
 
 __pkg_is_installed() {

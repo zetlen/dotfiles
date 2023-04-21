@@ -11,6 +11,8 @@ __TO_INSTALL=(
 	gnupg2
 	bat
 	vim
+	neovim
+	rustup
 )
 
 __pkg_is_available() {

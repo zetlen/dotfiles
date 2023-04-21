@@ -12,6 +12,8 @@ __TO_INSTALL=(
 	fzf
 	gpg2
 	bat
+	neovim
+	rustup
 )
 
 __pkg_is_installed() {

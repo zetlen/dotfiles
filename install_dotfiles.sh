@@ -35,6 +35,8 @@ __pkg_expected=(
 	lsof
 	rsync
 	jq
+	rustup
+	neovim
 )
 
 __pkg_install_all() {
