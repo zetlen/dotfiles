@@ -1,15 +1,16 @@
 __TO_INSTALL=(
-	zsh
-	git
+	base-devel
 	curl
-	lsof
-	wget
-	jq
-	vim
-	ripgrep
 	fzf
+	git
 	gnupg2
+	jq
+	lsof
+	ripgrep
 	unzip
+	vim
+	wget
+	zsh
 )
 
 __pkg_is_available() {
