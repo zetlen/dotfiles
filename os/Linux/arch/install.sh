@@ -10,7 +10,6 @@ __TO_INSTALL=(
 	ripgrep
 	fzf
 	gnupg
-	rustup
 	unzip
 )
 

@@ -8,7 +8,6 @@ __TO_INSTALL=(
 	ripgrep
 	fzf
 	gpg2
-	rustup
 	unzip
 	vim
 )

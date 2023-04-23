@@ -9,7 +9,6 @@ __TO_INSTALL=(
 	fzf
 	gnupg2
 	vim
-	rustup
 	unzip
 )
 

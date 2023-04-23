@@ -5,7 +5,6 @@ __TO_INSTALL=(
 	coreutils
 	kaleidoscope
 	jq
-	rustup
 	unzip
 	vim
 )
