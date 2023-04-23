@@ -1,6 +1,6 @@
 bat 0.23.0
 bitwarden v1.22.1
-direnv 2.32.1
+direnv 2.32.2
 golang latest
 lazygit latest
 neovim latest
