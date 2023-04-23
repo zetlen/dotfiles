@@ -13,7 +13,7 @@ __TO_INSTALL=(
 )
 
 __pkg_is_available() {
-	xbps-query -Rl "$1" &> /dev/null
+	xbps-query -R "$1" &> /dev/null
 }
 
 __pkg_install_all() {
