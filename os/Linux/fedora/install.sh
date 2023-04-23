@@ -1,16 +1,17 @@
 __TO_INSTALL=(
-	zsh
-	git
 	curl
-	lsof
-	wget
+	fzf
+	g++
+	git
+	gnupg2
 	jq
+	lsof
+	ripgrep
+	unzip
 	vim-common
 	vim-enhanced
-	ripgrep
-	fzf
-	gnupg2
-	unzip
+	wget
+	zsh
 )
 
 __pkg_is_installed() {
