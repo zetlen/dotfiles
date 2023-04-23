@@ -5,15 +5,13 @@ __TO_INSTALL=(
 	curl
 	lsof
 	wget
-	exa
 	jq
 	vim
-	neovim
 	ripgrep
 	fzf
 	gnupg
-	bat
 	rustup
+	unzip
 )
 
 __pkg_is_installed() {
