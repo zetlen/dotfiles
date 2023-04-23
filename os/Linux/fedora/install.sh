@@ -10,6 +10,7 @@ __TO_INSTALL=(
 	ripgrep
 	fzf
 	gnupg2
+	unzip
 )
 
 __pkg_is_installed() {
@@ -23,4 +24,5 @@ __pkg_is_available() {
 __pkg_install_all() {
 	__INSTALLABLE="$(__pkg_get_installable ${__TO_INSTALL[@]})"
 	test -n "$__INSTALLABLE" && confirm_cmd "sudo dnf install -y $__INSTALLABLE"
+	sudo dnf groupinstall "Development Tools" "Development Libraries"
 }
