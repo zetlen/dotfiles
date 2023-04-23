@@ -2,6 +2,7 @@
 # shellcheck disable=SC2059,SC2034
 
 . "$HOME/.dotfiles/lib/common.sh"
+. "$HOME/.dotfiles/lib/path.sh"
 . "$HOME/.dotfiles/lib/logging.sh"
 
 OSNAME="$(get_os_id)"
@@ -197,9 +198,36 @@ __zdi_step5() {
 	flog_success "Git prompt and completion are installed."
 }
 
-
-__zdi_steps[6]="Set up vim"
+__zdi_steps[6]="Set up zsh"
 __zdi_step6() {
+	if i_dont_have zsh; then
+		flog_error "zsh is not installed!"
+		return 1
+	elif ! grep -qF zsh /etc/shells; then
+		flog_error "zsh was not listed as an acceptable shell in /etc/shells!"
+		return 1
+	elif [[ "$SHELL" = "$(command -v zsh)" ]] || confirm_cmd "sudo usermod --shell $(command -v zsh) $(whoami)"; then
+		touch "$HOME/.tool-versions"
+		flog_confirm "Run zsh to set up initial environment?" && zsh "$HOME/.zshrc"
+		flog_success "zsh has been installed!"
+	fi
+}
+
+__zdi_steps[7]="Install tool versions"
+__zdi_step7() {
+       . "${HOME}/.asdf/asdf.sh"
+       while read PLUGIN VER; do
+               asdf plugin add $PLUGIN
+               asdf install $PLUGIN $VER
+               asdf global $PLUGIN $VER
+       done < "$HOME/.dotfiles/lib/.global-tool-versions"
+       flog_log "Running zsh again to set up these tools"
+       zsh "$HOME/.zshrc"
+       flog_success "asdf tool versions installed!"
+}
+
+__zdi_steps[8]="Set up vim"
+__zdi_step8() {
 	if ! i_dont_have vim; then
 		if [ ! -e ~/.vim/autoload/plug.vim ]; then
 			TO_DOWNLOAD="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
@@ -212,20 +240,6 @@ __zdi_step6() {
 		flog_confirm "Launch vim and update plugins?" && vim +PlugUpgrade +PlugUpdate +qall
 	else
 		flog_warn "Vim is not installed. No Vim plugins attached."
-	fi
-}
-__zdi_steps[7]="Set up zsh"
-__zdi_step7() {
-	if i_dont_have zsh; then
-		flog_error "zsh is not installed!"
-		return 1
-	elif ! grep -qF zsh /etc/shells; then
-		flog_error "zsh was not listed as an acceptable shell in /etc/shells!"
-		return 1
-	elif [[ "$SHELL" = "$(command -v zsh)" ]] || confirm_cmd "sudo usermod --shell $(command -v zsh) $(whoami)"; then
-		touch "$HOME/.tool-versions"
-		flog_confirm "Run zsh to set up initial environment?" && zsh "$HOME/.zshrc"
-		flog_success "zsh has been installed!"
 	fi
 }
 
