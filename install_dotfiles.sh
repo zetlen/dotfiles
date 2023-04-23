@@ -224,6 +224,8 @@ __zdi_step7() {
        flog_log "Running zsh again to set up these tools"
        zsh "$HOME/.zshrc"
        flog_success "asdf tool versions installed!"
+			 flog_log "Setting up direnv"
+			 asdf direnv setup --shell zsh --version latest
 			 flog_log "Trying node again to be sure"
 			 asdf install nodejs lts
 			 flog_log "Installing rustup"
