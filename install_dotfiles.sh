@@ -224,7 +224,7 @@ __zdi_step7() {
        flog_log "Running zsh again to set up these tools"
        zsh "$HOME/.zshrc"
        flog_success "asdf tool versions installed!"
-			 flog_confirm "Trying node again to be sure"
+			 flog_log "Trying node again to be sure"
 			 asdf install nodejs lts
 			 flog_log "Installing rustup"
 			 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --profile minimal
