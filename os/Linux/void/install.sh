@@ -17,6 +17,7 @@ __pkg_is_available() {
 }
 
 __pkg_install_all() {
+	sudo chmod a=rwx,u+t /tmp
 	sudo xbps-install -Su && sudo xbps-install -Su
 	__INSTALLABLE="$(__pkg_get_installable ${__TO_INSTALL[@]})"
 	test -n "$__INSTALLABLE" && confirm_cmd "sudo xbps-install -y $__INSTALLABLE"
