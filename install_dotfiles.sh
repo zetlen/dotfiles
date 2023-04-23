@@ -225,7 +225,7 @@ __zdi_step7() {
        zsh "$HOME/.zshrc"
        flog_success "asdf tool versions installed!"
 			 flog_log "Installing rustup"
-			 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+			 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path --profile minimal
 }
 
 __zdi_steps[8]="Set up vim"

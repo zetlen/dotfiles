@@ -1,15 +1,28 @@
 __TO_INSTALL=(
-	zsh
-	git
+	build-essential
 	curl
-	lsof
-	wget
-	jq
-	ripgrep
 	fzf
+	git
 	gnupg2
-	vim
+	jq
+	libbz2-dev
+	libffi-dev
+	liblzma-dev
+	libncursesw5-dev
+	libreadline-dev
+	libsqlite3-dev
+	libssl-dev
+	libxml2-dev
+	libxmlsec1-dev
+	lsof
+	ripgrep
+	tk-dev
 	unzip
+	vim
+	wget
+	xz-utils
+	zlib1g-dev
+	zsh
 )
 
 __pkg_is_available() {

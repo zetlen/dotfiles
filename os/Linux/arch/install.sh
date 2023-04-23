@@ -1,16 +1,21 @@
 __TO_INSTALL=(
-	openssh
-	zsh
-	git
+	base-devel
 	curl
-	lsof
-	wget
-	jq
-	vim
-	ripgrep
 	fzf
+	git
 	gnupg
+	jq
+	lsof
+	openssh
+	openssl
+	ripgrep
+	tk
 	unzip
+	vim
+	wget
+	xz
+	zlib
+	zsh
 )
 
 __pkg_is_installed() {

@@ -1,12 +1,18 @@
 __TO_INSTALL=(
-	ripgrep
+	coreutils
 	fzf
 	gnupg
-	coreutils
-	kaleidoscope
 	jq
+	kaleidoscope
+	openssl
+	readline
+	ripgrep
+	sqlite3
+	tcl-tk
 	unzip
 	vim
+	xz
+	zlib
 )
 
 __pkg_is_installed() {

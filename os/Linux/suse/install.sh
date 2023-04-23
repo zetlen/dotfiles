@@ -1,15 +1,31 @@
 __TO_INSTALL=(
-	zsh
-	git
+	automake
+	bzip2
 	curl
-	lsof
-	wget
-	jq
-	ripgrep
+	findutils
 	fzf
+  gcc
+	git
 	gpg2
+	jq
+	libbz2-devel
+	libffi-devel
+	libgdbm-devel
+	lsof
+	make
+	ncurses-devel
+	openssl-devel
+	readline-devel
+	ripgrep
+	sqlite3-devel
+	tk-devel
 	unzip
 	vim
+	wget
+	xz
+	xz-devel
+	zlib-devel
+	zsh
 )
 
 __pkg_is_installed() {
