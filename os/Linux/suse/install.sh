@@ -10,6 +10,7 @@ __TO_INSTALL=(
 	gpg2
 	rustup
 	unzip
+	vim
 )
 
 __pkg_is_installed() {
