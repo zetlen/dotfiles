@@ -41,6 +41,7 @@ _z_path() {
 _z_path "$HOME/bin" \
 	"$HOME/.local/bin" \
 	"$HOME/.cargo/bin" \
+	"$HOME/.asdf/installs/rust/stable/bin" \
 	"$HOME/.composer/vendor/bin" \
 	"$HOME/.rvm/bin" \
 	"$HOME/Library/Python/3.9/bin" \

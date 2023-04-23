@@ -1,12 +1,16 @@
 __TO_INSTALL=(
+	exa
+	vim
 	ripgrep
 	fzf
 	gnupg
+	bat
+	bitwarden-cli
 	coreutils
 	kaleidoscope
 	jq
 	rustup
-	unzip
+	neovim
 )
 
 __pkg_is_installed() {
