@@ -1,5 +1,6 @@
 __TO_INSTALL=(
 	coreutils
+	exa
 	fzf
 	gnupg
 	jq

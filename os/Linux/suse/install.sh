@@ -2,15 +2,16 @@ __TO_INSTALL=(
 	automake
 	bzip2
 	curl
+	exa
 	findutils
 	fzf
   gcc
+	gdbm-devel
 	git
 	gpg2
 	jq
 	libbz2-devel
 	libffi-devel
-	libgdbm-devel
 	lsof
 	make
 	ncurses-devel

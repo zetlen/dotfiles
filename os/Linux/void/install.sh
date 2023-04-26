@@ -2,6 +2,7 @@ __TO_INSTALL=(
 	base-devel
 	bzip2-devel
 	curl
+	exa
 	fzf
 	git
 	gnupg2
