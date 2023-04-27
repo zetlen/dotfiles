@@ -1,7 +1,7 @@
 __TO_INSTALL=(
 	base-devel
 	curl
-	exa:
+	exa
 	fzf
 	git
 	gnupg
