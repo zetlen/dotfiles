@@ -31,11 +31,8 @@ add_cd_hook() {
 			add-zsh-hook chpwd $1
 			"$1"
 			;;
-		bash)
-			PROMPT_COMMAND="${PROMPT_COMMAND};${1}"
-			;;
 		*)
-			echo "no idea how to set a cd hook in '${CURRENT_SHELL}'"
+			PROMPT_COMMAND="${PROMPT_COMMAND};${1}"
 	esac
 }
 
