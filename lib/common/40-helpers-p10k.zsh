@@ -1,10 +1,5 @@
-#!/bin/sh
+#!/bin/zsh
 
-showversions() {
-	if [ "$POWERLEVEL9K_ASDF_PROMPT_ALWAYS_SHOW" = "true" ]; then
-		POWERLEVEL9K_ASDF_PROMPT_ALWAYS_SHOW="false"
-	else
-		POWERLEVEL9K_ASDF_PROMPT_ALWAYS_SHOW="true"
-	fi
-	p10k reload
+_p10k_show_versions() {
+	p10k display '*/asdf'=hide,show
 }

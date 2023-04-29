@@ -30,17 +30,17 @@ setopt histreduceblanks
 setopt histexpiredupsfirst
 setopt appendhistory
 
-# changing di
-
 export MANPATH="/usr/local/man:$MANPATH"
 
 function __my-zsh-keybindings {
+	function zvm_config() {
+		ZVM_INIT_MODE=sourcing
+		ZVM_LAZY_KEYBINDINGS=false
+	}
 	zsh-plugin-load jeffreytse/zsh-vi-mode
-
-	# Enable Ctrl-x-e to edit command line
-	autoload -U edit-command-line
-	zle -N edit-command-line
-	bindkey '^X^E' edit-command-line
+	zvm_define_widget p10k_show_versions _p10k_show_versions
+	zvm_bindkey vicmd '^E' p10k_show_versions
+	zvm_bindkey viins '^E' p10k_show_versions
 }
 
 __my-zsh-keybindings
