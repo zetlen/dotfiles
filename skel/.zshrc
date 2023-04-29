@@ -64,7 +64,7 @@ function __my-zsh-completions {
   # set list-colors to enable filename colorizing
   zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
   # preview directory's content with exa when completing cd
-  zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1F --color-scale $realpath'
+  i_have exa && zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1F --color-scale $realpath'
   # switch group using `,` and `.`
   zstyle ':fzf-tab:*' switch-group ',' '.'
 }
