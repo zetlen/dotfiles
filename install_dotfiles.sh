@@ -26,20 +26,6 @@ __pkg_is_available() {
 	false
 }
 
-__pkg_expected=(
-	zsh
-	git
-	curl
-	vim
-	fzf
-	gpg
-	lsof
-	rsync
-	jq
-	rustup
-	neovim
-)
-
 __pkg_install_all() {
 	flog_warn "Could not detect what package manager to use. The following commands are expected in PATH:"
 	__pkg_get_installable
@@ -224,8 +210,6 @@ __zdi_step7() {
        flog_log "Running zsh again to set up these tools"
        zsh "$HOME/.zshrc"
        flog_success "asdf tool versions installed!"
-			 flog_log "Trying node again to be sure"
-			 asdf install nodejs lts
 			 flog_log "Installing rustup"
 			 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --profile minimal
 }
