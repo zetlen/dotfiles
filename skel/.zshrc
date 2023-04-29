@@ -81,7 +81,6 @@ __my-zsh-prompt
 
 function __my-zsh-plugins {
 	zsh-plugin-load zetlen/zsh-bitwarden
-	zsh-plugin-load redxtech/zsh-asdf-direnv
 	zsh-plugin-load olets/zsh-window-title
 }
 
@@ -103,8 +102,5 @@ unset SSH_AGENT_PID
 if [[ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]]; then
 	export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 fi
-
-ASDF_DIRENV_ZSHRC="${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
-[ ! -f "$ASDF_DIRENV_ZSHRC" ] || . $ASDF_DIRENV_ZSHRC
 
 [ ! -f ~/.zshrc.local ] || . ~/.zshrc.local
