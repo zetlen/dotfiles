@@ -52,13 +52,13 @@ __pkg_get_installable() {
 			installed_pkgs+=("$pkg")
 		fi
 	done
-	if (( ${#installed_pkgs[@]} )); then
+	if ((${#installed_pkgs[@]})); then
 		flog_success "Already installed: ${installed_pkgs[*]}"
 	fi
-	if (( ${#unavailable_pkgs[@]} )); then
+	if ((${#unavailable_pkgs[@]})); then
 		flog_error "Package manager doesn't have: ${unavailable_pkgs[*]}"
 	fi
-	if (( ${#to_install[@]} )); then
+	if ((${#to_install[@]})); then
 		flog_log "To install: ${to_install[*]}"
 		echo "${to_install[*]}"
 	else
@@ -103,14 +103,25 @@ __zdi_step2() {
 	fi
 }
 
-__zdi_steps[3]="Installing dotfiles to homedir"
+__zdi_steps[3]="Set up neovim"
 __zdi_step3() {
+	if i_have nvim; then
+		mkdir -p ~/.config
+		git clone --depth 1 https://github.com/AstroNvim/AstroNvim ~/.config/nvim
+		nvim --headless -c 'autocmd User LazyDone quitall'
+	else
+		flog_warn "Neovim is not installed."
+	fi
+}
+
+__zdi_steps[4]="Installing dotfiles to homedir"
+__zdi_step4() {
 	flog_indent 1
 	src_dir="$(normalize_dir $DOTFILE_PATH skel)"
 	for f in $(cd $src_dir && find . -type f -exec bash -c 'echo ${0:2}' {} \;); do
 		src_path="$(normalize_dir $src_dir $f)"
 		tgt_path="$(normalize_dir $HOME $f)"
-		tgt_dir="$(dirname $tgt_path)" 
+		tgt_dir="$(dirname $tgt_path)"
 		if [ ! -d "$tgt_dir" ]; then
 			flog_log Creating directory $tgt_dir
 			mkdir -p "$tgt_dir"
@@ -150,11 +161,11 @@ __zdi_step3() {
 	flog_success All dotfiles symlinked.
 }
 
-__zdi_steps[4]="Writing gitconfig"
-__zdi_step4() {
+__zdi_steps[5]="Writing gitconfig"
+__zdi_step5() {
 	GITCONFIG_BASEDIR="$(normalize_dir $DOTFILE_PATH lib/gitconfig)"
-  git config --global user.name "$(whoami)"
-	if flog_confirm "Set git user.email to zetlen@gmail.com?" ; then
+	git config --global user.name "$(whoami)"
+	if flog_confirm "Set git user.email to zetlen@gmail.com?"; then
 		git config --global user.email "zetlen@gmail.com"
 	fi
 	git config --global include.path "${GITCONFIG_BASEDIR}/common.gitconfig" 'common.gitconfig'
@@ -170,12 +181,12 @@ __zdi_step4() {
 	flog_success "Built .gitconfig"
 }
 
-__zdi_steps[5]="Download bash-only extras"
-__zdi_step5() {
+__zdi_steps[6]="Download bash-only extras"
+__zdi_step6() {
 	if [ ! -f "$HOME/.bash-git-prompt/gitprompt.sh" ]; then
-    flog_warn "Git prompt not found. Cloning bash-git-prompt repository to .bash-git-prompt"
-    git clone --depth=1 https://github.com/magicmonty/bash-git-prompt.git "$HOME/.bash-git-prompt"
-  fi
+		flog_warn "Git prompt not found. Cloning bash-git-prompt repository to .bash-git-prompt"
+		git clone --depth=1 https://github.com/magicmonty/bash-git-prompt.git "$HOME/.bash-git-prompt"
+	fi
 	if [ -s "$BASH_VERSION" ] && [ ! -f ~/.git-completion.bash ]; then
 		TO_DOWNLOAD="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 		flog_warn "Missing ~/.git-completion.bash file. Downloading ${__flog_startul}${TO_DOWNLOAD}${__flog_endul}"
@@ -184,8 +195,8 @@ __zdi_step5() {
 	flog_success "Git prompt and completion are installed."
 }
 
-__zdi_steps[6]="Set up zsh"
-__zdi_step6() {
+__zdi_steps[7]="Set up zsh"
+__zdi_step7() {
 	if i_dont_have zsh; then
 		flog_error "zsh is not installed!"
 		return 1
@@ -199,24 +210,24 @@ __zdi_step6() {
 	fi
 }
 
-__zdi_steps[7]="Install tool versions"
-__zdi_step7() {
-       . "${HOME}/.asdf/asdf.sh"
-       while read PLUGIN VER; do
-               asdf plugin add $PLUGIN
-               asdf install $PLUGIN $VER
-               asdf global $PLUGIN $VER
-       done < "$HOME/.dotfiles/lib/.global-tool-versions"
-       flog_log "Running zsh again to set up these tools"
-       zsh "$HOME/.zshrc"
-       flog_success "asdf tool versions installed!"
-			 flog_log "Installing rustup"
-			 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --profile minimal
+__zdi_steps[8]="Install tool versions"
+__zdi_step8() {
+	. "${HOME}/.asdf/asdf.sh"
+	while read PLUGIN VER; do
+		asdf plugin add $PLUGIN
+		asdf install $PLUGIN $VER
+		asdf global $PLUGIN $VER
+	done <"$HOME/.dotfiles/lib/.global-tool-versions"
+	flog_log "Running zsh again to set up these tools"
+	zsh "$HOME/.zshrc"
+	flog_success "asdf tool versions installed!"
+	flog_log "Installing rustup"
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --profile minimal
 }
 
-__zdi_steps[8]="Set up vim"
-__zdi_step8() {
-	if ! i_dont_have vim; then
+__zdi_steps[10]="Set up vim"
+__zdi_step10() {
+	if i_have vim; then
 		if [ ! -e ~/.vim/autoload/plug.vim ]; then
 			TO_DOWNLOAD="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 			flog_warn "Missing vim plugins."
