@@ -2,3 +2,5 @@
 gpgsign = true
 [gpg]
 program = gpg
+[credential]
+credentialStore = gpg
