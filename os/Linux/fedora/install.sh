@@ -8,6 +8,7 @@ __TO_INSTALL=(
 	jq
 	lsof
 	ripgrep
+	tar
 	unzip
 	vim-common
 	vim-enhanced
