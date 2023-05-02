@@ -103,19 +103,8 @@ __zdi_step2() {
 	fi
 }
 
-__zdi_steps[3]="Set up neovim"
+__zdi_steps[3]="Installing dotfiles to homedir"
 __zdi_step3() {
-	if i_have nvim; then
-		mkdir -p ~/.config
-		git clone --depth 1 https://github.com/AstroNvim/AstroNvim ~/.config/nvim
-		nvim --headless -c 'quitall'
-	else
-		flog_warn "Neovim is not installed."
-	fi
-}
-
-__zdi_steps[4]="Installing dotfiles to homedir"
-__zdi_step4() {
 	flog_indent 1
 	src_dir="$(normalize_dir $DOTFILE_PATH skel)"
 	for f in $(cd $src_dir && find . -type f -exec bash -c 'echo ${0:2}' {} \;); do
@@ -161,8 +150,8 @@ __zdi_step4() {
 	flog_success All dotfiles symlinked.
 }
 
-__zdi_steps[5]="Writing gitconfig"
-__zdi_step5() {
+__zdi_steps[4]="Writing gitconfig"
+__zdi_step4() {
 	GITCONFIG_BASEDIR="$(normalize_dir $DOTFILE_PATH lib/gitconfig)"
 	git config --global user.name "$(whoami)"
 	if flog_confirm "Set git user.email to zetlen@gmail.com?"; then
@@ -181,8 +170,8 @@ __zdi_step5() {
 	flog_success "Built .gitconfig"
 }
 
-__zdi_steps[6]="Download bash-only extras"
-__zdi_step6() {
+__zdi_steps[5]="Download bash-only extras"
+__zdi_step5() {
 	if [ ! -f "$HOME/.bash-git-prompt/gitprompt.sh" ]; then
 		flog_warn "Git prompt not found. Cloning bash-git-prompt repository to .bash-git-prompt"
 		git clone --depth=1 https://github.com/magicmonty/bash-git-prompt.git "$HOME/.bash-git-prompt"
@@ -195,8 +184,8 @@ __zdi_step6() {
 	flog_success "Git prompt and completion are installed."
 }
 
-__zdi_steps[7]="Set up zsh"
-__zdi_step7() {
+__zdi_steps[6]="Set up zsh"
+__zdi_step6() {
 	if i_dont_have zsh; then
 		flog_error "zsh is not installed!"
 		return 1
@@ -210,8 +199,8 @@ __zdi_step7() {
 	fi
 }
 
-__zdi_steps[8]="Install tool versions"
-__zdi_step8() {
+__zdi_steps[7]="Install tool versions"
+__zdi_step7() {
 	. "${HOME}/.asdf/asdf.sh"
 	while read PLUGIN VER; do
 		asdf plugin add $PLUGIN
@@ -225,8 +214,8 @@ __zdi_step8() {
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --profile minimal
 }
 
-__zdi_steps[10]="Set up vim"
-__zdi_step10() {
+__zdi_steps[9]="Set up vim"
+__zdi_step9() {
 	if i_have vim; then
 		if [ ! -e ~/.vim/autoload/plug.vim ]; then
 			TO_DOWNLOAD="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
@@ -239,6 +228,17 @@ __zdi_step10() {
 		flog_confirm "Launch vim and update plugins?" && vim +PlugUpgrade +PlugUpdate +qall
 	else
 		flog_warn "Vim is not installed. No Vim plugins attached."
+	fi
+}
+
+__zdi_steps[10]="Set up neovim"
+__zdi_step10() {
+	if i_have nvim; then
+		mkdir -p ~/.config
+		git clone --depth 1 https://github.com/AstroNvim/AstroNvim ~/.config/nvim
+		nvim --headless -c 'quitall'
+	else
+		flog_warn "Neovim is not installed."
 	fi
 }
 
