@@ -201,7 +201,14 @@ __zdi_step6() {
 
 __zdi_steps[7]="Install tool versions"
 __zdi_step7() {
-	. "${HOME}/.asdf/asdf.sh"
+	export ASDF_DIR="${HOME}/.asdf"
+	if i_dont_have asdf; then
+		flog_log "Installing asdf"
+		ASDF_CURRENT_VER="$(git -c 'versionsort.suffix=-' ls-remote --exit-code --refs --tags --sort='v:refname' https://github.com/asdf-vm/asdf.git | awk -F/ 'END{print$NF}')"
+		flog_log "Found asdf version $ASDF_CURRENT_VER"
+		git -c 'advice.detachedHead=false' clone https://github.com/asdf-vm/asdf.git "$ASDF_DIR" --branch "$ASDF_CURRENT_VER"
+	fi
+	. "${ASDF_DIR}/asdf.sh"
 	while read PLUGIN VER; do
 		asdf plugin add $PLUGIN
 		asdf install $PLUGIN $VER
