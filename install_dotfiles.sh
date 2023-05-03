@@ -223,8 +223,8 @@ __zdi_step7() {
 	fi
 }
 
-__zdi_steps[9]="Set up vim"
-__zdi_step9() {
+__zdi_steps[8]="Set up vim"
+__zdi_step8() {
 	if i_have vim; then
 		if [ ! -e ~/.vim/autoload/plug.vim ]; then
 			TO_DOWNLOAD="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
@@ -240,10 +240,15 @@ __zdi_step9() {
 	fi
 }
 
-__zdi_steps[10]="Set up neovim"
-__zdi_step10() {
+__zdi_steps[9]="Set up neovim"
+__zdi_step9() {
 	if i_have nvim; then
+		flog_log Installing optional tools...
+		go install github.com/jesseduffield/lazygit@latest
+		go install github.com/dundee/gdu/v5/cmd/gdu@latest
+		cargo install bottom
 		mkdir -p ~/.config
+		flog_log Installing AstroNvim...
 		git clone --depth 1 https://github.com/AstroNvim/AstroNvim ~/.config/nvim
 		nvim --headless -c 'quitall'
 	else
@@ -275,3 +280,7 @@ if [ -n "$RUN_STEP" ]; then
 else
 	for stepnum in "${!__zdi_steps[@]}"; do __zdi_run_step "$stepnum"; done
 fi
+
+flog_confirm "Run new zsh shell to see your changes?" &&
+	zsh -l ||
+	flog_warn "Close this session and start a new terminal to see all changes."
