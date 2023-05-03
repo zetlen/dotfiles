@@ -1,5 +1,9 @@
-__set_node_aliases () {
+__set_node_aliases() {
 
+	alias n='npm '
+	alias nr='npm run '
+	alias ni='npm install '
+	alias __n_install_all="npm install"
 	alias y='yarn '
 	alias yr='yarn run '
 
@@ -17,11 +21,6 @@ __set_node_aliases () {
 			alias ni="echo $__yarn_notice && yarn add "
 			alias __n_install_all="yarn"
 		fi
-	else
-			alias n='npm '
-			alias nr='npm run '
-			alias ni='npm install '
-			alias __n_install_all="npm install"
 	fi
 
 	alias clean_project='npm run --if-present clean && in_repo && git wash || true'
