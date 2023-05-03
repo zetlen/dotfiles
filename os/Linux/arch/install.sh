@@ -20,7 +20,7 @@ __TO_INSTALL=(
 )
 
 __pkg_is_installed() {
-	pacman -Qi "$1" &> /dev/null
+	pacman -Qi "$1" &>/dev/null
 }
 
 __pkg_is_available() {
