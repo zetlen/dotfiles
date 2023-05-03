@@ -5,7 +5,7 @@ __TO_INSTALL=(
 	exa
 	findutils
 	fzf
-  gcc
+	gcc
 	gdbm-devel
 	git
 	gpg2
@@ -30,14 +30,15 @@ __TO_INSTALL=(
 )
 
 __pkg_is_installed() {
-	zypper search --installed-only "$1" &> /dev/null
+	zypper search --installed-only "$1" &>/dev/null
 }
 
 __pkg_is_available() {
-	zypper search --match-exact "$1" &> /dev/null
+	zypper search --match-exact "$1" &>/dev/null
 }
 
 __pkg_install_all() {
+	sudo zypper install -t pattern devel_basis
 	__INSTALLABLE="$(__pkg_get_installable ${__TO_INSTALL[@]})"
 	test -n "$__INSTALLABLE" && confirm_cmd "sudo zypper install -y $__INSTALLABLE"
 }
