@@ -262,7 +262,7 @@ __zdi_run_step() {
 	local desc
 	fn="__zdi_step$1"
 	desc="${__zdi_steps[$1]}"
-	flog_log ''
+	echo ''
 	flog_log "${__flog_color_standout}${desc}${__flog_color_normal} ($1 of $TOTAL_STEPS)"
 	if flog_confirm "Proceed?"; then
 		flog_indent 2

@@ -1,4 +1,3 @@
-
 #### friendly logging ####
 # color codes, blank until we know colors are supported
 __flog_color_normal=""
@@ -89,7 +88,7 @@ if [ -t 1 ]; then
 			__flog_format "$__flog_color_green" "$__flog_sym_success" "$*" $'\n'
 		}
 		__flog_confirm_prompt() {
-			__flog_format "${__flog_color_confirm}${__flog_bold}" "$__flog_sym_confirm" "$* ${__flog_dim}[Y/n]${__flog_color_normal}"
+			__flog_format "${__flog_color_confirm}${__flog_bold}" "$__flog_sym_confirm" "$* ${__flog_dim}[Y/n]:${__flog_color_normal} "
 		}
 
 	fi
@@ -98,14 +97,15 @@ fi
 flog_confirm() {
 	__formatted_prompt="$(__flog_confirm_prompt "$*")"
 	if [ ! -z "$FLOG_CONFIRM_ALL" ]; then
-		printf '%s %s (autoselect) Y %s' "${__formatted_prompt}" "${__flog_standouton}" "${__flog_standoutoff}"
+		printf "%s%s%s Yes (auto)%s\n" "${__flog_color_green}" "${__flog_dim}" "${__flog_sym_success}" "${__flog_color_normal}"
 		return 0;
 	fi
-	read -r -p "${__formatted_prompt}"
+	read -s -n1 -r -p "${__formatted_prompt}"
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
+		printf "%s%s%s Yes%s\n" "${__flog_color_green}" "${__flog_dim}" "${__flog_sym_success}" "${__flog_color_normal}"
 		return 0
 	elif [[ $REPLY =~ ^[Nn]$ ]] || [[ "$__flog_maxfail" == "0" ]]; then
-		flog_warn 'Canceled!'
+		printf "%s%s%s No%s\n" "${__flog_color_red}" "${__flog_dim}" "${__flog_sym_error}" "${__flog_color_normal}"
 		return 1
 	else
 		__flog_maxfail=$(( __flog_maxfail - 1 ))
