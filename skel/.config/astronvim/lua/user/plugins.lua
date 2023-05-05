@@ -51,4 +51,7 @@ return {
 		},
 		config = require("plugins.configs.notify"),
 	},
+	{
+		"kevinhui/vim-docker-tools"
+	}
 }
