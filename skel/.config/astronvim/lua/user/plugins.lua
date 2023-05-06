@@ -52,6 +52,15 @@ return {
 		config = require("plugins.configs.notify"),
 	},
 	{
-		"kevinhui/vim-docker-tools"
+		"kevinhui/vim-docker-tools",
+		cmd = {
+			"DockerToolsToggle",
+			"DockerToolsOpen",
+			"DockerToolsClose",
+		},
+		event = {
+			"BufEnter docker-compose.yml",
+			"BufEnter docker-compose.yaml",
+		},
 	}
 }
