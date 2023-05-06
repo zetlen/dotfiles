@@ -82,6 +82,7 @@ __my-zsh-prompt
 function __my-zsh-plugins {
 	zsh-plugin-load zetlen/zsh-bitwarden
 	zsh-plugin-load olets/zsh-window-title
+	zsh-plugin-load ptavares/zsh-direnv
 }
 
 __my-zsh-plugins
