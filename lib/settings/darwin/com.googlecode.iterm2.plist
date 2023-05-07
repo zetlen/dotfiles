@@ -3952,9 +3952,9 @@
 			<key>Columns</key>
 			<integer>200</integer>
 			<key>Command</key>
-			<string>zsh -l -c 'zellij options --attach-to-session=true --session-name=overlay --default-mode=locked --default-layout=compact --simplified-ui=true'</string>
+			<string></string>
 			<key>Cursor Boost</key>
-			<real>0.1518229166666667</real>
+			<real>0.0</real>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -3987,7 +3987,7 @@
 				<real>1</real>
 			</dict>
 			<key>Custom Command</key>
-			<string>Yes</string>
+			<string>No</string>
 			<key>Custom Directory</key>
 			<string>No</string>
 			<key>Default Bookmark</key>
@@ -4089,7 +4089,7 @@
 				<real>0.0</real>
 			</dict>
 			<key>Minimum Contrast</key>
-			<real>0.0</real>
+			<real>0.68147786458333337</real>
 			<key>Mouse Reporting</key>
 			<true/>
 			<key>Name</key>
@@ -4103,7 +4103,7 @@
 			<key>Normal Font</key>
 			<string>IMWritingMonoNFM-Bold 15</string>
 			<key>Only The Default BG Color Uses Transparency</key>
-			<true/>
+			<false/>
 			<key>Option Key Sends</key>
 			<integer>2</integer>
 			<key>Prevent Opening in a Tab</key>
@@ -4115,7 +4115,7 @@
 			<key>Right Option Key Sends</key>
 			<integer>2</integer>
 			<key>Rows</key>
-			<integer>80</integer>
+			<integer>60</integer>
 			<key>Screen</key>
 			<integer>-2</integer>
 			<key>Scrollback Lines</key>
@@ -4286,7 +4286,7 @@
 			<key>Visual Bell</key>
 			<true/>
 			<key>Window Type</key>
-			<integer>12</integer>
+			<integer>8</integer>
 			<key>Working Directory</key>
 			<string>/Users/jzetlen</string>
 		</dict>
