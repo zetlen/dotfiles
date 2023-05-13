@@ -3,17 +3,15 @@
 . "${HOME}/.dotfiles/lib/logging.sh"
 
 ZPLUGINDIR="${HOME}/.config/zsh/plugins/"
+ZPLUGIN_UPDATE_SENTINEL="${HOME}/.config/zsh/.zsh-plugins-updated"
 
 function zsh-plugin-init {
   if [[ ! -d "$ZPLUGINDIR" ]]; then
     flog_confirm "$ZPLUGINDIR does not exist. Create?"
     mkdir -p "$ZPLUGINDIR"
   fi
-	updated_sentinel="${HOME}/.config/zsh/.zsh-plugins-updated"
-	[ -f "$updated_sentinel" ] || touch "$updated_sentinel"
-	time_since="$(perl -l -e '$modi = -M $ARGV[0]; printf("%.0f\n", $modi)' "$updated_sentinel")"
-	if (( time_since > 30 )) && flog_confirm "It has been ${time_since} days since updating your plugins. Update them now?"; then
-		zsh-plugin-update
+  if zsh -c "ls ${ZPLUGIN_UPDATE_SENTINEL}(Dmd+30)" &>/dev/null; then
+		flog_warn "It has been more than 30 days since updating your plugins. Run zsh-plugin-update to update them."
 	fi
 }
 
@@ -43,5 +41,5 @@ function zsh-plugin-update {
 		echo "Updating ${d:h:t}..."
 		command git -C "${d:h}" pull --ff --recurse-submodules --depth 1 --rebase --autostash
 	done
-	touch "$updated_sentinel"
+	touch "$ZPLUGIN_UPDATE_SENTINEL"
 }
