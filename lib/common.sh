@@ -1,7 +1,9 @@
 # shellcheck disable=SC1090,SC1091
 # tell shellcheck to quit complaining about dynamic paths
 
-export LANG=en_US.UTF-8
+### LOCALES ###
+export LANG="en_US.UTF-8"
+export LANGUAGE="$LANG"
 export LC_ALL="$LANG"
 export LC_CTYPE="$LANG"
 

@@ -1,12 +1,5 @@
 [ ! -f $HOME/.zshrc.localbefore ] || . $HOME/.zshrc.localbefore
 
-### LOCALES ###
-
-export LANG="en_US.UTF-8"
-export LANGUAGE="$LANG"
-export LC_ALL="$LANG"
-export LC_CTYPE="$LANG"
-
 export ZDOTDIR="$HOME"
 
 # This import must be changed if DOTFILE_PATH changes.
