@@ -29,3 +29,7 @@ __pkg_install_all() {
 	test -n "$__INSTALLABLE" && confirm_cmd "sudo dnf install -y $__INSTALLABLE"
 	sudo dnf groupinstall "Development Tools" "Development Libraries"
 }
+
+__pkg_update_all() {
+	sudo dnf upgrade
+}

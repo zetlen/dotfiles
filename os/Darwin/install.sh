@@ -56,3 +56,7 @@ __pkg_install_all() {
 		flog_log "Finder: Restart to take effect..." &&
 		killall Finder
 }
+
+__pkg_update_all() {
+	brew update && brew upgrade
+}

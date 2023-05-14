@@ -42,3 +42,7 @@ __pkg_install_all() {
 	__INSTALLABLE="$(__pkg_get_installable ${__TO_INSTALL[@]})"
 	test -n "$__INSTALLABLE" && confirm_cmd "sudo zypper install -y $__INSTALLABLE"
 }
+
+__pkg_update_all() {
+	sudo zypper ref && sudo zypper update
+}

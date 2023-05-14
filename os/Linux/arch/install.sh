@@ -34,3 +34,7 @@ __pkg_install_all() {
 	__INSTALLABLE="$(__pkg_get_installable ${__TO_INSTALL[@]})"
 	test -n "$__INSTALLABLE" && confirm_cmd "sudo pacman -Sy --noconfirm $__INSTALLABLE"
 }
+
+__pkg_update_all() {
+	sudo pacman -Syu
+}

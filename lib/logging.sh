@@ -1,4 +1,4 @@
-#### friendly logging ####
+### friendly logging ####
 # color codes, blank until we know colors are supported
 __flog_color_normal=""
 __flog_color_red=""
@@ -20,6 +20,14 @@ flog_indent() {
 	level="$1"
 	__flog_tab_len="$((__flog_tab_len + level))"
 	__flog_tab=$(printf "%-${__flog_tab_len}s")
+}
+
+flog_read() {
+	if [ -n "$ZSH_VERSION" ] && type zstyle >/dev/null 2>&1; then # zsh
+		read -k1 REPLY\?"${*}"
+	else
+		read -n1 -r -p "${*}"
+	fi
 }
 
 __flog_maxfail=3
@@ -100,11 +108,13 @@ flog_confirm() {
 		printf "%s%s%s Yes (auto)%s\n" "${__flog_color_green}" "${__flog_dim}" "${__flog_sym_success}" "${__flog_color_normal}"
 		return 0
 	fi
-	read -s -n1 -r -p "${__formatted_prompt}"
+	flog_read "${__formatted_prompt}"
+	echo -n ' '
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
 		printf "%s%s%s Yes%s\n" "${__flog_color_green}" "${__flog_dim}" "${__flog_sym_success}" "${__flog_color_normal}"
 		return 0
 	elif [[ $REPLY =~ ^[Nn]$ ]] || [[ "$__flog_maxfail" == "0" ]]; then
+		__flog_maxfail=3
 		printf "%s%s%s No%s\n" "${__flog_color_red}" "${__flog_dim}" "${__flog_sym_error}" "${__flog_color_normal}"
 		return 1
 	else

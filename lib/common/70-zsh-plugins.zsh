@@ -1,7 +1,3 @@
-#!/usr/bin/env zsh
-
-. "${HOME}/.dotfiles/lib/logging.sh"
-
 ZPLUGINDIR="${HOME}/.config/zsh/plugins/"
 ZPLUGIN_UPDATE_SENTINEL="${HOME}/.config/zsh/.zsh-plugins-updated"
 
