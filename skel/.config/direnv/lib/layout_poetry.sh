@@ -4,7 +4,7 @@ layout_poetry() {
 		poetry init -n -q
 		poetry run pip install -U pip wheel setuptools
 	fi
-	poetry run echo >> /dev/null
+	poetry run echo >>/dev/null
 	local VENV=$(dirname $(poetry run which python))
 	export VIRTUAL_ENV=$(echo "$VENV" | rev | cut -d'/' -f2- | rev)
 	export POETRY_ACTIVE=1

@@ -1,4 +1,3 @@
-
 # void z_path(str dirname, ...)
 #
 # Append each passed existing directory to the current user's ${PATH} in a
@@ -10,7 +9,7 @@
 _z_path() {
 	# For each passed dirname...
 	local dirname
-	for   dirname; do
+	for dirname; do
 		# Strip the trailing directory separator if any from this dirname,
 		# reducing this dirname to the canonical form expected by the
 		# test for uniqueness performed below.
@@ -45,8 +44,8 @@ _z_path "$HOME/bin" \
 	"$HOME/.rvm/bin" \
 	"$HOME/Library/Python/3.9/bin" \
 	"$HOME/.yarn/bin" \
-  "$HOME/.config/yarn/global/node_modules/.bin" \
-  "/usr/local/share/npm/bin" \
+	"$HOME/.config/yarn/global/node_modules/.bin" \
+	"/usr/local/share/npm/bin" \
 	"/usr/local/bin" \
 	"/usr/local/sbin" \
 	"/opt/local/bin" \

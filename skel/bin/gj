@@ -15,20 +15,20 @@ PREVIEW_CMD='bat \
   {}'
 
 picker_input() {
-  find "$JOURNAL_DIR" -name '*.md' -print | cut -c $((${#JOURNAL_DIR} + 2))-
+	find "$JOURNAL_DIR" -name '*.md' -print | cut -c $((${#JOURNAL_DIR} + 2))-
 }
 
 picker_output() {
- picker_input | fzf \
-   --no-clear \
-   --preview="$PREVIEW_CMD" 
+	picker_input | fzf \
+		--no-clear \
+		--preview="$PREVIEW_CMD"
 
 }
 
 edit_if_chosen() {
-  if [ -n "$1" ]; then
-    vim -u "$CUSTOM_VIMRC" "$1";
-  fi
+	if [ -n "$1" ]; then
+		vim -u "$CUSTOM_VIMRC" "$1"
+	fi
 }
 
 confirm_journal_exists() {

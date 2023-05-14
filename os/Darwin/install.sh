@@ -22,12 +22,12 @@ __pkg_is_installed() {
 	elif [[ "$1" == "kaleidoscope" ]]; then
 		i_have ksdiff
 	else
-		brew list "$1" &> /dev/null
+		brew list "$1" &>/dev/null
 	fi
 }
 
 __pkg_is_available() {
-	brew info "$1" &> /dev/null
+	brew info "$1" &>/dev/null
 }
 
 __pkg_install_all() {
@@ -44,15 +44,15 @@ __pkg_install_all() {
 	test -n "$__INSTALLABLE" && confirm_cmd "brew install $__INSTALLABLE"
 
 	flog_log "NVRAM: Always verbose boot..." &&
-	sudo nvram boot-args="-v" &&
-	flog_log "LoginWindow: Set login message..." &&
-	sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "a james zetlen joint 🕉" &&
-	flog_log "Finder: Hide desktop icons..." &&
-	defaults write com.apple.finder CreateDesktop false &&
-	flog_log "Finder: Show hidden files..." &&
-	defaults write com.apple.finder AppleShowAllFiles YES &&
-	flog_log "Keyboard: Normal key repeat and not special chars..." &&
-	defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false &&
-	flog_log "Finder: Restart to take effect..." &&
-	killall Finder
+		sudo nvram boot-args="-v" &&
+		flog_log "LoginWindow: Set login message..." &&
+		sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "a james zetlen joint 🕉" &&
+		flog_log "Finder: Hide desktop icons..." &&
+		defaults write com.apple.finder CreateDesktop false &&
+		flog_log "Finder: Show hidden files..." &&
+		defaults write com.apple.finder AppleShowAllFiles YES &&
+		flog_log "Keyboard: Normal key repeat and not special chars..." &&
+		defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false &&
+		flog_log "Finder: Restart to take effect..." &&
+		killall Finder
 }

@@ -98,7 +98,7 @@ flog_confirm() {
 	__formatted_prompt="$(__flog_confirm_prompt "$*")"
 	if [ ! -z "$FLOG_CONFIRM_ALL" ]; then
 		printf "%s%s%s Yes (auto)%s\n" "${__flog_color_green}" "${__flog_dim}" "${__flog_sym_success}" "${__flog_color_normal}"
-		return 0;
+		return 0
 	fi
 	read -s -n1 -r -p "${__formatted_prompt}"
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -108,9 +108,8 @@ flog_confirm() {
 		printf "%s%s%s No%s\n" "${__flog_color_red}" "${__flog_dim}" "${__flog_sym_error}" "${__flog_color_normal}"
 		return 1
 	else
-		__flog_maxfail=$(( __flog_maxfail - 1 ))
+		__flog_maxfail=$((__flog_maxfail - 1))
 		flog_warn "Y or N please. (${__flog_maxfail} tries remaining.)"
 		flog_confirm "$*"
 	fi
 }
-
