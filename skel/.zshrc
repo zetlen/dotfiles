@@ -7,10 +7,6 @@ export ZDOTDIR="$HOME"
 
 add_os_rc "zsh"
 
-# raw dog plugin manager
-. "$DOTFILE_PATH/lib/zsh-plugins.zsh"
-zsh-plugin-init
-
 # OPTIONS
 
 # good history
