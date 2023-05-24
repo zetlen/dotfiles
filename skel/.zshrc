@@ -27,9 +27,9 @@ function __my-zsh-keybindings {
 		ZVM_LAZY_KEYBINDINGS=false
 	}
 	zsh-plugin-load jeffreytse/zsh-vi-mode
-	zvm_define_widget p10k_show_versions _p10k_show_versions
-	zvm_bindkey vicmd '^E' p10k_show_versions
-	zvm_bindkey viins '^E' p10k_show_versions
+	zvm_define_widget p10k_toggle_versions _p10k_toggle_versions
+	zvm_bindkey vicmd '^E' p10k_toggle_versions
+	zvm_bindkey viins '^E' p10k_toggle_versions
 }
 
 __my-zsh-keybindings
