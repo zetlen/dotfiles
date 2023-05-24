@@ -3,34 +3,24 @@ return {
 		"goolord/alpha-nvim",
 		cmd = "Alpha",
 		opts = function()
+			local after_last_slash = function(path)
+				return string.match(path, "[^/]+$")
+			end
+
 			local dashboard = require("alpha.themes.dashboard")
-			-- local toiletfontdir = io.popen("figlet -I2"):read()
-			-- local fontslist = io.popen(string.format('ls -1 "%1s"/*.flf', toiletfontdir)):lines()
-			-- local fonts = {}
-			-- for font in fontslist do
-			-- 	table.insert(fonts, font)
-			-- end
-			-- math.randomseed(os.time())
-			-- local pickedfont = fonts[math.random(1, #fonts)]
-			-- local greeting = {}
-			-- local greetingtext = io.popen(string.format("figlet -W -f %s hi", pickedfont))
-			-- for line in greetingtext:lines() do
-			-- 	table.insert(greeting, line)
-			-- end
 			local project_tag
-			local current_dir = os.getenv("PWD")
 			local git_dir = io.popen("git rev-parse --show-toplevel 2> /dev/null"):read("*line")
 			if not git_dir then
 				-- If it's not a git repository, just print the current directory name
 				project_tag = vim.loop.cwd()
 			else
-				-- If it's a git repository, print the last segment of the first remote URL
-				local git_remote = io.popen("git remote get-url origin"):read("*line")
-				local url_parts = {}
-				for part in string.gmatch(git_remote, "[^/]+") do
-					url_parts[#url_parts + 1] = part
+				local git_remote_list = io.popen("git remote"):read("*a")
+				if git_remote_list == "" then
+					project_tag = after_last_slash(git_dir)
+				else
+					local git_remote = io.popen("git remote get-url origin"):read("*line")
+					project_tag = after_last_slash(git_remote)
 				end
-				project_tag = url_parts[#url_parts]
 			end
 			local project_tag_font = "miniwi"
 			local project_tag_formatted = {}
