@@ -89,4 +89,7 @@ if [[ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]]; then
 	export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 fi
 
+# set asdf-golang variables
+export ASDF_GOLANG_MOD_VERSION_ENABLED=true
+
 [ ! -f ~/.zshrc.local ] || . ~/.zshrc.local
