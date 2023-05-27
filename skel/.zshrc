@@ -37,11 +37,7 @@ __my-zsh-keybindings
 function __my-zsh-completions {
   autoload -Uz compinit
 	zsh-plugin-load zetlen/zsh-completion-generators
-	if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
-		compinit;
-	else
-		compinit -C;
-	fi
+	compinit
 	zsh-plugin-load zsh-users/zsh-completions
 	zsh-plugin-load lukechilds/zsh-better-npm-completion
 	zsh-plugin-load chrisands/zsh-yarn-completions
