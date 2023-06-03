@@ -86,16 +86,10 @@ else
 fi
 
 ide() {
-	local to_launch="$EDITOR"
-	if i_have nvim; then
-		to_launch="nvim"
-	elif i_have vim; then
-		to_launch="vim"
-	fi
-	if [ "$ZELLIJ" = "0" ]; then
-		zellij action switch-mode locked
-	fi
-	"$(which $to_launch)" $@
+	cd "$*"
+	local proj_root="$(basename $PWD)"
+	zellij action switch-mode locked
+	zellij action new-tab --layout ide --name "$proj_root"
 }
 
 alias r='rsync -avhzPC' # skip .git and other common skips
