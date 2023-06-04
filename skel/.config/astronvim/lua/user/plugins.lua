@@ -22,7 +22,7 @@ return {
 					project_tag = after_last_slash(git_remote)
 				end
 			end
-			local project_tag_font = "miniwi"
+			local project_tag_font = vim.fn.expand("$HOME/.config/astronvim/miniwi.flf")
 			local project_tag_formatted = {}
 			local figlet_output = io.popen(string.format("figlet -W -f %s %s", project_tag_font, project_tag))
 			for line in figlet_output:lines() do
