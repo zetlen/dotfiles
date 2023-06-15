@@ -53,7 +53,7 @@ fzf_sizer_hidden_preview_window_settings() {
 }
 
 zj() {
-	zellij list-sessions | fzf \
+	zellij list-sessions | sed -s 's, (current),,g' | fzf \
 		--bind 'enter:become(zellij attach {})' \
 		--cycle \
 		--layout reverse \
