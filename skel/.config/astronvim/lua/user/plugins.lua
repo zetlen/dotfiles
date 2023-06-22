@@ -63,14 +63,13 @@ return {
 		config = require("plugins.configs.notify"),
 	},
 	{
-    "kylechui/nvim-surround",
-    version = "*", -- Use for stability; omit to use `main` branch for the latest features
-    event = "VeryLazy",
-    config = function()
-        require("nvim-surround").setup({
-            -- Configuration here, or leave empty to use defaults
-        })
-    end,
+		"kylechui/nvim-surround",
+		event = "VeryLazy",
+		config = function()
+			require("nvim-surround").setup({
+				-- Configuration here, or leave empty to use defaults
+			})
+		end,
 	},
 	{
 		"kevinhui/vim-docker-tools",
@@ -83,5 +82,20 @@ return {
 			"BufEnter docker-compose.yml",
 			"BufEnter docker-compose.yaml",
 		},
+	},
+	{
+		"ray-x/lsp_signature.nvim",
+		event = "BufRead",
+		config = function()
+			require("lsp_signature").setup()
+		end,
+	},
+
+	{
+		"andythigpen/nvim-coverage",
+		dependencies = "nvim-lua/plenary.nvim",
+		config = function()
+			require("coverage").setup()
+		end,
 	},
 }
