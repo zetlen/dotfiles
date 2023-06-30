@@ -2848,6 +2848,8 @@
 			<string></string>
 			<key>AWDS Window Option</key>
 			<string>No</string>
+			<key>Allow Title Setting</key>
+			<false/>
 			<key>Ambiguous Double Width</key>
 			<false/>
 			<key>Ansi 0 Color</key>
@@ -3708,6 +3710,8 @@
 			<string>xterm-256color</string>
 			<key>Thin Strokes</key>
 			<integer>1</integer>
+			<key>Title Components</key>
+			<integer>34</integer>
 			<key>Transparency</key>
 			<real>0.17449844017536681</real>
 			<key>Unicode Normalization</key>
