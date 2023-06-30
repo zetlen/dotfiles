@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>build</key>
-	<real>965</real>
+	<string>1197</string>
 	<key>license</key>
 	<dict>
 		<key>email</key>
@@ -23,6 +23,8 @@
 		<string>1.00 0.99 0.00 1.00</string>
 		<key>Battery_ColorGraphLow-Standard</key>
 		<string>1.00 0.15 0.00 1.00</string>
+		<key>Battery_DisableBluetooth</key>
+		<integer>0</integer>
 		<key>Battery_DropdownGraph</key>
 		<string>0.00 0.98 0.00 1.00</string>
 		<key>Battery_DropdownOrderDisabled</key>
@@ -35,7 +37,7 @@
 				<key>internal</key>
 				<true/>
 				<key>key</key>
-				<string>C0164361832FY5JEE</string>
+				<string>D868217A38BHDWCBU</string>
 				<key>name</key>
 				<string>Internal Battery</string>
 				<key>subtype</key>
@@ -69,7 +71,13 @@
 				<key>key</key>
 				<string>3</string>
 				<key>uuid</key>
-				<string>12BCA45E-B695-403B-92CF-DA77087017C2</string>
+				<string>2BA244A5-C664-43C4-9334-C6A0755F43BA</string>
+			</dict>
+			<dict>
+				<key>key</key>
+				<string>7</string>
+				<key>uuid</key>
+				<string>7433C4FC-1ADD-49C6-9238-EEA6034A9677</string>
 			</dict>
 		</array>
 		<key>Battery_MenubarModeCharging</key>
@@ -78,13 +86,13 @@
 				<key>key</key>
 				<string>3</string>
 				<key>uuid</key>
-				<string>0FA2CB87-0882-4F5B-A0C1-CA93C54264E8</string>
+				<string>4DA551A9-EEF6-487A-B8BE-96E2C0346A77</string>
 			</dict>
 			<dict>
 				<key>key</key>
-				<string>0</string>
+				<string>7</string>
 				<key>uuid</key>
-				<string>1BC3D703-BE1C-4574-8BC7-77C1F64BCC31</string>
+				<string>EB36806F-71D7-4755-888F-3C48AC9F079E</string>
 			</dict>
 		</array>
 		<key>Battery_MenubarModeDraining</key>
@@ -93,58 +101,107 @@
 				<key>key</key>
 				<string>3</string>
 				<key>uuid</key>
-				<string>17010083-6F29-456B-B0B6-7EB053316DC4</string>
+				<string>0E30D5FA-D65A-442F-A755-7961A79F36C9</string>
 			</dict>
 			<dict>
 				<key>key</key>
-				<string>1</string>
+				<string>7</string>
 				<key>uuid</key>
-				<string>4BB7E13D-C397-418F-A269-13C173816259</string>
+				<string>9DD2FDC2-BA8C-4414-8B05-F0B4CCE1C460</string>
 			</dict>
 		</array>
+		<key>Battery_MenubarModeNotCharging</key>
+		<array>
+			<dict>
+				<key>key</key>
+				<string>3</string>
+				<key>uuid</key>
+				<string>4DA551A9-EEF6-487A-B8BE-96E2C0346A77</string>
+			</dict>
+			<dict>
+				<key>key</key>
+				<string>7</string>
+				<key>uuid</key>
+				<string>EB36806F-71D7-4755-888F-3C48AC9F079E</string>
+			</dict>
+		</array>
+		<key>Battery_StackerMenubarFontStyle</key>
+		<integer>1</integer>
+		<key>CPU_AppFormat</key>
+		<integer>0</integer>
+		<key>CPU_CombineLogicalCores</key>
+		<integer>1</integer>
+		<key>CPU_DropdownOrder</key>
+		<string>cpu,processes,load,uptime,gpu,gpu-processes,buttons</string>
+		<key>CPU_DropdownOrderDisabled</key>
+		<string>uptime</string>
+		<key>CPU_MenubarCombineCores</key>
+		<integer>1</integer>
 		<key>CPU_MenubarGraphBreakdowns</key>
 		<integer>1</integer>
 		<key>CPU_MenubarGraphWidth</key>
-		<real>20</real>
+		<real>16.284996032714844</real>
 		<key>CPU_MenubarGroupItems</key>
-		<integer>0</integer>
+		<integer>1</integer>
 		<key>CPU_MenubarMode</key>
 		<array>
 			<dict>
 				<key>key</key>
-				<string>0</string>
+				<string>13</string>
 				<key>uuid</key>
-				<string>34C242EA-1634-4C2C-B5E9-B6274B291826</string>
+				<string>2C5D366E-7711-47D6-B327-64A25CF29B01</string>
 			</dict>
 		</array>
+		<key>CPU_MenubarSingleHistoryGraph</key>
+		<integer>0</integer>
+		<key>CPU_ProcessCount</key>
+		<integer>5</integer>
 		<key>CombinedDropdownDisplayMode</key>
 		<array>
 			<dict>
 				<key>key</key>
+				<string>1</string>
+				<key>uuid</key>
+				<string>7FB5AD91-E373-4240-8DBB-1594CE8A1842</string>
+			</dict>
+			<dict>
+				<key>key</key>
+				<string>4</string>
+				<key>uuid</key>
+				<string>391D78DA-2D2E-4580-9756-F7A61CF7B702</string>
+			</dict>
+			<dict>
+				<key>key</key>
 				<string>2</string>
 				<key>uuid</key>
-				<string>CA0053AF-6494-435B-AFDC-3BDEB589AC30</string>
+				<string>5CE523DD-849A-4862-A28C-F60BE5A1EDE8</string>
 			</dict>
 			<dict>
 				<key>key</key>
 				<string>3</string>
 				<key>uuid</key>
-				<string>15281073-1A05-4B97-A89B-C4DADF3656BE</string>
+				<string>5CF69575-1CAF-49AE-BBEB-38F0EF0C6852</string>
 			</dict>
 			<dict>
 				<key>key</key>
 				<string>5</string>
 				<key>uuid</key>
-				<string>D7507830-FCED-411E-967A-BBCF36A0E449</string>
+				<string>07F7B8F4-531F-4F9D-9CB8-A8462B423D9B</string>
 			</dict>
 		</array>
 		<key>CombinedMenubarDisplayMode</key>
 		<array>
 			<dict>
 				<key>key</key>
-				<string></string>
+				<string>1</string>
 				<key>uuid</key>
-				<string>D129DF95-7581-44E5-90BC-1F373FA6BA35</string>
+				<string>BD7C1567-FD79-424A-BD1D-2148BC7B306F</string>
+			</dict>
+			<dict>
+				<key>key</key>
+				<string>4</string>
+				<key>uuid</key>
+				<string>ED27898B-10FF-4BA0-A056-00397779B5AD</string>
 			</dict>
 		</array>
 		<key>Diagnostics_Enabled</key>
@@ -173,11 +230,13 @@
 				<string>3DA85A45-8940-452C-85CB-0CF6C1B93774</string>
 			</dict>
 		</array>
+		<key>FanControl_Enabled</key>
+		<false/>
 		<key>FanControl_Sets</key>
 		<array>
 			<dict>
 				<key>model</key>
-				<string>MacBookPro11,5</string>
+				<string>MacBookPro18,2</string>
 				<key>name</key>
 				<string>Medium</string>
 				<key>speeds</key>
@@ -186,21 +245,33 @@
 						<key>fan</key>
 						<string>F0Ac</string>
 						<key>high</key>
-						<integer>6199</integer>
+						<integer>5348</integer>
 						<key>low</key>
-						<integer>1299</integer>
+						<integer>1499</integer>
 						<key>percentage</key>
-						<real>0.5</real>
+						<integer>50</integer>
 						<key>speed</key>
-						<real>4158</real>
+						<integer>3423</integer>
+					</dict>
+					<dict>
+						<key>fan</key>
+						<string>F1Ac</string>
+						<key>high</key>
+						<integer>5776</integer>
+						<key>low</key>
+						<integer>1499</integer>
+						<key>percentage</key>
+						<integer>50</integer>
+						<key>speed</key>
+						<integer>3637</integer>
 					</dict>
 				</array>
 				<key>uuid</key>
-				<string>41900B34-676C-4226-ADD8-7A94A2AAB73F</string>
+				<string>1D3FA2AE-A602-4E62-BB6C-2FA7949F697D</string>
 			</dict>
 			<dict>
 				<key>model</key>
-				<string>MacBookPro11,5</string>
+				<string>MacBookPro18,2</string>
 				<key>name</key>
 				<string>High</string>
 				<key>speeds</key>
@@ -209,17 +280,29 @@
 						<key>fan</key>
 						<string>F0Ac</string>
 						<key>high</key>
-						<integer>6199</integer>
+						<integer>5348</integer>
 						<key>low</key>
-						<integer>1299</integer>
+						<integer>1499</integer>
 						<key>percentage</key>
-						<real>1</real>
+						<integer>100</integer>
 						<key>speed</key>
-						<real>6156</real>
+						<integer>5348</integer>
+					</dict>
+					<dict>
+						<key>fan</key>
+						<string>F1Ac</string>
+						<key>high</key>
+						<integer>5776</integer>
+						<key>low</key>
+						<integer>1499</integer>
+						<key>percentage</key>
+						<integer>100</integer>
+						<key>speed</key>
+						<integer>5776</integer>
 					</dict>
 				</array>
 				<key>uuid</key>
-				<string>7E4FA07F-DBBE-4487-AB8F-AC721CEA2E16</string>
+				<string>E62A8AE0-7BE5-4A82-AFDB-D68FD230BFBB</string>
 			</dict>
 		</array>
 		<key>Memory_MenubarMode</key>
@@ -231,6 +314,10 @@
 				<string>BF69FF23-97B4-441A-ADAD-FD90D386971F</string>
 			</dict>
 		</array>
+		<key>Menubar-DetectedColor</key>
+		<string>1.00 1.00 1.00 0.90</string>
+		<key>MenubarGraphSize</key>
+		<integer>1</integer>
 		<key>MenubarSkinColor</key>
 		<integer>0</integer>
 		<key>MenubarTheme</key>
@@ -243,41 +330,53 @@
 		<true/>
 		<key>Migrated_6.0</key>
 		<true/>
+		<key>Migrated_6.22</key>
+		<true/>
+		<key>Migrated_6.5</key>
+		<true/>
+		<key>Migrated_6.52</key>
+		<true/>
+		<key>Migrated_6.60_ARM</key>
+		<true/>
 		<key>Network_DataFormat</key>
 		<integer>1</integer>
 		<key>Network_DecimalLevel</key>
 		<integer>0</integer>
+		<key>Network_DecimalLevelMB</key>
+		<integer>1</integer>
+		<key>Network_DropdownOrderDisabled</key>
+		<string></string>
 		<key>Network_GraphMode</key>
 		<integer>1</integer>
+		<key>Network_GraphShowBackground</key>
+		<integer>0</integer>
+		<key>Network_GraphWidth</key>
+		<real>8</real>
 		<key>Network_MenubarFontStyle</key>
 		<integer>1</integer>
 		<key>Network_MenubarMode</key>
 		<array>
 			<dict>
 				<key>key</key>
+				<string>1</string>
+				<key>uuid</key>
+				<string>FF4E5731-BA5E-4403-BEE4-DB547F5152D9</string>
+			</dict>
+			<dict>
+				<key>key</key>
 				<string>0</string>
 				<key>uuid</key>
-				<string>89C2A5E8-13C0-49EC-A728-8A8C5E7A8527</string>
+				<string>AE980B66-C5B4-4137-8472-91A89024B1CB</string>
 			</dict>
 		</array>
 		<key>Network_MenubarUnitLevel</key>
 		<integer>3</integer>
+		<key>Network_ShowBSD</key>
+		<integer>0</integer>
 		<key>Network_TextBold</key>
 		<integer>0</integer>
 		<key>Notifications-Items</key>
 		<array>
-			<dict>
-				<key>enabled</key>
-				<true/>
-				<key>notification-type</key>
-				<string>1</string>
-				<key>rule-type</key>
-				<string>18</string>
-				<key>uuid</key>
-				<string>6E3429E4-43BF-4D58-8240-BB6A3E12B5AD</string>
-				<key>value</key>
-				<string>978332400</string>
-			</dict>
 			<dict>
 				<key>enabled</key>
 				<true/>
@@ -306,13 +405,55 @@
 				<key>enabled</key>
 				<true/>
 				<key>notification-type</key>
-				<string>1</string>
+				<string>0</string>
 				<key>rule-type</key>
-				<string>20</string>
+				<string>7</string>
 				<key>uuid</key>
-				<string>0776BCA0-E83C-4ECB-A0A8-5D0A471397CF</string>
+				<string>76B0166E-294C-4673-949A-9D93B17EA7AE</string>
+			</dict>
+			<dict>
+				<key>duration</key>
+				<string>60.00</string>
+				<key>enabled</key>
+				<false/>
+				<key>notification-type</key>
+				<string>0</string>
+				<key>rule-type</key>
+				<string>1</string>
+				<key>uuid</key>
+				<string>90B1156B-5039-4FBF-A5C8-5EA08E925BC0</string>
 				<key>value</key>
 				<string>10.00</string>
+			</dict>
+			<dict>
+				<key>enabled</key>
+				<true/>
+				<key>item-name</key>
+				<string>Macintosh HD - Data</string>
+				<key>item-uuid</key>
+				<string>E5F5DF97-276B-4462-B7C6-E259A031F60F</string>
+				<key>notification-type</key>
+				<string>0</string>
+				<key>rule-type</key>
+				<string>6</string>
+				<key>uuid</key>
+				<string>3A1BD1DB-D6FA-4BA2-9732-D42423A67DFA</string>
+				<key>value</key>
+				<string>80.00</string>
+			</dict>
+			<dict>
+				<key>duration</key>
+				<string>60.00</string>
+				<key>enabled</key>
+				<true/>
+				<key>notification-type</key>
+				<string>0</string>
+				<key>rule-type</key>
+				<string>3</string>
+				<key>uuid</key>
+				<string>A2263116-D0FA-487D-A8DA-BD6BF13A919E</string>
+				<key>value</key>
+				<string>80.00</string>
 			</dict>
 		</array>
 		<key>Sensors-Limits-Updated</key>
@@ -328,14 +469,19 @@
 		</array>
 		<key>StatusItems-Order</key>
 		<array>
-			<integer>7</integer>
-			<integer>1</integer>
-			<integer>4</integer>
 			<integer>6</integer>
 			<integer>8</integer>
 		</array>
 		<key>Theme-SeperateStyles</key>
 		<integer>1</integer>
+		<key>Time_CalendarsDisabled</key>
+		<array>
+			<string>8F10AD27-1A32-4736-8BA1-34F1D1B8A2ED</string>
+			<string>0653DA95-9F0D-42EB-A07B-C7AC7B386654</string>
+			<string>96D633BA-D4D8-4945-B9AA-81017617E175</string>
+			<string>7F693900-7780-466D-9F73-0740A6AB6405</string>
+			<string>8CBE8302-435F-4355-80CC-D65A5C8EDFCF</string>
+		</array>
 		<key>Time_Cities</key>
 		<array>
 			<dict>
@@ -356,22 +502,6 @@
 			</dict>
 			<dict>
 				<key>city</key>
-				<string>Kiev</string>
-				<key>country</key>
-				<string>Ukraine</string>
-				<key>identifier</key>
-				<real>703448</real>
-				<key>latitude</key>
-				<real>50.454659999999997</real>
-				<key>longitude</key>
-				<real>30.523800000000001</real>
-				<key>state</key>
-				<string>Kyiv City</string>
-				<key>timezone</key>
-				<string>Europe/Kiev</string>
-			</dict>
-			<dict>
-				<key>city</key>
 				<string>Barcelona</string>
 				<key>country</key>
 				<string>Spain</string>
@@ -385,6 +515,22 @@
 				<string>Catalonia</string>
 				<key>timezone</key>
 				<string>Europe/Madrid</string>
+			</dict>
+			<dict>
+				<key>city</key>
+				<string>Indian Subcontinent</string>
+				<key>country</key>
+				<string>India</string>
+				<key>identifier</key>
+				<integer>6269134</integer>
+				<key>latitude</key>
+				<real>22.207750000000001</real>
+				<key>longitude</key>
+				<real>76.970209999999994</real>
+				<key>state</key>
+				<string></string>
+				<key>timezone</key>
+				<string>Asia/Kolkata</string>
 			</dict>
 			<dict>
 				<key>city</key>
@@ -434,6 +580,22 @@
 				<key>timezone</key>
 				<string></string>
 			</dict>
+			<dict>
+				<key>city</key>
+				<string>Minsk</string>
+				<key>country</key>
+				<string>Belarus</string>
+				<key>identifier</key>
+				<real>625144</real>
+				<key>latitude</key>
+				<real>53.899999999999999</real>
+				<key>longitude</key>
+				<real>27.566669999999998</real>
+				<key>state</key>
+				<string>Minsk City</string>
+				<key>timezone</key>
+				<string>Europe/Minsk</string>
+			</dict>
 		</array>
 		<key>Time_DropdownCityLayout</key>
 		<integer>0</integer>
@@ -446,6 +608,8 @@
 			<string>' '</string>
 			<string>EEEE</string>
 		</array>
+		<key>Time_DropdownOrderDisabled</key>
+		<string></string>
 		<key>Time_MenubarFlashSeperators</key>
 		<integer>0</integer>
 		<key>Time_MenubarFormat</key>
@@ -458,11 +622,7 @@
 						<string>':'</string>
 						<string>mm</string>
 						<string>aaa</string>
-						<string>' '</string>
-						<string>___ICON__MOON___</string>
-						<string>MMM</string>
-						<string>' '</string>
-						<string>d</string>
+						<string>___ICON__BLACK___</string>
 					</array>
 					<array>
 						<string>___ICON__CLOCK__</string>
@@ -474,8 +634,30 @@
 		</array>
 		<key>TimerFrequency</key>
 		<integer>1</integer>
+		<key>Updater_Attempts</key>
+		<dict>
+			<key>1086</key>
+			<string>1</string>
+			<key>1113</key>
+			<string>1</string>
+			<key>1150</key>
+			<string>1</string>
+			<key>1157</key>
+			<string>1</string>
+			<key>1176</key>
+			<string>1</string>
+		</dict>
+		<key>Zarya-TLE</key>
+		<dict>
+			<key>time</key>
+			<real>1613614150.6774359</real>
+			<key>tle</key>
+			<string>ISS (ZARYA)             
+1 25544U 98067A   21048.87440273  .00000529  00000-0  17779-4 0  9991
+2 25544  51.6434 212.8574 0003042  27.2766  64.0847 15.48967906270107</string>
+		</dict>
 	</dict>
 	<key>version</key>
-	<real>6.0999999046325684</real>
+	<string>6.62</string>
 </dict>
 </plist>
