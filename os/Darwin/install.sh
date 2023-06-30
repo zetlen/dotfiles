@@ -1,10 +1,11 @@
 __TO_INSTALL=(
 	coreutils
 	exa
+	figlet
 	fzf
-	gnupg
 	jq
 	kaleidoscope
+	openjdk
 	openssl
 	readline
 	ripgrep
