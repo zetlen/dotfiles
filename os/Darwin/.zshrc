@@ -32,7 +32,9 @@ time_announcements() {
 			echo "Unknown argument: $arg"
 			return 1
 		else
-			defaults write com.apple.speech.synthesis.general.prefs.plist TimeAnnouncementPrefs -dict-add TimeAnnouncementsEnabled -bool $arg
+			defaults write com.apple.speech.synthesis.general.prefs TimeAnnouncementPrefs -dict-add TimeAnnouncementsEnabled -bool $arg
+			launchctl kill SIGTERM gui/$UID/com.apple.speech.synthesisserver 2> /dev/null
+			launchctl kickstart gui/$UID/com.apple.speech.synthesisserver
 			if [[ $arg == "true" ]]; then
 				my_status="enabled"
 			else 
@@ -41,7 +43,7 @@ time_announcements() {
 			echo "Time announcements are now $my_status";
 		fi
 	else
-		if defaults read com.apple.speech.synthesis.general.prefs.plist TimeAnnouncementPrefs | grep -qF 'TimeAnnouncementsEnabled = 0'; then
+		if defaults read com.apple.speech.synthesis.general.prefs TimeAnnouncementPrefs | grep -qF 'TimeAnnouncementsEnabled = 0'; then
 			my_status="disabled"
 		else 
 			my_status="enabled"
