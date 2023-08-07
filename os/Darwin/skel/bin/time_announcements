@@ -1,0 +1,32 @@
+#!/bin/sh
+
+set_time_announcements() {
+	local arg=$1
+	local the_notice="time announcements"
+	local the_status="unknown"
+	if [[ "$arg" != "" ]]; then
+		if [[ "$arg" != "true" ]] && [[ "$arg" != "false" ]]; then
+			echo "Unknown argument: $arg"
+			return 1
+		else
+			defaults write com.apple.speech.synthesis.general.prefs TimeAnnouncementPrefs -dict-add TimeAnnouncementsEnabled -bool $arg
+			launchctl kill SIGTERM gui/$UID/com.apple.speech.synthesisserver 2> /dev/null
+			launchctl kickstart gui/$UID/com.apple.speech.synthesisserver
+			if [[ $arg == "true" ]]; then
+				the_status="enabled";
+			else 
+				the_status="disabled";
+			fi
+			osascript -e "display notification \"$the_status\" with title \"$the_notice\""
+		fi
+	else
+		if defaults read com.apple.speech.synthesis.general.prefs TimeAnnouncementPrefs | grep -qF 'TimeAnnouncementsEnabled = 0'; then
+			the_status="disabled"
+		else 
+			the_status="enabled"
+		fi
+		echo "$the_notice $the_status"
+	fi
+}
+
+set_time_announcements $@
