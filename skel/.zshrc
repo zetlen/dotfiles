@@ -1,3 +1,5 @@
+zmodload zsh/zprof
+
 [ ! -f $HOME/.zshrc.localbefore ] || . $HOME/.zshrc.localbefore
 
 export ZDOTDIR="$HOME"
@@ -37,11 +39,10 @@ __my-zsh-keybindings
 function __my-zsh-completions {
   autoload -Uz compinit
 	zsh-plugin-load zetlen/zsh-completion-generators
-	compinit
+	zsh-plugin-load zetlen/zsh-better-npm-completion
 	zsh-plugin-load zsh-users/zsh-completions
-	zsh-plugin-load lukechilds/zsh-better-npm-completion
-	zsh-plugin-load chrisands/zsh-yarn-completions
 	zsh-plugin-load Aloxaf/fzf-tab
+	compinit
   # disable sort when completing `git checkout`
   zstyle ':completion:*:git-checkout:*' sort false
   # set descriptions format to enable group support

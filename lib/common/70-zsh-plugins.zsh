@@ -20,12 +20,19 @@ function zsh-plugin-load {
 	plugin_dir=${ZPLUGINDIR}${plugin_name}
 	initfile=$plugin_dir/$plugin_name.plugin.zsh
 	if [[ ! -d $plugin_dir ]]; then
-		echo "Cloning $repo"
-		git clone -q --depth 1 --recursive --shallow-submodules https://github.com/$repo $plugin_dir
+		repo_url="https://github.com/$repo"
+		flog_log "Downloading zsh plugin at $repo_url"
+		repo_req_status="$(curl -sfo /dev/null -w '%{http_code} %{errormsg}' $repo_url)"
+		if [[ $? -eq 0 ]]; then
+			git clone -q --depth 1 --recursive --shallow-submodules $repo_url $plugin_dir
+		else
+			flog_error "Could not download $repo_url: $repo_req_status"
+			return 1
+		fi
 	fi
 	if [[ ! -e $initfile ]]; then
 		initfiles=($plugin_dir/*.plugin.{z,}sh(N) $plugin_dir/*.{z,}sh{-theme,}(N))
-		[[ ${#initfiles[@]} -gt 0 ]] || { echo >&2 "Plugin has no init file '$repo'." && continue }
+		[[ ${#initfiles[@]} -gt 0 ]] || { flog_error >&2 "Plugin has no init file '$repo'." && continue }
 		ln -sf "${initfiles[1]}" "$initfile"
 	fi
 	fpath+=$plugin_dir
@@ -34,7 +41,7 @@ function zsh-plugin-load {
 
 function zsh-plugin-update {
 	for d in $ZPLUGINDIR/*/.git(/); do
-		echo "Updating ${d:h:t}..."
+		flog_log "Updating ${d:h:t}..."
 		command git -C "${d:h}" pull --ff --recurse-submodules --depth 1 --rebase --autostash
 	done
 	touch "$ZPLUGIN_UPDATE_SENTINEL"
