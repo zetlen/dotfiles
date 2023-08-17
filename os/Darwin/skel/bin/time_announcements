@@ -9,23 +9,22 @@ set_time_announcements() {
 			echo "Unknown argument: $arg"
 			return 1
 		else
-			defaults write com.apple.speech.synthesis.general.prefs TimeAnnouncementPrefs -dict-add TimeAnnouncementsEnabled -bool $arg
-			launchctl kill SIGTERM gui/$UID/com.apple.speech.synthesisserver 2> /dev/null
-			launchctl kickstart gui/$UID/com.apple.speech.synthesisserver
 			if [[ $arg == "true" ]]; then
-				the_status="enabled";
+        osascript -e "set volume without output muted"
+				the_status="enable";
 			else 
-				the_status="disabled";
+				the_status="disable";
 			fi
-			osascript -e "display notification \"$the_status\" with title \"$the_notice\""
+			launchctl $the_status gui/$UID/com.jameszetlen.westminster
+			osascript -e "display notification \"${the_status}d\" with title \"$the_notice\""
 		fi
 	else
-		if defaults read com.apple.speech.synthesis.general.prefs TimeAnnouncementPrefs | grep -qF 'TimeAnnouncementsEnabled = 0'; then
-			the_status="disabled"
+		if launchctl print-disabled gui/$UID | grep -qF '"com.jameszetlen.westminster" => disabled'; then
+      echo "$the_notice disabled"
+      return 1
 		else 
-			the_status="enabled"
+      echo "$the_notice enabled"
 		fi
-		echo "$the_notice $the_status"
 	fi
 }
 

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+say "It's $(date +"%-I:%M")"
