@@ -37,8 +37,8 @@ __my-zsh-keybindings
 function __my-zsh-completions {
   autoload -Uz compinit
 	zsh-plugin-load zetlen/zsh-completion-generators
-	compinit
 	zsh-plugin-load zsh-users/zsh-completions
+	compinit
 	zsh-plugin-load lukechilds/zsh-better-npm-completion
 	zsh-plugin-load chrisands/zsh-yarn-completions
 	zsh-plugin-load Aloxaf/fzf-tab
