@@ -1,5 +1,48 @@
 return {
 	{
+		"jay-babu/mason-nvim-dap.nvim",
+		opts = {
+			ensure_installed = { "js" },
+			handlers = {
+				function(config)
+					-- all sources with no handler get passed here
+
+					-- Keep original functionality
+					require("mason-nvim-dap").default_setup(config)
+				end,
+				js = function(config)
+					config.adapters = {
+						{
+							type = "pwa-node",
+							request = "launch",
+							name = "Launch file",
+							program = "${file}",
+							cwd = "${workspaceFolder}",
+						},
+						{
+							type = "pwa-node",
+							request = "attach",
+							name = "Attach",
+							processId = require("dap.utils").pick_process,
+							cwd = "${workspaceFolder}",
+						},
+					}
+				end,
+				python = function(config)
+					config.adapters = {
+						type = "executable",
+						command = "/usr/bin/python3",
+						args = {
+							"-m",
+							"debugpy.adapter",
+						},
+					}
+					require("mason-nvim-dap").default_setup(config) -- don't forget this!
+				end,
+			},
+		},
+	},
+	{
 		"goolord/alpha-nvim",
 		cmd = "Alpha",
 		opts = function()
@@ -64,6 +107,7 @@ return {
 	},
 	{
 		"kylechui/nvim-surround",
+		version = "*", -- Use for stability; omit to use `main` branch for the latest features
 		event = "VeryLazy",
 		config = function()
 			require("nvim-surround").setup({
