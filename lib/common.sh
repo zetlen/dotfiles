@@ -13,7 +13,7 @@ export PAGER="less -R"
 
 export JAVA_HOME
 if [ -x "/usr/libexec/java_home" ]; then
-	JAVA_HOME="$(/usr/libexec/java_home)"
+	JAVA_HOME="$(/usr/libexec/java_home 2>/dev/null)"
 fi
 
 DOTFILE_PATH="$HOME/.dotfiles"
