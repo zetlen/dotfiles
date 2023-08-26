@@ -1,0 +1,30 @@
+#!/bin/bash
+
+__device_path="/sys/devices/platform/applesmc.768/leds/smc::kbd_backlight/brightness"
+
+__cmd="$1"
+__request="$2"
+__current="$(cat "$__device_path")"
+
+if [ -z $__cmd ]; then
+  echo $__current;
+  exit;
+fi
+
+case $__cmd in
+  up)
+    __request="${__request:-2}"
+    __request=$(( __current + __request ))
+    __request=$(( __request > 255 ? 255 : __request))
+    ;;
+  down)
+    __request="${__request:-2}"
+    __request=$(( __current - __request ))
+    __request=$(( __request < 0 ? 0 : __request))
+    ;;
+  *)
+    __request="$__cmd"
+    ;;
+esac
+
+echo $__request | sudo tee -a $__device_path

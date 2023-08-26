@@ -20,6 +20,6 @@ bindsym XF86MonBrightnessUp exec light -A 5
 bindsym XF86MonBrightnessDown exec light -U 5
 
 # backlight
-bindsym XF86KbdBrightnessUp exec /home/zetlen/infra/swayhelpers/kb_backlight.sh up 10
-bindsym XF86KbdBrightnessDown exec /home/zetlen/infra/swayhelpers/kb_backlight.sh down 10
+bindsym XF86KbdBrightnessUp exec macbook_kbbacklight_linux up 10
+bindsym XF86KbdBrightnessDown exec macbook_kbbacklight_linux down 10
 
