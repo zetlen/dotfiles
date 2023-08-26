@@ -1,0 +1,25 @@
+input "type:keyboard" {
+  xkb_layout us
+  repeat_delay 300
+  repeat_rate 40
+  xkb_capslock disabled
+  xkb_numlock disabled
+}
+
+# audio
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioStop exec playerctl stop
+bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +2%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -2%
+
+# backlight
+bindsym XF86MonBrightnessUp exec light -A 5
+bindsym XF86MonBrightnessDown exec light -U 5
+
+# backlight
+bindsym XF86KbdBrightnessUp exec /home/zetlen/infra/swayhelpers/kb_backlight.sh up 10
+bindsym XF86KbdBrightnessDown exec /home/zetlen/infra/swayhelpers/kb_backlight.sh down 10
+
