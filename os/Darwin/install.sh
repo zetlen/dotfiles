@@ -1,4 +1,7 @@
 __TO_INSTALL=(
+	amethyst
+	bat
+	bitwarden-cli
 	coreutils
 	exa
 	figlet
@@ -18,13 +21,17 @@ __TO_INSTALL=(
 )
 
 __pkg_is_installed() {
-	if [[ "$1" == "gnupg" ]]; then
-		i_have gpg
-	elif [[ "$1" == "kaleidoscope" ]]; then
-		i_have ksdiff || [ -d "/Applications/Kaleidoscope.app" ]
-	else
-		brew list "$1" &>/dev/null
-	fi
+	case "$1" in
+		"gnupg") i_have_gpg
+		;;
+		"bitwarden-cli") i_have bw
+		;;
+		"kaleidoscope") i_have ksdiff || [ -d "/Applications/Kaleidoscope.app" ]
+		;;
+		"amethyst") [ -d "/Applications/Amethyst.app" ]
+		;;
+		*) brew list "$1" &>/dev/null
+	esac
 }
 
 __pkg_is_available() {
