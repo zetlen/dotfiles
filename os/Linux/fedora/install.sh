@@ -1,6 +1,6 @@
 __TO_INSTALL=(
 	curl
-	exa
+	eza
 	fzf
 	g++
 	git

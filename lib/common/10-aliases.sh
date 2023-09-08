@@ -75,12 +75,12 @@ normalize_dir() {
 }
 
 # ls
-if i_dont_have exa; then
+if i_dont_have eza; then
 	alias la='ls -lahAFG'
 	alias l='ls -lahp'
 	alias ls='ls -p'
 else
-	alias l='exa -lahF --color-scale --git'
+	alias l='eza -lahF --color-scale --git --icons'
 	alias la='l --sort=accessed'
 	alias lt='l --sort=modified'
 fi

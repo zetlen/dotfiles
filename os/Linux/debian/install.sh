@@ -1,7 +1,7 @@
 __TO_INSTALL=(
 	build-essential
 	curl
-	exa
+	eza
 	fzf
 	git
 	gnupg2
