@@ -2,7 +2,6 @@ __TO_INSTALL=(
 	automake
 	bzip2
 	curl
-	eza
 	findutils
 	fzf
 	gcc

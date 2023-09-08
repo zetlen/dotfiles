@@ -1,7 +1,6 @@
 __TO_INSTALL=(
 	alpine-sdk
 	curl
-	eza
 	fzf
 	git
 	gnupg

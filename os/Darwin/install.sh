@@ -3,7 +3,6 @@ __TO_INSTALL=(
 	bat
 	bitwarden-cli
 	coreutils
-	eza
 	figlet
 	fzf
 	jq
