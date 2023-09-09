@@ -1,0 +1,31 @@
+#!/bin/sh
+
+set_sound_on() {
+	local arg=$1
+	local the_notice="sound"
+	local the_status="unknown"
+	if [[ "$arg" != "" ]]; then
+		if [[ "$arg" != "true" ]] && [[ "$arg" != "false" ]]; then
+			echo "Unknown argument: $arg"
+			return 1
+		else
+			if [[ $arg == "true" ]]; then
+        osascript -e "set volume without output muted"
+				the_status="unmuted";
+			else 
+        osascript -e "set volume with output muted"
+				the_status="muted";
+			fi
+			echo $the_notice is $the_status
+		fi
+	else
+		if [ "$(osascript -e 'return output muted of (get volume settings)')" = "false" ]; then
+			echo $the_notice is unmuted
+		else
+			echo $the_notice is muted
+			return 1
+		fi
+	fi
+}
+
+set_sound_on $@
