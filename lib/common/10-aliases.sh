@@ -80,7 +80,7 @@ if i_dont_have eza; then
 	alias l='ls -lahp'
 	alias ls='ls -p'
 else
-	alias l='eza -lahF --color-scale --git --icons'
+	alias l='eza --color-scale --git --icons -lahF '
 	alias la='l --sort=accessed'
 	alias lt='l --sort=modified'
 fi
