@@ -39,7 +39,6 @@ function __my-zsh-completions {
 	zsh-plugin-load zetlen/zsh-completion-generators
 	zsh-plugin-load zsh-users/zsh-completions
 	compinit
-	zsh-plugin-load lukechilds/zsh-better-npm-completion
 	zsh-plugin-load chrisands/zsh-yarn-completions
 	zsh-plugin-load Aloxaf/fzf-tab
   # disable sort when completing `git checkout`
