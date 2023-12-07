@@ -76,5 +76,7 @@ name = automatically merge npm lockfiles
 driver = npx npm-merge-driver merge %A %O %B %P
 [pull]
 	rebase = false
+[rebase]
+	updateRefs = true
 [init]
 	defaultBranch = main
