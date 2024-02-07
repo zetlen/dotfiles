@@ -54,6 +54,7 @@ wash = clean -dfX -e '!.tool-versions' -e '!.envrc' -e '!.env' -e '!.idea/*' -e 
 wipa = "!f(){ git add -A && git commit --no-verify -m \"WIP [NO-CI]: $*\"; }; f"
 wip = "!f(){ git commit --no-verify -m \"WIP [NO-CI]: $*\"; }; f"
 dor = diff @{upstream}
+crypt-users = "! git log --format=full .git-crypt/keys/*/*/*.gpg | grep -E '^            .+' | sed 's/ *$//g' | awk '{gsub(/^[ \t]+/,\"\"); print $0 }'"
 
 [filter "media"]
 required = true
