@@ -59,4 +59,4 @@ done < <(ext_matches $CURRENT_SHELL)
 
 [ -s "$HOME/.rvm/scripts/rvm" ] && . "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-[ -s "$HOME/.asdf/asdf.sh" ] && . "$HOME/.asdf/asdf.sh"
+. "$DOTFILE_PATH/lib/runtimes.sh"
