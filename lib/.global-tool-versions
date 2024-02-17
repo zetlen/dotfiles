@@ -1,4 +1,4 @@
 neovim latest
-nodejs 18.16.0
-python 3.11.3
-golang 1.20.3
+nodejs 20.11.1
+python 3.12.2
+golang 1.22.0
