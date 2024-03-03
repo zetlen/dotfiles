@@ -1,5 +1,3 @@
-export PIP_REQUIRE_VIRTUALENV=true
-
 pip() {
   python -m pip "$@"
 }
