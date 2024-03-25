@@ -13,6 +13,7 @@ __TO_INSTALL=(
 	ripgrep
 	sqlite3
 	tcl-tk
+	tea
 	unzip
 	vim
 	xz
