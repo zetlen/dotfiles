@@ -35,7 +35,7 @@ shove = push --follow-tags
 backone = reset --soft HEAD^
 nb = checkout -b
 pr = pull --rebase
-nevermind = checkout -f
+nevermind = !git checkout -f && git clean -df
 alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
 co = checkout
 slt = !git log --date=short --format='%an %Cgreen%ad %Creset%s %b' $(git describe --tags --abbrev=0)..HEAD
