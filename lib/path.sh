@@ -44,6 +44,7 @@ _z_path "$HOME/bin" \
 	"$HOME/.rvm/bin" \
 	"$HOME/Library/Python/3.9/bin" \
 	"$HOME/.yarn/bin" \
+	"$HOME/.local/share/pnpm" \
 	"$HOME/.config/yarn/global/node_modules/.bin" \
 	"/usr/local/share/npm/bin" \
 	"/usr/local/bin" \
