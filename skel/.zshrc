@@ -21,15 +21,17 @@ setopt appendhistory
 
 export MANPATH="/usr/local/man:$MANPATH"
 
+eval "$(${HOME}/.local/bin/mise activate zsh)"
+
 function __my-zsh-keybindings {
 	function zvm_config() {
 		ZVM_INIT_MODE=sourcing
 		ZVM_LAZY_KEYBINDINGS=false
 	}
 	zsh-plugin-load jeffreytse/zsh-vi-mode
-	zvm_define_widget p10k_toggle_versions _p10k_toggle_versions
-	zvm_bindkey vicmd '^E' p10k_toggle_versions
-	zvm_bindkey viins '^E' p10k_toggle_versions
+	# zvm_define_widget p10k_toggle_versions _p10k_toggle_versions
+	# zvm_bindkey vicmd '^E' p10k_toggle_versions
+	# zvm_bindkey viins '^E' p10k_toggle_versions
 }
 
 __my-zsh-keybindings
@@ -56,9 +58,7 @@ function __my-zsh-completions {
 __my-zsh-completions
 
 function __my-zsh-prompt {
-	zsh-plugin-load romkatv/powerlevel10k
-	# To customize prompt, run `p10k configure` or edit ~/.dotfiles/.p10k.zsh.
-. "${HOME}/.p10k.zsh"
+  eval "$(starship init zsh)"
 }
 
 __my-zsh-prompt
@@ -96,4 +96,3 @@ export ASDF_GOLANG_MOD_VERSION_ENABLED=true
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 
 [ ! -f ~/.zshrc.local ] || . ~/.zshrc.local
-
