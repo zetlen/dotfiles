@@ -19,25 +19,23 @@ _z_update2() {
 	zsh-plugin-update
 }
 
-_z_updaters[3]="asdf and tool versions"
+_z_updaters[3]="mise and tool versions"
 _z_update3() {
-	asdf update
-	asdf plugin update --all 
-	asdf reshim
+  mise self-update
+  mise plugins update
+  mise update
 }
 
 _z_updaters[4]="Rust toolchain and packages"
 _z_update4() {
 	rustup update
 	cargo install cargo-update
-	asdf reshim
 	cargo install-update -a
 }
 
 _z_updaters[5]="Go toolchain and packages"
 _z_update5() {
 	go install github.com/Gelio/go-global-update@latest
-	asdf reshim
 	go-global-update
 }
 

@@ -152,22 +152,13 @@ __zdi_step6() {
 
 __zdi_steps[7]="Install tool versions"
 __zdi_step7() {
-	export ASDF_DIR="${HOME}/.asdf"
-	if i_dont_have asdf; then
-		flog_log "Installing asdf"
-		ASDF_CURRENT_VER="$(git -c 'versionsort.suffix=-' ls-remote --exit-code --refs --tags --sort='v:refname' https://github.com/asdf-vm/asdf.git | awk -F/ 'END{print$NF}')"
-		flog_log "Found asdf version $ASDF_CURRENT_VER"
-		git -c 'advice.detachedHead=false' clone https://github.com/asdf-vm/asdf.git "$ASDF_DIR" --branch "$ASDF_CURRENT_VER"
+	if i_dont_have mise; then
+		flog_log "Installing mise"
+    curl https://mise.run | sh
 	fi
-	. "${ASDF_DIR}/asdf.sh"
-	while read PLUGIN VER; do
-		asdf plugin add $PLUGIN
-		asdf install $PLUGIN $VER
-		asdf global $PLUGIN $VER
-	done <"$HOME/.dotfiles/lib/.global-tool-versions"
-	flog_log "Running zsh again to set up these tools"
-	zsh "$HOME/.zshrc"
-	flog_success "asdf tool versions installed!"
+	flog_log "Installing all mise versions"
+	~/.local/bin/mise install
+
 	if i_dont_have rustup; then
 		flog_log "Installing rustup"
 		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --profile minimal

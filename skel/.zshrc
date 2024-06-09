@@ -21,8 +21,6 @@ setopt appendhistory
 
 export MANPATH="/usr/local/man:$MANPATH"
 
-eval "$(${HOME}/.local/bin/mise activate zsh)"
-
 function __my-zsh-keybindings {
 	function zvm_config() {
 		ZVM_INIT_MODE=sourcing

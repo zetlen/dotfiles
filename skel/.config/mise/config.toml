@@ -1,0 +1,11 @@
+[tools]
+node = "lts"
+neovim = "stable"
+python = "3.12.2"
+ruby = "3.2.2"
+usage = "latest"
+vim = "latest"
+go = "1.22.0"
+
+[settings]
+asdf_compat = true
