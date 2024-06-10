@@ -1,5 +1,6 @@
 __TO_INSTALL=(
 	build-essential
+	cmake
 	curl
 	fzf
 	git

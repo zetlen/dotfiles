@@ -10,23 +10,15 @@ $git_state\
 $git_metrics\
 $git_status\
 $fill\
-$cmd_duration\
-$time\
-$line_break\
-$directory\
-$status\
-$character"""
-
-right_format = """
+$nodejs\
+$ruby\
+$python\
 $docker_context\
 $c\
 $deno\
 $dotnet\
 $golang\
-$nodejs\
 $php\
-$python\
-$ruby\
 $rust\
 $swift\
 $terraform\
@@ -40,10 +32,21 @@ $env_var\
 $custom\
 $sudo\
 $jobs\
-$battery"""
+$battery\
+$line_break\
+$directory\
+$status\
+$character"""
+
+right_format = "$cmd_duration$time"
+
+palette = 'z'
+
+command_timeout = 1000
 
 [cmd_duration]
 format = "[󱎫 $duration]($style)"
+show_notifications = true
 
 [container]
 disabled = true
@@ -52,6 +55,8 @@ disabled = true
 read_only = " 󰌾"
 truncate_to_repo = false
 truncation_symbol = '…/'
+style = 'blue'
+repo_root_style = 'bold blue'
 
 [fill]
 symbol = '─'
@@ -59,28 +64,35 @@ style = 'dimmed black'
 
 [docker_context]
 symbol = " "
+format = " [$symbol$context]($style)"
+disabled = true
 
 [username]
+style_user = 'gold'
 format = '[$user]($style)@'
 
 [git_branch]
+style = 'bold green'
 symbol = ""
-format = '[$symbol$branch(:$remote_branch)]($style) '
+format = '[$symbol $branch(:$remote_branch)]($style) '
 
 [git_commit]
+style = 'darkgreen'
 only_detached = false
 format = '[󰜘$hash$tag]($style) '
 
 [git_status]
 disabled = false
 format = '[$all_status$ahead_behind]($style)'
-staged = '[+$count](bold green) '
-modified = '[!$count](yellow) '
-untracked = '[?$count](orange) '
-stashed = '[*$count](bold gray) '
-
-
-# icons
+conflicted = "[$count](bold yellow) "
+diverged = "[$ahead_count󰯎$behind_count](brightpink)"
+staged = '[$count󰝒](bold green) '
+modified = '[$count](yellow) '
+untracked = '[$count](orange) '
+deleted = '[$count](red) '
+stashed = '[$count](purple) '
+ahead = "[$count⇡](green) "
+behind = "[$count⇡](red) "
 
 [c]
 symbol = " "
@@ -90,14 +102,14 @@ symbol = " "
 
 [hostname]
 ssh_symbol = ""
-format = '$ssh_symbol$hostname '
+format = '$hostname $ssh_symbol '
 
 [memory_usage]
 symbol = "󰍛 "
 
 [nodejs]
-symbol = ""
-format = "[$symbol$version]($style)"
+symbol = " "
+format = " [$symbol$version]($style)"
 
 [os]
 disabled = false
@@ -137,8 +149,8 @@ symbol = " "
 format = "[$symbol$version]($style)"
 
 [ruby]
-symbol = ""
-format = "[$symbol$version]($style)"
+symbol = " "
+format = " [$symbol$version]($style)"
 
 [rust]
 symbol = " "
@@ -149,7 +161,32 @@ symbol = " "
 [zig]
 symbol = " "
 
+[terraform]
+symbol = "󱁢 "
+format = " [$symbol$version]($style)"
+
 [time]
-format = " $time"
+format = "[ $time]($style)"
 time_format = "%_I:%M:%S%P"
 disabled = false
+style = 'gray'
+
+[palettes.z]
+fg = '#e6e5e5'
+black = '#282828'
+red  = '#cc241d'
+green = '#00DA00'
+gold = '#dfad00'
+brightblue = '#00B2FF'
+purple = '#9400b6'
+cyan = '#00B2B1'
+white = '#fefefe'
+darkgray = '#928374'
+lightred   = '#fb4934'
+darkgreen = '#006A00'
+yellow = '#fffc67'
+darkblue  = '#0044f3'
+pink = '#e28ff0'
+brightpink = '#e85587'
+gray = '#738888'
+

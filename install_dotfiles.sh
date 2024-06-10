@@ -152,19 +152,19 @@ __zdi_step6() {
 
 __zdi_steps[7]="Install tool versions"
 __zdi_step7() {
-	if i_dont_have mise; then
-		flog_log "Installing mise"
-    curl https://mise.run | sh
-	fi
-	flog_log "Installing all mise versions"
-	~/.local/bin/mise install
-
 	if i_dont_have rustup; then
 		flog_log "Installing rustup"
 		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --profile minimal
 	fi
-	flog_log "Installing Rust CLI tools..."
-	cargo install eza
+
+	if i_dont_have mise; then
+		flog_log "Installing mise"
+    curl https://mise.run | sh
+    ln -sf "${HOME}/.local/share/mise" "~/.asdf"
+	fi
+	flog_log "Installing all mise versions"
+	~/.local/bin/mise install
+
 }
 
 __zdi_steps[8]="Set up vim"
@@ -187,16 +187,12 @@ __zdi_step8() {
 __zdi_steps[9]="Set up neovim"
 __zdi_step9() {
 	if i_have nvim; then
-		flog_log Installing optional tools...
-		go install github.com/jesseduffield/lazygit@latest
-		go install github.com/dundee/gdu/v5/cmd/gdu@latest
-		cargo install bottom
-		mkdir -p ~/.config
 		flog_log Installing AstroNvim...
-		git clone --depth 1 https://github.com/AstroNvim/AstroNvim ~/.config/nvim
-		nvim --headless -c 'quitall'
+    NVIM_CONFIG_REPO="${HOME}/.config/nvim"
+		rm -rf "$NVIM_CONFIG_REPO" && git clone --depth 1 https://github.com/zetlen/astronvim-config "$NVIM_CONFIG_REPO"
+		NVIM_APPNAME=astronvim_v4 nvim --headless -c 'quitall'
 	else
-		flog_warn "Neovim is not installed."
+		flog_warn "Cannot set up custom Neovim because Neovim is not installed."
 	fi
 }
 

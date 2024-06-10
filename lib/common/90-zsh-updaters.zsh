@@ -23,7 +23,7 @@ _z_updaters[3]="mise and tool versions"
 _z_update3() {
   mise self-update
   mise plugins update
-  mise update
+  mise up
 }
 
 _z_updaters[4]="Rust toolchain and packages"

@@ -2,6 +2,7 @@ __TO_INSTALL=(
 	amethyst
 	bat
 	bitwarden-cli
+	cmake
 	coreutils
 	figlet
 	fzf

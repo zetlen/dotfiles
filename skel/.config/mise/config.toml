@@ -1,11 +1,18 @@
 [tools]
 node = "lts"
 neovim = "stable"
-python = "3.12.2"
+python = "3.10.14"
 ruby = "3.2.2"
 usage = "latest"
 vim = "latest"
 go = "1.22.0"
+"cargo:eza" = "0.18.17"
+"cargo:cargo-binstall" = "1.6.9"
+"cargo:starship" = "1.19.0"
+"cargo:tree-sitter-cli" = "0.22.6"
+"go:github.com/jesseduffield/lazygit" = "0.42.0"
+"go:github.com/dundee/gdu/v5/cmd/gdu" = "5.28.0"
 
 [settings]
 asdf_compat = true
+experimental = true
