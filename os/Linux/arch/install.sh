@@ -1,5 +1,6 @@
 __TO_INSTALL=(
 	base-devel
+ cmake
 	curl
 	fzf
 	git

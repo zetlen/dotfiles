@@ -1,6 +1,7 @@
 __TO_INSTALL=(
 	base-devel
 	bzip2-devel
+  cmake
 	curl
 	fzf
 	git

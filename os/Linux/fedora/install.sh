@@ -1,5 +1,6 @@
 __TO_INSTALL=(
 	curl
+  cmake
 	fzf
 	g++
 	git

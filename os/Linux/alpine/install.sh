@@ -1,5 +1,6 @@
 __TO_INSTALL=(
 	alpine-sdk
+  cmake
 	curl
 	fzf
 	git

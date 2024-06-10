@@ -2,6 +2,7 @@ __TO_INSTALL=(
 	automake
 	bzip2
 	curl
+  cmake
 	findutils
 	fzf
 	gcc
