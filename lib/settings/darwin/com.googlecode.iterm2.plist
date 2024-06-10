@@ -2310,7 +2310,7 @@
 			<key>Guid</key>
 			<string>1B3E8401-7C08-4281-A770-91010584A8D7</string>
 			<key>Horizontal Spacing</key>
-			<real>0.88</real>
+			<real>1</real>
 			<key>Idle Code</key>
 			<integer>0</integer>
 			<key>Initial Text</key>
@@ -3466,7 +3466,7 @@
 			<key>Non-ASCII Ligatures</key>
 			<false/>
 			<key>Normal Font</key>
-			<string>MonaspiceKrNF-Regular 14</string>
+			<string>MonaspiceArNFM-Regular 14</string>
 			<key>Option Key Sends</key>
 			<integer>2</integer>
 			<key>Prevent Opening in a Tab</key>
