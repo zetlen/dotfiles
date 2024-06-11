@@ -135,8 +135,27 @@ __zdi_step5() {
 	flog_success "Git prompt and completion are installed."
 }
 
-__zdi_steps[6]="Set up zsh"
+__zdi_steps[6]="Install tool versions"
 __zdi_step6() {
+	if i_dont_have rustup; then
+		flog_log "Installing rustup"
+		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --profile minimal
+    flog_log "Installing cargo-binstall"
+    curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+	fi
+
+	if i_dont_have mise; then
+		flog_log "Installing mise"
+    curl https://mise.run | sh
+	fi
+	flog_log "Installing all mise versions"
+	~/.local/bin/mise install
+
+  ln -sf "${HOME}/.local/share/mise" "~/.asdf"
+}
+
+__zdi_steps[7]="Set up zsh"
+__zdi_step7() {
 	if i_dont_have zsh; then
 		flog_error "zsh is not installed!"
 		return 1
@@ -148,23 +167,6 @@ __zdi_step6() {
 		flog_confirm "Run zsh to set up initial environment?" && zsh "$HOME/.zshrc"
 		flog_success "zsh has been installed!"
 	fi
-}
-
-__zdi_steps[7]="Install tool versions"
-__zdi_step7() {
-	if i_dont_have rustup; then
-		flog_log "Installing rustup"
-		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --profile minimal
-	fi
-
-	if i_dont_have mise; then
-		flog_log "Installing mise"
-    curl https://mise.run | sh
-    ln -sf "${HOME}/.local/share/mise" "~/.asdf"
-	fi
-	flog_log "Installing all mise versions"
-	~/.local/bin/mise install
-
 }
 
 __zdi_steps[8]="Set up vim"
