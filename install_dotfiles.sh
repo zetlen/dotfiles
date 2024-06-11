@@ -148,11 +148,11 @@ __zdi_step6() {
 	if i_dont_have mise; then
 		flog_log "Installing mise"
     curl https://mise.run | sh
+    . "$HOME/.dotfiles/lib/runtimes.sh"
 	fi
 	flog_log "Installing all mise versions"
-	mise_cmd_path="${HOME}/.local/share/mise"
-	"$mise_cmd_path" use -g cargo-binstall
-	"$mise_cmd_path" install
+	mise --yes use -g cargo-binstall
+	mise --yes install
 
   ln -sf "${HOME}/.local/share/mise" "~/.asdf"
 }
