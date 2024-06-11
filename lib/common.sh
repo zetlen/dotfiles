@@ -56,7 +56,3 @@ done < <(ext_matches sh)
 while read -r file; do
 	. "$file"
 done < <(ext_matches $CURRENT_SHELL)
-
-[ -s "$HOME/.rvm/scripts/rvm" ] && . "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
-. "$DOTFILE_PATH/lib/runtimes.sh"

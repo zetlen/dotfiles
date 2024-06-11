@@ -5,6 +5,8 @@ export ZDOTDIR="$HOME"
 # This import must be changed if DOTFILE_PATH changes.
 . ~/.dotfiles/lib/common.sh
 
+. "$DOTFILE_PATH/lib/runtimes.sh"
+
 add_os_rc "zsh"
 
 # OPTIONS
@@ -27,9 +29,6 @@ function __my-zsh-keybindings {
 		ZVM_LAZY_KEYBINDINGS=false
 	}
 	zsh-plugin-load jeffreytse/zsh-vi-mode
-	# zvm_define_widget p10k_toggle_versions _p10k_toggle_versions
-	# zvm_bindkey vicmd '^E' p10k_toggle_versions
-	# zvm_bindkey viins '^E' p10k_toggle_versions
 }
 
 __my-zsh-keybindings

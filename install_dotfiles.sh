@@ -148,8 +148,8 @@ __zdi_step6() {
 	if i_dont_have mise; then
 		flog_log "Installing mise"
     curl https://mise.run | sh
-    . "$HOME/.dotfiles/lib/runtimes.sh"
 	fi
+  . "$HOME/.dotfiles/lib/runtimes.sh"
 	flog_log "Installing all mise versions"
 	mise --yes use -g cargo-binstall
 	mise --yes install
