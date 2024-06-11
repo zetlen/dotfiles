@@ -144,14 +144,15 @@ __zdi_step6() {
 	  flog_log "Updating rustup"
 	  rustup update
 	fi
+  flog_log "Installing cargo-binstall"
+  curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+
 
 	if i_dont_have mise; then
 		flog_log "Installing mise"
     curl https://mise.run | sh
 	fi
-  . "$HOME/.dotfiles/lib/runtimes.sh"
 	flog_log "Installing all mise versions"
-	mise --yes use -g cargo-binstall
 	mise --yes install
 
   ln -sf "${HOME}/.local/share/mise" "~/.asdf"
