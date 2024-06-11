@@ -5,3 +5,5 @@ setup_runtimes() {
     eval "$($mise_bin_loc activate zsh)" && \
     eval "$($mise_bin_loc hook-env)"
 }
+
+setup_runtimes

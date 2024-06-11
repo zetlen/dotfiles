@@ -46,8 +46,6 @@ try_homesrc .git-completion.bash || try_src \
 
 add_os_rc "bash"
 
-try_homesrc .cargo/env .asdf/completions/asdf.bash
-
 try_homesrc ".bash-git-prompt/gitprompt.sh"
 
 try_homesrc .bashrc.local
