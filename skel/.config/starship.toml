@@ -46,7 +46,6 @@ command_timeout = 1000
 
 [cmd_duration]
 format = "[󱎫 $duration]($style)"
-show_notifications = true
 
 [container]
 disabled = true
