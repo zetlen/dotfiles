@@ -2,12 +2,10 @@
 node = "lts"
 neovim = "stable"
 python = "3.10.14"
-ruby = "3.2.2"
 usage = "latest"
 vim = "latest"
-go = "1.22.0"
+go = "latest"
 "cargo:eza" = "0.18.17"
-"cargo:cargo-binstall" = "1.6.9"
 "cargo:starship" = "1.19.0"
 "cargo:tree-sitter-cli" = "0.22.6"
 

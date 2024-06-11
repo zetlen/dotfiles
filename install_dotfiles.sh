@@ -174,31 +174,23 @@ __zdi_step7() {
 
 __zdi_steps[8]="Set up vim"
 __zdi_step8() {
-	if i_have vim; then
-		if [ ! -e ~/.vim/autoload/plug.vim ]; then
-			TO_DOWNLOAD="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-			flog_warn "Missing vim plugins."
+  if [ ! -e ~/.vim/autoload/plug.vim ]; then
+    TO_DOWNLOAD="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+    flog_warn "Missing vim plugins."
 
-			flog_log "Downloading ${__flog_startul}${TO_DOWNLOAD}${__flog_endul}"
-			curl -fLo ~/.vim/autoload/plug.vim --create-dirs "$TO_DOWNLOAD"
-		fi
-		flog_success "Vim and vim-plug are installed."
-		flog_confirm "Launch vim and update plugins?" && vim +PlugUpgrade +PlugUpdate +qall
-	else
-		flog_warn "Vim is not installed. No Vim plugins attached."
-	fi
+    flog_log "Downloading ${__flog_startul}${TO_DOWNLOAD}${__flog_endul}"
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs "$TO_DOWNLOAD"
+  fi
+  flog_success "Vim and vim-plug are installed."
+  flog_confirm "Launch vim and update plugins?" && mise x -- vim +PlugUpgrade +PlugUpdate +qall
 }
 
 __zdi_steps[9]="Set up neovim"
 __zdi_step9() {
-	if i_have nvim; then
-		flog_log Installing AstroNvim...
-    NVIM_CONFIG_REPO="${HOME}/.config/nvim"
-		rm -rf "$NVIM_CONFIG_REPO" && git clone --depth 1 https://github.com/zetlen/astronvim-config "$NVIM_CONFIG_REPO"
-		NVIM_APPNAME=astronvim_v4 nvim --headless -c 'quitall'
-	else
-		flog_warn "Cannot set up custom Neovim because Neovim is not installed."
-	fi
+  flog_log Installing AstroNvim...
+  NVIM_CONFIG_REPO="${HOME}/.config/nvim"
+  rm -rf "$NVIM_CONFIG_REPO" && git clone --depth 1 https://github.com/zetlen/astronvim-config "$NVIM_CONFIG_REPO"
+  NVIM_APPNAME=astronvim_v4 mise x -- nvim --headless -c 'quitall'
 }
 
 TOTAL_STEPS="${#__zdi_steps[@]}"
