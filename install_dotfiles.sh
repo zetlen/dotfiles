@@ -140,8 +140,9 @@ __zdi_step6() {
 	if i_dont_have rustup; then
 		flog_log "Installing rustup"
 		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --profile minimal
-    flog_log "Installing cargo-binstall"
-    curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+	else
+	  flog_log "Updating rustup"
+	  rustup update
 	fi
 
 	if i_dont_have mise; then
@@ -149,7 +150,9 @@ __zdi_step6() {
     curl https://mise.run | sh
 	fi
 	flog_log "Installing all mise versions"
-	~/.local/bin/mise install
+	mise_cmd_path="${HOME}/.local/share/mise"
+	"$mise_cmd_path" use -g cargo-binstall
+	"$mise_cmd_path" install
 
   ln -sf "${HOME}/.local/share/mise" "~/.asdf"
 }
