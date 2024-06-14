@@ -60,6 +60,7 @@ repo_root_style = 'bold blue'
 [fill]
 symbol = '─'
 style = 'dimmed black'
+disabled = true
 
 [docker_context]
 symbol = " "
