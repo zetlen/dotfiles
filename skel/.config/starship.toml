@@ -97,7 +97,7 @@ untracked = '[$count](orange) '
 deleted = '[$count](red) '
 stashed = '[$count](purple) '
 ahead = "[$count⇡](cyan) "
-behind = "[$count⇡](red) "
+behind = "[$count⇣](bold red) "
 
 [c]
 symbol = " "
@@ -178,7 +178,7 @@ style = 'gray'
 
 [palettes.z]
 black = '#282828'
-red  = '#ac241d'
+red  = '#cc241d'
 green = '#00AA30'
 gold = '#dfad00'
 purple = '#9400b6'
