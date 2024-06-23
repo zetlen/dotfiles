@@ -5,7 +5,7 @@ mdcd() {
 sizes() {
 	local dir="${1:-.}"
 	local depth="${2:-1}"
-	du -chad "$depth" "$dir" | sort -h
+	du -chd "$depth" "$dir" | sort -h
 }
 
 find_up() {
