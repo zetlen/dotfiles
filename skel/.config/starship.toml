@@ -116,6 +116,11 @@ symbol = "󰍛 "
 symbol = " "
 format = " [$symbol$version]($style)"
 
+[deno]
+symbol = " "
+format = " [$symbol$version]($style)"
+style = "cyan"
+
 [os]
 disabled = false
 format = '$symbol'
