@@ -113,7 +113,7 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 autocmd! VimEnter * Goyo
 autocmd! BufRead nested * Goyo
 
-" autocmd BufWritePost * !git add % && git commit -m %
+autocmd BufWritePost * !git add % && git commit -m %
 
 function! s:goyo_enter()
   set syntax=markdown

@@ -38,5 +38,8 @@ confirm_journal_exists() {
 	fi
 }
 confirm_journal_exists || exit 1
-cd $JOURNAL_DIR
-edit_if_chosen "$(picker_input | picker_output)"
+pushd $JOURNAL_DIR >/dev/null
+git pull
+[ -n "$1" ] && edit_if_chosen "${1}.md" || edit_if_chosen "$(picker_input | picker_output)"
+git push
+pushd $JOURNAL_DIR >/dev/null
