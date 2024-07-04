@@ -165,6 +165,9 @@ format = " [$symbol$version]($style)"
 
 [rust]
 symbol = " "
+format = " [$symbol$version]($style)"
+style = "purple"
+
 
 [swift]
 symbol = " "
