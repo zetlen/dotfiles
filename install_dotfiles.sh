@@ -104,9 +104,14 @@ __zdi_step3() {
 __zdi_steps[4]="Writing gitconfig"
 __zdi_step4() {
 	GITCONFIG_BASEDIR="$(normalize_dir $DOTFILE_PATH lib/gitconfig)"
-	git config --global user.name "$(whoami)"
-	if flog_confirm "Set git user.email to zetlen@gmail.com?"; then
+  if flog_confirm "Set git user.name to $(whoami)?"; then
+	  git config --global user.name "$(whoami)"
+  fi
+	if flog_confirm "Set git email and signing key to zetlen@gmail.com?"; then
 		git config --global user.email "zetlen@gmail.com"
+    gpg --show-key --keyid-format=long "${DOTFILE_PATH}/lib/bootstrap/gpg_z_pub.asc" \
+      | awk '$1 == "pub" {split($2, a, "/"); print a[2]}' \
+      | xargs git config --global user.signingkey
 	fi
 	git config --global include.path "${GITCONFIG_BASEDIR}/common.gitconfig" 'common.gitconfig'
 	for TOOL_GITCONFIG in $(find lib/gitconfig -type f -name 'tool.*.gitconfig' -execdir echo {} \;); do
@@ -116,6 +121,8 @@ __zdi_step4() {
 		if command -v "$TOOL_NAME" &>/dev/null; then
 			flog_success "${__flog_color_green}${TOOL_NAME}${__flog_color_normal} is available, adding its include to .gitconfig"
 			git config --global include.path "${GITCONFIG_BASEDIR}/${TOOL_GITCONFIG}" "$TOOL_GITCONFIG"
+    else
+			git config --unset --global include.path "${GITCONFIG_BASEDIR}/${TOOL_GITCONFIG}"
 		fi
 	done
 	flog_success "Built .gitconfig"

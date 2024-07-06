@@ -6,6 +6,7 @@ __TO_INSTALL=(
 	coreutils
 	figlet
 	fzf
+	git-delta
 	jq
 	kaleidoscope
 	openjdk
