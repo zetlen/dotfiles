@@ -6,7 +6,7 @@ usage = "latest"
 vim = "latest"
 go = "latest"
 "cargo:eza" = "0.18.17"
-"cargo:starship" = "1.19.0"
+"cargo:starship" = "latest"
 "cargo:tree-sitter-cli" = "0.22.6"
 bitwarden = "latest"
 
