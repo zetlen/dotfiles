@@ -21,9 +21,9 @@ _z_update2() {
 
 _z_updaters[3]="mise and tool versions"
 _z_update3() {
-  mise self-update
-  mise plugins update
-  mise up
+  mise self-update --yes
+  mise plugins update --yes
+  mise up --yes
 }
 
 _z_updaters[4]="Rust toolchain and packages"
