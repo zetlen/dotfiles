@@ -8,7 +8,8 @@ go = "latest"
 "cargo:eza" = "0.18.17"
 "cargo:starship" = "latest"
 "cargo:tree-sitter-cli" = "0.22.6"
-bitwarden = "latest"
+"node:@bitwarden/cli" = "latest"
 
 [settings]
 experimental = true
+yes = true
