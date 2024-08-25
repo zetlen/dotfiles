@@ -1,5 +1,4 @@
 [tools]
-node = "lts"
 neovim = "stable"
 python = "3.10"
 usage = "latest"
@@ -8,7 +7,7 @@ go = "latest"
 "cargo:eza" = "0.18.17"
 "cargo:starship" = "latest"
 "cargo:tree-sitter-cli" = "0.22.6"
-"node:@bitwarden/cli" = "latest"
+node = "22.7.0"
 
 [settings]
 experimental = true
