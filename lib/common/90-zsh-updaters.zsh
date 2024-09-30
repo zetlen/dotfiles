@@ -50,6 +50,9 @@ _z_update7() {
 }
 
 zsh-update-all() {
+  if [[ "$1" == "-y" ]]; then
+    export FLOG_CONFIRM_ALL=1
+  fi
 	local fn
 	local desc
   local TOTAL_STEPS="$#_z_updaters"
