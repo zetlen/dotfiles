@@ -79,7 +79,8 @@ format = '[$user]($style)@'
 [git_branch]
 style = 'bold green'
 symbol = ""
-format = '[$symbol $branch(:$remote_branch)]($style) '
+always_show_remote = true
+format = '[$symbol $branch]($style)[(  $remote_name/$remote_branch) ](darkred)'
 
 [git_commit]
 style = 'bold darkgreen'
@@ -188,6 +189,7 @@ style = 'gray'
 [palettes.z]
 black = '#282828'
 red  = '#cc241d'
+darkred  = '#8c041d'
 green = '#00AA30'
 gold = '#dfad00'
 purple = '#9400b6'

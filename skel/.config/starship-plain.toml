@@ -95,8 +95,9 @@ disabled = false
 
 [git_branch]
 style = 'bold green'
-format = '[$symbol$branch(:$remote_branch)]($style) '
-symbol = "on "
+always_show_remote = true
+format = '[$symbol $branch]($style)[( $remote_name) ](darkred)'
+symbol = "on"
 
 [git_commit]
 style = 'bold darkgreen'
@@ -234,6 +235,7 @@ style = 'gray'
 [palettes.z]
 black = '#282828'
 red  = '#cc241d'
+darkred  = '#8c041d'
 green = '#00AA30'
 gold = '#dfad00'
 purple = '#9400b6'
