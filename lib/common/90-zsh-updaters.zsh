@@ -24,6 +24,7 @@ _z_update3() {
   mise self-update --yes
   mise plugins update --yes
   mise up --yes
+  mise prune --yes
 }
 
 _z_updaters[4]="Rust toolchain and packages"
