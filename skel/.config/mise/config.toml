@@ -1,13 +1,14 @@
 [tools]
 neovim = "stable"
-python = "3.10"
 usage = "latest"
 vim = "latest"
 go = "latest"
-"cargo:eza" = "0.18.17"
 "cargo:starship" = "latest"
-"cargo:tree-sitter-cli" = "0.22.6"
-node = "22.7.0"
+python = "3.13"
+"cargo:eza" = "0.20.4"
+"cargo:tree-sitter-cli" = "0.24.3"
+node = "23.0.0"
+"cargo:zellij" = "latest"
 
 [settings]
 experimental = true
