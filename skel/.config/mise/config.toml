@@ -1,5 +1,4 @@
 [tools]
-neovim = "stable"
 usage = "latest"
 vim = "latest"
 go = "latest"
