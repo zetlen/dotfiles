@@ -13,3 +13,4 @@ node = "23.0.0"
 [settings]
 experimental = true
 yes = true
+legacy_version_file = true
