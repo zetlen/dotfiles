@@ -16,7 +16,7 @@ if [[ "$subcmd" == "lock" ]]; then
   fi
   outfile="${infile}.locked_${duration}" 
   echo "Locking '$infile' for $duration"
-  tle --encrypt --duration $duration --output "$outfile" "$infile" 
+  tar -cvf - ${infile} | tle --encrypt --duration $duration --output "$outfile"
   echo "Locked to $outfile"
 elif [[ "$subcmd" == "unlock" ]]; then
   if [[ -z "$infile" ]]; then
@@ -24,11 +24,9 @@ elif [[ "$subcmd" == "unlock" ]]; then
     exit 1
   fi
   outfile="${infile%%.locked_*}"
-  tle --decrypt --output "$outfile" "$infile"
+  tle --decrypt "$infile" | tar -xv
   echo "Unlocked to $outfile"
 else
   echo "First argument must be 'lock' or 'unlock'" >&2
   exit 1
 fi
-
-rm -i "$infile"
