@@ -162,7 +162,7 @@ __zdi_step6() {
 	flog_log "Installing all mise versions"
 	mise --yes install
 
-  ln -sf "${HOME}/.local/share/mise" "~/.asdf"
+  ln -sf "${HOME}/.local/share/mise" "${HOME}/.asdf"
 }
 
 __zdi_steps[7]="Set up zsh"
