@@ -192,14 +192,6 @@ __zdi_step8() {
   flog_confirm "Launch vim and update plugins?" && mise x -- vim +PlugUpgrade +PlugUpdate +qall
 }
 
-__zdi_steps[9]="Set up neovim"
-__zdi_step9() {
-  flog_log Installing AstroNvim...
-  NVIM_CONFIG_REPO="${HOME}/.config/nvim"
-  rm -rf "$NVIM_CONFIG_REPO" && git clone --depth 1 https://github.com/zetlen/astronvim-config "$NVIM_CONFIG_REPO"
-  NVIM_APPNAME=astronvim_v4 mise x -- nvim --headless -c 'quitall'
-}
-
 TOTAL_STEPS="${#__zdi_steps[@]}"
 
 __zdi_run_step() {

@@ -40,11 +40,6 @@ _z_update5() {
 	go-global-update
 }
 
-_z_updaters[6]="astronvim"
-_z_update6() {
-	nvim +AstroUpdate +AstroUpdatePackages +quitall
-}
-
 _z_updaters[7]="vim plugins"
 _z_update7() {
 	vim +PlugUpgrade +PlugUpdate +qall
