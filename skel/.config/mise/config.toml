@@ -8,6 +8,7 @@ python = "3.13"
 "cargo:tree-sitter-cli" = "0.24.6"
 node = "23.5.0"
 "cargo:zellij" = "latest"
+"cargo:rbw" = "latest"
 
 [settings]
 experimental = true
