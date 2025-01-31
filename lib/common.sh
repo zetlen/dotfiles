@@ -14,11 +14,6 @@ export PAGER="less -R"
 # if batcat is installed
 export BAT_THEME="ansi"
 
-export JAVA_HOME
-if [ -x "/usr/libexec/java_home" ]; then
-	JAVA_HOME="$(/usr/libexec/java_home 2>/dev/null)"
-fi
-
 DOTFILE_PATH="$HOME/.dotfiles"
 
 . "$DOTFILE_PATH/lib/path.sh"

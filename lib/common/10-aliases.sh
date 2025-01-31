@@ -65,10 +65,10 @@ normalize_dir() {
 	local the__path="$*"
 
 	# Remove all multiple slashes ///
-	the__path=$(echo "$the__path" | tr -s /)
+	the__path="$(echo "$the__path" | tr -s /)"
 
 	# Remove all /./ sequences.
-	the__path=${the__path//\/.\//\/}
+	the__path="${the__path//\/.\//\/}"
 
 	# Remove any final trailing slash.
 	echo "${the__path%/}"
@@ -85,20 +85,7 @@ else
 	alias lt='l --sort=modified'
 fi
 
-ide() {
-	cd "$*"
-	local proj_root="$(basename $PWD)"
-	zellij action switch-mode locked
-	zellij action new-tab --layout ide --name "$proj_root"
-}
-
 alias r='rsync -avhzPC' # skip .git and other common skips
 alias rr='rsync -avhzP' # don't skip that
 
 alias g=git
-
-# journaling
-alias wvim='vim -u ~/.vimrc_txt'
-
-# old, weird stuff
-alias unixify="find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix"
