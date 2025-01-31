@@ -130,12 +130,7 @@ run_dotfile_steps() {
       flog_warn "Git prompt not found. Cloning bash-git-prompt repository to .bash-git-prompt"
       git clone --depth=1 https://github.com/magicmonty/bash-git-prompt.git "$HOME/.bash-git-prompt"
     fi
-    if [ -s "$BASH_VERSION" ] && [ ! -f ~/.git-completion.bash ]; then
-      TO_DOWNLOAD="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-      flog_warn "Missing ~/.git-completion.bash file. Downloading ${__flog_startul}${TO_DOWNLOAD}${__flog_endul}"
-      curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash >~/.git-completion.bash
-    fi
-    flog_success "Git prompt and completion are installed."
+    flog_success "Nice bash prompt installed."
   }
 
   __zdi_step_6__installing_tool_versions() {

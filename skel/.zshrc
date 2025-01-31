@@ -86,8 +86,4 @@ if [[ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]]; then
 	export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 fi
 
-# tabtab source for packages
-# uninstall by removing these lines
-[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
-
 [ ! -f ~/.zshrc.local ] || . ~/.zshrc.local
