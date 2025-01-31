@@ -186,7 +186,7 @@ run_dotfile_steps() {
   }
 
   
-  local __zdi_installers=($(IFS=$'\n' declare -fF | grep -Eo '\b__zdi_step_\d+\__.*$'))
+  local __zdi_installers=($(IFS=$'\n' declare -fF | grep -Eo '\b__zdi_step_.+__.*$'))
 
   local installer
   local label
