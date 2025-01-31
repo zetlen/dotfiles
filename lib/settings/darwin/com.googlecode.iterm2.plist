@@ -2398,7 +2398,7 @@
 			<key>Show Mark Indicators</key>
 			<false/>
 			<key>Silence Bell</key>
-			<true/>
+			<false/>
 			<key>Smart Selection Rules</key>
 			<array>
 				<dict>
