@@ -40,7 +40,6 @@ function __my-zsh-completions {
 	compinit
 	zsh-plugin-load chrisands/zsh-yarn-completions
 	zsh-plugin-load Aloxaf/fzf-tab
-	zsh-plugin-load zetlen/zsh-rbw
   # disable sort when completing `git checkout`
   zstyle ':completion:*:git-checkout:*' sort false
   # set descriptions format to enable group support
