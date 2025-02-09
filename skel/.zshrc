@@ -38,7 +38,6 @@ function __my-zsh-completions {
 	zsh-plugin-load zetlen/zsh-completion-generators
 	zsh-plugin-load zsh-users/zsh-completions
 	compinit
-	zsh-plugin-load chrisands/zsh-yarn-completions
 	zsh-plugin-load Aloxaf/fzf-tab
   # disable sort when completing `git checkout`
   zstyle ':completion:*:git-checkout:*' sort false
@@ -62,8 +61,6 @@ __my-zsh-prompt
 
 function __my-zsh-plugins {
 	zsh-plugin-load zetlen/zsh-bitwarden
-	zsh-plugin-load olets/zsh-window-title
-	zsh-plugin-load ptavares/zsh-direnv
 }
 
 __my-zsh-plugins
