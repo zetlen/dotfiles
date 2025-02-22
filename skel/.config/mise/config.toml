@@ -10,6 +10,7 @@ node = "23.5.0"
 "cargo:zellij" = "latest"
 "cargo:rbw" = "latest"
 gh = "latest"
+fd = "latest"
 
 [settings]
 experimental = true
