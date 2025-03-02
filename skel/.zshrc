@@ -2,10 +2,10 @@
 
 export ZDOTDIR="$HOME"
 
+. "$HOME/.dotfiles/lib/runtimes.sh"
+
 # This import must be changed if DOTFILE_PATH changes.
 . ~/.dotfiles/lib/common.sh
-
-. "$DOTFILE_PATH/lib/runtimes.sh"
 
 add_os_rc "zsh"
 
