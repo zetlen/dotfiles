@@ -19,6 +19,10 @@ __TO_INSTALL=(
 	vim
 	xz
 	zlib
+  iterm2
+  font-victor-mono-nerd-font
+  gpg-suite
+  istat-menus
 )
 
 __pkg_is_installed() {
