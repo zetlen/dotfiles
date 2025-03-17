@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+eval "$([[ -x "/opt/homebrew/bin/brew" ]] && /opt/homebrew/bin/brew shellenv)"
+
 if [ "$IN_TMUX" -eq "1" ]; then
 	tmux bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel pbcopy
 fi
