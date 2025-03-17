@@ -11,6 +11,7 @@ node = "23.5.0"
 "cargo:rbw" = "latest"
 gh = "latest"
 fd = "latest"
+uv = "latest"
 
 [settings]
 experimental = true
