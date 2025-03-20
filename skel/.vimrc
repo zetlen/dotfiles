@@ -100,6 +100,7 @@ set wildmenu           " command autocomplete view
 set lazyredraw         " supposedly for performance, revisit this
 set showmatch          " show matching brackets
 set noerrorbells       " quit beeping
+set belloff=all        " really, quit beeping
 set novisualbell       " i said, quit beeping
 set t_vb=
 
