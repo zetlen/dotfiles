@@ -1,4 +1,6 @@
 [tools]
+usage = "latest"
+
 gh = "latest"
 fd = "latest"
 uv = "latest"

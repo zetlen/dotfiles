@@ -5,6 +5,3 @@ legacy_version_file = true
 
 [settings.npm]
 bun = true
-
-[tools]
-usage = "latest"
