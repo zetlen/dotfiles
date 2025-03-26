@@ -8,6 +8,7 @@ __set_node_aliases() {
 	alias yr='yarn run '
 	alias p='pnpm '
 	alias pr='pnpm run '
+	alias prf='pnpm run --filter '
 
 	local yarnlock="$(find_up yarn.lock)"
 	local packagelock="$(find_up package-lock.json)"
