@@ -1,0 +1,7 @@
+[settings]
+experimental = true
+yes = true
+legacy_version_file = true
+
+[settings.npm]
+bun = true
