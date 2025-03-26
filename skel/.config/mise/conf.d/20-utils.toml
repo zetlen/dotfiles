@@ -1,0 +1,20 @@
+[tools]
+gh = "latest"
+fd = "latest"
+uv = "latest"
+vim = "latest"
+bun = "latest"
+bitwarden = "latest"
+
+"npm:corepack" = "latest"
+
+"cargo:cargo-binstall" = "latest"
+"cargo:starship" = "latest"
+"cargo:eza" = "0.20.14"
+"cargo:tree-sitter-cli" = "0.24.6"
+"cargo:zellij" = "latest"
+"cargo:du-dust" = "latest"
+"cargo:pumas" = "latest"
+
+"pipx:rexi" = "latest"
+
