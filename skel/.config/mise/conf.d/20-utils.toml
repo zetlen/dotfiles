@@ -1,22 +1,25 @@
 [tools]
 usage = "latest"
 
-gh = "latest"
+bitwarden = "latest"
+bun = "latest"
 fd = "latest"
+gh = "latest"
 uv = "latest"
 vim = "latest"
-bun = "latest"
-bitwarden = "latest"
+yq = "latest"
+
+"go:github.com/theimpostor/osc" = "latest"
 
 "npm:corepack" = "latest"
 
 "cargo:cargo-binstall" = "latest"
-"cargo:starship" = "latest"
+"cargo:du-dust" = "latest"
 "cargo:eza" = "0.20.14"
+"cargo:pumas" = "latest"
+"cargo:starship" = "latest"
 "cargo:tree-sitter-cli" = "0.24.6"
 "cargo:zellij" = "latest"
-"cargo:du-dust" = "latest"
-"cargo:pumas" = "latest"
 
 "pipx:rexi" = "latest"
 
