@@ -7,14 +7,11 @@ if [ "$IN_TMUX" -eq "1" ]; then
 fi
 
 random_word() {
-	perl -e 'srand; rand($.) < 1 && ($line = $_) while <>; print $line;' /usr/share/dict/words
+  shuf -n 1 -i "0-$(wc -l < /usr/share/dict/words)" | xargs -I {} sed '{}q;d' /usr/share/dict/words
 }
 
 googlebot() {
-	# tell shellcheck to allow this stupid command to run forever
-	# shellcheck disable=2207
-	voices=($(say -v '?' | awk '{print $1}'))
-	while :; do random_word | tee /dev/tty | say -v "${voices[$RANDOM % ${#voices[@]}]}"; done
+	while :; do random_word | tee /dev/tty | say; sleep 1; done
 }
 
 
