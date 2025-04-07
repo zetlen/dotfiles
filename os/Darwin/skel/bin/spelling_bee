@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+SPELL_VOICE="$1"
+if [ -n "$SPELL_VOICE" ]; then
+  SPELL_ARG="-v $SPELL_VOICE"
+fi
+
+random_word() {
+  shuf -n 1 -i "0-$(wc -l < /usr/share/dict/words)" | xargs -I {} sed '{}q;d' /usr/share/dict/words
+}
+
+spelling_bee() {
+  local word="$(random_word)"
+  echo "${SPELL_VOICE:-Computer}, spell \"$word\"."
+  local spelled="$(echo "$word" | tr '[:lower:]' '[:upper:]' | sed 's/./& /g; s/ $//')"
+  say $SPELL_ARG "${word}. ${spelled}."
+}
+
+while :; do spelling_bee; sleep 1; done

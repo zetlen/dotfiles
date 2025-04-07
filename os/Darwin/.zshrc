@@ -6,15 +6,6 @@ if [ "$IN_TMUX" -eq "1" ]; then
 	tmux bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel pbcopy
 fi
 
-random_word() {
-  shuf -n 1 -i "0-$(wc -l < /usr/share/dict/words)" | xargs -I {} sed '{}q;d' /usr/share/dict/words
-}
-
-googlebot() {
-	while :; do random_word | tee /dev/tty | say; sleep 1; done
-}
-
-
 if type brew &>/dev/null; then
   fpath+=("$(brew --prefix)/share/zsh/site-functions")
 fi
