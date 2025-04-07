@@ -18,16 +18,6 @@
 		<string>Mac14,6</string>
 		<key>Disks.Menubar.Mode.VerticalGraph.Graph.Background.State.Light</key>
 		<integer>0</integer>
-		<key>License.License</key>
-		<string>main-nubs-gold-gosh-9641-7</string>
-		<key>License.Validation.hashversion</key>
-		<string>3</string>
-		<key>License.Validation.license</key>
-		<string>main-nubs-gold-gosh-9641-7</string>
-		<key>License.Validation.signature</key>
-		<string>MIGIAkIBdQI9JlwWm7u6jpwQDbqFsQJVNaf2Gy//rVEAjfHBL/Q4xFRb/BWO3rCt9ZftcqLdnBEGjlDWkW4Qs/z5vO6HTssCQgE2NJYnj9qr9sgrWxUGuz2NMIIxKUEeiYCPi7QFXOU22yeEsczdMzDcP1ky0jP0WS2YBl/JnHKLl+fGS/t/7VnI9Q==</string>
-		<key>License.Validation.time</key>
-		<string>1741684063</string>
 		<key>Memory.Menubar.Mode.PieGraph.Pressure.Graph.Background.State.Light</key>
 		<integer>0</integer>
 		<key>Menu.Theme.Dark</key>
