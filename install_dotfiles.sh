@@ -11,7 +11,7 @@ if [ ! -d "$OSPATH" ]; then
 fi
 
 __pkg_is_installed() {
-	! i_dont_have "$1"
+	i_have "$1"
 }
 
 __pkg_is_available() {
