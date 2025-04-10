@@ -2,6 +2,7 @@ __TO_INSTALL=(
 	alpine-sdk
   cmake
 	curl
+  eza
 	fzf
 	git
 	gnupg

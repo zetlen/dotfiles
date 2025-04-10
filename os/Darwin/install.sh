@@ -3,6 +3,7 @@ __TO_INSTALL=(
 	bat
 	cmake
 	coreutils
+  eza
 	figlet
 	fzf
 	git-delta
@@ -17,7 +18,6 @@ __TO_INSTALL=(
 	tcl-tk
 	tea
 	unzip
-	vim
 	xz
 	zlib
   iterm2

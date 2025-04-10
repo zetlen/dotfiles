@@ -1,7 +1,8 @@
 __TO_INSTALL=(
 	base-devel
- cmake
+	cmake
 	curl
+	eza
 	fzf
 	git
 	gnupg

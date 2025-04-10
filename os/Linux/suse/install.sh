@@ -2,7 +2,8 @@ __TO_INSTALL=(
 	automake
 	bzip2
 	curl
-  cmake
+	cmake
+	eza
 	findutils
 	fzf
 	gcc
@@ -21,7 +22,6 @@ __TO_INSTALL=(
 	sqlite3-devel
 	tk-devel
 	unzip
-	vim
 	wget
 	xz
 	xz-devel

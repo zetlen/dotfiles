@@ -2,6 +2,7 @@ __TO_INSTALL=(
 	build-essential
 	cmake
 	curl
+	eza
 	fzf
 	git
 	gnupg2
@@ -19,7 +20,6 @@ __TO_INSTALL=(
 	ripgrep
 	tk-dev
 	unzip
-	vim
 	wget
 	xz-utils
 	zlib1g-dev
