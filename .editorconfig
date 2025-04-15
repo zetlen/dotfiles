@@ -2,15 +2,22 @@ root = true
 
 [*]
 indent_style = space
-indent_size = 2
-tab_width = 2
+indent_size = 4
+tab_width = 4
 charset = utf-8
 
-[*.yaml]
-indent_style = space
-indent_size = 2
+[{*.sh,*.bash,*.zsh,*rc}]
 
-[.p10k.zsh]
+binary_next_line   = true  # like -bn
+switch_case_indent = true  # like -ci
+space_redirects    = true  # like -sr
+keep_padding       = true  # like -kp
+never_split        = true  # like -ns
+
+[*.sh]
+# shell_variant      = posix # like -ln=posix
+
+[*.yaml]
 indent_style = space
 indent_size = 2
 
