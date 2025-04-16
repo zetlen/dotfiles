@@ -3269,15 +3269,15 @@
 			<key>HotKey Alternate Shortcuts</key>
 			<array/>
 			<key>HotKey Characters</key>
-			<string></string>
+			<string></string>
 			<key>HotKey Characters Ignoring Modifiers</key>
-			<string>T</string>
+			<string>X</string>
 			<key>HotKey Key Code</key>
-			<integer>17</integer>
+			<integer>7</integer>
 			<key>HotKey Modifier Activation</key>
 			<integer>0</integer>
 			<key>HotKey Modifier Flags</key>
-			<integer>1966080</integer>
+			<integer>1441792</integer>
 			<key>HotKey Window Animates</key>
 			<true/>
 			<key>HotKey Window AutoHides</key>
@@ -3394,7 +3394,7 @@
 			<key>Non-ASCII Ligatures</key>
 			<false/>
 			<key>Normal Font</key>
-			<string>Ac437IBMDOSISO9NF 22</string>
+			<string>AcPlusCordataPPC400NF 21</string>
 			<key>Only The Default BG Color Uses Transparency</key>
 			<true/>
 			<key>Option Key Sends</key>
@@ -3607,11 +3607,11 @@
 			<key>Use Italic Font</key>
 			<true/>
 			<key>Use Non-ASCII Font</key>
-			<true/>
+			<false/>
 			<key>Use Separate Colors for Light and Dark Mode</key>
 			<true/>
 			<key>Vertical Spacing</key>
-			<real>1</real>
+			<real>1.1499999999999999</real>
 			<key>Visual Bell</key>
 			<true/>
 			<key>Window Type</key>
