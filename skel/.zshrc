@@ -83,3 +83,6 @@ if [[ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]]; then
 fi
 
 [ ! -f ~/.zshrc.local ] || . ~/.zshrc.local
+
+test -e "${ZDOTDIR}/.iterm2_shell_integration.zsh" && source "${ZDOTDIR}/.iterm2_shell_integration.zsh"
+
