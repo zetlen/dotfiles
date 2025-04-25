@@ -8,14 +8,18 @@
 	<dict>
 		<key>CPU.Menubar.Mode.CircularGraph.Graph.Background.State.Light</key>
 		<integer>0</integer>
+		<key>Combined.Menu.Items</key>
+		<array>
+			<string>cpu-cpu</string>
+			<string>cpu-cores</string>
+			<string>memory-overview</string>
+			<string>sensors-overview</string>
+			<string>battery-combined</string>
+			<string>disks-physical</string>
+			<string>processes</string>
+		</array>
 		<key>Combined.Menubar.Items</key>
 		<array/>
-		<key>Device.Auth-Identifier</key>
-		<string>ADDF91D5-E6A2-4163-981D-6230B5DC083C</string>
-		<key>Device.Device</key>
-		<string>a32ca2cbae3ec450bd17788d26da97da569a9a24</string>
-		<key>Device.Model</key>
-		<string>Mac14,6</string>
 		<key>Disks.Menubar.Mode.VerticalGraph.Graph.Background.State.Light</key>
 		<integer>0</integer>
 		<key>Memory.Menubar.Mode.PieGraph.Pressure.Graph.Background.State.Light</key>
@@ -23,13 +27,152 @@
 		<key>Menu.Theme.Dark</key>
 		<string>system</string>
 		<key>Menu.Theme.Light</key>
-		<string>blue</string>
+		<string>system</string>
+		<key>Menubar.Global.ReducePadding</key>
+		<integer>1</integer>
 		<key>Migration.CombinedPowerItems</key>
 		<true/>
 		<key>Migration.Profiles</key>
 		<true/>
+		<key>Network.Menu.Launcher</key>
+		<array>
+			<dict/>
+			<dict/>
+			<dict>
+				<key>key</key>
+				<string>disabled</string>
+			</dict>
+			<dict/>
+			<dict>
+				<key>key</key>
+				<string>disabled</string>
+			</dict>
+		</array>
+		<key>Network.Menu.Order</key>
+		<array>
+			<dict>
+				<key>key</key>
+				<string>network-location</string>
+			</dict>
+			<dict>
+				<key>key</key>
+				<string>network-bandwidth</string>
+			</dict>
+			<dict>
+				<key>key</key>
+				<string>network-interfaces-connected</string>
+			</dict>
+			<dict>
+				<key>key</key>
+				<string>network-addresses-public</string>
+			</dict>
+			<dict>
+				<key>key</key>
+				<string>network-addresses-private</string>
+			</dict>
+			<dict>
+				<key>key</key>
+				<string>network-interfaces-notconnected</string>
+			</dict>
+			<dict>
+				<key>key</key>
+				<string>network-processes</string>
+			</dict>
+			<dict>
+				<key>key</key>
+				<string>network-ping</string>
+			</dict>
+			<dict>
+				<key>key</key>
+				<string>network-launcher</string>
+			</dict>
+		</array>
+		<key>Network.Menu.Ping.Items</key>
+		<array>
+			<dict>
+				<key>address</key>
+				<string>1.1.1.1</string>
+			</dict>
+			<dict>
+				<key>address</key>
+				<string>the-z-machine.com</string>
+			</dict>
+			<dict>
+				<key>address</key>
+				<string>github.com</string>
+			</dict>
+		</array>
+		<key>Network.Menu.State</key>
+		<array>
+			<dict>
+				<key>enabled</key>
+				<true/>
+				<key>key</key>
+				<string>network-location</string>
+			</dict>
+			<dict>
+				<key>enabled</key>
+				<true/>
+				<key>key</key>
+				<string>network-bandwidth</string>
+			</dict>
+			<dict>
+				<key>enabled</key>
+				<true/>
+				<key>key</key>
+				<string>network-interfaces-connected</string>
+			</dict>
+			<dict>
+				<key>enabled</key>
+				<true/>
+				<key>key</key>
+				<string>network-addresses-public</string>
+			</dict>
+			<dict>
+				<key>enabled</key>
+				<true/>
+				<key>key</key>
+				<string>network-addresses-private</string>
+			</dict>
+			<dict>
+				<key>enabled</key>
+				<false/>
+				<key>key</key>
+				<string>network-interfaces-notconnected</string>
+			</dict>
+			<dict>
+				<key>enabled</key>
+				<true/>
+				<key>key</key>
+				<string>network-ping</string>
+			</dict>
+			<dict>
+				<key>enabled</key>
+				<true/>
+				<key>key</key>
+				<string>network-processes</string>
+			</dict>
+			<dict>
+				<key>enabled</key>
+				<true/>
+				<key>key</key>
+				<string>network-launcher</string>
+			</dict>
+		</array>
+		<key>Network.Menubar.Global.Decimals.MB</key>
+		<integer>1</integer>
+		<key>Network.Menubar.Global.UnitSize</key>
+		<integer>0</integer>
+		<key>Network.Menubar.Mode.Bandwidth.Font.Name</key>
+		<string>default</string>
 		<key>Network.Menubar.Mode.HistoryGraph.Graph.Background.State.Light</key>
 		<integer>0</integer>
+		<key>Network.Menubar.Mode.HistoryGraph.Graph.Border.Light.Color</key>
+		<string>0 0 0 0.1320754736661911</string>
+		<key>Network.Menubar.Mode.HistoryGraph.Width</key>
+		<integer>18</integer>
+		<key>Network.Menubar.Mode.Value.ShowArrows</key>
+		<false/>
 		<key>Profiles.Available.identifier</key>
 		<string>default</string>
 		<key>Profiles.Settings.default.Battery.Menubar.Items.Charged</key>
@@ -133,17 +276,31 @@
 				<integer>6</integer>
 			</dict>
 		</array>
+		<key>Profiles.Settings.default.Combined.Menubar.Enabled</key>
+		<integer>0</integer>
 		<key>Profiles.Settings.default.Combined.Menubar.Items</key>
-		<array/>
-		<key>Profiles.Settings.default.Disks.Menubar.Items</key>
 		<array>
 			<dict>
 				<key>source</key>
-				<integer>4</integer>
+				<integer>1</integer>
+				<key>subtype</key>
+				<integer>8</integer>
 				<key>type</key>
+				<integer>7</integer>
+			</dict>
+			<dict>
+				<key>source</key>
 				<integer>3</integer>
+				<key>subtype</key>
+				<integer>8</integer>
+				<key>type</key>
+				<integer>7</integer>
 			</dict>
 		</array>
+		<key>Profiles.Settings.default.Disks.Menubar.Enabled</key>
+		<integer>0</integer>
+		<key>Profiles.Settings.default.Disks.Menubar.Items</key>
+		<array/>
 		<key>Profiles.Settings.default.Memory.Menubar.Items</key>
 		<array>
 			<dict>
@@ -170,21 +327,16 @@
 				<integer>7</integer>
 				<key>type</key>
 				<integer>7</integer>
+				<key>useroptions</key>
+				<dict/>
 			</dict>
 		</array>
+		<key>Profiles.Settings.default.Sensors.Menubar.Enabled</key>
+		<integer>0</integer>
 		<key>Profiles.Settings.default.Sensors.Menubar.Items</key>
-		<array>
-			<dict>
-				<key>source</key>
-				<integer>7</integer>
-				<key>subtype</key>
-				<integer>7</integer>
-				<key>type</key>
-				<integer>7</integer>
-			</dict>
-		</array>
-		<key>Status.BackgroundInstall</key>
-		<true/>
+		<array/>
+		<key>Profiles.Settings.default.Sensors.Menubar.Sensors</key>
+		<array/>
 		<key>Status.Build.Last</key>
 		<real>2250</real>
 		<key>Status.Version.Last</key>
@@ -228,6 +380,18 @@
 				<string>willyweather</string>
 				<key>name</key>
 				<string>🇦🇺 WillyWeather (BoM)</string>
+			</dict>
+			<dict>
+				<key>key</key>
+				<string>dwd</string>
+				<key>name</key>
+				<string>🇩🇪 DWD</string>
+			</dict>
+			<dict>
+				<key>key</key>
+				<string>meteofrance</string>
+				<key>name</key>
+				<string>🇫🇷 Meteo France</string>
 			</dict>
 		</array>
 	</dict>
