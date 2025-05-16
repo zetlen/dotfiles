@@ -59,9 +59,9 @@ style = 'blue'
 repo_root_style = 'green'
 
 [fill]
-symbol = '─'
+symbol = ' '
 style = 'dimmed black'
-disabled = true
+disabled = false
 
 [docker_context]
 symbol = " "
@@ -75,6 +75,10 @@ format = " [$symbol$version]($style)"
 [gcloud]
 symbol = "󱇶 "
 format = ' [$symbol($project)(\($region\))]($style)'
+disabled = false
+[gcloud.project_aliases]
+orthly-8118b = 'owp'
+
 
 [username]
 style_user = 'gold'
