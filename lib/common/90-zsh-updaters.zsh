@@ -18,6 +18,7 @@ zsh-update-all() {
     }
 
     _z_update__3_mise_and_tool_versions() {
+        mise cache clear
         mise self-update --yes
         mise plugins update --yes
         mise up --yes
