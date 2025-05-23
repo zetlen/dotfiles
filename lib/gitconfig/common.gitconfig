@@ -107,7 +107,8 @@ backone = reset --soft HEAD^
 nb = checkout -b
 pr = pull --rebase
 nevermind = !git checkout -f && git clean -df
-ahem = !git add -A && git commit --amend --no-edit --no-verify && git push --force
+ahem = !git add -A && git commit --amend --no-edit --no-verify
+fudge = !git add -A && git commit --amend --no-edit --no-verify && git push --force
 alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
 co = checkout
 slt = !git log --date=short --format='%an %Cgreen%ad %Creset%s %b' $(git describe --tags --abbrev=0)..HEAD
