@@ -89,3 +89,11 @@ alias r='rsync -avhzPC' # skip .git and other common skips
 alias rr='rsync -avhzP' # don't skip that
 
 alias g=git
+into () {
+	if [ -z "$ZELLIJ" ]
+	then
+		ssh -o RequestTTY=force $1 -- "zsh -lc 'mise x -- zellij attach -c $(hostname -s)'"
+	else
+		ssh -o RequestTTY=force $1
+	fi
+}
