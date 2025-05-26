@@ -1,0 +1,82 @@
+{{- /* Templated .zshrc for Chezmoi */ -}}
+[ ! -f $HOME/.zshrc.localbefore ] || . $HOME/.zshrc.localbefore
+
+export ZDOTDIR="$HOME"
+
+# Initialize mise for runtime management
+if command -v mise &> /dev/null; then
+    eval "$(mise activate zsh)"
+fi
+
+# OPTIONS
+
+# good history
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE={{ .shell.history_size }}
+SAVEHIST={{ .shell.history_size }}
+setopt histignoredups
+setopt histignorespace
+setopt histreduceblanks
+setopt histexpiredupsfirst
+setopt appendhistory
+
+{{- if eq .chezmoi.os "darwin" }}
+export MANPATH="/usr/local/man:$MANPATH"
+{{- end }}
+
+# Initialize Sheldon plugin manager
+if command -v sheldon &> /dev/null; then
+    eval "$(sheldon source)"
+else
+    # Fallback to manual plugin loading if sheldon is not available
+    {{- if lookPath "gum" }}
+    gum style --foreground="#f9e2af" "⚠ Sheldon not found, falling back to manual plugin loading"
+    {{- else }}
+    echo "⚠️ WARNING: Sheldon not found, falling back to manual plugin loading"
+    {{- end }}
+    
+    # Basic fallback - manual plugin management would go here
+    # For now, just ensure basic functionality works
+    echo "Note: Install sheldon for full plugin management"
+fi
+
+# Completion configuration (works with both Sheldon and manual loading)
+autoload -Uz compinit
+compinit
+
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set descriptions format to enable group support
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# preview directory's content with eza when completing cd
+command -v eza &> /dev/null && zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1F --icons --color-scale --color=always $realpath'
+# switch group using `,` and `.`
+zstyle ':fzf-tab:*' switch-group ',' '.'
+
+# Initialize starship prompt
+eval "$(starship init zsh)"
+
+# must happen after initialization of p10k and other async things
+export GPG_TTY=$TTY
+
+# Fix for passphrase prompt on the correct tty
+# See https://www.gnupg.org/documentation/manuals/gnupg/Agent-Options.html#option-_002d_002denable_002dssh_002dsupport
+function _gpg-agent_update-tty_preexec {
+  gpg-connect-agent updatestartuptty /bye &>/dev/null
+}
+autoload -U add-zsh-hook
+add-zsh-hook preexec _gpg-agent_update-tty_preexec
+
+# fix ssh agent integration
+unset SSH_AGENT_PID
+if [[ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]]; then
+	export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+fi
+
+[ ! -f ~/.zshrc.local ] || . ~/.zshrc.local
+
+{{- if eq .chezmoi.os "darwin" }}
+test -e "${ZDOTDIR}/.iterm2_shell_integration.zsh" && source "${ZDOTDIR}/.iterm2_shell_integration.zsh"
+{{- end }}

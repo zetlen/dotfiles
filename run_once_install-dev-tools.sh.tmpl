@@ -1,0 +1,112 @@
+#!/bin/bash
+# Development tools installation script for Chezmoi
+# Replaces parts of the install_dotfiles.sh tool installation steps
+
+# Logging functions
+if command -v gum &> /dev/null; then
+    flog_log() { gum style --foreground="#89b4fa" "🔧 $*"; }
+    flog_success() { gum style --foreground="#a6e3a1" "✅ $*"; }
+    flog_warn() { gum style --foreground="#f9e2af" "⚠️  $*"; }
+    flog_error() { gum style --foreground="#f38ba8" "❌ $*"; }
+    flog_confirm() { gum confirm "$*"; }
+else
+    flog_log() { echo "🔧 $*"; }
+    flog_success() { echo "✅ $*"; }
+    flog_warn() { echo "⚠️  $*"; }
+    flog_error() { echo "❌ $*"; }
+    flog_confirm() { echo "❓ $*"; read -p "Continue? [y/N] " -n 1 -r; echo; [[ $REPLY =~ ^[Yy]$ ]]; }
+fi
+
+set -euo pipefail
+
+flog_log "Installing and configuring development tools..."
+
+# Install Rustup if not present
+if ! command -v rustup &> /dev/null; then
+    flog_log "Installing Rustup..."
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --profile minimal
+    source "$HOME/.cargo/env"
+    flog_success "Rustup installed"
+else
+    flog_log "Updating Rustup..."
+    rustup update
+    flog_success "Rustup updated"
+fi
+
+# Install cargo-binstall
+if ! command -v cargo-binstall &> /dev/null; then
+    flog_log "Installing cargo-binstall..."
+    curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+    flog_success "cargo-binstall installed"
+fi
+
+# Install mise if not present
+if ! command -v mise &> /dev/null; then
+    flog_log "Installing mise..."
+    curl https://mise.run | sh
+    flog_success "mise installed"
+fi
+
+{{- if .tools.mise.auto_install }}
+# Install all mise tools
+flog_log "Installing mise tools..."
+if command -v mise &> /dev/null; then
+    mise --yes install
+    flog_success "mise tools installed"
+    
+    # Create asdf compatibility symlink
+    ln -sf "${HOME}/.local/share/mise" "${HOME}/.asdf" 2>/dev/null || true
+fi
+{{- end }}
+
+# Install bash-git-prompt if not present
+if [ ! -f "$HOME/.bash-git-prompt/gitprompt.sh" ]; then
+    flog_log "Installing bash-git-prompt..."
+    git clone --depth=1 https://github.com/magicmonty/bash-git-prompt.git "$HOME/.bash-git-prompt"
+    flog_success "bash-git-prompt installed"
+fi
+
+# Install vim-plug if not present
+if [ ! -e ~/.vim/autoload/plug.vim ]; then
+    flog_log "Installing vim-plug..."
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    flog_success "vim-plug installed"
+fi
+
+{{- if .tools.vim.auto_update_plugins }}
+# Update vim plugins
+if command -v vim &> /dev/null && [ -e ~/.vim/autoload/plug.vim ]; then
+    flog_log "Updating vim plugins..."
+    if flog_confirm "Update vim plugins?"; then
+        mise x -- vim +PlugUpgrade +PlugUpdate +qall || vim +PlugUpgrade +PlugUpdate +qall
+        flog_success "vim plugins updated"
+    fi
+fi
+{{- end }}
+
+{{- if .tools.sheldon.auto_update }}
+# Initialize Sheldon plugins if available
+if command -v sheldon &> /dev/null; then
+    flog_log "Initializing Sheldon plugin manager..."
+    if sheldon lock --update 2>/dev/null; then
+        flog_success "Sheldon plugins initialized"
+    else
+        flog_warn "Sheldon initialization failed, will fall back to manual plugin loading"
+    fi
+else
+    flog_warn "Sheldon not available, will use fallback plugin loading"
+fi
+{{- end }}
+
+# Verify other modern tools are working
+flog_log "Verifying modern tools..."
+for tool in gum starship; do
+    if command -v "$tool" &> /dev/null; then
+        flog_success "$tool is available"
+    else
+        flog_warn "$tool is not available, some features may be limited"
+    fi
+done
+
+flog_success "Development tools installation completed!"

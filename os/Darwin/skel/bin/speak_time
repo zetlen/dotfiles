@@ -1,3 +1,0 @@
-#!/bin/sh
-
-say -a "${MACOS_SYSTEM_AUDIO_DEVICE_NAME:-Macbook Pro Speakers}" "It's $(date +"%-I:%M")"

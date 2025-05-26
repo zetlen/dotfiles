@@ -1,0 +1,88 @@
+{{- /* Templated .gitconfig for Chezmoi - replaces git configuration setup */ -}}
+[user]
+{{- if .git.user.name }}
+    name = {{ .git.user.name }}
+{{- else }}
+    name = {{ output "whoami" | trim }}
+{{- end }}
+{{- if .git.user.email }}
+    email = {{ .git.user.email }}
+{{- end }}
+{{- if eq .git.user.email "zetlen@gmail.com" }}
+    signingkey = {{ output "gpg" "--show-key" "--keyid-format=long" (joinPath .chezmoi.homeDir ".dotfiles/lib/bootstrap/gpg_z_pub.asc") | regexFind "pub\\s+\\S+/(\\S+)" | regexReplaceAll "pub\\s+\\S+/(\\S+)" "${1}" }}
+{{- end }}
+
+[include]
+    path = {{ .chezmoi.homeDir }}/.dotfiles/lib/gitconfig/common.gitconfig
+
+{{- /* Include tool-specific configs based on what's available */ }}
+{{- range (glob (joinPath .chezmoi.homeDir ".dotfiles/lib/gitconfig/tool.*.gitconfig")) }}
+{{- $toolName := . | base | regexReplaceAll "tool\\.(.*)\\.gitconfig" "${1}" }}
+{{- if lookPath $toolName }}
+[include]
+    path = {{ . }}
+{{- end }}
+{{- end }}
+
+{{- if eq .chezmoi.os "darwin" }}
+# macOS-specific git configuration
+[credential]
+    helper = osxkeychain
+
+{{- else if eq .chezmoi.os "linux" }}
+# Linux-specific git configuration
+[credential]
+    helper = cache --timeout=3600
+
+{{- end }}
+
+# Modern git defaults
+[init]
+    defaultBranch = main
+
+[pull]
+    rebase = false
+
+[push]
+    default = simple
+    autoSetupRemote = true
+
+[core]
+    autocrlf = input
+    editor = vim
+{{- if lookPath "delta" }}
+    pager = delta
+{{- end }}
+
+{{- if lookPath "delta" }}
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+    light = false
+    side-by-side = true
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+{{- end }}
+
+# Useful aliases
+[alias]
+    st = status
+    co = checkout
+    br = branch
+    ci = commit
+    ca = commit -a
+    ps = push
+    pl = pull
+    df = diff
+    dc = diff --cached
+    ls = log --oneline
+    ll = log --oneline --graph --all
+    last = log -1 HEAD
+    unstage = reset HEAD --
+    visual = !gitk

@@ -1,0 +1,73 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+# macOS system configuration script for Chezmoi
+# Replaces the macOS-specific system modifications from os/Darwin/install.sh
+
+# Logging functions
+if command -v gum &> /dev/null; then
+    flog_log() { gum style --foreground="#89b4fa" "🍎 $*"; }
+    flog_success() { gum style --foreground="#a6e3a1" "✅ $*"; }
+    flog_warn() { gum style --foreground="#f9e2af" "⚠️  $*"; }
+    flog_error() { gum style --foreground="#f38ba8" "❌ $*"; }
+    flog_confirm() { gum confirm "$*"; }
+else
+    flog_log() { echo "🍎 $*"; }
+    flog_success() { echo "✅ $*"; }
+    flog_warn() { echo "⚠️  $*"; }
+    flog_error() { echo "❌ $*"; }
+    flog_confirm() { echo "❓ $*"; read -p "Continue? [y/N] " -n 1 -r; echo; [[ $REPLY =~ ^[Yy]$ ]]; }
+fi
+
+set -euo pipefail
+
+flog_log "Configuring macOS system preferences..."
+
+{{- if .macos.preferences.verbose_boot }}
+# Enable verbose boot
+flog_log "Enabling verbose boot mode..."
+if flog_confirm "Set verbose boot mode?"; then
+    sudo nvram boot-args="-v" && flog_success "Verbose boot enabled"
+fi
+{{- end }}
+
+{{- if .macos.preferences.hide_desktop_icons }}
+# Hide desktop icons
+flog_log "Hiding desktop icons..."
+if flog_confirm "Hide desktop icons?"; then
+    defaults write com.apple.finder CreateDesktop false && flog_success "Desktop icons hidden"
+fi
+{{- end }}
+
+{{- if .macos.preferences.show_hidden_files }}
+# Show hidden files in Finder
+flog_log "Showing hidden files in Finder..."
+if flog_confirm "Show hidden files in Finder?"; then
+    defaults write com.apple.finder AppleShowAllFiles YES && flog_success "Hidden files will be shown"
+fi
+{{- end }}
+
+{{- if .macos.preferences.disable_press_and_hold }}
+# Disable press and hold for accented characters
+flog_log "Disabling press and hold for accented characters..."
+if flog_confirm "Disable press and hold for key repeat?"; then
+    defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false && flog_success "Press and hold disabled"
+fi
+{{- end }}
+
+{{- if .macos.preferences.login_text }}
+# Set custom login window text
+flog_log "Setting custom login window text..."
+if flog_confirm "Set login window text to '{{ .macos.preferences.login_text }}'?"; then
+    sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "{{ .macos.preferences.login_text }}" && flog_success "Login text set"
+fi
+{{- end }}
+
+# Restart Finder to apply changes
+flog_log "Restarting Finder to apply changes..."
+if flog_confirm "Restart Finder now?"; then
+    killall Finder && flog_success "Finder restarted"
+fi
+
+flog_success "macOS configuration completed!"
+flog_warn "Some changes may require a logout/login or restart to take full effect."
+{{- end -}}

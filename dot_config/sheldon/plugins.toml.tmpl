@@ -1,0 +1,25 @@
+# Sheldon plugin configuration for zsh
+# This replaces the manual plugin loading from the old lib system
+
+shell = "zsh"
+
+[plugins.zsh-vi-mode]
+github = "jeffreytse/zsh-vi-mode"
+hooks.pre = '''
+function zvm_config() {
+    ZVM_INIT_MODE=sourcing
+    ZVM_LAZY_KEYBINDINGS=false
+}
+'''
+
+[plugins.zsh-bitwarden]
+github = "zetlen/zsh-bitwarden"
+
+[plugins.zsh-completion-generators]
+github = "zetlen/zsh-completion-generators"
+
+[plugins.zsh-completions]
+github = "zsh-users/zsh-completions"
+
+[plugins.fzf-tab]
+github = "Aloxaf/fzf-tab"

@@ -1,0 +1,175 @@
+#!/bin/bash
+{{- /* Package installation script for Chezmoi - replaces os/*/install.sh */ -}}
+
+# Logging functions
+if command -v gum &> /dev/null; then
+    flog_log() { gum style --foreground="#89b4fa" "📦 $*"; }
+    flog_success() { gum style --foreground="#a6e3a1" "✅ $*"; }
+    flog_warn() { gum style --foreground="#f9e2af" "⚠️  $*"; }
+    flog_error() { gum style --foreground="#f38ba8" "❌ $*"; }
+    flog_confirm() { gum confirm "$*"; }
+else
+    flog_log() { echo "📦 $*"; }
+    flog_success() { echo "✅ $*"; }
+    flog_warn() { echo "⚠️  $*"; }
+    flog_error() { echo "❌ $*"; }
+    flog_confirm() { echo "❓ $*"; read -p "Continue? [y/N] " -n 1 -r; echo; [[ $REPLY =~ ^[Yy]$ ]]; }
+fi
+
+set -euo pipefail
+
+{{- if eq .chezmoi.os "darwin" }}
+# macOS package installation via Homebrew
+flog_log "Installing packages for macOS..."
+
+# Install Xcode command line tools if needed
+if ! command -v git &> /dev/null; then
+    flog_warn "Git not found, installing Xcode command line tools..."
+    xcode-select --install || true
+fi
+
+# Install Homebrew if needed
+if ! command -v brew &> /dev/null; then
+    flog_warn "Homebrew not found, installing..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    
+    # Add Homebrew to PATH for this session
+    if [[ -f "/opt/homebrew/bin/brew" ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [[ -f "/usr/local/bin/brew" ]]; then
+        eval "$(/usr/local/bin/brew shellenv)"
+    fi
+fi
+
+# Install packages
+PACKAGES=(
+{{- range .packages.common }}
+    "{{ . }}"
+{{- end }}
+{{- range .packages.darwin }}
+    "{{ . }}"
+{{- end }}
+)
+
+flog_log "Installing ${#PACKAGES[@]} packages via Homebrew..."
+for package in "${PACKAGES[@]}"; do
+    if brew list "$package" &> /dev/null; then
+        flog_success "$package already installed"
+    else
+        flog_log "Installing $package..."
+        brew install "$package" || flog_warn "Failed to install $package"
+    fi
+done
+
+{{- else if eq .chezmoi.os "linux" }}
+# Linux package installation
+flog_log "Installing packages for Linux..."
+
+{{- if eq .chezmoi.osRelease.id "ubuntu" "debian" }}
+# Debian/Ubuntu via apt
+flog_log "Detected Debian/Ubuntu, using apt..."
+
+# Update package lists
+sudo apt update
+
+# Generate locale if needed
+sudo locale-gen "en_US.UTF-8" || true
+
+PACKAGES=(
+{{- range .packages.common }}
+    "{{ . }}"
+{{- end }}
+{{- range .packages.debian }}
+    "{{ . }}"
+{{- end }}
+)
+
+flog_log "Installing ${#PACKAGES[@]} packages via apt..."
+for package in "${PACKAGES[@]}"; do
+    if dpkg -l "$package" &> /dev/null; then
+        flog_success "$package already installed"
+    else
+        if apt-cache show "$package" &> /dev/null; then
+            flog_log "Installing $package..."
+            sudo apt install -y "$package" || flog_warn "Failed to install $package"
+        else
+            flog_warn "Package $package not available in apt"
+        fi
+    fi
+done
+
+{{- else if eq .chezmoi.osRelease.id "arch" "manjaro" }}
+# Arch Linux via pacman
+flog_log "Detected Arch Linux, using pacman..."
+
+# Initialize pacman keyring
+sudo pacman-key --init || true
+sudo pacman-key --populate || true
+sudo pacman -Sy --noconfirm archlinux-keyring || true
+
+PACKAGES=(
+{{- range .packages.common }}
+    "{{ . }}"
+{{- end }}
+{{- range .packages.arch }}
+    "{{ . }}"
+{{- end }}
+)
+
+flog_log "Installing ${#PACKAGES[@]} packages via pacman..."
+for package in "${PACKAGES[@]}"; do
+    if pacman -Qi "$package" &> /dev/null; then
+        flog_success "$package already installed"
+    else
+        if pacman -Ssq "^${package}$" &> /dev/null; then
+            flog_log "Installing $package..."
+            sudo pacman -S --noconfirm "$package" || flog_warn "Failed to install $package"
+        else
+            flog_warn "Package $package not available in pacman"
+        fi
+    fi
+done
+
+{{- else if eq .chezmoi.osRelease.id "fedora" }}
+# Fedora via dnf
+flog_log "Detected Fedora, using dnf..."
+
+PACKAGES=(
+{{- range .packages.common }}
+    "{{ . }}"
+{{- end }}
+{{- range .packages.fedora }}
+    "{{ . }}"
+{{- end }}
+)
+
+flog_log "Installing ${#PACKAGES[@]} packages via dnf..."
+for package in "${PACKAGES[@]}"; do
+    if dnf list --installed "$package" &> /dev/null; then
+        flog_success "$package already installed"
+    else
+        if dnf info "$package" &> /dev/null; then
+            flog_log "Installing $package..."
+            sudo dnf install -y "$package" || flog_warn "Failed to install $package"
+        else
+            flog_warn "Package $package not available in dnf"
+        fi
+    fi
+done
+
+# Install development tools
+sudo dnf groupinstall -y "Development Tools" "Development Libraries" || flog_warn "Failed to install development groups"
+
+{{- else }}
+# Generic Linux fallback
+flog_warn "Unknown Linux distribution: {{ .chezmoi.osRelease.id }}"
+flog_warn "Please install packages manually:"
+echo "Common packages needed:"
+{{- range .packages.common }}
+echo "  - {{ . }}"
+{{- end }}
+{{- end }}
+
+{{- end }}
+
+flog_success "Package installation completed!"

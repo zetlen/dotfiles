@@ -1,0 +1,137 @@
+# Chezmoi configuration data for cross-platform dotfiles
+# This replaces the custom OS detection and package management
+
+# Package lists organized by platform
+packages:
+  # Common packages across all platforms
+  common:
+    - git
+    - vim
+    - curl
+    - unzip
+    - zsh
+
+  # macOS-specific packages (via Homebrew)
+  darwin:
+    - amethyst
+    - bat
+    - cmake
+    - coreutils
+    - eza
+    - figlet
+    - fzf
+    - git-delta
+    - git-lfs
+    - jq
+    - kaleidoscope
+    - openjdk
+    - openssl
+    - readline
+    - ripgrep
+    - sqlite3
+    - tcl-tk
+    - tea
+    - xz
+    - zlib
+    - iterm2
+    - font-victor-mono-nerd-font
+    - gpg-suite
+    - istat-menus
+
+  # Debian/Ubuntu packages
+  debian:
+    - build-essential
+    - cmake
+    - curl
+    - eza
+    - fzf
+    - git
+    - gnupg2
+    - jq
+    - libbz2-dev
+    - libffi-dev
+    - liblzma-dev
+    - libncursesw5-dev
+    - libreadline-dev
+    - libsqlite3-dev
+    - libssl-dev
+    - libxml2-dev
+    - libxmlsec1-dev
+    - lsof
+    - ripgrep
+    - tk-dev
+    - unzip
+    - wget
+    - xz-utils
+    - zlib1g-dev
+    - zsh
+
+  # Arch Linux packages
+  arch:
+    - base-devel
+    - cmake
+    - curl
+    - eza
+    - fzf
+    - git
+    - gnupg
+    - jq
+    - lsof
+    - openssh
+    - openssl
+    - ripgrep
+    - tk
+    - unzip
+    - vim
+    - wget
+    - xz
+    - zlib
+    - zsh
+
+  # Fedora packages
+  fedora:
+    - curl
+    - cmake
+    - eza
+    - fzf
+    - gcc-c++
+    - git
+    - gnupg2
+    - jq
+    - lsof
+    - ripgrep
+    - tar
+    - unzip
+    - vim-common
+    - vim-enhanced
+    - wget
+    - zsh
+
+# Git configuration
+git:
+  user:
+    name: "zetlen"
+    email: "zetlen@gmail.com"
+  
+# macOS system preferences
+macos:
+  preferences:
+    verbose_boot: true
+    hide_desktop_icons: true
+    show_hidden_files: true
+    disable_press_and_hold: true
+    login_text: "a james zetlen joint 🕉"
+
+# Tool configurations
+tools:
+  mise:
+    auto_install: true
+  sheldon:
+    auto_update: true
+  vim:
+    auto_update_plugins: true
+
+# Shell preferences
+shell:
+  default: zsh
+  history_size: 10000
