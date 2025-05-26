@@ -14,7 +14,10 @@ A modern, cross-platform dotfiles management system using [Chezmoi](https://www.
 
 ### New Machine Setup
 ```bash
-# Install and apply dotfiles in one command
+# First, install chezmoi
+sh -c "$(curl -fsLS get.chezmoi.io)"
+
+# Then install and apply dotfiles in one command
 chezmoi init --apply https://github.com/yourusername/dotfiles.git
 ```
 
