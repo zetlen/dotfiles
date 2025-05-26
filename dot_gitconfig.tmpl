@@ -15,7 +15,6 @@
 [include]
     path = {{ .chezmoi.homeDir }}/.dotfiles/lib/gitconfig/common.gitconfig
 
-{{- /* Include tool-specific configs based on what's available */ }}
 {{- range (glob (joinPath .chezmoi.homeDir ".dotfiles/lib/gitconfig/tool.*.gitconfig")) }}
 {{- $toolName := . | base | regexReplaceAll "tool\\.(.*)\\.gitconfig" "${1}" }}
 {{- if lookPath $toolName }}
