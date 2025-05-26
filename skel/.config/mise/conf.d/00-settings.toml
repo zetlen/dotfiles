@@ -6,3 +6,6 @@ idiomatic_version_file_enable_tools = ["node"]
 
 [settings.npm]
 bun = true
+
+[settings.python]
+uv_venv_auto = true
