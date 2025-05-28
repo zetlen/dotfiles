@@ -1,0 +1,6 @@
+{
+  "bun.runtime": "/Users/zetlen/.local/share/mise/shims/bun",
+  "debug.javascript.defaultRuntimeExecutable": {
+    "pwa-node": "/Users/zetlen/.local/share/mise/shims/node"
+  }
+}
