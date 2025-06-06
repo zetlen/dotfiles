@@ -111,7 +111,8 @@ run_dotfile_steps() {
                 | xargs git config --global user.signingkey
         fi
         git config --global include.path "${GITCONFIG_BASEDIR}/common.gitconfig" 'common.gitconfig'
-        for TOOL_GITCONFIG in $(find lib/gitconfig -type f -name 'tool.*.gitconfig' -execdir echo {} \;); do
+        for TOOL_GITCONFIG in $(find lib/gitconfig -type f -name 'tool.*.gitconfig' -execdir basename {} \;); do
+            echo "${TOOL_GITCONFIG}"
             TOOL_NAME="${TOOL_GITCONFIG#tool.}"
             TOOL_NAME="${TOOL_NAME%.gitconfig}"
 
