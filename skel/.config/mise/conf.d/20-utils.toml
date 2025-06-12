@@ -4,7 +4,6 @@ usage = "latest"
 bitwarden = "latest"
 bun = "latest"
 "cargo-binstall" = "latest"
-eza = "latest"
 fd = "latest"
 gh = "latest"
 starship = "latest"
@@ -19,6 +18,7 @@ zellij = "latest"
 "npm:corepack" = "latest"
 
 "cargo:pumas" = "latest"
+"cargo:eza" = "latest"
 
 "pipx:rexi" = "latest"
 
