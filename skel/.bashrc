@@ -17,6 +17,7 @@ try_homesrc() {
 	done
 }
 
+export DOTFILE_PATH="$HOME/.dotfiles"
 # This import must be changed if DOTFILE_PATH changes.
 . ~/.dotfiles/lib/common.sh
 
