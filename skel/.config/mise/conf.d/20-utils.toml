@@ -1,7 +1,5 @@
 [tools]
 usage = "latest"
-
-"asdf:vixus0/asdf-bitwarden" = "latest"
 bun = "latest"
 "cargo-binstall" = "latest"
 fd = "latest"
@@ -16,6 +14,7 @@ zellij = "latest"
 "go:github.com/theimpostor/osc" = "latest"
 
 "npm:corepack" = "latest"
+"npm:@bitwarden/cli" = "latest"
 
 "cargo:eza" = "latest"
 

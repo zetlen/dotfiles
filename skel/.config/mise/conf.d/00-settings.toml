@@ -14,8 +14,9 @@ idiomatic_version_file_enable_tools = [
   "yarn"
 ]
 
-[settings.npm]
-bun = true
+# this doesn't work with everything, at least right now
+# [settings.npm]
+# bun = true
 
 [settings.python]
 uv_venv_auto = true
