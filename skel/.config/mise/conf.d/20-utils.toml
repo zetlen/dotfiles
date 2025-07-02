@@ -17,7 +17,6 @@ zellij = "latest"
 
 "npm:corepack" = "latest"
 
-"cargo:pumas" = "latest"
 "cargo:eza" = "latest"
 
 "pipx:rexi" = "latest"
