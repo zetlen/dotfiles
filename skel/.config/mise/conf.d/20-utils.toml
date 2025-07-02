@@ -1,7 +1,7 @@
 [tools]
 usage = "latest"
 
-bitwarden = "latest"
+"asdf:vixus0/asdf-bitwarden" = "latest"
 bun = "latest"
 "cargo-binstall" = "latest"
 fd = "latest"
