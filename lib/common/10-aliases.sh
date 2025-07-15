@@ -88,6 +88,9 @@ fi
 alias r='rsync -avhzPC' # skip .git and other common skips
 alias rr='rsync -avhzP' # don't skip that
 
+alias m="mise"
+alias mr="mise run "
+
 alias g=git
 into () {
 	if [ -z "$ZELLIJ" ]
