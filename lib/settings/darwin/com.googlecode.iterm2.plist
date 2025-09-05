@@ -2534,7 +2534,7 @@
 			<key>Tags</key>
 			<array/>
 			<key>Terminal Type</key>
-			<string>xterm-256color</string>
+			<string>xterm</string>
 			<key>Thin Strokes</key>
 			<integer>1</integer>
 			<key>Title Components</key>
@@ -3687,7 +3687,7 @@
 			<key>Tags</key>
 			<array/>
 			<key>Terminal Type</key>
-			<string>xterm-256color</string>
+			<string>xterm</string>
 			<key>Thin Strokes</key>
 			<integer>1</integer>
 			<key>Title Components</key>
@@ -4403,7 +4403,7 @@
 	<key>ShowPaneTitles</key>
 	<false/>
 	<key>ShowTimestampsByDefault</key>
-	<true/>
+	<false/>
 	<key>SmartPlacement</key>
 	<false/>
 	<key>SoundForEsc</key>
