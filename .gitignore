@@ -4,3 +4,4 @@
 **/autorun*
 **/snapshot.tar
 .zsh_plugins.sh
+.vscode/settings.json
