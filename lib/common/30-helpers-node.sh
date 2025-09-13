@@ -7,7 +7,7 @@ __set_node_aliases() {
     alias prr='pnpm run -r '
     alias prip='pnpm run -r --if-present '
     alias prf='pnpm run --filter '
-    alias prfip='pnpm run --filter --if-present '
+    alias pripf='pnpm run --if-present --filter '
 
     _pm='npm'
     __notice=''
