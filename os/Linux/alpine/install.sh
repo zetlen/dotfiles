@@ -1,16 +1,12 @@
 __TO_INSTALL=(
     alpine-sdk
-    cmake
     curl
-    eza
     fzf
     git
     gnupg
-    jq
     lsof
     openssh
     openssl
-    ripgrep
     tk
     unzip
     vim

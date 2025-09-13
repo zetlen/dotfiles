@@ -2,15 +2,11 @@ __TO_INSTALL=(
     automake
     bzip2
     curl
-    cmake
-    eza
     findutils
-    fzf
     gcc
     gdbm-devel
     git
     gpg2
-    jq
     libbz2-devel
     libffi-devel
     lsof

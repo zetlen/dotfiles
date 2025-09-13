@@ -1,12 +1,8 @@
 __TO_INSTALL=(
     build-essential
-    cmake
     curl
-    eza
-    fzf
     git
     gnupg2
-    jq
     libbz2-dev
     libffi-dev
     liblzma-dev
@@ -17,7 +13,6 @@ __TO_INSTALL=(
     libxml2-dev
     libxmlsec1-dev
     lsof
-    ripgrep
     tk-dev
     unzip
     wget

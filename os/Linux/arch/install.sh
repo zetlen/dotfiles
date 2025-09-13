@@ -1,16 +1,11 @@
 __TO_INSTALL=(
     base-devel
-    cmake
     curl
-    eza
-    fzf
     git
     gnupg
-    jq
     lsof
     openssh
     openssl
-    ripgrep
     tk
     unzip
     vim

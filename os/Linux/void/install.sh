@@ -1,12 +1,9 @@
 __TO_INSTALL=(
     base-devel
     bzip2-devel
-    cmake
     curl
-    fzf
     git
     gnupg2
-    jq
     libffi-devel
     liblzma-devel
     libxml2-devel
@@ -16,7 +13,6 @@ __TO_INSTALL=(
     ncurses-devel
     openssl-devel
     readline-devel
-    ripgrep
     sqlite-devel
     unzip
     vim

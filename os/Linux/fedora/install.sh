@@ -1,14 +1,9 @@
 __TO_INSTALL=(
     curl
-    cmake
-    eza
-    fzf
     g++
     git
     gnupg2
-    jq
     lsof
-    ripgrep
     tar
     unzip
     vim-common

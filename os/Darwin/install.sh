@@ -1,22 +1,14 @@
 __TO_INSTALL=(
+    vim
     amethyst
-    bat
-    cmake
     coreutils
-    eza
+    ffmpeg
     figlet
-    fzf
-    git-delta
-    git-lfs
-    jq
     kaleidoscope
     openjdk
     openssl
     readline
-    ripgrep
-    sqlite3
     tcl-tk
-    tea
     unzip
     xz
     zlib
