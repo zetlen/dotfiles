@@ -25,14 +25,14 @@ CURRENT_SHELL="${CURRENT_SHELL#\-}"
 
 add_cd_hook() {
     case "$CURRENT_SHELL" in
-        zsh)
-            autoload -Uz add-zsh-hook
-            add-zsh-hook chpwd $1
-            "$1"
-            ;;
-        *)
-            PROMPT_COMMAND="${PROMPT_COMMAND};${1}"
-            ;;
+    zsh)
+        autoload -Uz add-zsh-hook
+        add-zsh-hook chpwd $1
+        "$1"
+        ;;
+    *)
+        PROMPT_COMMAND="${PROMPT_COMMAND};${1}"
+        ;;
     esac
 }
 

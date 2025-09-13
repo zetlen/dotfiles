@@ -1,31 +1,31 @@
 #!/bin/sh
 
 set_time_announcements() {
-	local arg=$1
-	local the_notice="time announcements"
-	local the_status="unknown"
-	if [[ "$arg" != "" ]]; then
-		if [[ "$arg" != "true" ]] && [[ "$arg" != "false" ]]; then
-			echo "Unknown argument: $arg"
-			return 1
-		else
-			if [[ $arg == "true" ]]; then
-        osascript -e "set volume without output muted"
-				the_status="enable";
-			else 
-				the_status="disable";
-			fi
-			launchctl $the_status gui/$UID/com.jameszetlen.westminster
-			osascript -e "display notification \"${the_status}d\" with title \"$the_notice\""
-		fi
-	else
-		if launchctl print-disabled gui/$UID | grep -qF '"com.jameszetlen.westminster" => disabled'; then
-      echo "$the_notice disabled"
-      return 1
-		else 
-      echo "$the_notice enabled"
-		fi
-	fi
+    local arg=$1
+    local the_notice="time announcements"
+    local the_status="unknown"
+    if [[ "$arg" != "" ]]; then
+        if [[ "$arg" != "true" ]] && [[ "$arg" != "false" ]]; then
+            echo "Unknown argument: $arg"
+            return 1
+        else
+            if [[ $arg == "true" ]]; then
+                osascript -e "set volume without output muted"
+                the_status="enable"
+            else
+                the_status="disable"
+            fi
+            launchctl $the_status gui/$UID/com.jameszetlen.westminster
+            osascript -e "display notification \"${the_status}d\" with title \"$the_notice\""
+        fi
+    else
+        if launchctl print-disabled gui/$UID | grep -qF '"com.jameszetlen.westminster" => disabled'; then
+            echo "$the_notice disabled"
+            return 1
+        else
+            echo "$the_notice enabled"
+        fi
+    fi
 }
 
 set_time_announcements $@

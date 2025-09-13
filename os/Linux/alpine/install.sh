@@ -21,7 +21,7 @@ __TO_INSTALL=(
 )
 
 __pkg_is_installed() {
-    apk info "$1" &> /dev/null
+    apk info "$1" &>/dev/null
 }
 
 __pkg_is_available() {

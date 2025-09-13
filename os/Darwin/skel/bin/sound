@@ -11,18 +11,18 @@ set_sound() {
     fi
 
     case "$1" in
-        on)
-            osascript -e "set volume without output muted"
-            echo "🔉 sound is now unmuted"
-            ;;
-        off)
-            osascript -e "set volume with output muted"
-            echo "🔇 sound is now muted"
-            ;;
-        *)
-            echo "Usage: 'sound' to report mute status, 'sound off' to mute, 'sound on' to unmute"
-            return 1
-            ;;
+    on)
+        osascript -e "set volume without output muted"
+        echo "🔉 sound is now unmuted"
+        ;;
+    off)
+        osascript -e "set volume with output muted"
+        echo "🔇 sound is now muted"
+        ;;
+    *)
+        echo "Usage: 'sound' to report mute status, 'sound off' to mute, 'sound on' to unmute"
+        return 1
+        ;;
     esac
 }
 

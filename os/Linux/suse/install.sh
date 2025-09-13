@@ -30,11 +30,11 @@ __TO_INSTALL=(
 )
 
 __pkg_is_installed() {
-    zypper search --installed-only "$1" &> /dev/null
+    zypper search --installed-only "$1" &>/dev/null
 }
 
 __pkg_is_available() {
-    zypper search --match-exact "$1" &> /dev/null
+    zypper search --match-exact "$1" &>/dev/null
 }
 
 __pkg_install_all() {

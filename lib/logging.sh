@@ -23,7 +23,7 @@ flog_indent() {
 }
 
 flog_read() {
-    if [ -n "$ZSH_VERSION" ] && type zstyle > /dev/null 2>&1; then # zsh
+    if [ -n "$ZSH_VERSION" ] && type zstyle >/dev/null 2>&1; then # zsh
         read -k1 REPLY\?"${*}"
     else
         read -n1 -r -p "${*}"

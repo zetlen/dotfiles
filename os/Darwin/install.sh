@@ -28,21 +28,21 @@ __TO_INSTALL=(
 
 __pkg_is_installed() {
     case "$1" in
-        "gnupg")
-            i_have_gpg
-            ;;
-        "kaleidoscope")
-                  i_have ksdiff || [ -d "/Applications/Kaleidoscope.app" ]
-            ;;
-        "amethyst")
-              [ -d "/Applications/Amethyst.app" ]
-            ;;
-        *) brew list "$1" &> /dev/null ;;
+    "gnupg")
+        i_have_gpg
+        ;;
+    "kaleidoscope")
+        i_have ksdiff || [ -d "/Applications/Kaleidoscope.app" ]
+        ;;
+    "amethyst")
+        [ -d "/Applications/Amethyst.app" ]
+        ;;
+    *) brew list "$1" &>/dev/null ;;
     esac
 }
 
 __pkg_is_available() {
-    brew info "$1" &> /dev/null
+    brew info "$1" &>/dev/null
 }
 
 __pkg_install_all() {

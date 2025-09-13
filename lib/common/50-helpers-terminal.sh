@@ -48,9 +48,9 @@ function _z_color_contrast {
 function _z_color_print_swatch {
     local colour="$1" contrast
     contrast=$(_z_color_contrast "$1")
-    printf "\e[48;5;%sm" "$colour"             # Start block of colour
+    printf "\e[48;5;%sm" "$colour"                # Start block of colour
     printf "\e[38;5;%sm%3d" "$contrast" "$colour" # In contrast, print number
-    printf "\e[0m "                            # Reset colour
+    printf "\e[0m "                               # Reset colour
 }
 
 # Starting at $1, print a run of $2 colours
@@ -89,6 +89,6 @@ function _z_color_print_blocks {
 function colors {
     _z_color_print_run 0 16 # The first 16 colours are spread over the whole spectrum
     printf "\n"
-    _z_color_print_blocks 16 231 6 6 3 # 6x6x6 colour cube between 16 and 231 inclusive
+    _z_color_print_blocks 16 231 6 6 3   # 6x6x6 colour cube between 16 and 231 inclusive
     _z_color_print_blocks 232 255 12 2 1 # Not 50, but 24 Shades of Grey
 }

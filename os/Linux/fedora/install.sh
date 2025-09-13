@@ -18,11 +18,11 @@ __TO_INSTALL=(
 )
 
 __pkg_is_installed() {
-    dnf list --installed "$1" &> /dev/null
+    dnf list --installed "$1" &>/dev/null
 }
 
 __pkg_is_available() {
-    dnf info "$1" &> /dev/null
+    dnf info "$1" &>/dev/null
 }
 
 __pkg_install_all() {

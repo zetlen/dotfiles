@@ -106,9 +106,9 @@ run_dotfile_steps() {
         fi
         if flog_confirm "Set git email and signing key to zetlen@gmail.com?"; then
             git config --global user.email "zetlen@gmail.com"
-            gpg --show-key --keyid-format=long "${DOTFILE_PATH}/lib/bootstrap/gpg_z_pub.asc" \
-                | awk '$1 == "pub" {split($2, a, "/"); print a[2]}' \
-                | xargs git config --global user.signingkey
+            gpg --show-key --keyid-format=long "${DOTFILE_PATH}/lib/bootstrap/gpg_z_pub.asc" |
+                awk '$1 == "pub" {split($2, a, "/"); print a[2]}' |
+                xargs git config --global user.signingkey
         fi
         git config --global include.path "${GITCONFIG_BASEDIR}/common.gitconfig" 'common.gitconfig'
         for TOOL_GITCONFIG in $(find lib/gitconfig -type f -name 'tool.*.gitconfig' -execdir basename {} \;); do
@@ -116,7 +116,7 @@ run_dotfile_steps() {
             TOOL_NAME="${TOOL_GITCONFIG#tool.}"
             TOOL_NAME="${TOOL_NAME%.gitconfig}"
 
-            if command -v "$TOOL_NAME" &> /dev/null; then
+            if command -v "$TOOL_NAME" &>/dev/null; then
                 flog_success "${__flog_color_green}${TOOL_NAME}${__flog_color_normal} is available, adding its include to .gitconfig"
                 git config --global include.path "${GITCONFIG_BASEDIR}/${TOOL_GITCONFIG}" "$TOOL_GITCONFIG"
             else
@@ -197,9 +197,9 @@ run_dotfile_steps() {
         fi
     done
 
-    flog_confirm "run new zsh shell to initialize new plugins" \
-                                                             && exec zsh -l \
-                || flog_warn "next new shell may be slow to load"
+    flog_confirm "run new zsh shell to initialize new plugins" &&
+        exec zsh -l ||
+        flog_warn "next new shell may be slow to load"
 }
 
 if [[ "$1" == "-y" ]]; then

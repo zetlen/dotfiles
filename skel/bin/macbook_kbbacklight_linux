@@ -7,22 +7,22 @@ __request="$2"
 __current="$(cat "$__device_path")"
 
 if [ -z $__cmd ]; then
-  echo $__current;
-  exit;
+    echo $__current
+    exit
 fi
 
 case $__cmd in
-  up)
+up)
     __request="${__request:-2}"
-    __request=$(( __current + __request ))
-    __request=$(( __request > 255 ? 255 : __request))
+    __request=$((__current + __request))
+    __request=$((__request > 255 ? 255 : __request))
     ;;
-  down)
+down)
     __request="${__request:-2}"
-    __request=$(( __current - __request ))
-    __request=$(( __request < 0 ? 0 : __request))
+    __request=$((__current - __request))
+    __request=$((__request < 0 ? 0 : __request))
     ;;
-  *)
+*)
     __request="$__cmd"
     ;;
 esac
