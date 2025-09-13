@@ -52,15 +52,4 @@ fzf_sizer_hidden_preview_window_settings() {
     echo "$(fzf_sizer_preview_window_settings):hidden"
 }
 
-zj() {
-    zellij list-sessions | sed -s 's, (current),,g' | fzf \
-        --bind 'enter:become(zellij attach {})' \
-        --cycle \
-        --layout reverse \
-        --info hidden \
-        --prompt "attach to:" \
-        --pointer "➤" \
-        --sync \
-        --preview "zellij --session {} action dump-screen ~/.dumpscr && cat ~/.dumpscr 2>/dev/null; rm -rf ~/.dumpscr" \
-        $(fzf_sizer_preview_window_settings)
-}
+alias zj='zellij a -c '
