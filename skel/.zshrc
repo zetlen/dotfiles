@@ -57,7 +57,7 @@ function __my-zsh-prompt {
   eval "$(starship init zsh)"
 }
 
-__my-zsh-prompt
+[ -z "$SIMPLE_PROMPT" ] && __my-zsh-prompt
 
 function __my-zsh-plugins {
 	zsh-plugin-load zetlen/zsh-bitwarden

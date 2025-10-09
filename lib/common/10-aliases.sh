@@ -83,6 +83,7 @@ else
     alias l='eza -lahF --color-scale --git --icons always '
     alias la='l --sort=accessed'
     alias lt='l --sort=modified'
+    alias lb='l --sort=size'
 fi
 
 alias r='rsync -avhzPC' # skip .git and other common skips

@@ -1903,6 +1903,8 @@
 	</dict>
 	<key>Default Bookmark Guid</key>
 	<string>1B3E8401-7C08-4281-A770-91010584A8D7</string>
+	<key>Default Browser Profile Guid</key>
+	<string>BCC7C868-4B88-4D30-9544-78168A270045</string>
 	<key>DimOnlyText</key>
 	<true/>
 	<key>DoubleClickPerformsSmartSelection</key>
@@ -3687,7 +3689,7 @@
 			<key>Tags</key>
 			<array/>
 			<key>Terminal Type</key>
-			<string>xterm</string>
+			<string>xterm-256color</string>
 			<key>Thin Strokes</key>
 			<integer>1</integer>
 			<key>Title Components</key>
