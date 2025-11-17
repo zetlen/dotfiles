@@ -1,4 +1,5 @@
 [tools]
+atuin = "latest"
 "cargo-binstall" = "latest"
 "cargo:eza" = "latest"
 "go:code.gitea.io/tea" = "latest"
