@@ -37,7 +37,6 @@ function __my-zsh-completions {
   autoload -Uz compinit
 	zsh-plugin-load zetlen/zsh-completion-generators
 	zsh-plugin-load zsh-users/zsh-completions
-    zsh-plugin-load atuinsh/atuin
 	compinit
 	zsh-plugin-load Aloxaf/fzf-tab
   # disable sort when completing `git checkout`
@@ -66,6 +65,16 @@ function __my-zsh-plugins {
 
 __my-zsh-plugins
 
+function __my-zsh-history {
+    local FOUND_ATUIN=$+commands[atuin]
+
+    if [[ $FOUND_ATUIN -eq 1 ]]; then
+      source <(atuin init zsh --disable-up-arrow)
+    fi
+}
+
+__my-zsh-history
+
 # must happen after initialization of p10k and other async things
 export GPG_TTY=$TTY
 
@@ -87,3 +96,6 @@ fi
 
 test -e "${ZDOTDIR}/.iterm2_shell_integration.zsh" && source "${ZDOTDIR}/.iterm2_shell_integration.zsh"
 
+
+# Added by Antigravity
+export PATH="/Users/zetlen/.antigravity/antigravity/bin:$PATH"
