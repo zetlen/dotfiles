@@ -8,6 +8,8 @@ __set_node_aliases() {
     alias prip='pnpm run -r --if-present '
     alias prf='pnpm run --filter '
     alias pripf='pnpm run --if-present --filter '
+    alias b='bun '
+    alias br='bun run'
 
     _pm='npm'
     __notice=''
@@ -25,6 +27,9 @@ __set_node_aliases() {
     elif [ -n "$(find_up pnpm-lock.yaml)" ]; then
         __notice="pnpm-lock.yaml detected, aliasing npm to pnpm\n"
         _pm='pnpm'
+    elif [ -n "$(find_up bun.lock)" ]; then
+        __notice="bun.lock detected, aliasing npm to bun\n"
+        _pm='bun'
     fi
 
     alias clean_project="$_pm run --if-present clean && in_repo && git wash || true"

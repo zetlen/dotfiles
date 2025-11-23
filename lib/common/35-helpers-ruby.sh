@@ -1,6 +1,6 @@
-alias bx="bundle exec "
-alias bi="bundle install "
-alias br="bin/rails "
+alias bdx="bundle exec "
+alias bdi="bundle install "
+alias bdr="bin/rails "
 
 puma-sites() {
     (
