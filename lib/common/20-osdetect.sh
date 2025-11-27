@@ -15,7 +15,7 @@ get_os_dotfile_path() {
         osid="$(dirname "$osid")"
         osidpath="$DOTFILE_PATH/os/$osid/generic"
         if [ ! -d "$osidpath" ]; then
-            osidpath="$DOTFILE_PATH/os/generic)"
+            osidpath="$DOTFILE_PATH/os/generic"
         fi
     fi
     echo $osidpath
