@@ -2,7 +2,6 @@
 atuin = "latest"
 "cargo-binstall" = "latest"
 "cargo:eza" = "latest"
-"go:code.gitea.io/tea" = "latest"
 "go:github.com/theimpostor/osc" = "latest"
 "npm:@bitwarden/cli" = "latest"
 "npm:corepack" = "latest"

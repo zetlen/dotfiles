@@ -29,7 +29,7 @@
 # update_check = true
 
 ## address of the sync server
-# sync_address = "https://api.atuin.sh"
+sync_address = "https://atuin.colonpipe.org"
 
 ## how often to sync history. note that this is only triggered when a command
 ## is ran, so sync intervals may well be longer
@@ -214,11 +214,22 @@ keymap_mode = "auto"
 # common_prefix = ["sudo"]
 
 ## Set commands that will be completely ignored from stats
-# ignored_commands = [
-#   "cd",
-#   "ls",
-#   "vi"
-# ]
+ignored_commands = [
+  "cd",
+  "ls",
+  "vi",
+  "cat",
+  "g",
+  "nr",
+  "n",
+  "l",
+  "rm",
+  "source",
+  "exit",
+  "mv",
+  "cp",
+  "for"
+]
 
 [keys]
 # Defaults to true. If disabled, using the up/down key won't exit the TUI when scrolled past the first/last entry.
@@ -251,7 +262,7 @@ records = true
 # enabled = false
 
 ## How often the daemon should sync in seconds
-# sync_frequency = 300
+sync_frequency = 60
 
 ## The path to the unix socket used by the daemon (on unix systems)
 ## linux/mac: ~/.local/share/atuin/atuin.sock
