@@ -1,6 +1,5 @@
 __TO_INSTALL=(
     vim
-    amethyst
     coreutils
     ffmpeg
     figlet
@@ -13,7 +12,7 @@ __TO_INSTALL=(
     xz
     zlib
     iterm2
-    font-victor-mono-nerd-font
+    font-m+-nerd-font
     gpg-suite
     istat-menus
 )
