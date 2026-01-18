@@ -24,10 +24,6 @@ i_dont_have() {
     ! i_have "$1"
 }
 
-in_repo() {
-    i_have git && git rev-parse HEAD &>/dev/null
-}
-
 # POSIX-compatible contains(string, substring)
 #
 # Returns 0 if the specified string contains the specified substring,
@@ -92,7 +88,6 @@ alias rr='rsync -avhzP' # don't skip that
 alias m="mise"
 alias mr="mise run "
 
-alias g=git
 into() {
     if [ -z "$ZELLIJ" ]; then
         ssh -o RequestTTY=force $1 -- "zsh -lc 'mise x -- zellij attach -c $(hostname -s)'"
