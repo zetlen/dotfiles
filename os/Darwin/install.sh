@@ -6,6 +6,8 @@ __TO_INSTALL=(
     kaleidoscope
     openjdk
     openssl
+    pinentry
+    pinentry-mac
     readline
     tcl-tk
     unzip
