@@ -91,7 +91,7 @@ cm = commit -m
 ca = commit --amend # careful
 ac = !git add . && git commit
 acm = !git add . && git commit -m
-l = log --graph --all --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
+l = log --graph --all --simplify-by-decoration --pretty=format:'%C(yellow)%h%C(auto)%d%Creset %s %C(white)- %an, %ar%Creset'
 ll = log --stat --abbrev-commit
 d = diff 
 dh = diff head
