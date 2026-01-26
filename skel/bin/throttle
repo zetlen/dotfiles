@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+set -u # Exit on unset variables
+
+# Default values
+INTERVAL=60
+NAME=""
+
+usage() {
+    echo "Usage: $0 -n <name> [-i <interval_seconds>]"
+    exit 2
+}
+
+# Parse flags
+while getopts "i:n:" opt; do
+  case $opt in
+    i) INTERVAL="$OPTARG" ;;
+    n) NAME="$OPTARG" ;;
+    *) usage ;;
+  esac
+done
+
+if [[ -z "$NAME" ]]; then
+    echo "Error: -n <name> is required." >&2
+    usage
+fi
+
+# Sanitize name
+SAFE_NAME=$(echo "$NAME" | tr -cd '[:alnum:]_-')
+if [[ -z "$SAFE_NAME" ]]; then
+    echo "Error: Name invalid." >&2
+    exit 2
+fi
+
+# Define paths
+# /tmp is cleared on reboot on both Linux and macOS
+STATE_DIR="/tmp"
+STATE_FILE="${STATE_DIR}/throttle_${SAFE_NAME}.state"
+LOCK_DIR="${STATE_DIR}/throttle_${SAFE_NAME}.lock.d"
+
+# --- 1. ATOMIC LOCK (Spin-lock) ---
+# We try to create a directory. This is atomic on POSIX (Linux/macOS).
+# If it exists, mkdir fails, and we wait.
+
+MAX_RETRIES=20 # Wait up to 2 seconds
+RETRIES=0
+
+while ! mkdir "$LOCK_DIR" 2>/dev/null; do
+    if [ "$RETRIES" -ge "$MAX_RETRIES" ]; then
+        # Check if the lock is stale (older than 10 seconds)
+        # This handles cases where a previous script crashed hard
+        if [ -d "$LOCK_DIR" ]; then
+             # Portable way to check file age is tricky, so we trust the system 
+             # mostly, but you could force remove if you know it's stuck.
+             echo "Error: Lock timed out for '$NAME'" >&2
+             exit 1
+        fi
+    fi
+    sleep 0.1
+    RETRIES=$((RETRIES + 1))
+done
+
+# --- 2. ENSURE CLEANUP ---
+# trap catches exit, error, or success to remove the lock directory
+trap 'rmdir "$LOCK_DIR" 2>/dev/null' EXIT
+
+# --- 3. CRITICAL SECTION ---
+NOW=$(date +%s)
+LAST=0
+
+if [ -f "$STATE_FILE" ]; then
+    read -r LAST < "$STATE_FILE" || LAST=0
+fi
+
+DIFF=$((NOW - LAST))
+
+if [ "$DIFF" -ge "$INTERVAL" ]; then
+    echo "$NOW" > "$STATE_FILE"
+    exit 0
+else
+    exit 1
+fi
