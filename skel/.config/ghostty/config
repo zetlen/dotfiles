@@ -4,6 +4,7 @@ theme = Citruszest
 font-family = Monaspace Xenon NF
 font-size = 14.0
 alpha-blending = linear-corrected
+font-codepoint-map = U+E000-U+F8FF=M+CodeLat50 Nerd Font Propo
 
 # Cursor
 cursor-style-blink = true
@@ -33,3 +34,5 @@ link-url = true
 
 bell-features = no-system,title,no-attention
 shell-integration-features = true
+auto-update = download
+auto-update-channel = tip
