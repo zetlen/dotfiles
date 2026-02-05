@@ -14,7 +14,7 @@ __TO_INSTALL=(
     xz
     zlib
     iterm2
-    font-m+-nerd-font
+    font-monaspace-nf
     gpg-suite
     istat-menus
 )
