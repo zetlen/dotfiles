@@ -1,10 +1,11 @@
 theme = Citruszest
 
 # Font
-font-family = Monaspace Xenon NF
-font-size = 14.0
+font-family = IosevkaTermSlab Nerd Font Propo
+font-size = 15.0
 alpha-blending = linear-corrected
-font-codepoint-map = U+E000-U+F8FF=M+CodeLat50 Nerd Font Propo
+# uncomment to get propo nerdfont
+# font-codepoint-map = U+E000-U+F8FF=M+CodeLat50 Nerd Font Propo
 
 # Cursor
 cursor-style-blink = true
@@ -26,7 +27,7 @@ split-divider-color = #003399
 # Macos
 macos-window-buttons = hidden
 macos-window-shadow = false
-macos-titlebar-proxy-icon = hidden
+macos-titlebar-proxy-icon = visible
 macos-icon = retro
 
 # URL detection (Ghostty has built-in URL matching)
