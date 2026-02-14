@@ -35,6 +35,7 @@ __my-zsh-keybindings
 
 function __my-zsh-completions {
   autoload -Uz compinit
+  zsh-plugin-load wbingli/zsh-claudecode-completion
 	zsh-plugin-load zetlen/zsh-completion-generators
 	zsh-plugin-load zsh-users/zsh-completions
 	compinit
