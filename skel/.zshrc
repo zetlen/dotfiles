@@ -1,12 +1,5 @@
 [ ! -f $HOME/.zshrc.localbefore ] || . $HOME/.zshrc.localbefore
 
-export ZDOTDIR="$HOME"
-
-. "$HOME/.dotfiles/lib/runtimes.sh"
-
-# This import must be changed if DOTFILE_PATH changes.
-. ~/.dotfiles/lib/common.sh
-
 add_os_rc "zsh"
 
 # OPTIONS
