@@ -1,5 +1,7 @@
 [ ! -f $HOME/.zshrc.localbefore ] || . $HOME/.zshrc.localbefore
 
+[ -z "$ZPROFILE_LOADED" ] && . $HOME/.zprofile
+
 add_os_rc "zsh"
 
 # OPTIONS

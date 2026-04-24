@@ -2,10 +2,10 @@ theme = Citruszest
 
 # Font
 font-family = IosevkaTermSlab Nerd Font Propo
+font-family = Iosevka Term Slab NF
+font-family = Iosevka Term Slab
 font-size = 15.0
 alpha-blending = linear-corrected
-# uncomment to get propo nerdfont
-# font-codepoint-map = U+E000-U+F8FF=M+CodeLat50 Nerd Font Propo
 
 # Cursor
 cursor-style-blink = true
