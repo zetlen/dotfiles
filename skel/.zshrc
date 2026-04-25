@@ -1,6 +1,6 @@
 [ ! -f $HOME/.zshrc.localbefore ] || . $HOME/.zshrc.localbefore
 
-[ -z "$ZPROFILE_LOADED" ] && . $HOME/.zprofile
+command -v add_os_rc 2>&1 >/dev/null || . $HOME/.zprofile
 
 add_os_rc "zsh"
 
