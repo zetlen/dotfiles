@@ -1,8 +1,8 @@
 theme = Citruszest
 
 # Font
-font-family = Iosevka Term Slab
-font-size = 13.0
+font-family = IosevkaTermSlab Nerd Font Propo
+font-size = 15.0
 alpha-blending = linear-corrected
 
 # Cursor
@@ -21,6 +21,12 @@ background-opacity-cells = true
 background-blur = 10
 unfocused-split-opacity = 0.4
 split-divider-color = #003399
+
+# Macos
+macos-window-buttons = hidden
+macos-window-shadow = false
+macos-titlebar-proxy-icon = visible
+macos-icon = retro
 
 # URL detection (Ghostty has built-in URL matching)
 link-url = true
