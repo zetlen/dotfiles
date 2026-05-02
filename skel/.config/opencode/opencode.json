@@ -93,16 +93,22 @@
   },
   "mcp": {
     "github": {
-      "type": "remote",
+      "type": "local",
       "url": "https://api.githubcopilot.com/mcp/",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-github",
+        "--GITHUB_PERSONAL_ACCESS_TOKEN",
+        "{env:GITHUB_PERSONAL_ACCESS_TOKEN}"
+      ],
       "enabled": true,
-      "oauth": false,
-      "headers": {
-        "Authorization": "Bearer {env:GITHUB_OPENCODE_PAT}"
+      "environment": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "{env:GITHUB_PERSONAL_ACCESS_TOKEN}"
       }
     },
     "context7": {
-      "type": "remote",
+      "type": "local",
       "command": ["npx", "-y", "@upstash/context7-mcp"],
       "enabled": true,
       "environment": {
@@ -124,6 +130,15 @@
     "playwright": {
       "type": "local",
       "command": ["npx", "-y", "@playwright/mcp@0.0.60"],
+      "enabled": true
+    },
+    "gitea": {
+      "type": "local",
+      "command": ["go", "run", "gitea.com/gitea/gitea-mcp@latest", "-t", "stdio"],
+      "environment": {
+        "GITEA_ACCESS_TOKEN": "{env:GITEA_ACCESS_TOKEN}",
+        "GITEA_HOST": "https://got.colonpipe.org"
+      },
       "enabled": true
     },
     "exa": {
