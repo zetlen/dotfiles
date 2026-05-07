@@ -1,0 +1,7 @@
+__dotfiles_profile="$HOME/.profile"
+[ -r "$__dotfiles_profile" ] || __dotfiles_profile="$HOME/.dotfiles/skel/.profile"
+[ -r "$__dotfiles_profile" ] && . "$__dotfiles_profile"
+
+[ -r "$HOME/.dotfiles/lib/runtimes.sh" ] && . "$HOME/.dotfiles/lib/runtimes.sh"
+
+unset __dotfiles_profile

@@ -1,6 +1,5 @@
-. "$HOME/.dotfiles/lib/installing.sh"
-
 zsh-update-all() {
+    . "$HOME/.dotfiles/lib/installing.sh"
 
     _z_update__1_os_packages() {
         flog_log "Finding package update routing for $OSNAME..."

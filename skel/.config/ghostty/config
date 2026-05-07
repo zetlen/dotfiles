@@ -13,7 +13,9 @@ quick-terminal-position = right
 quick-terminal-animation-duration = 0.2
 quick-terminal-autohide = false
 quick-terminal-size = 1400px
-keybind = global:ctrl+shift+super+x=toggle_quick_terminal
+# KDE Plasma 5.27's GlobalShortcuts portal receives this but does not register it.
+# Meta+Ctrl+Shift+X is handled by ghostty-quick-terminal.desktop via KGlobalAccel.
+# keybind = global:ctrl+shift+super+x=toggle_quick_terminal
 
 # Window and Pane
 background-opacity = 0.93

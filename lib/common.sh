@@ -1,37 +1,32 @@
 # shellcheck disable=SC1090,SC1091
 # tell shellcheck to quit complaining about dynamic paths
 
-### LOCALES ###
-export LANG="en_US.UTF-8"
-export LANGUAGE="$LANG"
-export LC_ALL="$LANG"
-export LC_CTYPE="$LANG"
+DOTFILE_PATH="${DOTFILE_PATH:-$HOME/.dotfiles}"
 
-export SVN_EDITOR="vim"
-export EDITOR="vim"
-export PAGER="less -R"
+if [ -n "${ZSH_VERSION:-}" ]; then
+    CURRENT_SHELL="zsh"
+elif [ -n "${BASH_VERSION:-}" ]; then
+    CURRENT_SHELL="bash"
+else
+    return 0 2>/dev/null || exit 0
+fi
 
-# if batcat is installed
-export BAT_THEME="ansi"
-
-DOTFILE_PATH="$HOME/.dotfiles"
-
-. "$DOTFILE_PATH/lib/path.sh"
 . "$DOTFILE_PATH/lib/logging.sh"
-
-CURRENT_SHELL="$(ps -cp "$$" -o command="")"
-# macos prepends a dash, remove it
-CURRENT_SHELL="${CURRENT_SHELL#\-}"
 
 add_cd_hook() {
     case "$CURRENT_SHELL" in
     zsh)
         autoload -Uz add-zsh-hook
-        add-zsh-hook chpwd $1
+        add-zsh-hook chpwd "$1"
         "$1"
         ;;
     *)
-        PROMPT_COMMAND="${PROMPT_COMMAND};${1}"
+        case "${PROMPT_COMMAND:-}" in
+        *"$1"*) ;;
+        "") PROMPT_COMMAND="$1" ;;
+        *) PROMPT_COMMAND="${PROMPT_COMMAND};${1}" ;;
+        esac
+        "$1"
         ;;
     esac
 }
@@ -50,4 +45,4 @@ done < <(ext_matches sh)
 # iterate through newline-delimited scripts for the current shell
 while read -r file; do
     . "$file"
-done < <(ext_matches $CURRENT_SHELL)
+done < <(ext_matches "$CURRENT_SHELL")

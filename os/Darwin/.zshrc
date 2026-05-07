@@ -1,18 +1,17 @@
 #!/usr/bin/env zsh
 
-eval "$([[ -x "/opt/homebrew/bin/brew" ]] && /opt/homebrew/bin/brew shellenv)"
-
-if [ "$IN_TMUX" -eq "1" ]; then
-	tmux bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel pbcopy
+if [ -n "$__HOMEBREW_PREFIX" ]; then
+    eval "$("$__HOMEBREW_PREFIX/bin/brew" shellenv)"
+    # brew shellenv prepends Homebrew dirs to PATH; restore mise priority.
+    command -v __dotfiles_setup_path >/dev/null 2>&1 && __dotfiles_setup_path
+    fpath+=("$__HOMEBREW_PREFIX/share/zsh/site-functions")
 fi
 
-if type brew &>/dev/null; then
-  fpath+=("$(brew --prefix)/share/zsh/site-functions")
+if [ -n "${TMUX:-}" ]; then
+    tmux bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel pbcopy
 fi
 
 alias plcat='plutil -convert xml1 -o -'
-
-i_have jq && i_have system_profiler && export MACOS_SYSTEM_AUDIO_DEVICE_NAME="$(system_profiler SPAudioDataType -json | jq -r '.SPAudioDataType[] | select(._name == "coreaudio_device") | ._items[] | select(._properties == "coreaudio_default_audio_system_device") | .coreaudio_output_source')"
 
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 

@@ -18,7 +18,11 @@ __set_node_aliases() {
     alias nr="n run"
 
     ni() {
-        [[ "$1" == "" ]] && $_pm install || $_pm add $@
+        if [ -z "$1" ]; then
+            $_pm install
+        else
+            $_pm add "$@"
+        fi
     }
 
     if [ -n "$(find_up yarn.lock)" ]; then
@@ -32,9 +36,12 @@ __set_node_aliases() {
         _pm='bun'
     fi
 
-    alias clean_project="$_pm run --if-present clean && in_repo && git wash || true"
+    clean_project() {
+        $_pm run --if-present clean && in_repo && git wash
+        return 0
+    }
     alias delete_node_modules='find . -name "node_modules" -type d -prune -exec rm -rf '{}' +'
-    alias nenv='printf "node %s\n%s %s\s" "$(node -v)" $_pm "$($_pm --version)"'
+    alias nenv='printf "node %s\n%s %s\n" "$(node -v)" $_pm "$($_pm --version)"'
     alias nreset='clean_project; delete_node_modules; ni;'
 }
 

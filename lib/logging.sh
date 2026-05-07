@@ -53,9 +53,9 @@ flog_success() {
 if [ -t 1 ]; then
 
     # see if it supports colors...
-    ncolors=$(tput colors)
+    __flog_ncolors=$(tput colors 2>/dev/null)
 
-    if [ -n "$ncolors" ] && [ "$ncolors" -ge 4 ]; then
+    if [ -n "$__flog_ncolors" ] && [ "$__flog_ncolors" -ge 4 ]; then
         __flog_bold="$(tput bold)"
         __flog_dim="$(tput dim)"
         __flog_standouton="$(tput smso)"

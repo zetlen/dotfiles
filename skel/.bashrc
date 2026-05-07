@@ -1,5 +1,22 @@
 #!/bin/bash
 
+if [ -z "${__DOTFILES_PROFILE_LOADED:-}" ]; then
+    __dotfiles_profile="$HOME/.profile"
+    [ -r "$__dotfiles_profile" ] || __dotfiles_profile="$HOME/.dotfiles/skel/.profile"
+    [ -r "$__dotfiles_profile" ] && . "$__dotfiles_profile"
+
+    __dotfiles_bash_env="${BASH_ENV:-$HOME/.bash_env}"
+    [ -r "$__dotfiles_bash_env" ] || __dotfiles_bash_env="$HOME/.dotfiles/skel/.bash_env"
+    [ -r "$__dotfiles_bash_env" ] && . "$__dotfiles_bash_env"
+
+    unset __dotfiles_profile __dotfiles_bash_env
+fi
+
+case $- in
+*i*) ;;
+*) return 0 2>/dev/null || exit 0 ;;
+esac
+
 export HISTSIZE=1000000 # 1 million lines in history, why not?
 export HISTCONTROL=ignoredups
 

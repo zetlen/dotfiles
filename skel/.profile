@@ -1,5 +1,93 @@
-export ZDOTDIR="$HOME"
+export ZDOTDIR="${ZDOTDIR:-$HOME}"
+export DOTFILE_PATH="${DOTFILE_PATH:-$HOME/.dotfiles}"
 
-. "$HOME/.dotfiles/lib/runtimes.sh"
+# Defined unconditionally so .zprofile can re-call it after macOS path_helper
+# runs in /etc/zprofile and reorders PATH.
+__dotfiles_setup_path() {
+    _dotfiles_path_remove() {
+        case ":${PATH:-}:" in
+        *:"$1":*) ;;
+        *) return 0 ;;
+        esac
+        _dotfiles_t=":${PATH}:"
+        _dotfiles_after="${_dotfiles_t#*:$1:}"
+        _dotfiles_before="${_dotfiles_t%"$_dotfiles_after"}"
+        _dotfiles_before="${_dotfiles_before%:$1:}"
+        _dotfiles_t="${_dotfiles_before}:${_dotfiles_after}"
+        _dotfiles_t="${_dotfiles_t#:}"
+        PATH="${_dotfiles_t%:}"
+    }
 
-. "$HOME/.dotfiles/lib/common.sh"
+    _dotfiles_path_append() {
+        [ -n "$1" ] || return 0
+        [ "${1#/}" != "$1" ] || return 0
+        case ":${PATH:-}:" in
+        *:"$1":*) ;;
+        *) PATH="${PATH:+$PATH:}$1" ;;
+        esac
+    }
+
+    _dotfiles_path_prepend() {
+        [ -n "$1" ] || return 0
+        [ "${1#/}" != "$1" ] || return 0
+        case ":${PATH:-}:" in
+        :"$1":*) return 0 ;;
+        esac
+        _dotfiles_path_remove "$1"
+        PATH="$1${PATH:+:$PATH}"
+    }
+
+    _dotfiles_path_append "$HOME/bin"
+    _dotfiles_path_append "$HOME/.local/bin"
+    _dotfiles_path_append "$HOME/.cargo/bin"
+    _dotfiles_path_append "$HOME/.composer/vendor/bin"
+    _dotfiles_path_append "$HOME/.rvm/bin"
+    _dotfiles_path_append "$HOME/Library/Python/3.9/bin"
+    _dotfiles_path_append "$HOME/.yarn/bin"
+    _dotfiles_path_append "$HOME/.local/share/pnpm"
+    _dotfiles_path_append "$HOME/.config/yarn/global/node_modules/.bin"
+    _dotfiles_path_append "/usr/local/share/npm/bin"
+    _dotfiles_path_append "/usr/local/bin"
+    _dotfiles_path_append "/usr/local/sbin"
+    _dotfiles_path_append "/opt/local/bin"
+    _dotfiles_path_append "/opt/local/sbin"
+
+    if [ -x "$HOME/.local/bin/mise" ]; then
+        _dotfiles_path_prepend "$HOME/.local/bin"
+        _dotfiles_path_prepend "$HOME/.local/share/mise/shims"
+    fi
+
+    export PATH
+
+    unset _dotfiles_t _dotfiles_after _dotfiles_before 2>/dev/null
+    unset -f _dotfiles_path_append _dotfiles_path_prepend _dotfiles_path_remove 2>/dev/null
+    return 0
+}
+
+if [ -z "${__DOTFILES_PROFILE_LOADED:-}" ]; then
+    __DOTFILES_PROFILE_LOADED=1
+    export __DOTFILES_PROFILE_LOADED
+
+    export LANG="${LANG:-en_US.UTF-8}"
+    export LANGUAGE="${LANGUAGE:-$LANG}"
+    export LC_ALL="${LC_ALL:-$LANG}"
+    export LC_CTYPE="${LC_CTYPE:-$LANG}"
+
+    export SVN_EDITOR="${SVN_EDITOR:-vim}"
+    export EDITOR="${EDITOR:-vim}"
+    export PAGER="${PAGER:-less -R}"
+    export BAT_THEME="${BAT_THEME:-ansi}"
+
+    __dotfiles_setup_path
+
+    if [ -z "${BASH_ENV:-}" ]; then
+        if [ -r "$HOME/.bash_env" ]; then
+            BASH_ENV="$HOME/.bash_env"
+        elif [ -r "$DOTFILE_PATH/skel/.bash_env" ]; then
+            BASH_ENV="$DOTFILE_PATH/skel/.bash_env"
+        else
+            BASH_ENV="$HOME/.bash_env"
+        fi
+        export BASH_ENV
+    fi
+fi

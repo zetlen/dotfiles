@@ -1,3 +1,4 @@
 #!/bin/sh
 
-say -a "${MACOS_SYSTEM_AUDIO_DEVICE_NAME:-Macbook Pro Speakers}" "It's $(date +"%-I:%M")"
+device="${MACOS_SYSTEM_AUDIO_DEVICE_NAME:-$(system_profiler SPAudioDataType -json 2>/dev/null | jq -r '.SPAudioDataType[] | select(._name == "coreaudio_device") | ._items[] | select(._properties == "coreaudio_default_audio_system_device") | .coreaudio_output_source' 2>/dev/null)}"
+say -a "${device:-Macbook Pro Speakers}" "It's $(date +"%-I:%M")"

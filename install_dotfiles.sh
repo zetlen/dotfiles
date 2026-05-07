@@ -1,9 +1,8 @@
 #!/bin/bash
 # shellcheck disable=SC2059,SC2034
 
+. "$HOME/.dotfiles/skel/.profile"
 . "$HOME/.dotfiles/lib/common.sh"
-. "$HOME/.dotfiles/lib/path.sh"
-. "$HOME/.dotfiles/lib/logging.sh"
 . "$HOME/.dotfiles/lib/installing.sh"
 
 if [ ! -d "$OSPATH" ]; then

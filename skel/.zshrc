@@ -1,6 +1,6 @@
-[ ! -f $HOME/.zshrc.localbefore ] || . $HOME/.zshrc.localbefore
+[ ! -f "$HOME/.zshrc.localbefore" ] || . "$HOME/.zshrc.localbefore"
 
-command -v add_os_rc 2>&1 >/dev/null || . $HOME/.zprofile
+command -v add_os_rc >/dev/null 2>&1 || . "$HOME/.dotfiles/lib/common.sh"
 
 add_os_rc "zsh"
 

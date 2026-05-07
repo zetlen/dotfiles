@@ -18,7 +18,7 @@ get_os_dotfile_path() {
             osidpath="$DOTFILE_PATH/os/generic"
         fi
     fi
-    echo $osidpath
+    echo "$osidpath"
 }
 
 add_os_rc() {
@@ -26,3 +26,14 @@ add_os_rc() {
     # fail silently if it doesn't exist
     . "$(get_os_dotfile_path)/.${THE_SHELL}rc" 2>/dev/null || true
 }
+
+# Detect Homebrew prefix once instead of forking `brew --prefix` per shell.
+# Set early so skel/.bashrc bash-completion lookups can use it before the
+# OS-specific rc file runs.
+if [ "$(uname -s)" = "Darwin" ]; then
+    if [ -x /opt/homebrew/bin/brew ]; then
+        __HOMEBREW_PREFIX=/opt/homebrew
+    elif [ -x /usr/local/bin/brew ]; then
+        __HOMEBREW_PREFIX=/usr/local
+    fi
+fi

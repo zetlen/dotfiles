@@ -12,21 +12,26 @@ confirm_cmd() {
 }
 
 sync_links_from_dir() {
-    src_dir="$1"
-    for f in $(cd $src_dir && find . -type f -exec bash -c 'echo ${0:2}' {} \;); do
-        src_path="$(normalize_dir $src_dir $f)"
-        tgt_path="$(normalize_dir $HOME $f)"
-        tgt_dir="$(dirname $tgt_path)"
+    local src_dir="$1"
+    local f src_path tgt_path tgt_dir tgt_orig tgt_old_path
+    local files=()
+    while IFS= read -r f; do
+        files+=("${f#./}")
+    done < <(cd "$src_dir" && find . -type f)
+    for f in "${files[@]}"; do
+        src_path="$(normalize_dir "$src_dir" "$f")"
+        tgt_path="$(normalize_dir "$HOME" "$f")"
+        tgt_dir="$(dirname "$tgt_path")"
         if [ ! -d "$tgt_dir" ]; then
-            flog_log Creating directory $tgt_dir
+            flog_log "Creating directory $tgt_dir"
             mkdir -p "$tgt_dir"
         fi
         if [ -L "$tgt_path" ]; then
-            tgt_orig="$(readlink $tgt_path)"
-            tgt_orig="$(normalize_dir $tgt_orig)"
-            if [ "$tgt_orig" == "$src_path" ]; then
+            tgt_orig="$(readlink "$tgt_path")"
+            tgt_orig="$(normalize_dir "$tgt_orig")"
+            if [ "$tgt_orig" = "$src_path" ]; then
                 flog_log "$f is already symlinked to $src_path"
-            elif [ "${tgt_orig#$DOTFILE_PATH}" == "$tgt_orig" ]; then
+            elif [ "${tgt_orig#$DOTFILE_PATH}" = "$tgt_orig" ]; then
                 flog_warn "$f is already symlinked to ${tgt_orig}."
                 flog_warn "Not symlinking $src_path because $f is already symlinked to $tgt_orig."
             else

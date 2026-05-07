@@ -1,7 +1,6 @@
 #!/bin/bash
 
-__HOMEBREW_PREFIX=$(brew --prefix 2>/dev/null)
-if [ -f "$__HOMEBREW_PREFIX/opt/bash-git-prompt/share/gitprompt.sh" ]; then
+if [ -n "$__HOMEBREW_PREFIX" ] && [ -f "$__HOMEBREW_PREFIX/opt/bash-git-prompt/share/gitprompt.sh" ]; then
 	__GIT_PROMPT_DIR="$__HOMEBREW_PREFIX/opt/bash-git-prompt/share"
 	export GIT_PROMPT_THEME="Custom"
 	# GIT_PROMPT_STATUS_COMMAND=gitstatus_pre-1.7.10.sh
