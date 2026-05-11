@@ -13,7 +13,7 @@ cmake = "latest"
 delta = "latest"
 fd = "latest"
 fzf = "latest"
-gh = "latest"
+gh = { version = "latest", postinstall = "gh auth setup-git" }
 git-lfs = "latest"
 jq = "latest"
 ripgrep = "latest"
