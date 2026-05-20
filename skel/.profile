@@ -37,20 +37,17 @@ __dotfiles_setup_path() {
         PATH="$1${PATH:+:$PATH}"
     }
 
-    _dotfiles_path_append "$HOME/bin"
-    _dotfiles_path_append "$HOME/.local/bin"
-    _dotfiles_path_append "$HOME/.cargo/bin"
-    _dotfiles_path_append "$HOME/.composer/vendor/bin"
-    _dotfiles_path_append "$HOME/.rvm/bin"
-    _dotfiles_path_append "$HOME/Library/Python/3.9/bin"
-    _dotfiles_path_append "$HOME/.yarn/bin"
-    _dotfiles_path_append "$HOME/.local/share/pnpm"
-    _dotfiles_path_append "$HOME/.config/yarn/global/node_modules/.bin"
-    _dotfiles_path_append "/usr/local/share/npm/bin"
-    _dotfiles_path_append "/usr/local/bin"
-    _dotfiles_path_append "/usr/local/sbin"
-    _dotfiles_path_append "/opt/local/bin"
-    _dotfiles_path_append "/opt/local/sbin"
+    # Prepend in reverse priority: last prepended ends up first in PATH.
+    # Final user-dir order: $HOME/bin, $HOME/.local/bin, $HOME/.cargo/bin, ...
+    _dotfiles_path_prepend "$HOME/.config/yarn/global/node_modules/.bin"
+    _dotfiles_path_prepend "$HOME/.local/share/pnpm"
+    _dotfiles_path_prepend "$HOME/.yarn/bin"
+    _dotfiles_path_prepend "$HOME/Library/Python/3.9/bin"
+    _dotfiles_path_prepend "$HOME/.rvm/bin"
+    _dotfiles_path_prepend "$HOME/.composer/vendor/bin"
+    _dotfiles_path_prepend "$HOME/.cargo/bin"
+    _dotfiles_path_prepend "$HOME/.local/bin"
+    _dotfiles_path_prepend "$HOME/bin"
 
     if [ -x "$HOME/.local/bin/mise" ]; then
         _dotfiles_path_prepend "$HOME/.local/bin"
