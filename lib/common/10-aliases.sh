@@ -88,6 +88,12 @@ alias rr='rsync -avhzP' # don't skip that
 alias m="mise"
 alias mr="mise run "
 
+alias g=git
+
+in_repo() {
+    i_have git && git rev-parse HEAD &>/dev/null
+}
+
 into() {
     if [ -z "$ZELLIJ" ]; then
         ssh -o RequestTTY=force $1 -- "zsh -lc 'mise x -- zellij attach -c $(hostname -s)'"
