@@ -52,6 +52,18 @@ __dotfiles_setup_path() {
     _dotfiles_path_append "/opt/local/bin"
     _dotfiles_path_append "/opt/local/sbin"
 
+    # Homebrew must beat /usr/bin (Apple ships openrsync etc. there), and
+    # nothing else guarantees that outside interactive shells: brew shellenv
+    # only runs in .zshrc, and macOS path_helper demotes Homebrew on every
+    # login shell init. Prepend here, before mise, so mise still wins.
+    if [ -x /opt/homebrew/bin/brew ]; then
+        _dotfiles_path_prepend "/opt/homebrew/sbin"
+        _dotfiles_path_prepend "/opt/homebrew/bin"
+    elif [ -x /usr/local/bin/brew ]; then
+        _dotfiles_path_prepend "/usr/local/sbin"
+        _dotfiles_path_prepend "/usr/local/bin"
+    fi
+
     if [ -x "$HOME/.local/bin/mise" ]; then
         _dotfiles_path_prepend "$HOME/.local/bin"
         _dotfiles_path_prepend "$HOME/.local/share/mise/shims"
