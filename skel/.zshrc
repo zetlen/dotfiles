@@ -95,3 +95,5 @@ test -e "${ZDOTDIR}/.iterm2_shell_integration.zsh" && source "${ZDOTDIR}/.iterm2
 
 # Added by Antigravity
 export PATH="/Users/zetlen/.antigravity/antigravity/bin:$PATH"
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
