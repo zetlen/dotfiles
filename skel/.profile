@@ -102,4 +102,12 @@ if [ -z "${__DOTFILES_PROFILE_LOADED:-}" ]; then
         fi
         export BASH_ENV
     fi
+
+    # Machine-local POSIX overrides (sensitive env exports, etc.). Kept out of
+    # the repo like .zshrc.local, but sourced here so the exports reach every
+    # shell -- interactive or not, zsh or bash -- and inherit into children.
+    # POSIX sh only: this runs under dash/sh, so no bashisms or zsh syntax.
+    if [ -r "$HOME/.profile.local" ]; then
+        . "$HOME/.profile.local"
+    fi
 fi
