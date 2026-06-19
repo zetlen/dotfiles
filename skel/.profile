@@ -49,6 +49,18 @@ __dotfiles_setup_path() {
     _dotfiles_path_prepend "$HOME/.local/bin"
     _dotfiles_path_prepend "$HOME/bin"
 
+    # Homebrew must beat /usr/bin (Apple ships openrsync etc. there), and
+    # nothing else guarantees that outside interactive shells: brew shellenv
+    # only runs in .zshrc, and macOS path_helper demotes Homebrew on every
+    # login shell init. Prepend here, before mise, so mise still wins.
+    if [ -x /opt/homebrew/bin/brew ]; then
+        _dotfiles_path_prepend "/opt/homebrew/sbin"
+        _dotfiles_path_prepend "/opt/homebrew/bin"
+    elif [ -x /usr/local/bin/brew ]; then
+        _dotfiles_path_prepend "/usr/local/sbin"
+        _dotfiles_path_prepend "/usr/local/bin"
+    fi
+
     if [ -x "$HOME/.local/bin/mise" ]; then
         _dotfiles_path_prepend "$HOME/.local/bin"
         _dotfiles_path_prepend "$HOME/.local/share/mise/shims"
@@ -86,5 +98,13 @@ if [ -z "${__DOTFILES_PROFILE_LOADED:-}" ]; then
             BASH_ENV="$HOME/.bash_env"
         fi
         export BASH_ENV
+    fi
+
+    # Machine-local POSIX overrides (sensitive env exports, etc.). Kept out of
+    # the repo like .zshrc.local, but sourced here so the exports reach every
+    # shell -- interactive or not, zsh or bash -- and inherit into children.
+    # POSIX sh only: this runs under dash/sh, so no bashisms or zsh syntax.
+    if [ -r "$HOME/.profile.local" ]; then
+        . "$HOME/.profile.local"
     fi
 fi

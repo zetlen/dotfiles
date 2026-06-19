@@ -155,7 +155,6 @@
   "plugin": [
     "opencode-antigravity-auth@latest",
     "opencode-pty@latest",
-    "@zenobius/opencode-skillful",
     "@tarquinen/opencode-dcp@3.1.3"
   ]
 }
