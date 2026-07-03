@@ -1,0 +1,2 @@
+[credential "https://got.colonpipe.org"]
+	helper = "!tea login helper"
