@@ -126,9 +126,6 @@ run_dotfile_steps() {
     }
 
     __zdi_step_5__installing_bash_extras() {
-        # The magicmonty/bash-git-prompt repository has been archived.
-        # This is kept for now, but should be replaced with a more modern
-        -        # alternative if bash support is a priority.
         if [ ! -f "$HOME/.bash-git-prompt/gitprompt.sh" ]; then
             flog_warn "Git prompt not found. Cloning bash-git-prompt repository to .bash-git-prompt"
             git clone --depth=1 https://github.com/magicmonty/bash-git-prompt.git "$HOME/.bash-git-prompt"
