@@ -34,6 +34,7 @@ function __my-zsh-completions {
 	zsh-plugin-load zetlen/zsh-completion-generators
 	zsh-plugin-load zsh-users/zsh-completions
 	compinit
+	__git_worktree_register_completions
 	zsh-plugin-load Aloxaf/fzf-tab
   # disable sort when completing `git checkout`
   zstyle ':completion:*:git-checkout:*' sort false

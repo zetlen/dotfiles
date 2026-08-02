@@ -1,3 +1,8 @@
+# Ubuntu's /etc/zsh/zshrc runs compinit before ~/.zshrc unless this is set.
+# That early run sees a smaller fpath than the compinit in .zshrc, so the two
+# invalidate each other's ~/.zcompdump and force a full rebuild every startup.
+skip_global_compinit=1
+
 __dotfiles_profile="$HOME/.profile"
 [ -r "$__dotfiles_profile" ] || __dotfiles_profile="$HOME/.dotfiles/skel/.profile"
 [ -r "$__dotfiles_profile" ] && . "$__dotfiles_profile"

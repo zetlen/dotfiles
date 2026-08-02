@@ -37,6 +37,11 @@ _git_branch_complete() {
     branches=(${(f)"$(git branch --format='%(refname:short)' 2>/dev/null)"})
     _describe 'branches' branches
 }
-autoload -Uz compinit
-compinit
-compdef _git_branch_complete git_worktree_get_dir git_worktree_cd git_worktree_swap
+# This file is sourced before compinit runs, and compinit must only run once
+# (after all fpath changes) or the zcompdump cache rebuilds on every startup.
+# skel/.zshrc calls this after its compinit; the guard covers any other entry
+# point where the completion system never comes up.
+__git_worktree_register_completions() {
+    (( $+functions[compdef] )) || return 0
+    compdef _git_branch_complete git_worktree_get_dir git_worktree_cd git_worktree_swap
+}
