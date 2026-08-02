@@ -94,6 +94,15 @@ in_repo() {
     i_have git && git rev-parse HEAD &>/dev/null
 }
 
+herd() {
+    if [ -z "$HERDR_WORKSPACE_ID" ]; then
+        ssh -o RequestTTY=force $1 -- "zsh -lc 'mise x -- herdr'"
+    else
+        echo "Already inside herdr on $(hostname -s)." >&2
+        return 1
+    fi
+}
+
 into() {
     if [ -z "$ZELLIJ" ]; then
         ssh -o RequestTTY=force $1 -- "zsh -lc 'mise x -- zellij attach -c $(hostname -s)'"
