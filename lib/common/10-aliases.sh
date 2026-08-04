@@ -110,3 +110,7 @@ into() {
         ssh -o RequestTTY=force $1
     fi
 }
+
+glmd() {
+    glow -w $(tput cols) $@
+}
