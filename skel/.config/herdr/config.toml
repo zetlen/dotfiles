@@ -342,3 +342,9 @@ key = "prefix+shift+P"
 type = "plugin_action"
 command = "jt.command-palette.open"
 description = "Command palette"
+
+[[keys.command]]
+key = "prefix+`"
+type = "plugin_action"
+command = "hud.open"
+description = "show heads up display"
