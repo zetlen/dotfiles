@@ -85,7 +85,6 @@ if [ -z "${__DOTFILES_PROFILE_LOADED:-}" ]; then
     export SVN_EDITOR="${SVN_EDITOR:-vim}"
     export EDITOR="${EDITOR:-vim}"
     export PAGER="${PAGER:-less -R}"
-    export BAT_THEME="${BAT_THEME:-ansi}"
 
     __dotfiles_setup_path
 

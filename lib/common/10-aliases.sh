@@ -71,15 +71,19 @@ normalize_dir() {
 }
 
 # ls
-if i_dont_have eza; then
-    alias la='ls -lahAFG'
-    alias l='ls -lahp'
-    alias ls='ls -p'
-else
+if i_have eza; then
     alias l='eza -lahF --color-scale --git --icons always '
     alias la='l --sort=accessed'
     alias lt='l --sort=modified'
     alias lb='l --sort=size'
+else
+    alias la='ls -lahAFG'
+    alias l='ls -lahp'
+    alias ls='ls -p'
+fi
+
+if i_have bat; then
+    export MANPAGER="bat -plman"
 fi
 
 alias r='rsync -avhzPC' # skip .git and other common skips
