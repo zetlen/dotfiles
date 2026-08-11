@@ -60,11 +60,18 @@ normalize_dir() {
     local IFS=$'/'
     local the__path="$*"
 
-    # Remove all multiple slashes ///
-    the__path="$(echo "$the__path" | tr -s /)"
+    # Remove all multiple slashes /// (a loop of builtins, not a `tr` fork:
+    # the installer calls this three times per linked file)
+    while [ "${the__path#*//}" != "$the__path" ]; do
+        the__path="${the__path%%//*}/${the__path#*//}"
+    done
 
-    # Remove all /./ sequences.
-    the__path="${the__path//\/.\//\/}"
+    # Remove all /./ sequences. Not `${p//\/.\//\/}`: zsh reads the `\/`
+    # replacement literally and injects backslashes, so that form corrupted
+    # every path containing /./ when this file was loaded by zsh.
+    while [ "${the__path#*/./}" != "$the__path" ]; do
+        the__path="${the__path%%/./*}/${the__path#*/./}"
+    done
 
     # Remove any final trailing slash.
     echo "${the__path%/}"

@@ -1,3 +1,7 @@
+# Dedupe PATH on every assignment, the same way fpath is handled. Keeps the
+# first occurrence, so precedence is unchanged.
+typeset -gU path PATH
+
 # `<tool> init zsh` costs 40-50ms of process startup each and its output rarely
 # changes, so cache the text and source that instead. Caches live outside the
 # repo and can be deleted at any time.

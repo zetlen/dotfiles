@@ -31,18 +31,33 @@ add_cd_hook() {
     esac
 }
 
-# glob without breaking in any shell
-ext_matches() {
-    find "$DOTFILE_PATH"/lib/common -maxdepth 1 -name "*.${1}*" -print | sort
+# Glob instead of forking find+sort twice on every startup: glob expansion is
+# already lexically sorted in both bash and zsh. Wrapped in a function only so
+# the nullglob setting can be scoped; the sourcing itself happens at the
+# caller's level via the list this builds.
+__common_ext_files() {
+    if [ -n "${ZSH_VERSION:-}" ]; then
+        setopt local_options null_glob
+    else
+        local restore_nullglob
+        shopt -q nullglob || restore_nullglob=1
+        shopt -s nullglob
+    fi
+    __COMMON_EXT_FILES=("$DOTFILE_PATH"/lib/common/*."$1"*)
+    [ -z "${restore_nullglob:-}" ] || shopt -u nullglob
 }
 
-# iterate through newline-delimited .sh files
-while read -r file; do
-    # only import *.sh version if there isn't one for the current shell
+# only import the *.sh version if there isn't one for the current shell
+__common_ext_files sh
+for file in "${__COMMON_EXT_FILES[@]}"; do
     [ -f "${file%.sh}"".$CURRENT_SHELL" ] || . "$file"
-done < <(ext_matches sh)
+done
 
-# iterate through newline-delimited scripts for the current shell
-while read -r file; do
+# then the scripts written for the current shell
+__common_ext_files "$CURRENT_SHELL"
+for file in "${__COMMON_EXT_FILES[@]}"; do
     . "$file"
-done < <(ext_matches "$CURRENT_SHELL")
+done
+
+unset -f __common_ext_files
+unset __COMMON_EXT_FILES file

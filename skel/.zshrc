@@ -93,7 +93,9 @@ fi
 test -e "${ZDOTDIR}/.iterm2_shell_integration.zsh" && source "${ZDOTDIR}/.iterm2_shell_integration.zsh"
 
 
-# Added by Antigravity
-export PATH="/Users/zetlen/.antigravity/antigravity/bin:$PATH"
+# Added by Antigravity (rewritten: it hardcoded a /Users/... path, which is
+# dead weight in PATH on every Linux box)
+[ -d "$HOME/.antigravity/antigravity/bin" ] &&
+    export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
 
 cached_shell_init wt wt config shell init zsh
