@@ -11,6 +11,16 @@ confirm_cmd() {
     flog_confirm "$fmted" && eval "$*"
 }
 
+link_or_warn() {
+    # $1 src_path, $2 tgt_path, $3 display name
+    if ln -s "$1" "$2"; then
+        flog_success "Symlinked $3 to $1"
+    else
+        flog_error "Failed to symlink $2 to $1"
+        return 1
+    fi
+}
+
 sync_links_from_dir() {
     local src_dir="$1"
     local f src_path tgt_path tgt_dir tgt_orig tgt_old_path
@@ -37,10 +47,14 @@ sync_links_from_dir() {
             else
                 flog_log "Updating symlink of $f to $src_path"
                 rm "$tgt_path"
-                ln -s "$src_path" "$tgt_path"
-                flog_success "Symlinked $f to $src_path"
+                link_or_warn "$src_path" "$tgt_path" "$f"
             fi
-        elif [ -f "$tgt_path" ]; then
+        elif [ -d "$tgt_path" ]; then
+            # never fall through to `ln -s` here: it would silently create the
+            # link *inside* this directory and report success
+            flog_warn "A directory already exists at $tgt_path."
+            flog_warn "Not symlinking $f. Move or remove $tgt_path, then run this again."
+        elif [ -e "$tgt_path" ]; then
             flog_warn "A file already exists at $tgt_path."
             if flog_confirm "Replace with symlink to ${src_path}?"; then
                 tgt_old_path="${tgt_path}.local"
@@ -49,13 +63,11 @@ sync_links_from_dir() {
                 else
                     mv "$tgt_path" "$tgt_old_path"
                     flog_success "Moved old $tgt_path to $tgt_old_path"
-                    ln -s "$src_path" "$tgt_path"
-                    flog_success "Symlinked $f to $src_path"
+                    link_or_warn "$src_path" "$tgt_path" "$f"
                 fi
             fi
         else
-            ln -s "$src_path" "$tgt_path"
-            flog_success "Symlinked $f to $src_path"
+            link_or_warn "$src_path" "$tgt_path" "$f"
         fi
     done
 }
