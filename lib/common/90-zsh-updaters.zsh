@@ -22,6 +22,8 @@ zsh-update-all() {
         mise plugins update --yes
         mise up --yes
         mise prune --yes
+        # tool binaries just changed; their cached init scripts may be stale
+        zsh-init-cache-clear
     }
 
     _z_update__4_rust_toolchain() {

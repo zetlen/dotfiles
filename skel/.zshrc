@@ -18,6 +18,9 @@ setopt appendhistory
 
 export MANPATH="/usr/local/man:$MANPATH"
 
+# creates the plugin dir if missing and warns when plugins are 30+ days stale
+zsh-plugin-init
+
 function __my-zsh-keybindings {
 	function zvm_config() {
 		ZVM_INIT_MODE=sourcing
@@ -51,7 +54,7 @@ function __my-zsh-completions {
 __my-zsh-completions
 
 function __my-zsh-prompt {
-  eval "$(starship init zsh)"
+  cached_shell_init starship starship init zsh
 }
 
 [ -z "$SIMPLE_PROMPT" ] && __my-zsh-prompt
@@ -63,11 +66,7 @@ function __my-zsh-plugins {
 __my-zsh-plugins
 
 function __my-zsh-history {
-    local FOUND_ATUIN=$+commands[atuin]
-
-    if [[ $FOUND_ATUIN -eq 1 ]]; then
-      source <(atuin init zsh --disable-up-arrow)
-    fi
+    cached_shell_init atuin atuin init zsh --disable-up-arrow
 }
 
 __my-zsh-history
@@ -97,4 +96,4 @@ test -e "${ZDOTDIR}/.iterm2_shell_integration.zsh" && source "${ZDOTDIR}/.iterm2
 # Added by Antigravity
 export PATH="/Users/zetlen/.antigravity/antigravity/bin:$PATH"
 
-if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+cached_shell_init wt wt config shell init zsh
