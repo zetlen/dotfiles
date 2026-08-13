@@ -151,9 +151,6 @@ run_dotfile_steps() {
         fi
         flog_log "Installing all mise versions"
         mise bootstrap
-
-        # For legacy compatibility with scripts that expect asdf
-        ln -sf "${HOME}/.local/share/mise" "${HOME}/.asdf"
     }
 
     __zdi_step_70__setting_up_zsh() {
