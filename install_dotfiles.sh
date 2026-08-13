@@ -212,6 +212,72 @@ run_dotfile_steps() {
             mise x -- nvim --headless -c 'lua vim.pack.update(nil, { force = true })' -c 'qa!'
     }
 
+    # ~/.claude/settings.json can be neither symlinked nor `include`d: Claude
+    # Code rewrites it in place (/config, /model, /plugin) and its schema has
+    # no include directive. So this is the gitconfig treatment, not the vimrc
+    # one -- fragments in the repo, deep-merged over an app-owned live file.
+    # Only keys a fragment declares are managed; everything else survives.
+    #
+    # Deliberately left unmanaged, so do not add fragments for them:
+    #   model                     names drift; pinning one guarantees a stale
+    #                             value later
+    #   hooks                     plugins write absolute paths, and the tools
+    #                             behind them are not on every host (the herdr
+    #                             hook even declares itself herdr-owned and
+    #                             overwritten on reinstall)
+    #   theme, editorMode,        toggled from inside the app; managing them
+    #   effortLevel, tui          means an install run silently reverts /config
+    #   permissions.allow,        grown per-host by answering prompts
+    #   permissions.defaultMode
+    # enabledPlugins is only partly managed: a fragment pins a small core and
+    # leaves every other plugin key on the host alone (see the merge helper).
+    __zdi_step_9__writing_claude_settings() {
+        local claude_dir live frag_dir frag tool
+        local frags=()
+        claude_dir="$(normalize_dir "$HOME" .claude)"
+        live="$(normalize_dir "$claude_dir" settings.json)"
+        frag_dir="$(normalize_dir "$DOTFILE_PATH" lib/claude/settings)"
+
+        if i_dont_have jq; then
+            flog_error "jq is not installed, so settings fragments cannot be merged."
+            return 1
+        fi
+
+        mkdir -p "$claude_dir"
+        if [ -s "$live" ]; then
+            cp "$live" "${live}.bak"
+            flog_log "Backed up existing settings to ${live}.bak"
+        fi
+
+        for frag in "${frag_dir}"/[0-9]*.json; do
+            [ -e "$frag" ] && frags+=("$frag")
+        done
+
+        # tool.<command>.json applies only where <command> exists, exactly as
+        # tool.*.gitconfig does. Note the asymmetry: git config --unset removes
+        # a stale include, but there is no way to subtract merged JSON, so keys
+        # from a tool that later disappears linger (inert) in settings.json.
+        for frag in "${frag_dir}"/tool.*.json; do
+            [ -e "$frag" ] || continue
+            tool="${frag##*/tool.}"
+            tool="${tool%.json}"
+            if i_have "$tool"; then
+                flog_success "${__flog_color_green}${tool}${__flog_color_normal} is available, merging $(basename "$frag")"
+                frags+=("$frag")
+            else
+                flog_warn "${tool} not found, skipping $(basename "$frag")"
+            fi
+        done
+
+        if ((${#frags[@]} == 0)); then
+            flog_warn "No settings fragments found in ${frag_dir}"
+            return 1
+        fi
+
+        merge_json_fragments "$live" "${frags[@]}" || return 1
+        flog_success "Merged ${#frags[@]} fragment(s) into ${live}"
+    }
+
     local __zdi_installers=($(IFS=$'\n' declare -fF | grep -Eo '\b__zdi_step_.+__.*$'))
 
     local installer

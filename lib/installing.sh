@@ -21,6 +21,39 @@ link_or_warn() {
     fi
 }
 
+# merge_json_fragments <live_file> <fragment>...
+#
+# Deep-merges fragments over a live, app-owned JSON file, in argument order.
+# Used for ~/.claude/settings.json, which can be neither symlinked nor
+# `include`d: Claude Code rewrites it in place and its schema has no include
+# directive, so the repo owns fragments and the installer merges them.
+#
+# jq's `*` merges objects RECURSIVELY but replaces arrays WHOLESALE, and both
+# halves are load-bearing: enabledPlugins is an object, so pinning a few
+# plugins leaves the host's other choices alone, while permissions.ask is an
+# array the repo therefore owns outright. A key no fragment declares is left
+# exactly as the app wrote it.
+#
+# Writes through a temp file so a jq failure leaves the live file intact.
+merge_json_fragments() {
+    local live="$1"
+    shift
+    if [ "$#" -eq 0 ]; then
+        flog_error "merge_json_fragments: no fragments given for $live"
+        return 1
+    fi
+    if [ ! -s "$live" ]; then
+        echo '{}' >"$live" || return 1
+    fi
+    if jq -s 'reduce .[] as $frag ({}; . * $frag)' "$live" "$@" >"${live}.tmp"; then
+        mv "${live}.tmp" "$live"
+    else
+        rm -f "${live}.tmp"
+        flog_error "jq failed to merge fragments; $live left untouched."
+        return 1
+    fi
+}
+
 sync_links_from_dir() {
     local src_dir="$1"
     local f src_path tgt_path tgt_dir tgt_orig tgt_old_path
