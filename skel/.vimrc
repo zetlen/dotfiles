@@ -119,27 +119,6 @@ if &listchars ==# 'eol:$'
   set listchars=tab:\|\ ,trail:-,extends:>,precedes:<,nbsp:+ " extra listchars
 endif
 
-" Airline!
-" Plug 'bling/vim-airline'        " powerline bottom bar, in vimscript only
-" let g:airline_powerline_fonts = 1 " use special fonts, not unicode simulations
-" let g:airline_mode_map = {
-"       \ '__' : '-',
-"       \ 'n'  : 'N',
-"       \ 'i'  : 'I',
-"       \ 'R'  : 'R',
-"       \ 'c'  : 'C',
-"       \ 'v'  : 'V',
-"       \ 'V'  : 'V',
-"       \ '' : 'V',
-"       \ 's'  : 'S',
-"       \ 'S'  : 'S',
-"       \ '' : 'S',
-"       \ }
-" let g:airline_exclude_preview = 1
-" let g:airline#extensions#branch#enabled = 0
-" let g:airline#extensions#syntastic#enabled = 0
-" filetype plugin indent on
-
 " }}}
 
 " Movement and Keybindings {{{
@@ -202,7 +181,7 @@ endif
 set display+=lastline
 
 " bar cursor for insert mode
-if exists('$TMUX')
+if exists('$TMUX') || exists('$ZELLIJ') || exists('$HERDR')
 	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
 	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 else
