@@ -3,7 +3,7 @@
 -- The Agent Client Protocol is to agents what LSP is to language servers -- it
 -- decouples the agent from the editor. codecompanion is the client here; the
 -- agent is the real Claude Code CLI, bridged by `claude-agent-acp` (installed
--- via mise, see conf.d/30-editor.toml).
+-- via mise, see lib/vim/30-editor.toml).
 --
 -- Because it drives the actual CLI rather than the raw API, it inherits the
 -- auth, MCP servers, skills, and subagents already configured for `claude` on

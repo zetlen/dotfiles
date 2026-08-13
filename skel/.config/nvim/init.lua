@@ -17,6 +17,22 @@ end
 -- Shared preferences first, so <leader> exists before anything builds mappings.
 vim.cmd('source ' .. vim.fn.fnameescape(dotfiles .. '/lib/vim/common.vim'))
 
+-- The IDE layer needs 0.12 (vim.pack) and 0.11 (native vim.lsp.config). This
+-- config is symlinked onto every machine, but the neovim that mise builds is
+-- opt-in, so an older distro nvim can end up reading it. Keep the shared
+-- preferences -- they work anywhere -- and say why the rest is missing instead
+-- of throwing on every startup.
+if vim.fn.has('nvim-0.12') == 0 then
+  vim.schedule(function()
+    vim.notify(
+      'nvim 0.12+ required for LSP/ACP; loaded shared config only. '
+        .. 'Run the editors step of install_dotfiles.sh to get a current build.',
+      vim.log.levels.WARN
+    )
+  end)
+  return
+end
+
 require('z.plugins')
 require('z.lsp')
 require('z.acp')

@@ -1,6 +1,12 @@
-# Tools for the "fat" editor (nvim). Kept in their own conf.d file so the whole
-# IDE layer can be dropped by deleting one symlink -- plain vim never needs any
-# of this.
+# Tools for the "fat" editor (nvim). Plain vim needs none of this.
+#
+# Deliberately NOT in skel/: everything under skel/ is symlinked
+# unconditionally, which would make `mise install` pull a neovim build, six
+# language servers and the ACP bridge on every machine whether or not it wants
+# them. Instead the installer links this into ~/.config/mise/conf.d/ only if
+# you say yes, the same way lib/gitconfig/tool.*.gitconfig are included only
+# when their tool is present. Opting out is just not making the link; opting
+# in later is re-running the editors step.
 [tools]
 neovim = "latest"
 

@@ -3,8 +3,8 @@
 -- Each server is defined in its own file under ~/.config/nvim/lsp/<name>.lua
 -- (neovim picks those up off the runtimepath automatically), which keeps the
 -- editor config as modular as the rest of these dotfiles. mise owns the server
--- binaries -- see skel/.config/mise/conf.d/30-editor.toml -- so there is no
--- in-editor installer to keep in sync with the system.
+-- binaries -- see lib/vim/30-editor.toml -- so there is no in-editor installer
+-- to keep in sync with the system.
 
 vim.lsp.enable({
   'lua_ls',
