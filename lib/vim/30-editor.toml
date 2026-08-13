@@ -1,9 +1,8 @@
 # Tools for the "fat" editor (nvim). Plain vim needs none of this.
 #
 # Deliberately NOT in skel/: everything under skel/ is symlinked
-# unconditionally, which would make `mise install` pull a neovim build, six
-# language servers and the ACP bridge on every machine whether or not it wants
-# them. Instead the installer links this into ~/.config/mise/conf.d/ only if
+# unconditionally, which would make `mise install` pull a neovim build and six
+# language servers on every machine whether or not it wants them. Instead the installer links this into ~/.config/mise/conf.d/ only if
 # you say yes, the same way lib/gitconfig/tool.*.gitconfig are included only
 # when their tool is present. Opting out is just not making the link; opting
 # in later is re-running the editors step.
@@ -20,6 +19,6 @@ lua-language-server = "latest"
 "go:golang.org/x/tools/gopls" = "latest" # bare `gopls` is not in the registry
 ruff = "latest"
 
-# ACP bridge: exposes Claude Code as an Agent Client Protocol agent so
-# codecompanion.nvim can drive the real CLI (same auth, MCP servers, skills).
-"npm:@agentclientprotocol/claude-agent-acp" = "latest"
+# No agent tooling here: claudecode.nvim talks to whatever `claude` is already
+# on the machine (see skel/.config/nvim/lua/z/claudecode.lua), so the editor
+# toolchain doesn't install one.

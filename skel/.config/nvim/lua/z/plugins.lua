@@ -21,9 +21,8 @@ vim.pack.add({
   gh('imsnif/kdl.vim'),
 
   -- The IDE layer.
-  gh('nvim-lua/plenary.nvim'),      -- codecompanion dependency
   gh('b0o/schemastore.nvim'),       -- JSON/YAML schemas from SchemaStore.org
-  gh('olimorris/codecompanion.nvim'), -- ACP client
+  gh('coder/claudecode.nvim'),      -- Claude Code IDE protocol (z/claudecode.lua)
 }, {
   -- Don't block a fresh headless box on an interactive install prompt.
   confirm = false,

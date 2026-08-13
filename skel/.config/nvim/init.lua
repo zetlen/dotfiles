@@ -4,7 +4,8 @@
 -- statusline, search behavior, and filetype detection are sourced verbatim
 -- from ~/.dotfiles/lib/vim/common/, exactly as plain vim sources them, so
 -- `vim` and `nvim` feel the same. What lives here is only the part plain vim
--- cannot do: LSP, completion, schema validation, and ACP agent integration.
+-- cannot do: LSP, completion, schema validation, and Claude Code IDE
+-- integration.
 --
 -- Plain vim stays untouched and lightweight. Use it for quick edits; use nvim
 -- when you want the IDE.
@@ -25,7 +26,7 @@ vim.cmd('source ' .. vim.fn.fnameescape(dotfiles .. '/lib/vim/common.vim'))
 if vim.fn.has('nvim-0.12') == 0 then
   vim.schedule(function()
     vim.notify(
-      'nvim 0.12+ required for LSP/ACP; loaded shared config only. '
+      'nvim 0.12+ required for LSP/Claude; loaded shared config only. '
         .. 'Run the editors step of install_dotfiles.sh to get a current build.',
       vim.log.levels.WARN
     )
@@ -35,4 +36,4 @@ end
 
 require('z.plugins')
 require('z.lsp')
-require('z.acp')
+require('z.claudecode')

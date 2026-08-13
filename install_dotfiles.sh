@@ -178,15 +178,15 @@ run_dotfile_steps() {
         flog_success "Vim and vim-plug are installed."
         flog_confirm "Launch vim and update plugins?" && mise x -- vim +PlugUpgrade +PlugUpdate +qall
 
-        # neovim is optional. It costs a neovim build, six language servers and
-        # the ACP bridge, which is a lot to force on a box that only ever needs
-        # to fix a config file. Both editors read lib/vim/common/, so there is
+        # neovim is optional. It costs a neovim build and six language servers,
+        # which is a lot to force on a box that only ever needs to fix a config
+        # file. Both editors read lib/vim/common/, so there is
         # nothing to keep in sync either way -- only plugins differ.
         local nvim_tools_src nvim_tools_dst
         nvim_tools_src="$(normalize_dir "$DOTFILE_PATH" lib/vim/30-editor.toml)"
         nvim_tools_dst="$(normalize_dir "$HOME" .config/mise/conf.d/30-editor.toml)"
 
-        if ! flog_confirm "Set up neovim as well? (LSP, schema validation, Claude via ACP)"; then
+        if ! flog_confirm "Set up neovim as well? It's heavy!"; then
             if [ -L "$nvim_tools_dst" ]; then
                 rm "$nvim_tools_dst"
                 flog_warn "Unlinked $nvim_tools_dst -- mise no longer manages the neovim toolchain."
@@ -200,7 +200,7 @@ run_dotfile_steps() {
             mkdir -p "$(dirname "$nvim_tools_dst")"
             link_or_warn "$nvim_tools_src" "$nvim_tools_dst" "30-editor.toml" || return 1
         fi
-        flog_log "Installing neovim, language servers, and the ACP bridge..."
+        flog_log "Installing neovim and language servers..."
         mise --yes install || die_bc "mise could not install the neovim toolchain."
         flog_success "neovim $(mise x -- nvim --version | head -1 | cut -d' ' -f2) is installed."
 
