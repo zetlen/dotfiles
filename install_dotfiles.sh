@@ -147,9 +147,10 @@ run_dotfile_steps() {
         if i_dont_have mise; then
             flog_log "Installing mise"
             curl https://mise.run | sh
+            touch "~/.config/mise/config.toml"
         fi
         flog_log "Installing all mise versions"
-        mise --yes install
+        mise bootstrap
 
         # For legacy compatibility with scripts that expect asdf
         ln -sf "${HOME}/.local/share/mise" "${HOME}/.asdf"
