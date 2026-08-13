@@ -66,7 +66,7 @@ fi
 
 run_dotfile_steps() {
 
-    __zdi_step_1__verifying_paths() {
+    __zdi_step_10__verifying_paths() {
         if [ "$REPO_PATH" != "$DOTFILE_PATH" ]; then
             die_bc "This repo is located in the directory ${REPO_PATH}, but it only works if it is checked out in ${DOTFILE_PATH}."
         fi
@@ -78,7 +78,7 @@ run_dotfile_steps() {
         flog_success "Current directory is repo root"
     }
 
-    __zdi_step_2__installing_system_packages() {
+    __zdi_step_20__installing_system_packages() {
         flog_log "Finding package install routing for $OSNAME..."
         if [ ! -e "${OSPATH}/install.sh" ]; then
             flog_warn "No install script for OS "$OSNAME" present."
@@ -89,7 +89,7 @@ run_dotfile_steps() {
         fi
     }
 
-    __zdi_step_3__linking_to_homedir() {
+    __zdi_step_30__linking_to_homedir() {
         flog_indent 1
         sync_links_from_dir "${DOTFILE_PATH}/skel"
         flog_indent 1
@@ -98,7 +98,7 @@ run_dotfile_steps() {
         flog_indent -1
     }
 
-    __zdi_step_4__writing_gitconfig() {
+    __zdi_step_40__writing_gitconfig() {
         GITCONFIG_BASEDIR="$(normalize_dir $DOTFILE_PATH lib/gitconfig)"
         if flog_confirm "Set git user.name to $(whoami)?"; then
             git config --global user.name "$(whoami)"
@@ -125,7 +125,7 @@ run_dotfile_steps() {
         flog_success "Built .gitconfig"
     }
 
-    __zdi_step_5__installing_bash_extras() {
+    __zdi_step_50__installing_bash_extras() {
         if [ ! -f "$HOME/.bash-git-prompt/gitprompt.sh" ]; then
             flog_warn "Git prompt not found. Cloning bash-git-prompt repository to .bash-git-prompt"
             git clone --depth=1 https://github.com/magicmonty/bash-git-prompt.git "$HOME/.bash-git-prompt"
@@ -133,7 +133,7 @@ run_dotfile_steps() {
         flog_success "Nice bash prompt installed."
     }
 
-    __zdi_step_6__installing_tool_versions() {
+    __zdi_step_60__installing_tool_versions() {
         if i_dont_have rustup; then
             flog_log "Installing rustup"
             curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --profile minimal
@@ -155,7 +155,7 @@ run_dotfile_steps() {
         ln -sf "${HOME}/.local/share/mise" "${HOME}/.asdf"
     }
 
-    __zdi_step_7__setting_up_zsh() {
+    __zdi_step_70__setting_up_zsh() {
         if i_dont_have zsh; then
             flog_error "zsh is not installed!"
             return 1
@@ -168,7 +168,7 @@ run_dotfile_steps() {
         fi
     }
 
-    __zdi_step_8__setting_up_editors() {
+    __zdi_step_80__setting_up_editors() {
         # Plain vim: lightweight, vim-plug.
         if [ ! -e ~/.vim/autoload/plug.vim ]; then
             TO_DOWNLOAD="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
@@ -231,7 +231,7 @@ run_dotfile_steps() {
     #   permissions.defaultMode
     # enabledPlugins is only partly managed: a fragment pins a small core and
     # leaves every other plugin key on the host alone (see the merge helper).
-    __zdi_step_9__writing_claude_settings() {
+    __zdi_step_90__writing_claude_settings() {
         local claude_dir live frag_dir frag tool
         local frags=()
         claude_dir="$(normalize_dir "$HOME" .claude)"
@@ -278,6 +278,17 @@ run_dotfile_steps() {
         flog_success "Merged ${#frags[@]} fragment(s) into ${live}"
     }
 
+    # Defining a step function is registering it: declare -fF lists them in
+    # lexicographic order, which is why the NN prefix is zero-padded with gaps
+    # of 10, the same convention as lib/common/*.sh and lib/vim/common/*.vim.
+    # Two digits sort the way they read where one does not -- a step 9 followed
+    # by a step 10 would run the 10th first, ahead of the path check that
+    # refuses to install from the wrong directory -- and the gaps leave room to
+    # insert a step without renumbering its neighbours.
+    #
+    # Everything after the second __ is the label, underscores shown as spaces.
+    # The counter is the step's position, never its prefix, so renumbering is
+    # invisible in the output.
     local __zdi_installers=($(IFS=$'\n' declare -fF | grep -Eo '\b__zdi_step_.+__.*$'))
 
     local installer
