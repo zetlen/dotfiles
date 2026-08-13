@@ -1,0 +1,19 @@
+# Tools for the "fat" editor (nvim). Kept in their own conf.d file so the whole
+# IDE layer can be dropped by deleting one symlink -- plain vim never needs any
+# of this.
+[tools]
+neovim = "latest"
+
+# Language servers. nvim 0.12 configures these natively (vim.lsp.config), so
+# there is no Mason-style in-editor installer to keep in sync: mise owns the
+# binaries, the editor only points at them.
+"npm:typescript-language-server" = "latest"
+"npm:vscode-langservers-extracted" = "latest" # jsonls, eslint, html, css
+"npm:yaml-language-server" = "latest"
+lua-language-server = "latest"
+"go:golang.org/x/tools/gopls" = "latest" # bare `gopls` is not in the registry
+ruff = "latest"
+
+# ACP bridge: exposes Claude Code as an Agent Client Protocol agent so
+# codecompanion.nvim can drive the real CLI (same auth, MCP servers, skills).
+"npm:@agentclientprotocol/claude-agent-acp" = "latest"

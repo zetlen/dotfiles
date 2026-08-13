@@ -168,7 +168,8 @@ run_dotfile_steps() {
         fi
     }
 
-    __zdi_step_8__setting_up_vim() {
+    __zdi_step_8__setting_up_editors() {
+        # Plain vim: lightweight, vim-plug.
         if [ ! -e ~/.vim/autoload/plug.vim ]; then
             TO_DOWNLOAD="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
             flog_warn "Missing vim plugins."
@@ -178,6 +179,19 @@ run_dotfile_steps() {
         fi
         flog_success "Vim and vim-plug are installed."
         flog_confirm "Launch vim and update plugins?" && mise x -- vim +PlugUpgrade +PlugUpdate +qall
+
+        # neovim: the heavier IDE. Both editors read lib/vim/common/, so there
+        # is nothing to keep in sync here -- only plugins differ.
+        if i_dont_have nvim; then
+            flog_warn "neovim not installed. It comes from mise (conf.d/30-editor.toml);"
+            flog_warn "re-run the tool versions step, or 'mise install', to get it."
+            return 0
+        fi
+        flog_success "neovim $(nvim --version | head -1 | cut -d' ' -f2) is installed."
+        # vim.pack installs anything missing on first start; this also pulls
+        # updates for what is already on disk.
+        flog_confirm "Sync neovim plugins?" &&
+            nvim --headless -c 'lua vim.pack.update(nil, { force = true })' -c 'qa!'
     }
 
     local __zdi_installers=($(IFS=$'\n' declare -fF | grep -Eo '\b__zdi_step_.+__.*$'))
