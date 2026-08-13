@@ -30,12 +30,12 @@ if porcelain=$(git -C "$cwd" --no-optional-locks status --porcelain=v2 --branch 
         $1 == "?" { u++; next }
         /^[12u]/  { if (substr($2, 1, 1) != ".") s++; if (substr($2, 2, 1) != ".") m++ }
         END { gsub(/[()]/, "", branch); print branch, u + 0, m + 0, s + 0 }' <<<"$porcelain")
-    git_info="${MAGENTA}$branch${RESET}"
+    git_info="${MAGENTA} $branch${RESET}"
     [ "$untracked" -ne 0 ] && git_info="$git_info ${YELLOW}$untracked${RESET}"
     [ "$modified" -ne 0 ] && git_info="$git_info ${RED}$modified${RESET}"
     [ "$staged" -ne 0 ] && git_info="$git_info ${GREEN}$staged${RESET}"
 else
-    git_info="${GRAY}(no git)${RESET}"
+    git_info="${RESET}"
 fi
 
 status="${CYAN}$cwd${RESET}$git_info${sep}${BLUE}$model${RESET}"
