@@ -88,17 +88,6 @@ if [ -z "${__DOTFILES_PROFILE_LOADED:-}" ]; then
 
     __dotfiles_setup_path
 
-    if [ -z "${BASH_ENV:-}" ]; then
-        if [ -r "$HOME/.bash_env" ]; then
-            BASH_ENV="$HOME/.bash_env"
-        elif [ -r "$DOTFILE_PATH/skel/.bash_env" ]; then
-            BASH_ENV="$DOTFILE_PATH/skel/.bash_env"
-        else
-            BASH_ENV="$HOME/.bash_env"
-        fi
-        export BASH_ENV
-    fi
-
     # Machine-local POSIX overrides (sensitive env exports, etc.). Kept out of
     # the repo like .zshrc.local, but sourced here so the exports reach every
     # shell -- interactive or not, zsh or bash -- and inherit into children.

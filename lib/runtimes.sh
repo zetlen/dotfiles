@@ -4,10 +4,10 @@ setup_runtimes() {
     _dotfiles_mise_bin="${HOME}/.local/bin/mise"
     [ -x "$_dotfiles_mise_bin" ] || return 0
 
-    # Exported so it survives into non-interactive child shells. BASH_ENV
-    # makes every command substitution source this file; without the export
-    # the guard above always reads empty in children and re-runs activation,
-    # which recurses into a fork bomb.
+    # Exported so it survives into non-interactive child shells. .zshenv
+    # sources this file in every zsh, command substitutions included; without
+    # the export the guard above always reads empty in children and re-runs
+    # activation, which recurses into a fork bomb.
     export __DOTFILES_RUNTIMES_LOADED=1
 
     if [ -n "${ZSH_VERSION:-}" ]; then
