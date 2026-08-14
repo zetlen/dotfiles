@@ -2,34 +2,21 @@ __TO_INSTALL=(
     vim
     coreutils
     ffmpeg
-    figlet
-    kaleidoscope
-    openjdk
     openssl
     pinentry
     pinentry-mac
     readline
-    tcl-tk
     unzip
     xz
     zlib
-    iterm2
-    font-monaspace-nf
-    font-m+-nerd-font
+    font-iosevka-term-slab-nerd-font
     gpg-suite
-    istat-menus
 )
 
 __pkg_is_installed() {
     case "$1" in
     "gnupg")
         i_have_gpg
-        ;;
-    "kaleidoscope")
-        i_have ksdiff || [ -d "/Applications/Kaleidoscope.app" ]
-        ;;
-    "amethyst")
-        [ -d "/Applications/Amethyst.app" ]
         ;;
     *) brew list "$1" &>/dev/null ;;
     esac
