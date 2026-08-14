@@ -212,7 +212,7 @@ gray = '#738888'
 # left of everything below. Its colour escapes are copies of [palettes.z] above
 # -- change a colour there and it needs the same edit.
 [profiles]
-claude-code = "$claude_model$git_branch$git_status$claude_context$claude_cost"
+claude-code = "$directory$git_branch$git_status | $claude_model$claude_context$claude_cost"
 
 [claude_model]
 symbol = '  '
@@ -221,8 +221,7 @@ style = "bold orange"
 [claude_cost]
 # Default is "[$symbol(\\$$cost)]($style) " -- the escaped \$ is a literal
 # dollar sign in front of $cost, which already renders as a bare 2dp number.
-format = "[$symbol($cost)]($style) "
-symbol = ''
+symbol = ''
 
 
 [claude_context]

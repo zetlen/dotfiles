@@ -49,11 +49,12 @@ if [ -n "$vim_letter" ]; then
     printf -v prefix '\033[38;2;%sm%s\033[0m \033[38;2;%sm|\033[0m ' \
         "$vim_rgb" "$vim_letter" "$gray"
 fi
+suffix=''
 if [ -n "$effort" ]; then
-    printf -v prefix '%s\033[38;2;%sm%s\033[0m ' "$prefix" "$pink" "$effort"
+    printf -v suffix '\033[38;2;%sm%s\033[0m ' "$pink" "$effort"
 fi
 
 # starship leads with a newline -- root `add_newline`, on by default and wanted
 # in the shell prompt -- which would strand the prefix on a line of its own.
 line="$(starship statusline claude-code <<<"$payload")"
-printf '%s%s\n' "$prefix" "${line#$'\n'}"
+printf '%s%s%s\n' "$prefix" "${line#$'\n'}" "$suffix"
