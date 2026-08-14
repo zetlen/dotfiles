@@ -201,6 +201,59 @@ gold = '#dfad00'
 purple = '#9400b6'
 cyan = '#00B2B1'
 darkgreen = '#006A20'
+orange = '#DA7756'
 yellow = '#d7d72b'
 pink = '#e85587'
 gray = '#738888'
+
+# The statusline carries two more things than this profile renders: vim mode and
+# reasoning effort, neither of which starship has a module for. ~/.claude/
+# statusline.sh pulls those from the payload and prepends them, so they appear
+# left of everything below. Its colour escapes are copies of [palettes.z] above
+# -- change a colour there and it needs the same edit.
+[profiles]
+claude-code = "$claude_model$git_branch$git_status$claude_context$claude_cost"
+
+[claude_model]
+symbol = '  '
+style = "bold orange"
+
+[claude_cost]
+# Default is "[$symbol(\\$$cost)]($style) " -- the escaped \$ is a literal
+# dollar sign in front of $cost, which already renders as a bare 2dp number.
+format = "[$symbol($cost)]($style) "
+symbol = ''
+
+
+[claude_context]
+# Default is "[$gauge $percentage]($style) ". Dropping $gauge drops the
+# consumption bar; $percentage carries its own % sign. gauge_width and the
+# gauge_*_symbol settings become inert once $gauge is gone.
+format = "[$percentage]($style) "
+
+# Both claude modules ship a hidden bottom tier (context <30%, cost <$1), so a
+# fresh session shows neither. `display` is an array, which starship replaces
+# wholesale rather than merging, so tier 0 has to be restated to unhide it.
+[[claude_context.display]]
+threshold = 0
+style = 'green'
+
+[[claude_context.display]]
+threshold = 60
+style = 'gold'
+
+[[claude_context.display]]
+threshold = 80
+style = 'bold red'
+
+[[claude_cost.display]]
+threshold = 0
+style = 'gray'
+
+[[claude_cost.display]]
+threshold = 1
+style = 'gold'
+
+[[claude_cost.display]]
+threshold = 5
+style = 'bold red'
