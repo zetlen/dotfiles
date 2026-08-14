@@ -1,10 +1,10 @@
 {
   "enabledPlugins": {
-    "browser-use@claude-plugins-official": true,
+    "browser-use@claude-plugins-official": false,
     "claude-code-setup@claude-plugins-official": false,
     "commit-commands@claude-plugins-official": true,
     "context7@claude-plugins-official": true,
-    "playwright@claude-plugins-official": true,
+    "playwright@claude-plugins-official": false,
     "security-guidance@claude-plugins-official": true,
     "skill-creator@claude-plugins-official": true
   }
