@@ -106,12 +106,7 @@ in_repo() {
 }
 
 herd() {
-    if [ -z "$HERDR_WORKSPACE_ID" ]; then
-        ssh -o RequestTTY=force $1 -- "zsh -lc 'mise x -- herdr'"
-    else
-        echo "Already inside herdr on $(hostname -s)." >&2
-        return 1
-    fi
+    herdr --remote $1
 }
 
 into() {
