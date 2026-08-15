@@ -17,6 +17,15 @@
 # Receives the statusline JSON payload on stdin, and has to pass it along
 # intact -- hence buffering it rather than piping straight through.
 
+humanize_time() {
+    total_secs=$1
+    days=$((total_secs / 86400))
+    [ "$days" -gt 0 ] && echo "${days}d" && return
+    hours=$((total_secs / 3600))
+    [ "$hours" -gt 0 ] && echo "${hours}h" && return
+    echo "$((total_secs / 60))m"
+}
+
 payload="$(cat)"
 
 # One jq call, one output line per field, read back in the same order. To add a
@@ -24,7 +33,11 @@ payload="$(cat)"
 {
     read -r vim_mode
     read -r effort
-} < <(jq -r '(.vim.mode // ""), (.effort.level // "")' <<<"$payload" 2>/dev/null)
+    read -r seven_day_used
+    read -r seven_day_reset
+} < <(jq -r '(.vim.mode // ""), (.effort.level // "" | ascii_upcase), (.rate_limits.seven_day.used_percentage // 0), (.rate_limits.seven_day.resets_at // "")' <<<"$payload" 2>/dev/null)
+
+
 
 # Colours are [palettes.z] from ~/.config/starship.toml as 24-bit escapes, so
 # the prefix matches the starship-rendered rest of the line instead of sitting a
@@ -51,7 +64,13 @@ if [ -n "$vim_letter" ]; then
 fi
 suffix=''
 if [ -n "$effort" ]; then
-    printf -v suffix '\033[38;2;%sm%s\033[0m ' "$pink" "$effort"
+    printf -v suffix '\033[38;2;%sm%s\033[0m ' "$pink" "󰧑 ${effort:0:1}"
+fi
+
+if [ -n "$seven_day_used" ]; then
+    __now="$(date +%s)"
+    __resets_in="$(humanize_time $((seven_day_reset - __now)))"
+    printf -v suffix '%s %s%%  %s' "$suffix" "$seven_day_used" "$__resets_in"
 fi
 
 # starship leads with a newline -- root `add_newline`, on by default and wanted

@@ -108,9 +108,9 @@ ahead = "[$count⇡](cyan) "
 behind = "[$count⇣](bold red) "
 
 [custom.git_remote_indicator]
-when = true
+when = "git rev-parse --abbrev-ref @{u}"
 require_repo = true
-command = "git rev-parse --abbrev-ref @{u} 2>&1 > /dev/null && git remote show -n"
+command = "gIt remote show -n"
 symbol = " "
 style = "darkred"
 
@@ -220,7 +220,7 @@ gray = '#738888'
 # left of everything below. Its colour escapes are copies of [palettes.z] above
 # -- change a colour there and it needs the same edit.
 [profiles]
-claude-code = "$directory$git_branch${custom.git_remote_indicator}$git_status | $claude_model$claude_context$claude_cost"
+claude-code = "$directory($git_branch${custom.git_remote_indicator}$git_status)| $claude_model$claude_context$claude_cost"
 
 [claude_model]
 symbol = '  '
