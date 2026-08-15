@@ -26,6 +26,36 @@ humanize_time() {
     echo "$((total_secs / 60))m"
 }
 
+# Linearly interpolates two "r;g;b" strings at $3/100 (integer 0-100).
+lerp_rgb() {
+    local -a from=(${1//;/ }) to=(${2//;/ })
+    local pct=$3 i
+    local -a out=()
+    for i in 0 1 2; do
+        out[i]=$(( from[i] + (to[i] - from[i]) * pct / 100 ))
+    done
+    local IFS=';'
+    echo "${out[*]}"
+}
+
+# Weekly-usage percent as an "r;g;b" string, walking green -> gold -> red the
+# way [[claude_context.display]] steps through starship.toml's context-window
+# gauge (same three palette colours below) -- but as one continuous ramp
+# rather than three hard-edged tiers, since starship's threshold styling has
+# no equivalent here and this has to pick a colour by hand. Green at 0%, gold
+# at 50%, red at 100%, each half lerped separately so the midpoint lands
+# exactly on gold instead of a muddy green/red blend.
+usage_rgb() {
+    local pct=${1%%.*}
+    ((pct < 0)) && pct=0
+    ((pct > 100)) && pct=100
+    if ((pct <= 50)); then
+        lerp_rgb "$usage_green" "$usage_gold" $((pct * 2))
+    else
+        lerp_rgb "$usage_gold" "$usage_red" $(((pct - 50) * 2))
+    fi
+}
+
 payload="$(cat)"
 
 # One jq call, one output line per field, read back in the same order. To add a
@@ -45,6 +75,13 @@ payload="$(cat)"
 # palette cannot be read from outside starship.
 gray='115;136;136' # #738888
 pink='232;85;135'  # #e85587
+
+# Also [palettes.z] -- and also the exact colours [[claude_context.display]]
+# steps through for the context-window gauge -- reused here as gradient stops
+# so the weekly-usage bar reads as the same visual language.
+usage_green='0;170;48'  # #00AA30
+usage_gold='223;173;0'  # #dfad00
+usage_red='204;36;29'   # #cc241d
 
 # NORMAL/INSERT/VISUAL/VISUAL LINE are the complete documented set; the fallback
 # shows anything Claude adds later rather than dropping it silently.
@@ -70,7 +107,9 @@ fi
 if [ -n "$seven_day_used" ]; then
     __now="$(date +%s)"
     __resets_in="$(humanize_time $((seven_day_reset - __now)))"
-    printf -v suffix '%s %s%%  %s' "$suffix" "$seven_day_used" "$__resets_in"
+    __usage_rgb="$(usage_rgb "$seven_day_used")"
+    printf -v suffix '%s\033[38;2;%sm %s%%\033[0m  %s' \
+        "$suffix" "$__usage_rgb" "$seven_day_used" "$__resets_in"
 fi
 
 # starship leads with a newline -- root `add_newline`, on by default and wanted
