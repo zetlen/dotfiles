@@ -58,6 +58,9 @@ usage_rgb() {
 
 payload="$(cat)"
 
+# Uncomment if you ever want to examine the JSON fed to the status line directly.
+# echo "$payload" >> ~/.claudestatuslinetstuff.json
+
 # One jq call, one output line per field, read back in the same order. To add a
 # field: append a jq expression below and a matching `read` above it.
 {
@@ -108,7 +111,7 @@ if [ -n "$seven_day_used" ]; then
     __now="$(date +%s)"
     __resets_in="$(humanize_time $((seven_day_reset - __now)))"
     __usage_rgb="$(usage_rgb "$seven_day_used")"
-    printf -v suffix '%s\033[38;2;%sm %s%%\033[0m  %s' \
+    printf -v suffix '%s\033[38;2;%sm %.0f%%\033[0m  %s' \
         "$suffix" "$__usage_rgb" "$seven_day_used" "$__resets_in"
 fi
 
