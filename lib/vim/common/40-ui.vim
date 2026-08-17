@@ -3,7 +3,24 @@
 set encoding=utf-8     " show unicode chars
 set noshowmode         " statusline handles mode display
 set number             " show line numbers
-" set relativenumber     " relative to current line
+set relativenumber     " relative to current line, except in insert mode (see below)
+
+" Relative numbers are great for jump/motion commands in normal mode, but
+" useless (and distracting) while typing in insert mode, so switch to
+" absolute numbering for the duration of insert mode only.
+function! s:ToggleRelativeNumber(insert) abort
+  if a:insert
+    set norelativenumber
+  else
+    set relativenumber
+  endif
+endfunction
+
+augroup relnumber_insert_toggle
+  autocmd!
+  autocmd InsertEnter * call s:ToggleRelativeNumber(v:true)
+  autocmd InsertLeave * call s:ToggleRelativeNumber(v:false)
+augroup END
 set wildmenu           " command autocomplete view
 set lazyredraw         " supposedly for performance, revisit this
 set showmatch          " show matching brackets
