@@ -21,22 +21,8 @@ vim.diagnostic.config({
   float = { border = 'rounded', source = true },
 })
 
--- Completion without a completion engine: neovim's built-in LSP completion
--- with autotrigger. Keeps the popup on stock <c-n>/<c-p>/<c-y> ins-completion
--- keys instead of teaching my fingers a plugin's bindings, and it has no
--- compiled dependency to fail on a headless box. Swap in blink.cmp here if the
--- fuzzy matching ever isn't enough.
-vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('z_lsp_attach', { clear = true }),
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client and client:supports_method('textDocument/completion') then
-      vim.lsp.completion.enable(true, args.data.client_id, args.buf, {
-        autotrigger = true,
-      })
-    end
-  end,
-})
+-- Completion (autotrigger, popup keys, the <c-space> prober) lives in
+-- z/completion.lua.
 
 -- neovim 0.11 already ships the LSP keymaps I'd otherwise write by hand:
 --   K hover, grn rename, gra code action, grr references, gri implementation,

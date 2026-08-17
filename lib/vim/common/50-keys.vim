@@ -22,6 +22,14 @@ set lbr
 " highlight last inserted text
 nnoremap gV `[v`]
 
+" Completion popup: <tab>/<s-tab> walk the menu and <cr> accepts the
+" highlighted match, whatever opened it (LSP autotrigger in nvim, <c-x>
+" completions anywhere). With no popup open all three keep their ordinary
+" meanings -- summoning completion is a separate key (see z/completion.lua).
+inoremap <expr> <tab>   pumvisible() ? "\<c-n>" : "\<tab>"
+inoremap <expr> <s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+inoremap <expr> <cr>    pumvisible() ? "\<c-y>" : "\<cr>"
+
 " make regexes very magic all the time
 " thus enabling modern regex features
 nnoremap / /\v

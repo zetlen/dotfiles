@@ -8,8 +8,14 @@
 
 set laststatus=2
 
+" The two editors are configured to feel identical, which makes them easy to
+" confuse, so the leftmost glyph names the engine: nf-dev-vim or
+" nf-linux-neovim (nerd font required). The one has() conditional in the
+" shared config -- telling the engines apart is the entire point of it.
+let s:editor = has('nvim') ? "\uf36f" : "\ue7c5"
+
 let &statusline =
-      \   '%2*%{mode(1)}%1*'
+      \   '%2*' . s:editor . ' %{mode(1)}%1*'
       \ . ' »%='
       \ . '%m%h%r'
       \ . ' %3*%1*'

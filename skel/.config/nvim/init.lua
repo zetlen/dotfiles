@@ -36,4 +36,5 @@ end
 
 require('z.plugins')
 require('z.lsp')
+require('z.completion')
 require('z.claudecode')
