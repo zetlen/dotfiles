@@ -20,10 +20,12 @@
 humanize_time() {
     total_secs=$1
     days=$((total_secs / 86400))
-    [ "$days" -gt 0 ] && echo "${days}d" && return
-    hours=$((total_secs / 3600))
-    [ "$hours" -gt 0 ] && echo "${hours}h" && return
-    echo "$((total_secs / 60))m"
+    hours=$(((total_secs % 86400) / 3600))
+    final_str=""
+    [ "$days" -gt 0 ] && final_str="${days}d"
+    [ "$hours" -gt 0 ] && final_str="${final_str}${hours}h"
+    [ "$days" -eq 0 ] && final_str="${final_str}$(((total_secs % 3600) / 60))m"
+    printf "%s" "$final_str"
 }
 
 # Linearly interpolates two "r;g;b" strings at $3/100 (integer 0-100).
