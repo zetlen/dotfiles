@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "marketplaces": [
+    {
+      "name": "claude-plugins-official",
+      "sourceType": "github",
+      "sourceUri": "anthropics/claude-plugins-official",
+      "catalogPath": "/Users/zetlen/.omp/plugins/cache/marketplaces/claude-plugins-official/marketplace.json",
+      "addedAt": "2026-08-27T18:51:23.175Z",
+      "updatedAt": "2026-08-28T21:32:57.813Z"
+    },
+    {
+      "name": "commitwright",
+      "sourceType": "github",
+      "sourceUri": "pjsny/omp-commitwright",
+      "catalogPath": "/Users/zetlen/.omp/plugins/cache/marketplaces/commitwright/marketplace.json",
+      "addedAt": "2026-08-27T19:03:01.851Z",
+      "updatedAt": "2026-08-28T21:32:58.279Z"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+providers:
+  webSearchOrder:
+    []
+  memoryModel: online
+modelRoles:
+  {}
+symbolPreset: nerd
+composer:
+  shape: box
+theme:
+  dark: titanium
+  light: light
+setupVersion: 2
+defaultThinkingLevel: auto
+display:
+  shimmer: classic
+  cacheMissMarker: true
+tui:
+  tight: false
+  resizeScrollback: rebuild
+terminal:
+  showProgress: true
+task:
+  showResolvedModelBadge: true
+  enableEffort: true
+  maxEffort: high
+  isolation:
+    mode: auto
+statusLine:
+  preset: default
+  separator: powerline-thin
+  transparent: true
+personality: pragmatic
+prewalk:
+  enabled: true
+spelling:
+  typoDetection: false
+  autocomplete: false
+  autocorrect: false
+stt:
+  enabled: false
+startup:
+  quiet: true
+power:
+  sleepPrevention: idle
+features:
+  unexpectedStopDetection: smart
+extendedContext: false
+memory:
+  backend: local
+astGrep:
+  enabled: true
+github:
+  enabled: true
+secrets:
+  enabled: true
+dev:
+  autoqaConsent: granted
