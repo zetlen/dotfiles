@@ -109,14 +109,6 @@ herd() {
     herdr --remote $1
 }
 
-into() {
-    if [ -z "$ZELLIJ" ]; then
-        ssh -o RequestTTY=force $1 -- "zsh -lc 'mise x -- zellij attach -c $(hostname -s)'"
-    else
-        ssh -o RequestTTY=force $1
-    fi
-}
-
 glmd() {
     glow -w $(tput cols) $@
 }
