@@ -35,6 +35,7 @@ if vim.fn.has('nvim-0.12') == 0 then
 end
 
 require('z.plugins')
+require('z.whichkey')
 require('z.lsp')
 require('z.completion')
 require('z.claudecode')

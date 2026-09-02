@@ -23,6 +23,7 @@ vim.pack.add({
   -- The IDE layer.
   gh('b0o/schemastore.nvim'),       -- JSON/YAML schemas from SchemaStore.org
   gh('coder/claudecode.nvim'),      -- Claude Code IDE protocol (z/claudecode.lua)
+  gh('folke/which-key.nvim'),       -- keymap popup on <leader> etc. (z/whichkey.lua)
 }, {
   -- Don't block a fresh headless box on an interactive install prompt.
   confirm = false,
