@@ -110,16 +110,17 @@ run_dotfile_steps() {
                 xargs git config --global user.signingkey
         fi
         git config --global include.path "${GITCONFIG_BASEDIR}/common.gitconfig" 'common.gitconfig'
-        for TOOL_GITCONFIG in $(find lib/gitconfig -type f -name 'tool.*.gitconfig' -execdir basename {} \;); do
-            echo "${TOOL_GITCONFIG}"
-            TOOL_NAME="${TOOL_GITCONFIG#tool.}"
-            TOOL_NAME="${TOOL_NAME%.gitconfig}"
-
-            if command -v "$TOOL_NAME" &>/dev/null; then
-                flog_success "${__flog_color_green}${TOOL_NAME}${__flog_color_normal} is available, adding its include to .gitconfig"
-                git config --global include.path "${GITCONFIG_BASEDIR}/${TOOL_GITCONFIG}" "$TOOL_GITCONFIG"
+        for GIT_TOOL in $(find "${GITCONFIG_BASEDIR}/tools/" -mindepth 1 -maxdepth 1 -type d -execdir basename {} \;); do
+            GIT_TOOL_DIR="${GITCONFIG_BASEDIR}/tools/${GIT_TOOL}"
+            GIT_TOOL_CONFIG="${GIT_TOOL_DIR}/.gitconfig"
+            if command -v "$GIT_TOOL" &>/dev/null; then
+                flog_success "${__flog_color_green}${GIT_TOOL}${__flog_color_normal} is available, enabling it in .gitconfig"
+                # --fixed-value: match the existing include literally rather than as a regex on the tool name
+                [ -f "$GIT_TOOL_CONFIG" ] && git config --global --fixed-value include.path "$GIT_TOOL_CONFIG" "$GIT_TOOL_CONFIG"
+                [ -x "${GIT_TOOL_DIR}/install.sh" ] && "${GIT_TOOL_DIR}/install.sh"
             else
-                git config --unset --global include.path "${GITCONFIG_BASEDIR}/${TOOL_GITCONFIG}"
+                [ -f "$GIT_TOOL_CONFIG" ] && git config --global --fixed-value --unset include.path "$GIT_TOOL_CONFIG"
+                [ -x "${GIT_TOOL_DIR}/uninstall.sh" ] && "${GIT_TOOL_DIR}/uninstall.sh"
             fi
         done
         flog_success "Built .gitconfig"
