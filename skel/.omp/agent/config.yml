@@ -25,14 +25,12 @@ task:
   enableEffort: true
   maxEffort: high
   isolation:
-    mode: auto
+    enabled: true
 statusLine:
   preset: default
   separator: powerline-thin
   transparent: true
 personality: pragmatic
-prewalk:
-  enabled: true
 spelling:
   typoDetection: false
   autocomplete: false
@@ -56,3 +54,5 @@ secrets:
   enabled: true
 dev:
   autoqaConsent: granted
+isolation:
+  backend: auto
