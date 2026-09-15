@@ -39,7 +39,7 @@ zsh-update-all() {
 
     _z_update__6_vim_plugins() {
         i_have vim && vim +PlugUpgrade +PlugUpdate +qall
-        i_have nvim && nvim --headless -c 'lua vim.pack.upgrade()' +qa
+        i_have nvim && nvim --headless -c 'lua vim.pack.update(nil, { force = true })' -c 'qa!'
     }
 
     if [[ "$1" == "-y" ]]; then
