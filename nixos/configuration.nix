@@ -69,5 +69,8 @@
     ];
   };
 
+  # The qcow2 is sparse, so this sets the ceiling, not the file size.
+  image.modules.qemu-efi.virtualisation.diskSize = 32768;
+
   system.stateVersion = "26.05";
 }

@@ -47,5 +47,10 @@
       # (nixvm.qcow2 in the current directory).
       packages.x86_64-linux.default = self.nixosConfigurations.nixvm.config.system.build.vm;
       packages.aarch64-linux.default = self.nixosConfigurations.nixvm-aarch64.config.system.build.vm;
+
+      # A bootable UEFI qcow2 for hosts without Nix: any QEMU with OVMF
+      # firmware, virt-manager, or Proxmox can run it.
+      packages.x86_64-linux.image = self.nixosConfigurations.nixvm.config.system.build.images.qemu-efi;
+      packages.aarch64-linux.image = self.nixosConfigurations.nixvm-aarch64.config.system.build.images.qemu-efi;
     };
 }
