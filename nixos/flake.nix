@@ -19,7 +19,7 @@
       dotfiles = ../.;
 
       mkHost =
-        system:
+        system: extraModules:
         nixpkgs.lib.nixosSystem {
           specialArgs = { inherit dotfiles; };
           modules = [
@@ -34,13 +34,16 @@
                 users.zetlen = ./home.nix;
               };
             }
-          ];
+          ]
+          ++ extraModules;
         };
     in
     {
       nixosConfigurations = {
-        nixvm = mkHost "x86_64-linux";
-        nixvm-aarch64 = mkHost "aarch64-linux";
+        nixvm = mkHost "x86_64-linux" [ ];
+        nixvm-aarch64 = mkHost "aarch64-linux" [ ];
+        # x86_64 only: Google ships no aarch64 Linux Chrome.
+        nixvm-desktop = mkHost "x86_64-linux" [ ./desktop.nix ];
       };
 
       # `nix run ./nixos` boots the config in QEMU with a throwaway disk image
@@ -52,5 +55,8 @@
       # firmware, virt-manager, or Proxmox can run it.
       packages.x86_64-linux.image = self.nixosConfigurations.nixvm.config.system.build.images.qemu-efi;
       packages.aarch64-linux.image = self.nixosConfigurations.nixvm-aarch64.config.system.build.images.qemu-efi;
+
+      packages.x86_64-linux.desktop = self.nixosConfigurations.nixvm-desktop.config.system.build.vm;
+      packages.x86_64-linux.desktop-image = self.nixosConfigurations.nixvm-desktop.config.system.build.images.qemu-efi;
     };
 }

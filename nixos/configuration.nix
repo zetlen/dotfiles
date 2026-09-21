@@ -3,6 +3,11 @@
   imports = [ ./hardware-configuration.nix ];
 
   networking.hostName = "nixvm";
+
+  # Login prompt and kernel messages on the serial port too, so the image
+  # works under `qemu-system-x86_64 -nographic`. The last console= is where
+  # boot messages go.
+  boot.kernelParams = [ "console=tty0" "console=ttyS0,115200n8" ];
   time.timeZone = "America/Chicago";
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -10,7 +15,12 @@
     experimental-features = [ "nix-command" "flakes" ];
     trusted-users = [ "root" "@wheel" ];
   };
-  nixpkgs.config.allowUnfreePredicate = pkg: lib.getName pkg == "claude-code";
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    lib.elem (lib.getName pkg) [
+      "claude-code"
+      "google-chrome" # desktop.nix
+    ];
 
   users.users.zetlen = {
     isNormalUser = true;
