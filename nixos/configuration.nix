@@ -67,6 +67,7 @@
     git
     vim
     wget
+    nerd-fonts.iosevka-term-slab
   ];
 
   virtualisation.vmVariant.virtualisation = {

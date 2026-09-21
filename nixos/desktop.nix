@@ -75,6 +75,32 @@
 
   home-manager.users.zetlen = ./home-desktop.nix;
 
+  # On its home network the host gives the VM a NIC with this MAC and routes
+  # 192.168.1.250 to it (proxy ARP; see run-desktop.sh on the host), making
+  # the VM a LAN host of its own. Every other NIC -- the user-mode NAT one
+  # the host always attaches, `nix run` -- gets DHCP from networkd's default,
+  # whose routes have a higher metric, so the LAN wins when both are there.
+  networking.useNetworkd = true;
+  systemd.network.networks."10-lan" = {
+    matchConfig.MACAddress = "52:54:00:6e:78:01";
+    address = [ "192.168.1.250/24" ];
+    gateway = [ "192.168.1.1" ];
+    dns = [ "192.168.1.1" ];
+  };
+  systemd.network.wait-online.anyInterface = true;
+
+  # The host hands its Bluetooth controller to the VM as a USB device. The
+  # controller is an Intel part that wants its firmware from linux-firmware.
+  hardware.bluetooth.enable = true;
+  hardware.enableRedistributableFirmware = true;
+  services.blueman.enable = true;
+
+  # The host also passes any YubiKey through. SSH here goes through gpg-agent
+  # (see .zshrc), so what matters is the key's OpenPGP applet: this lets
+  # gpg's scdaemon open the CCID interface without root or pcscd. FIDO needs
+  # nothing; systemd's own rules cover it.
+  hardware.gpgSmartcards.enable = true;
+
   # Hibernate writes RAM to swap and powers off, so QEMU exits and the next
   # boot picks the session back up. The image has no swap partition; the host
   # attaches a second disk carrying a swap area labelled "swap" (a raw file
