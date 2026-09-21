@@ -67,7 +67,8 @@ in
     };
 
   # 40 writing gitconfig. Written to the XDG location so ~/.gitconfig stays
-  # free for tools that write to it, like `gh auth setup-git`. The include
+  # free for tools that write to it, like `gh auth setup-git` and
+  # `tea login helper setup` (see gitconfigWritable below). The include
   # list is what the installer would enable given the packages below;
   # libsecret, meld and ksdiff have no tool here. gpgsign comes after the
   # includes to override tools/gpg: the secret key isn't on this machine.
@@ -86,6 +87,14 @@ in
     	gpgsign = false
   '';
   xdg.configFile."git/attributes".source = mergirafAttributes;
+
+  # `git config --global` writes to ~/.gitconfig only if it exists; failing
+  # that, it picks the XDG file above, which is a read-only store link. An
+  # empty ~/.gitconfig gives those writes a home. Git reads it after the XDG
+  # file, so what tools put there wins.
+  home.activation.gitconfigWritable = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    [ -e "$HOME/.gitconfig" ] || run touch "$HOME/.gitconfig"
+  '';
 
   # 90 writing claude settings
   home.activation.claudeSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
