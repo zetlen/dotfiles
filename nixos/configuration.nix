@@ -19,7 +19,13 @@
     pkg:
     lib.elem (lib.getName pkg) [
       "claude-code"
-      "google-chrome" # desktop.nix
+      # desktop.nix
+      "bluebubbles"
+      "objectbox-linux" # a bluebubbles dependency
+      "discord"
+      "discord-unwrapped"
+      "google-chrome"
+      "slack"
     ];
 
   users.users.zetlen = {

@@ -81,6 +81,14 @@
     waybar
     wl-clipboard
     xdg-utils
+
+    # Apps
+    bluebubbles
+    discord
+    signal-desktop
+    slack
+    thunderbird
+    vlc
   ];
 
   home-manager.users.zetlen = ./home-desktop.nix;
