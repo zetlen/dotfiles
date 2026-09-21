@@ -65,6 +65,8 @@
   environment.systemPackages = with pkgs; [
     curl
     git
+    pciutils # lspci
+    usbutils # lsusb
     vim
     wget
   ];
