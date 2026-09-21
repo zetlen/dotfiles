@@ -1,10 +1,12 @@
 { config, lib, pkgs, ... }:
 let
+  uiFont = "Atkinson Hyperlegible Next";
   swayCfg = config.wayland.windowManager.sway.config;
 
   # The cheat sheet behind Super+/: every Sway binding, generated from the
   # binding table itself so it cannot go stale. fuzzel shows it; typing
-  # filters, Enter runs the chosen command. The binding names the script by
+  # filters, Enter runs the chosen command. The columns are padded with
+  # spaces, so this one fuzzel stays monospace. The binding names the script by
   # its ~/.config path: a store path there would make the table depend on
   # itself.
   keyColumn = 24;
@@ -25,7 +27,7 @@ let
     )
   );
   swayKeys = pkgs.writeShellScript "sway-keys" ''
-    choice=$(fuzzel --dmenu --prompt 'keys> ' --width 80 --lines 24 < ${cheatSheet}) || exit 0
+    choice=$(fuzzel --dmenu --font monospace:size=11 --prompt 'keys> ' --width 80 --lines 24 < ${cheatSheet}) || exit 0
     swaymsg -- "''${choice:${toString keyColumn}}"
   '';
 
@@ -67,6 +69,8 @@ in
       modifier = "Mod4";
       terminal = "ghostty";
       menu = "fuzzel";
+      # Titlebars; Sway's own default is "monospace 8".
+      fonts = { names = [ uiFont ]; size = 10.0; };
       input."type:keyboard".xkb_options = "caps:escape";
       # The host's touchpad scrolls in small steps and QEMU makes a whole
       # wheel click of each one, hence the factor.
@@ -87,13 +91,38 @@ in
 
   xdg.configFile."sway/sway-keys".source = swayKeys;
 
+  # fuzzel and mako both default to "monospace". Plain config files rather
+  # than programs.fuzzel and services.mako: desktop.nix already installs
+  # both, and Sway starts mako itself.
+  xdg.configFile."fuzzel/fuzzel.ini".text = ''
+    [main]
+    font=${uiFont}:size=12
+  '';
+  xdg.configFile."mako/config".text = ''
+    font=${uiFont} 10
+  '';
+
+  # GTK apps outside GNOME read this from dconf; the default, Cantarell, is
+  # not installed.
+  gtk = {
+    enable = true;
+    font = { name = uiFont; size = 10; };
+  };
+
   # Waybar's stock config has a power button whose menu file
   # (~/.config/waybar/power_menu.xml) ships nowhere, so clicking it kills the
   # bar. This config carries its own menu, and drops the laptop modules
   # (battery, backlight, ...) that mean nothing in a VM. The stock style.css
-  # still applies. Sway starts the bar (bars above), not systemd.
+  # still applies, with the font swapped for one that is installed. Sway
+  # starts the bar (bars above), not systemd.
   programs.waybar = {
     enable = true;
+    style = ''
+      @import url("${pkgs.waybar}/etc/xdg/waybar/style.css");
+      * {
+        font-family: "${uiFont}", sans-serif;
+      }
+    '';
     settings.mainBar = {
       height = 30;
       spacing = 4;

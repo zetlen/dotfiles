@@ -63,12 +63,21 @@
   # not. skel/.config/ghostty/config asks for "Iosevka Term Slab", which is
   # the family name of this build and not of the Nerd Font one
   # ("IosevkaTermSlab Nerd Font"). Ghostty draws Nerd Font symbols itself.
+  # Atkinson Hyperlegible Next is the UI font; home-desktop.nix hands it to
+  # Sway, fuzzel, mako, Waybar and GTK one by one, since several of those
+  # default to "monospace" rather than to the sans-serif alias.
   fonts.packages = with pkgs; [
     (iosevka-bin.override { variant = "SGr-IosevkaTermSlab"; })
+    atkinson-hyperlegible-next
     noto-fonts
     noto-fonts-color-emoji
     nerd-fonts.jetbrains-mono # starship and eza icons
   ];
+  fonts.fontconfig.defaultFonts = {
+    sansSerif = [ "Atkinson Hyperlegible Next" ];
+    monospace = [ "Iosevka Term Slab" ];
+    emoji = [ "Noto Color Emoji" ];
+  };
 
   environment.systemPackages = with pkgs; [
     fuzzel
