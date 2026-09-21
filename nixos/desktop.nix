@@ -75,12 +75,30 @@
 
   home-manager.users.zetlen = ./home-desktop.nix;
 
-  # `nix run .#desktop` opens a window, using the host GPU through virgl.
-  virtualisation.vmVariant.virtualisation = {
-    graphics = lib.mkForce true;
-    qemu.options = [
-      "-device virtio-vga-gl"
-      "-display gtk,gl=on"
-    ];
+  # Hibernate writes RAM to swap and powers off, so QEMU exits and the next
+  # boot picks the session back up. The image has no swap partition; the host
+  # attaches a second disk carrying a swap area labelled "swap" (a raw file
+  # made with `mkswap -L swap`, at least the size of the VM's RAM). Without
+  # that disk the VM still boots, after a pause looking for it.
+  swapDevices = [
+    {
+      device = "/dev/disk/by-label/swap";
+      options = [ "nofail" ];
+    }
+  ];
+  boot.resumeDevice = "/dev/disk/by-label/swap";
+
+  # `nix run .#desktop` opens a window, using the host GPU through virgl. Its
+  # disk is thrown away, so it has nothing to hibernate to.
+  virtualisation.vmVariant = {
+    swapDevices = lib.mkForce [ ];
+    boot.resumeDevice = lib.mkForce "";
+    virtualisation = {
+      graphics = lib.mkForce true;
+      qemu.options = [
+        "-device virtio-vga-gl"
+        "-display gtk,gl=on"
+      ];
+    };
   };
 }
