@@ -59,7 +59,12 @@
   services.xserver.xkb.options = "caps:escape";
   console.useXkbConfig = true;
 
+  # Fonts have to be listed here to reach fontconfig; systemPackages does
+  # not. skel/.config/ghostty/config asks for "Iosevka Term Slab", which is
+  # the family name of this build and not of the Nerd Font one
+  # ("IosevkaTermSlab Nerd Font"). Ghostty draws Nerd Font symbols itself.
   fonts.packages = with pkgs; [
+    (iosevka-bin.override { variant = "SGr-IosevkaTermSlab"; })
     noto-fonts
     noto-fonts-color-emoji
     nerd-fonts.jetbrains-mono # starship and eza icons

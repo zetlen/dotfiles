@@ -68,6 +68,12 @@ in
       terminal = "ghostty";
       menu = "fuzzel";
       input."type:keyboard".xkb_options = "caps:escape";
+      # The host's touchpad scrolls in small steps and QEMU makes a whole
+      # wheel click of each one, hence the factor.
+      input."type:pointer" = {
+        natural_scroll = "enabled";
+        scroll_factor = "0.25";
+      };
       keybindings = lib.mkOptionDefault {
         "${swayCfg.modifier}+slash" = "exec ~/.config/sway/sway-keys";
       };
