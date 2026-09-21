@@ -86,7 +86,7 @@
   home-manager.users.zetlen = ./home-desktop.nix;
 
   # On its home network the host gives the VM a NIC with this MAC and routes
-  # 192.168.1.250 to it (proxy ARP; see run-desktop.sh on the host), making
+  # 192.168.1.250 to it (proxy ARP; see desktop-host.nix), making
   # the VM a LAN host of its own. Every other NIC -- the user-mode NAT one
   # the host always attaches, `nix run` -- gets DHCP from networkd's default,
   # whose routes have a higher metric, so the LAN wins when both are there.

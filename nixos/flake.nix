@@ -58,5 +58,14 @@
 
       packages.x86_64-linux.desktop = self.nixosConfigurations.nixvm-desktop.config.system.build.vm;
       packages.x86_64-linux.desktop-image = self.nixosConfigurations.nixvm-desktop.config.system.build.images.qemu-efi;
+
+      # The other half of desktop-image, for the machine that runs it: a QEMU
+      # launcher and a login session that shows only the VM.
+      packages.x86_64-linux.desktop-host = import ./desktop-host.nix {
+        inherit (self.nixosConfigurations.nixvm-desktop) pkgs;
+        inherit (nixpkgs) lib;
+        guest = self.nixosConfigurations.nixvm-desktop.config;
+        homeConnection = "wallace";
+      };
     };
 }
