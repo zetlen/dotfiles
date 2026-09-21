@@ -1,5 +1,34 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
+  swayCfg = config.wayland.windowManager.sway.config;
+
+  # The cheat sheet behind Super+/: every Sway binding, generated from the
+  # binding table itself so it cannot go stale. fuzzel shows it; typing
+  # filters, Enter runs the chosen command. The binding names the script by
+  # its ~/.config path: a store path there would make the table depend on
+  # itself.
+  keyColumn = 24;
+  sheetLines =
+    prefix: bindings:
+    lib.mapAttrsToList (
+      key: command:
+      let
+        name = prefix + builtins.replaceStrings [ "Mod4" "Mod1" ] [ "Super" "Alt" ] key;
+        pad = lib.strings.replicate (lib.max 1 (keyColumn - builtins.stringLength name)) " ";
+      in
+      "${name}${pad}${command}"
+    ) (lib.filterAttrs (_: command: command != null) bindings);
+  cheatSheet = pkgs.writeText "sway-keys.txt" (
+    lib.concatLines (
+      sheetLines "" swayCfg.keybindings
+      ++ lib.concatLists (lib.mapAttrsToList (mode: sheetLines "[${mode}] ") swayCfg.modes)
+    )
+  );
+  swayKeys = pkgs.writeShellScript "sway-keys" ''
+    choice=$(fuzzel --dmenu --prompt 'keys> ' --width 80 --lines 24 < ${cheatSheet}) || exit 0
+    swaymsg -- "''${choice:${toString keyColumn}}"
+  '';
+
   powerMenu = pkgs.writeText "waybar-power-menu.xml" ''
     <?xml version="1.0" encoding="UTF-8"?>
     <interface>
@@ -7,11 +36,6 @@ let
         <child>
           <object class="GtkMenuItem" id="logout">
             <property name="label">Log out</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkMenuItem" id="hibernate">
-            <property name="label">Hibernate</property>
           </object>
         </child>
         <child>
@@ -43,6 +67,10 @@ in
       modifier = "Mod4";
       terminal = "ghostty";
       menu = "fuzzel";
+      input."type:keyboard".xkb_options = "caps:escape";
+      keybindings = lib.mkOptionDefault {
+        "${swayCfg.modifier}+slash" = "exec ~/.config/sway/sway-keys";
+      };
       bars = [ { command = "waybar"; } ];
       startup = [
         { command = "mako"; }
@@ -50,6 +78,8 @@ in
       ];
     };
   };
+
+  xdg.configFile."sway/sway-keys".source = swayKeys;
 
   # Waybar's stock config has a power button whose menu file
   # (~/.config/waybar/power_menu.xml) ships nowhere, so clicking it kills the
@@ -81,11 +111,11 @@ in
         tooltip = false;
         menu = "on-click";
         menu-file = "${powerMenu}";
-        # Hibernate and Shut down both end QEMU; Log out and Reboot keep it.
-        # There is no Suspend: to pause the VM, suspend the host.
+        # Shut down ends QEMU; Log out and Reboot keep it. No Suspend or
+        # Hibernate: a resumed guest finds its virgl GPU state gone and
+        # wedges. To pause the VM, suspend the host.
         menu-actions = {
           logout = "swaymsg exit";
-          hibernate = "systemctl hibernate";
           reboot = "systemctl reboot";
           shutdown = "systemctl poweroff";
         };
