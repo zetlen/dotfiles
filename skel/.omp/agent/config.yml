@@ -1,12 +1,10 @@
-providers:
-  webSearchOrder:
-    []
-  memoryModel: online
 modelRoles:
-  {}
+  default: kimi-code/k3
+  advisor: anthropic/claude-fable-5:medium
+  task: openrouter/auto
 symbolPreset: nerd
 composer:
-  shape: box
+  shape: rule
 theme:
   dark: titanium
   light: light
@@ -18,6 +16,8 @@ display:
 tui:
   tight: false
   resizeScrollback: rebuild
+  vimMode: true
+  vimModeDisplay: icon
 terminal:
   showProgress: true
 task:
@@ -27,13 +27,13 @@ task:
   isolation:
     enabled: true
 statusLine:
-  preset: default
+  preset: nerd
   separator: powerline-thin
   transparent: true
 personality: pragmatic
 spelling:
   typoDetection: false
-  autocomplete: false
+  autocomplete: "off"
   autocorrect: false
 stt:
   enabled: false
@@ -56,3 +56,13 @@ dev:
   autoqaConsent: granted
 isolation:
   backend: auto
+contextPromotion:
+  enabled: true
+autolearn:
+  enabled: true
+bashInterceptor:
+  enabled: true
+commands:
+  enableClaudeUser: true
+providers:
+  kimiApiFormat: auto
