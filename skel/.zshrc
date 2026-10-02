@@ -82,12 +82,6 @@ function _gpg-agent_update-tty_preexec {
 autoload -U add-zsh-hook
 add-zsh-hook preexec _gpg-agent_update-tty_preexec
 
-# fix ssh agent integration
-unset SSH_AGENT_PID
-if [[ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]]; then
-	export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-fi
-
 [ ! -f ~/.zshrc.local ] || . ~/.zshrc.local
 
 test -e "${ZDOTDIR}/.iterm2_shell_integration.zsh" && source "${ZDOTDIR}/.iterm2_shell_integration.zsh"
