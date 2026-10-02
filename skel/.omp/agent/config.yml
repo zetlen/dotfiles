@@ -1,7 +1,9 @@
 modelRoles:
-  default: kimi-code/k3
-  advisor: anthropic/claude-fable-5:medium
-  task: openrouter/auto
+  default: anthropic/claude-opus-5-5
+  smol: anthropic/claude-sonnet-5-5
+  slow: anthropic/claude-fable-5:high
+  tiny: anthropic/claude-haiku-4-5
+  task: anthropic/claude-sonnet-5-5
 symbolPreset: nerd
 composer:
   shape: rule
@@ -66,3 +68,39 @@ commands:
   enableClaudeUser: true
 providers:
   kimiApiFormat: auto
+cycleOrder:
+  - smol
+  - default
+  - slow
+  - advisor
+hideThinkingBlock: false
+proseOnlyThinking: false
+retry:
+  usageAwareFallback: true
+steeringMode: one-at-a-time
+interruptMode: immediate
+error:
+  notify: "on"
+tools:
+  approvalMode: yolo
+autoResume: false
+compaction:
+  experimentalContextManagement: true
+edit:
+  mode: hashline
+modelPresets:
+  claude:
+    modelRoles:
+      task: anthropic/claude-sonnet-5-5
+      default: anthropic/claude-opus-5-5
+      smol: anthropic/claude-sonnet-5-5
+      slow: anthropic/claude-fable-5:high
+      tiny: anthropic/claude-haiku-4-5
+    defaultThinkingLevel: auto
+  kimi:
+    modelRoles:
+      default: kimi-code/kimi-for-coding
+      smol: kimi-code/kimi-k2.5
+      slow: kimi-code/k3:high
+      tiny: kimi-code/kimi-k2
+    defaultThinkingLevel: auto
