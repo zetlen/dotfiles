@@ -98,6 +98,7 @@ alias rr='rsync -avhzP' # don't skip that
 
 alias m="mise"
 alias mr="mise run "
+alias mub="mise up --bump"
 
 alias g=git
 
