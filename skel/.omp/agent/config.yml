@@ -46,6 +46,8 @@ power:
 features:
   unexpectedStopDetection: smart
 extendedContext: false
+advisor:
+  reviewMode: agent-end
 memory:
   backend: local
 astGrep:
@@ -69,14 +71,26 @@ commands:
 providers:
   kimiApiFormat: auto
 cycleOrder:
-  - smol
   - default
   - slow
   - advisor
+  - smol
 hideThinkingBlock: false
 proseOnlyThinking: false
 retry:
   usageAwareFallback: true
+  fallbackChains:
+    default:
+      - opencode-zen/big-pickle
+    # Kimi quota walls hop to the same-tier Claude; reverts when the window resets.
+    kimi-code/kimi-for-coding:
+      - anthropic/claude-opus-5-5
+    kimi-code/kimi-for-coding-highspeed:
+      - anthropic/claude-sonnet-5-5
+    kimi-code/k3:
+      - anthropic/claude-fable-5
+    kimi-code/kimi-k2-turbo-preview:
+      - anthropic/claude-haiku-4-5
 steeringMode: one-at-a-time
 interruptMode: immediate
 error:
@@ -103,4 +117,32 @@ modelPresets:
       smol: kimi-code/kimi-k2.5
       slow: kimi-code/k3:high
       tiny: kimi-code/kimi-k2
+    defaultThinkingLevel: auto
+  openrouter-auto:
+    modelRoles:
+      default: openrouter/auto
+      judge: opencode-zen/jev-1.13-free
+      image: openrouter/meta/muse-image
+    defaultThinkingLevel: auto
+  # Claude carries all volume; Kimi only on demand (@slow) as a
+  # cross-family second opinion, since its 5h window is tight.
+  claude-kimi:
+    modelRoles:
+      default: anthropic/claude-opus-5-5
+      task: anthropic/claude-sonnet-5-5
+      smol: anthropic/claude-sonnet-5-5
+      tiny: anthropic/claude-haiku-4-5
+      slow: kimi-code/k3:high
+      advisor: anthropic/claude-fable-5:high
+    defaultThinkingLevel: auto
+  # Kimi first everywhere; the kimi-code/* fallbackChains catch it when the
+  # 5h window runs dry. Advisor stays on Claude so it never drains Kimi.
+  kimi-claude:
+    modelRoles:
+      default: kimi-code/kimi-for-coding
+      task: kimi-code/kimi-for-coding-highspeed
+      smol: kimi-code/kimi-for-coding-highspeed
+      tiny: kimi-code/kimi-k2-turbo-preview
+      slow: kimi-code/k3:high
+      advisor: anthropic/claude-fable-5:high
     defaultThinkingLevel: auto
