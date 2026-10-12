@@ -1,9 +1,10 @@
 modelRoles:
-  default: anthropic/claude-opus-5-5
-  smol: anthropic/claude-sonnet-5-5
-  slow: anthropic/claude-fable-5:high
-  tiny: anthropic/claude-haiku-4-5
-  task: anthropic/claude-sonnet-5-5
+  default: kimi-code/kimi-for-coding
+  smol: kimi-code/kimi-for-coding-highspeed
+  slow: kimi-code/k3:high
+  tiny: kimi-code/kimi-k2-turbo-preview
+  task: kimi-code/kimi-for-coding-highspeed
+  advisor: anthropic/claude-fable-5:high
 symbolPreset: nerd
 composer:
   shape: rule
@@ -82,7 +83,6 @@ retry:
   fallbackChains:
     default:
       - opencode-zen/big-pickle
-    # Kimi quota walls hop to the same-tier Claude; reverts when the window resets.
     kimi-code/kimi-for-coding:
       - anthropic/claude-opus-5-5
     kimi-code/kimi-for-coding-highspeed:
@@ -124,8 +124,6 @@ modelPresets:
       judge: opencode-zen/jev-1.13-free
       image: openrouter/meta/muse-image
     defaultThinkingLevel: auto
-  # Claude carries all volume; Kimi only on demand (@slow) as a
-  # cross-family second opinion, since its 5h window is tight.
   claude-kimi:
     modelRoles:
       default: anthropic/claude-opus-5-5
@@ -135,8 +133,6 @@ modelPresets:
       slow: kimi-code/k3:high
       advisor: anthropic/claude-fable-5:high
     defaultThinkingLevel: auto
-  # Kimi first everywhere; the kimi-code/* fallbackChains catch it when the
-  # 5h window runs dry. Advisor stays on Claude so it never drains Kimi.
   kimi-claude:
     modelRoles:
       default: kimi-code/kimi-for-coding
