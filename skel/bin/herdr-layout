@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+# Zellij-style layout helpers for herdr, called from [[keys.command]] bindings.
+#   flip   restack every pane in the active tab as one row, or one column if
+#          already a row
+#   float  attach to the floating terminal (run as a popup)
+#   embed  move the floating terminal into the active tab, or float the
+#          active pane if there is no floating terminal
+# The floating terminal is the first pane of a workspace labeled "float".
+set -eu
+
+h() { "${HERDR_BIN_PATH:-herdr}" "$@"; }
+FLOAT=float
+
+float_ws() {
+  h workspace list | jq -r --arg l "$FLOAT" '[.result.workspaces[] | select(.label == $l)][0].workspace_id // empty'
+}
+
+float_pane() {
+  h pane list --workspace "$1" | jq -r '.result.panes[0] | .[$f]' --arg f "$2"
+}
+
+case "${1:-}" in
+  flip)
+    ws=$HERDR_ACTIVE_WORKSPACE_ID tab=$HERDR_ACTIVE_TAB_ID
+    layout=$(h pane layout --pane "$HERDR_ACTIVE_PANE_ID" | jq '.result.layout.panes | sort_by(.rect.y, .rect.x)')
+    IFS=$'\n' read -r -d '' -a panes < <(jq -r '.[].pane_id' <<<"$layout") || true
+    n=${#panes[@]}
+    ((n > 1)) || exit 0
+    dir=right
+    [[ $(jq '[.[].rect.y] | unique | length' <<<"$layout") == 1 ]] && dir=down
+    # herdr refuses same-tab moves, so park panes in a holding tab and bring
+    # them back one by one; the holding tab closes once it is empty.
+    hold=$(h pane move "${panes[1]}" --new-tab --workspace "$ws" --no-focus | jq -r .result.move_result.pane.tab_id)
+    for p in "${panes[@]:2}"; do
+      h pane move "$p" --tab "$hold" --split right --no-focus >/dev/null
+    done
+    for ((i = 1; i < n; i++)); do
+      ratio=$(jq -n "1 / ($n - $i + 1)")
+      h pane move "${panes[i]}" --tab "$tab" --target-pane "${panes[i - 1]}" --split "$dir" --ratio "$ratio" --no-focus >/dev/null
+    done
+    ;;
+  float)
+    ws=$(float_ws)
+    [[ -n $ws ]] || ws=$(h workspace create --label "$FLOAT" --cwd "${HERDR_ACTIVE_PANE_CWD:-$HOME}" --no-focus | jq -r .result.workspace.workspace_id)
+    exec "${HERDR_BIN_PATH:-herdr}" terminal attach "$(float_pane "$ws" terminal_id)" --takeover
+    ;;
+  embed)
+    ws=$(float_ws)
+    if [[ -n $ws ]]; then
+      h pane move "$(float_pane "$ws" pane_id)" --tab "$HERDR_ACTIVE_TAB_ID" --target-pane "$HERDR_ACTIVE_PANE_ID" --split right --focus >/dev/null
+    else
+      h pane move "$HERDR_ACTIVE_PANE_ID" --new-workspace --label "$FLOAT" --no-focus >/dev/null
+    fi
+    ;;
+  *)
+    echo "usage: herdr-layout flip|float|embed" >&2
+    exit 2
+    ;;
+esac

@@ -348,3 +348,48 @@ key = "prefix+`"
 type = "plugin_action"
 command = "hud.open"
 description = "show heads up display"
+
+# Zellij-style pane moves, layout flip and floating terminal (skel/bin/herdr-layout)
+[[keys.command]]
+key = "prefix+shift+h"
+type = "shell"
+command = "\"$HERDR_BIN_PATH\" pane swap --pane \"$HERDR_ACTIVE_PANE_ID\" --direction left"
+description = "Move pane left"
+
+[[keys.command]]
+key = "prefix+shift+j"
+type = "shell"
+command = "\"$HERDR_BIN_PATH\" pane swap --pane \"$HERDR_ACTIVE_PANE_ID\" --direction down"
+description = "Move pane down"
+
+[[keys.command]]
+key = "prefix+shift+k"
+type = "shell"
+command = "\"$HERDR_BIN_PATH\" pane swap --pane \"$HERDR_ACTIVE_PANE_ID\" --direction up"
+description = "Move pane up"
+
+[[keys.command]]
+key = "prefix+shift+l"
+type = "shell"
+command = "\"$HERDR_BIN_PATH\" pane swap --pane \"$HERDR_ACTIVE_PANE_ID\" --direction right"
+description = "Move pane right"
+
+[[keys.command]]
+key = "prefix+space"
+type = "shell"
+command = "\"$HOME/bin/herdr-layout\" flip"
+description = "Flip layout: row <-> column"
+
+[[keys.command]]
+key = "prefix+f"
+type = "popup"
+command = "\"$HOME/bin/herdr-layout\" float"
+description = "Floating terminal (ctrl+b q hides)"
+width = "80%"
+height = "80%"
+
+[[keys.command]]
+key = "prefix+shift+f"
+type = "shell"
+command = "\"$HOME/bin/herdr-layout\" embed"
+description = "Embed floating terminal / float active pane"
