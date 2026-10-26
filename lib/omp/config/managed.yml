@@ -59,8 +59,15 @@ autolearn:
   enabled: true
 bashInterceptor:
   enabled: true
-commands:
-  enableClaudeUser: true
+# Load ~/.claude (skills, commands) without the heavy MCP servers Claude Code
+# carries there. Do not add claude-plugins to disabledProviders: omp's own
+# marketplace plugins load through that provider too.
+enabledProviders:
+  - claude
+disabledExtensions:
+  - mcp:chrome-devtools
+  - mcp:context7:context7
+  - mcp:allsvgicons:allsvgicons
 providers:
   kimiApiFormat: auto
 cycleOrder:
