@@ -14,7 +14,7 @@ not here.
 ## Facts
 
 - Version: `<file and field that holds the version literal>`. Below 1.0.0, no backwards compatibility (CODE#Compatibility.1). Preserved contracts: <none | serialized format X, published URLs under /s/>.
-- Forge: <GitHub `owner/repo` with `gh` | Gitea at `<host>` with the Gitea MCP tools>. <A GitHub remote is a read-only mirror.>
+- Forge: <GitHub `owner/repo` with `gh` | Gitea at `<host>` with the `tea` CLI>. <A GitHub remote is a read-only mirror.>
 - Integration: <pull request required, squash-merged | direct push to `main` allowed>. Branch protection: <verified commits | none>.
 - Merge gate: `<command>` must pass <before every commit | before every push>. It runs <what: format, typecheck, lint, tests>.
 - Hooks: <lefthook, installed by `<command>` | none>.
