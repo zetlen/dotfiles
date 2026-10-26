@@ -237,8 +237,8 @@ run_dotfile_steps() {
         live="$(normalize_dir "$claude_dir" settings.json)"
         frag_dir="$(normalize_dir "$DOTFILE_PATH" lib/claude/settings)"
 
-        if i_dont_have jq; then
-            flog_error "jq is not installed, so settings fragments cannot be merged."
+        if i_dont_have yq; then
+            flog_error "yq is not installed, so settings fragments cannot be merged."
             return 1
         fi
 
@@ -273,8 +273,45 @@ run_dotfile_steps() {
             return 1
         fi
 
-        merge_json_fragments "$live" "${frags[@]}" || return 1
+        merge_fragments "$live" "${frags[@]}" || return 1
         flog_success "Merged ${#frags[@]} fragment(s) into ${live}"
+    }
+
+    # ~/.omp/agent/config.yml gets the same treatment as Claude's settings,
+    # for the same reason: omp rewrites it in place, so a symlink into the repo
+    # makes every runtime model switch an outstanding git change.
+    #   defaults.yml  seeded only where the host has no value yet (modelRoles:
+    #                 /model rewrites it, and the host's choice should stick)
+    #   managed.yml   everything else; wins over the live file on every run
+    # setupVersion is left to omp. ~/.omp/agent/AGENTS.md is a plain symlink
+    # from skel, since omp never writes it.
+    __zdi_step_95__writing_omp_settings() {
+        local live frag_dir
+        live="$(normalize_dir "$HOME" .omp/agent/config.yml)"
+        frag_dir="$(normalize_dir "$DOTFILE_PATH" lib/omp/config)"
+
+        if i_dont_have yq; then
+            flog_error "yq is not installed, so omp settings cannot be merged."
+            return 1
+        fi
+
+        mkdir -p "$(dirname "$live")"
+        # Older installs symlinked this file into skel/, where it no longer
+        # exists. Keep whatever the link still resolves to as the live state.
+        if [ -L "$live" ]; then
+            if [ -e "$live" ]; then
+                cp -L "$live" "${live}.tmp" && mv "${live}.tmp" "$live"
+            else
+                rm "$live"
+            fi
+            flog_log "Replaced the old symlink at $live with a real file"
+        elif [ -s "$live" ]; then
+            cp "$live" "${live}.bak"
+            flog_log "Backed up existing settings to ${live}.bak"
+        fi
+
+        merge_fragments "$live" "${frag_dir}/defaults.yml" "$live" "${frag_dir}/managed.yml" || return 1
+        flog_success "Merged omp settings into ${live}"
     }
 
     # Defining a step function is registering it: declare -fF lists them in

@@ -21,35 +21,45 @@ link_or_warn() {
     fi
 }
 
-# merge_json_fragments <live_file> <fragment>...
+# merge_fragments <live_file> <fragment>...
 #
-# Deep-merges fragments over a live, app-owned JSON file, in argument order.
-# Used for ~/.claude/settings.json, which can be neither symlinked nor
-# `include`d: Claude Code rewrites it in place and its schema has no include
-# directive, so the repo owns fragments and the installer merges them.
+# Deep-merges fragments over a live, app-owned JSON or YAML file, in argument
+# order; the live file's extension picks the output format. Used where a file
+# can be neither symlinked nor `include`d because the app rewrites it in place
+# and its schema has no include directive: ~/.claude/settings.json (/config,
+# /model, /plugin) and ~/.omp/agent/config.yml (a runtime model switch saves
+# modelRoles). The repo owns fragments and the installer merges them.
 #
-# jq's `*` merges objects RECURSIVELY but replaces arrays WHOLESALE, and both
+# The live file itself may appear among the arguments; anything before it is
+# a default that only seeds keys the host lacks. Not listed, it goes first.
+#
+# yq's `*` merges objects RECURSIVELY but replaces arrays WHOLESALE, and both
 # halves are load-bearing: enabledPlugins is an object, so pinning a few
 # plugins leaves the host's other choices alone, while permissions.ask is an
 # array the repo therefore owns outright. A key no fragment declares is left
 # exactly as the app wrote it.
 #
-# Writes through a temp file so a jq failure leaves the live file intact.
-merge_json_fragments() {
-    local live="$1"
+# Writes through a temp file so a yq failure leaves the live file intact.
+merge_fragments() {
+    local live="$1" out=yaml f
     shift
     if [ "$#" -eq 0 ]; then
-        flog_error "merge_json_fragments: no fragments given for $live"
+        flog_error "merge_fragments: no fragments given for $live"
         return 1
     fi
     if [ ! -s "$live" ]; then
         echo '{}' >"$live" || return 1
     fi
-    if jq -s 'reduce .[] as $frag ({}; . * $frag)' "$live" "$@" >"${live}.tmp"; then
+    for f in "$@"; do
+        [ "$f" = "$live" ] && break
+    done
+    [ "$f" = "$live" ] || set -- "$live" "$@"
+    [ "${live##*.}" = json ] && out=json
+    if yq eval-all -o "$out" '. as $f ireduce ({}; . * $f)' "$@" >"${live}.tmp"; then
         mv "${live}.tmp" "$live"
     else
         rm -f "${live}.tmp"
-        flog_error "jq failed to merge fragments; $live left untouched."
+        flog_error "yq failed to merge fragments; $live left untouched."
         return 1
     fi
 }
@@ -60,7 +70,7 @@ sync_links_from_dir() {
     local files=()
     while IFS= read -r f; do
         files+=("${f#./}")
-    done < <(cd "$src_dir" && find . -type f)
+    done < <(cd "$src_dir" && find . -type f -o -type l)
     for f in "${files[@]}"; do
         src_path="$(normalize_dir "$src_dir" "$f")"
         tgt_path="$(normalize_dir "$HOME" "$f")"

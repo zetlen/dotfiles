@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Unit tests for merge_json_fragments, the helper that keeps
-# ~/.claude/settings.json in sync with lib/claude/settings/*.json.
+# Unit tests for merge_fragments, the helper that keeps ~/.claude/settings.json
+# and ~/.omp/agent/config.yml in sync with their fragments under lib/.
 #
 # The merge semantics are subtle and a regression is silent and destructive:
 # get object-vs-array wrong and an install run quietly wipes whichever of the
@@ -20,7 +20,8 @@ export DOTFILE_PATH
 fail=0
 n=0
 
-# check <name> <live_json> <jq_filter> <expected> [fragment_json...]
+# check <name> <live_json> <jq_filter> <expected> [fragment_json|LIVE...]
+# LIVE places the live file itself in the merge order.
 check() {
     local name="$1" live_json="$2" filter="$3" expected="$4"
     shift 4
@@ -29,11 +30,15 @@ check() {
     live="$work/live.$n.json"
     printf '%s' "$live_json" >"$live"
     for frag_json in "$@"; do
+        if [ "$frag_json" = LIVE ]; then
+            frags+=("$live")
+            continue
+        fi
         i=$((i + 1))
         printf '%s' "$frag_json" >"$work/frag.$n.$i.json"
         frags+=("$work/frag.$n.$i.json")
     done
-    if ! merge_json_fragments "$live" "${frags[@]}" >/dev/null 2>&1; then
+    if ! merge_fragments "$live" "${frags[@]}" >/dev/null 2>&1; then
         printf 'FAIL %s (merge returned nonzero)\n' "$name"
         fail=1
         return
@@ -92,6 +97,14 @@ check "skipped tool fragment contributes nothing" \
     '.extraKnownMarketplaces // "absent"' '"absent"' \
     '{"enabledPlugins":{"core@official":true}}'
 
+# A fragment ahead of the live file only seeds: the host's runtime model choice
+# must survive, while a key the host lacks is filled and managed keys still win.
+check "default before live only seeds missing keys" \
+    '{"modelRoles":{"default":"host-pick"},"vim":false}' \
+    '{d:.modelRoles.default,a:.modelRoles.advisor,v:.vim}' \
+    '{"d":"host-pick","a":"seeded","v":true}' \
+    '{"modelRoles":{"default":"repo-pick","advisor":"seeded"}}' LIVE '{"vim":true}'
+
 # An empty or missing live file is the fresh-host case.
 check "empty live file is seeded" \
     '' '.attribution.commit' '""' '{"attribution":{"commit":""}}'
@@ -101,7 +114,7 @@ n=$((n + 1))
 live="$work/bad.json"
 printf '{"keep":"me"}' >"$live"
 printf 'this is not json' >"$work/bad-frag.json"
-if merge_json_fragments "$live" "$work/bad-frag.json" >/dev/null 2>&1; then
+if merge_fragments "$live" "$work/bad-frag.json" >/dev/null 2>&1; then
     printf 'FAIL malformed fragment should fail loudly\n'
     fail=1
 elif [ "$(jq -c '.keep' "$live" 2>/dev/null)" = '"me"' ]; then

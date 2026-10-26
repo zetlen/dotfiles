@@ -1,0 +1,7 @@
+modelRoles:
+  default: kimi-code/kimi-for-coding
+  smol: kimi-code/kimi-for-coding-highspeed
+  slow: kimi-code/k3:high
+  tiny: kimi-code/kimi-k2-turbo-preview
+  task: kimi-code/kimi-for-coding-highspeed
+  advisor: anthropic/claude-fable-5:high
