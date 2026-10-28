@@ -18,6 +18,13 @@ end
 -- Shared preferences first, so <leader> exists before anything builds mappings.
 vim.cmd('source ' .. vim.fn.fnameescape(dotfiles .. '/lib/vim/common.vim'))
 
+-- vim and nvim share one swap directory so that opening a file the other
+-- editor has open raises the swapfile prompt. nvim's default SwapExists
+-- handler answers that prompt itself whenever the swapfile's owner is a live
+-- process of the same user, so it must go for the prompt to appear. The group
+-- is absent on nvim versions that predate the handler.
+pcall(vim.api.nvim_del_augroup_by_name, 'nvim.swapfile')
+
 -- The IDE layer needs 0.12 (vim.pack) and 0.11 (native vim.lsp.config). This
 -- config is symlinked onto every machine, but the neovim that mise builds is
 -- opt-in, so an older distro nvim can end up reading it. Keep the shared
