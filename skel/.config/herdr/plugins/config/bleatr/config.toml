@@ -1,0 +1,52 @@
+# Herdr Bleatr configuration.
+# `herdr plugin action invoke bleatr.setup` copies this file to the directory
+# printed by `herdr plugin config-dir bleatr` as config.toml.
+# Every key is optional; the values shown are the defaults unless noted.
+# Any key can also be set with an env var: BLEATR_VOICE, BLEATR_BELL, and so on.
+
+# Voice for `say`. Empty uses the system voice. List voices with `say -v '?'`.
+voice = "Voice 2"
+
+# Sound to play before speaking: false, a macOS system sound name such as
+# "Glass" (looked up in ~/Library/Sounds and /System/Library/Sounds), or a
+# file path. Herdr plays its own sounds too; see [ui.sound] in config.toml.
+bell = "Crystal"
+
+# Which small model writes the sentence.
+#   "claude"  runs `claude -p --model haiku` (Claude Code) with extended
+#             thinking off; about 3 seconds and half a cent per notification
+#   "codex"   runs `codex exec --model gpt-5.1-codex-mini` (Codex CLI)
+#   "none"    skips the model and speaks a plain template sentence
+summary_model = "claude"
+
+# Override the preset's model id, for example "claude-haiku-4-5".
+model_id = ""
+
+# Agent statuses that are spoken. `done` is what Herdr reports when an agent
+# in an unseen tab finishes; `blocked` means it is waiting for approval or an
+# answer. `idle` and `unknown` are also accepted but noisy.
+notify_on = ["done", "blocked"]
+
+# Ignore a repeat of the same pane and status inside this many seconds.
+cooldown_seconds = 8
+
+# Word budget given to the model for the spoken sentence.
+max_words = 25
+
+# Lines of recent terminal output sent to the model as the agent's last message.
+transcript_lines = 60
+
+# Give up on the model after this long and speak the template sentence.
+summary_timeout_seconds = 25
+
+# --- Advanced ---------------------------------------------------------------
+
+# Run this instead of `say`. Runs under `sh -c` with the sentence in
+# $BLEATR_MESSAGE. `voice` is ignored when set.
+# say_command = 'curl -s -d "text=$BLEATR_MESSAGE" -d "voice_url=eve" http://joe.in.the-z-machine.com:8000/tts | ffplay -loglevel quiet -nodisp -vn -autoexit -'
+
+# Run this instead of the summary_model preset. Runs under `sh -c` with the
+# prompt path in $BLEATR_PROMPT_FILE and the prompt text on stdin; it must
+# print the sentence on stdout. `summary_model` and `model_id` are ignored
+# when set.
+# summarize_command = 'gemini -m gemini-2.5-flash < "$BLEATR_PROMPT_FILE"'

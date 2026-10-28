@@ -314,6 +314,46 @@ run_dotfile_steps() {
         flog_success "Merged omp settings into ${live}"
     }
 
+    # Herdr records installed plugins in ~/.config/herdr/plugins.json, which
+    # holds absolute paths and is rewritten by every install, so it cannot be
+    # linked. lib/herdr/plugins lists the sources instead, and this installs
+    # each one the host lacks or has at a different ref. Deleting a line does
+    # not uninstall the plugin. Plugin config files are linked from skel.
+    __zdi_step_97__installing_herdr_plugins() {
+        local list installed src
+        local args=()
+        list="$(normalize_dir "$DOTFILE_PATH" lib/herdr/plugins)"
+
+        if i_dont_have herdr; then
+            flog_warn "herdr is not installed, skipping its plugins."
+            return 0
+        fi
+
+        installed="$(herdr plugin list --json | jq -r '.result.plugins[].source
+            | select(.kind == "github")
+            | "\(.owner)/\(.repo)" + (if .requested_ref then "@\(.requested_ref)" else "" end)')" || {
+            flog_error "Could not read the installed herdr plugins."
+            return 1
+        }
+
+        while read -r src; do
+            [[ -z "$src" || "$src" == \#* ]] && continue
+            if grep -qxF "$src" <<<"$installed"; then
+                flog_success "$src is installed"
+                continue
+            fi
+            args=("${src%@*}")
+            [[ "$src" == *@* ]] && args+=(--ref "${src#*@}")
+            # stdin is the list file; install must not read it. mise x puts
+            # build toolchains such as go on PATH.
+            if mise x -- herdr plugin install --yes "${args[@]}" </dev/null; then
+                flog_success "Installed herdr plugin $src"
+            else
+                flog_error "Could not install herdr plugin $src"
+            fi
+        done <"$list"
+    }
+
     # Defining a step function is registering it: declare -fF lists them in
     # lexicographic order, which is why the NN prefix is zero-padded with gaps
     # of 10, the same convention as lib/common/*.sh and lib/vim/common/*.vim.

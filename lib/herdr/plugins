@@ -1,0 +1,5 @@
+# Herdr plugins installed by install_dotfiles.sh, one owner/repo[@ref] per line.
+# A line without @ref follows the repository's default branch.
+kryptamine/herdr-auto-title@v0.16.0
+zetlen/herdr-bleatr
+devashish2203/herdr-worktrunk
