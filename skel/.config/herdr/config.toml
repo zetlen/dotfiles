@@ -353,31 +353,9 @@ type = "plugin_action"
 command = "hud.open"
 description = "show heads up display"
 
-# Zellij-style pane moves, layout flip and floating terminal (skel/bin/herdr-layout)
-[[keys.command]]
-key = "prefix+shift+h"
-type = "shell"
-command = "\"$HERDR_BIN_PATH\" pane swap --pane \"$HERDR_ACTIVE_PANE_ID\" --direction left"
-description = "Move pane left"
-
-[[keys.command]]
-key = "prefix+shift+j"
-type = "shell"
-command = "\"$HERDR_BIN_PATH\" pane swap --pane \"$HERDR_ACTIVE_PANE_ID\" --direction down"
-description = "Move pane down"
-
-[[keys.command]]
-key = "prefix+shift+k"
-type = "shell"
-command = "\"$HERDR_BIN_PATH\" pane swap --pane \"$HERDR_ACTIVE_PANE_ID\" --direction up"
-description = "Move pane up"
-
-[[keys.command]]
-key = "prefix+shift+l"
-type = "shell"
-command = "\"$HERDR_BIN_PATH\" pane swap --pane \"$HERDR_ACTIVE_PANE_ID\" --direction right"
-description = "Move pane right"
-
+# Zellij-style layout flip and floating terminal (skel/bin/herdr-layout).
+# A remote attach drops custom commands from the local config, so these work remotely
+# only with --remote-keybindings server, which the `herd` shell function passes.
 [[keys.command]]
 key = "prefix+space"
 type = "shell"

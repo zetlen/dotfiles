@@ -107,7 +107,7 @@ in_repo() {
 }
 
 herd() {
-    herdr --remote $1
+    herdr --remote "$1" --remote-keybindings server
 }
 
 glmd() {
