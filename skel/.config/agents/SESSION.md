@@ -7,7 +7,6 @@ How to run commands, delegate, and verify during a session.
 - Never pipe a long run through `tail` in the foreground.
 - Before starting a persistent process (a dev server, a container stack), check for one already running from this session and reuse or stop it. Never run a duplicate. Duplicates fight for ports and locks.
 - Some runners misbehave without a real terminal (browser test suites, interactive installers). Run those in a terminal pane or hand me the exact command.
-- After editing a file served by a dev server with a file watcher, touch the file. If the watcher still misses it, run the server yourself.
 
 ## Delegation
 - Pass an explicit model on every subagent dispatch and name it in the dispatch: Haiku for mechanical edits and lookups, Sonnet for ordinary implementation and review, Opus for design-heavy or multi-file work. Use the top tier only for work that genuinely needs it, and say so when you do.
