@@ -2,10 +2,14 @@
 
 How changes move from a working tree to a default branch, and what reaches outside the repository.
 
+## Issues
+- When writing issue titles, use the following grammar convention: if the issue is a feature request, use "should" language, and if the issue is a bug, describe the buggy behavior in the present tense. If encountering issues that don't follow this convention, offer to rephrase them.
+
 ## Branches and pull requests
 - Work lands through a branch and a pull request, even on a solo project. Commit directly to the default branch only when I say so.
 - Before branching, before pushing, and before opening a pull request: fetch, fast-forward the local default branch, and rebase the working branch on it. `git fetch origin main && git log HEAD..origin/main --oneline` must print nothing. If the rebase is not trivial, ask before proceeding.
 - One concern per pull request. Anything in the repository that looks wrong but that the request did not mention belongs in another pull request.
+- When writing pull request titles, use conventional-commit notation, and describe what the pull request does to a codebase, not just the new behavior. "test: add coverage validation in CI" is acceptable, "coverage is checked in CI" is not.
 - When the repository is squash-merged, the pull request title becomes the commit subject on the default branch, so it follows the commit subject rules below.
 - Do not offer to merge locally when the repository has branch protection or a pull request convention. Push and open the pull request, with a body that says what changed and what must happen before it merges. Report the URL.
 - In a stack of pull requests, watch for the merge and the deploy of the one you presented, then pull the default branch, rebase the next branch, and present it. I merge one at a time after a green deploy.
