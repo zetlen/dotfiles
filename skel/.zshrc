@@ -25,8 +25,30 @@ function __my-zsh-keybindings {
 	function zvm_config() {
 		ZVM_INIT_MODE=sourcing
 		ZVM_LAZY_KEYBINDINGS=false
+		# Yanks and deletes also go to the system clipboard, as 'clipboard' does
+		# in vim (lib/vim/common/70-os.vim).
+		ZVM_SYSTEM_CLIPBOARD_ENABLED=true
+		# Over SSH, or with no local clipboard tool, copy with OSC 52 to the
+		# terminal's machine, as ~/.vimrc does. Paste returns the last shell yank
+		# instead of asking the terminal, which blocks when it does not answer.
+		# The plugin's own ZVM_CLIPBOARD_USE_OSC52 is not used: its base64 call
+		# wraps lines on Linux, which corrupts yanks longer than 57 bytes.
+		if [[ -n $SSH_TTY ]] || ! (( $+commands[pbcopy] + $+commands[wl-copy] + $+commands[xclip] + $+commands[xsel] )); then
+			ZVM_CLIPBOARD_COPY_CMD='osc copy'
+			ZVM_CLIPBOARD_PASTE_CMD='print -rn -- "$CUTBUFFER"'
+		fi
 	}
 	zsh-plugin-load jeffreytse/zsh-vi-mode
+	# p and P paste the system clipboard, as in vim. gp and gP paste the shell's
+	# own last yank, which the plugin puts on p and P by default.
+	zvm_bindkey vicmd  'p'  zvm_paste_clipboard_after
+	zvm_bindkey vicmd  'P'  zvm_paste_clipboard_before
+	zvm_bindkey visual 'p'  zvm_visual_paste_clipboard
+	zvm_bindkey visual 'P'  zvm_visual_paste_clipboard
+	zvm_bindkey vicmd  'gp' zvm_vi_put_after
+	zvm_bindkey vicmd  'gP' zvm_vi_put_before
+	zvm_bindkey visual 'gp' zvm_vi_replace_selection
+	zvm_bindkey visual 'gP' zvm_vi_replace_selection
 }
 
 __my-zsh-keybindings
