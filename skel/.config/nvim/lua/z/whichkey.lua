@@ -2,7 +2,7 @@
 -- lists what can follow. The catalogue is built from the keymaps' own `desc`
 -- fields, so anything mapped with vim.keymap.set(..., { desc = ... }) shows
 -- up labelled for free. The plugin hooks the prefix keys itself rather than
--- relying on 'timeoutlen', so the 100ms timeout in lib/vim/common/50-keys.vim
+-- relying on 'timeoutlen', so the 500ms timeout in lib/vim/common/50-keys.vim
 -- stays as it is; only the popup's own `delay` below decides when it appears.
 
 local wk = require('which-key')

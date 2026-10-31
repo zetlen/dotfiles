@@ -26,9 +26,9 @@ set whichwrap+=<,>,h,l         " left and right can move over lines
 
 set nrformats-=octal           " don't assume 0-leader numbers are octal
 
-set timeout                    " no weird delay in bindings
-set timeoutlen=100             " if weird delay is there, it's short
-set ttimeoutlen=10             " no delay on escape, though.
+set timeout                    " multi-key mappings time out
+set timeoutlen=500             " time allowed between keys of a mapping
+set ttimeoutlen=10             " no delay on escape
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
