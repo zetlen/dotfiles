@@ -3,17 +3,8 @@
 nnoremap j gj
 nnoremap k gk
 
-" switch quickly between buffers
-nnoremap <leader>; :b#<cr>
-vnoremap <leader>; <esc>:b#<cr>
-inoremap <leader>; <esc>:b#<cr>
-
 " quickly kill quickfixes and loclists
 noremap <leader>c :windo lcl\|ccl<cr>
-
-" quickly toggle relativenumber
-nnoremap <leader>n :set relativenumber!<cr>
-vnoremap <leader>n :set relativenumber!<cr>
 
 " format text reasonably. see :help fo-table
 set formatoptions=tcqlj
@@ -29,11 +20,6 @@ nnoremap gV `[v`]
 inoremap <expr> <tab>   pumvisible() ? "\<c-n>" : "\<tab>"
 inoremap <expr> <s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 inoremap <expr> <cr>    pumvisible() ? "\<c-y>" : "\<cr>"
-
-" make regexes very magic all the time
-" thus enabling modern regex features
-nnoremap / /\v
-vnoremap / /\v
 
 set backspace=indent,eol,start " backspace can move over lines
 set whichwrap+=<,>,h,l         " left and right can move over lines
@@ -55,27 +41,6 @@ if !&sidescrolloff
   set sidescrolloff=5          " at least five columns to the right of it
 endif
 set display+=lastline
-
-" don't close window when deleting buffer
-command! Bclose call <SID>BufcloseCloseIt()
-function! <SID>BufcloseCloseIt()
-   let l:currentBufNum = bufnr("%")
-   let l:alternateBufNum = bufnr("#")
-
-   if buflisted(l:alternateBufNum)
-     buffer #
-   else
-     bnext
-   endif
-
-   if bufnr("%") == l:currentBufNum
-     new
-   endif
-
-   if buflisted(l:currentBufNum)
-     execute("bdelete! ".l:currentBufNum)
-   endif
-endfunction
 
 " get higroups under line
 map <leader>h :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'

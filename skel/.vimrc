@@ -19,13 +19,12 @@ execute 'source' fnameescape(s:dotfiles . '/lib/vim/common.vim')
 
 " Vim-only options {{{
 
-" neovim rejects or ignores every option in this block: ttymouse and
-" pastetoggle error outright (E518/E519), and the t_ escapes are dead weight
-" there because neovim drives cursor shape through 'guicursor' natively.
+" neovim rejects or ignores every option in this block: ttymouse errors
+" outright (E518), and the t_ escapes are dead weight there because neovim
+" drives cursor shape through 'guicursor' natively.
 set t_Co=256                   " 256 color terminal
 set t_vb=                      " no visual bell, for real this time
 set ttymouse=xterm2
-set pastetoggle=<leader>p      " enter paste mode with ,p
 
 " bar cursor for insert mode
 if exists('$TMUX') || exists('$ZELLIJ') || exists('$HERDR')

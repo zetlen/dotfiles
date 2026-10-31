@@ -8,7 +8,7 @@
 local wk = require('which-key')
 
 wk.setup({
-  -- Long enough that a fluent <leader>; never flashes the popup, short
+  -- Long enough that a fluent <leader> sequence never flashes the popup, short
   -- enough that hesitating gets help.
   delay = 300,
   -- No mini.icons or devicons here; which-key's own glyph table still needs
@@ -20,9 +20,7 @@ wk.setup({
 -- label them here instead of touching lib/vim/common/. An entry with no rhs
 -- creates no keymap; it only names the one that already exists.
 wk.add({
-  { '<leader>;', desc = 'Alternate buffer', mode = { 'n', 'v' } },
   { '<leader>c', desc = 'Close quickfix and loclists', mode = { 'n', 'v' } },
-  { '<leader>n', desc = 'Toggle relativenumber', mode = { 'n', 'v' } },
   { '<leader>h', desc = 'Highlight groups under cursor', mode = { 'n', 'v' } },
   { '<leader><space>', desc = 'Clear search highlight' },
 
