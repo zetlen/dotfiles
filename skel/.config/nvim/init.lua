@@ -1,7 +1,7 @@
 -- ~/.config/nvim/init.lua -- the "fat" editor.
 --
 -- This is NOT a second copy of my preferences. Every keybinding, the
--- statusline, search behavior, and filetype detection are sourced verbatim
+-- statusline, search behavior, and indentation are sourced verbatim
 -- from ~/.dotfiles/lib/vim/common/, exactly as plain vim sources them, so
 -- `vim` and `nvim` feel the same. What lives here is only the part plain vim
 -- cannot do: LSP, completion, schema validation, and Claude Code IDE

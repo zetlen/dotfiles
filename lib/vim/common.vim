@@ -1,6 +1,6 @@
 " Shared editor configuration, sourced by BOTH plain vim (~/.vimrc) and the
 " heavier neovim setup (~/.config/nvim/init.lua). This is the single source of
-" truth for preferences: keybindings, statusline, search, filetype detection.
+" truth for preferences: keybindings, statusline, search, indentation.
 "
 " Everything under lib/vim/common/ must be *portable legacy vimscript*:
 "   - no vim9script -- neovim cannot parse it at all
