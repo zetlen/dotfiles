@@ -11,14 +11,11 @@ end
 
 vim.pack.add({
   -- Parity with plain vim: same colorscheme, same netrw tweaks, same
-  -- surround/comment/git verbs, so muscle memory carries over intact.
+  -- surround/git verbs, so muscle memory carries over intact.
   gh('joshdick/onedark.vim'),
   gh('tpope/vim-vinegar'),
   gh('tpope/vim-surround'),
   gh('tpope/vim-fugitive'),
-  gh('tomtom/tcomment_vim'),
-  gh('nathanaelkane/vim-indent-guides'),
-  gh('imsnif/kdl.vim'),
 
   -- The IDE layer.
   gh('b0o/schemastore.nvim'),       -- JSON/YAML schemas from SchemaStore.org
@@ -29,12 +26,7 @@ vim.pack.add({
   confirm = false,
 })
 
--- Deliberately NOT installed here, unlike the plain vim plugin list:
---   * editorconfig-vim  -- neovim has editorconfig support built in
---   * vim-javascript-syntax, vim-js-indent, vim-jsx, typescript-vim
---       All are unmaintained (vim-jsx last shipped in 2016) and exist to patch
---       gaps that neovim's bundled runtime syntax plus LSP semantic tokens
---       already cover. Adding nvim-treesitter here is the natural next step if
---       the highlighting isn't good enough.
+-- Syntax, indent, editorconfig and gc commenting come from neovim's bundled
+-- runtime. nvim-treesitter is the next step if that highlighting falls short.
 
 pcall(vim.cmd.colorscheme, 'onedark')

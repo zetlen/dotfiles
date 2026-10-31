@@ -26,18 +26,6 @@ wk.add({
   { '<leader>h', desc = 'Highlight groups under cursor', mode = { 'n', 'v' } },
   { '<leader><space>', desc = 'Clear search highlight' },
 
-  -- Plugin prefixes that otherwise show up as bare keys. tcomment's
-  -- <leader>_ family mirrors its <c-_> maps (:help tcomment-maps).
-  { '<leader>_', group = 'comment', mode = { 'n', 'v' } },
-  { '<leader>__', desc = 'Toggle comment', mode = { 'n', 'v' } },
-  { '<leader>_<space>', desc = 'Comment, prompting for delimiters', mode = { 'n', 'v' } },
-  { '<leader>_b', desc = 'Block comment', mode = { 'n', 'v' } },
-  { '<leader>_r', desc = 'Comment to end of line', mode = { 'n', 'v' } },
-  { '<leader>_p', desc = 'Comment paragraph', mode = { 'n', 'v' } },
-  { '<leader>_i', desc = 'Inline comment', mode = 'v' },
-  { '<leader>_a', desc = 'Comment as filetype...', mode = { 'n', 'v' } },
-  { '<leader>_n', desc = 'Comment as filetype, with count...', mode = { 'n', 'v' } },
-  { '<leader>_s', desc = 'Comment as filetype subtype...', mode = { 'n', 'v' } },
   { '<leader>i', group = 'indent' },
   { '<leader>ig', desc = 'Toggle indent guides' },
 })

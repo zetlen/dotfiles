@@ -5,7 +5,8 @@
 " ~/.config/nvim/init.lua, so both editors look and behave the same.
 "
 " Only put things here that plain vim alone can use: terminal-control options
-" neovim doesn't implement, and the vim-plug plugin set.
+" neovim doesn't implement, vim's optional bundled packages, and the vim-plug
+" plugin set.
 
 " Shared preferences {{{
 
@@ -45,21 +46,15 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+" Bundled with vim but opt-in. neovim has both built in.
+packadd! editorconfig                  " use .editorconfig
+packadd! comment                       " gc/gcc commenting
+
 call plug#begin('~/.vim/plugged')
 
-Plug 'imsnif/kdl.vim'                  " kdl syntax
-Plug 'editorconfig/editorconfig-vim'   " Use editorconfig
-Plug 'nathanaelkane/vim-indent-guides' " indent guides on left
-Plug 'tomtom/tcomment_vim'             " commenting code
 Plug 'tpope/vim-surround'              " surround commands (ysiw{ csa{[ etc)
 Plug 'tpope/vim-fugitive'              " git interactions
 Plug 'tpope/vim-vinegar'               " netrw, improved
-
-" Filetypes. neovim uses treesitter for these instead.
-Plug 'jelera/vim-javascript-syntax'    " syntax highlighting
-Plug 'gavocanov/vim-js-indent'         " indentation
-Plug 'mxw/vim-jsx'                     " JSX highlighting and indenting
-Plug 'leafgarland/typescript-vim'      " syntax highlighting
 
 Plug 'joshdick/onedark.vim'
 
