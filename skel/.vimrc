@@ -19,21 +19,20 @@ execute 'source' fnameescape(s:dotfiles . '/lib/vim/common.vim')
 
 " Vim-only options {{{
 
-" neovim rejects or ignores every option in this block: ttymouse errors
-" outright (E518), and the t_ escapes are dead weight there because neovim
-" drives cursor shape through 'guicursor' natively.
-set t_Co=256                   " 256 color terminal
-set t_vb=                      " no visual bell, for real this time
-set ttymouse=xterm2
-
-" bar cursor for insert mode
-if exists('$TMUX') || exists('$ZELLIJ') || exists('$HERDR')
-	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-else
-	let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-	let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+" neovim rejects or does not need every option in this block: ttymouse errors
+" outright (E518), neovim turns on 'termguicolors' itself when the terminal
+" supports it, and the t_ escapes are dead weight there because neovim drives
+" cursor shape through 'guicursor' natively.
+if $COLORTERM ==# 'truecolor' || $COLORTERM ==# '24bit'
+  set termguicolors            " exact colorscheme colors, matching neovim
 endif
+set t_vb=                      " no visual bell, for real this time
+set ttymouse=sgr
+
+" Bar cursor in insert mode, block elsewhere, via the DECSCUSR escape that
+" terminals and multiplexers understand without passthrough wrapping.
+let &t_SI = "\<Esc>[6 q"
+let &t_EI = "\<Esc>[2 q"
 
 " }}}
 
