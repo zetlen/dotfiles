@@ -1,7 +1,7 @@
 " Interoperation with the rest of the machine.
 
 set hidden                  " allow hidden buffers with changes
-set clipboard=unnamed       " clipboard interacts with OS
+set clipboard=unnamed,unnamedplus " y/d/p use the OS clipboard (* on macOS, + on Linux)
 set autoread                " respond smoothly to file changes
 " 'autoread' only reloads when something runs :checktime. These events cover
 " switching buffers, returning to the terminal, and pausing for 'updatetime'.
