@@ -5,7 +5,8 @@ local ok, schemastore = pcall(require, 'schemastore')
 
 return {
   cmd = { 'vscode-json-language-server', '--stdio' },
-  -- jsonc matters: the shared config maps tsconfig.json/.eslintrc.json to it.
+  -- jsonc matters: neovim detects tsconfig.json and other JSON-with-comments
+  -- files as jsonc.
   filetypes = { 'json', 'jsonc' },
   root_markers = { '.git' },
   settings = {
