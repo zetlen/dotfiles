@@ -5,7 +5,7 @@
 
 augroup javascript
   au!
-  au FileType javascript set background=dark cc=100
+  au FileType javascript set background=dark | setlocal colorcolumn=100
 augroup END
 
 " }}}
