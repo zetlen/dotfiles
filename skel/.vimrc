@@ -26,7 +26,6 @@ execute 'source' fnameescape(s:dotfiles . '/lib/vim/common.vim')
 if $COLORTERM ==# 'truecolor' || $COLORTERM ==# '24bit'
   set termguicolors            " exact colorscheme colors, matching neovim
 endif
-set t_vb=                      " no visual bell, for real this time
 set ttymouse=sgr
 
 " Bar cursor in insert mode, block elsewhere, via the DECSCUSR escape that

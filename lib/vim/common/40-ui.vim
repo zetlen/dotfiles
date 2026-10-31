@@ -4,11 +4,8 @@ set encoding=utf-8     " show unicode chars
 set noshowmode         " statusline handles mode display
 set number             " show line numbers
 set wildmenu           " command autocomplete view
-set lazyredraw         " supposedly for performance, revisit this
 set showmatch          " show matching brackets
-set noerrorbells       " quit beeping
-set belloff=all        " really, quit beeping
-set novisualbell       " i said, quit beeping
+set belloff=all        " no beeping or flashing, ever
 
 if &tabpagemax < 50
   set tabpagemax=50    " reasonable tab limit

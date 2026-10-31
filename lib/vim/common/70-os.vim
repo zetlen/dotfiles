@@ -3,18 +3,12 @@
 set hidden                  " allow hidden buffers with changes
 set clipboard=unnamed       " clipboard interacts with OS
 set autoread                " respond smoothly to file changes
+" 'autoread' only reloads when something runs :checktime. These events cover
+" switching buffers, returning to the terminal, and pausing for 'updatetime'.
+" silent! because :checktime errors inside the command-line window.
 augroup checktime
-    au!
-    if !has("gui_running")
-        "silent! necessary otherwise throws errors when using command
-        "line window.
-        autocmd BufEnter        * silent! checktime
-        autocmd CursorHold      * silent! checktime
-        autocmd CursorHoldI     * silent! checktime
-        "these two _may_ slow things down. Remove if they do.
-        autocmd CursorMoved     * silent! checktime
-        autocmd CursorMovedI    * silent! checktime
-    endif
+  au!
+  autocmd BufEnter,FocusGained,CursorHold,CursorHoldI * silent! checktime
 augroup END
 " Backups hold the file as it was before the latest save. Swap files hold
 " unsaved edits for crash recovery. Both live under one state directory so they
