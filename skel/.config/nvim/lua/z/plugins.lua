@@ -21,6 +21,7 @@ vim.pack.add({
   gh('b0o/schemastore.nvim'),       -- JSON/YAML schemas from SchemaStore.org
   gh('coder/claudecode.nvim'),      -- Claude Code IDE protocol (z/claudecode.lua)
   gh('folke/which-key.nvim'),       -- keymap popup on <leader> etc. (z/whichkey.lua)
+  gh('MagicDuck/grug-far.nvim'),    -- live project search/replace panel (:GrugFar)
 }, {
   -- Don't block a fresh headless box on an interactive install prompt.
   confirm = false,
@@ -30,3 +31,8 @@ vim.pack.add({
 -- runtime. nvim-treesitter is the next step if that highlighting falls short.
 
 pcall(vim.cmd.colorscheme, 'onedark')
+
+-- Project-wide search/replace, prefilled with the word under the cursor.
+vim.keymap.set('n', '<leader>sr', function()
+  require('grug-far').open({ prefills = { search = vim.fn.expand('<cword>') } })
+end, { desc = 'Search/replace in project' })
