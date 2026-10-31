@@ -15,36 +15,10 @@ set laststatus=2
 let s:editor = has('nvim') ? "\uf36f" : "\ue7c5"
 
 let &statusline =
-      \   '%2*' . s:editor . ' %{mode(1)}%1*'
+      \   s:editor . ' %{mode(1)}'
       \ . ' »%='
       \ . '%m%h%r'
-      \ . ' %3*%1*'
-      \ . ' %4*%F'
+      \ . '  %F'
       \ . ' » '
-      \ . '%5*%l/%L:%c'
-      \ . '%1* » %y'
-" No `|` before the filetype, deliberately. The old vimrc asked for one with
-" `set statusline+=|`, but `|` terminates a :set command so it never appeared;
-" having now seen it rendered, it isn't wanted. Add it back as '» |%y' if that
-" ever changes -- inside a quoted string the `|` is literal.
-
-function! StatuslineMode()
-  let l:mode=mode()
-  if l:mode==#"n"
-    return "NORMAL"
-  elseif l:mode==?"v"
-    return "VISUAL"
-  elseif l:mode==#"i"
-    return "INSERT"
-  elseif l:mode==#"R"
-    return "REPLACE"
-  elseif l:mode==?"s"
-    return "SELECT"
-  elseif l:mode==#"t"
-    return "TERMINAL"
-  elseif l:mode==#"c"
-    return "COMMAND"
-  elseif l:mode==#"!"
-    return "SHELL"
-  endif
-endfunction
+      \ . '%l/%L:%c'
+      \ . ' » %y'
