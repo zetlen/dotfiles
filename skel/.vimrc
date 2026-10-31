@@ -33,6 +33,20 @@ set ttymouse=sgr
 let &t_SI = "\<Esc>[6 q"
 let &t_EI = "\<Esc>[2 q"
 
+" Over SSH, yanks reach the local machine's clipboard through OSC 52, the
+" terminal escape sequence for writing the clipboard. The osc52 package needs
+" vim 9.1.1984 or later, which mise installs (conf.d/20-utils.toml). Support
+" detection is skipped because it relies on a terminal query that
+" multiplexers may not pass along. Paste is off because that query blocks on
+" every `p` when the terminal does not answer; text copied on the local
+" machine comes in through the terminal's own paste key.
+if !empty($SSH_TTY) && has('clipboard_provider')
+  let g:osc52_force_avail = 1
+  let g:osc52_disable_paste = 1
+  packadd osc52
+  set clipmethod=osc52
+endif
+
 " }}}
 
 " Plugin Setup {{{

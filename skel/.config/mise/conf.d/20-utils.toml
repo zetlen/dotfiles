@@ -3,6 +3,7 @@ atuin = "latest"
 "cargo-binstall" = "latest"
 "cargo:eza" = "latest"
 "cargo:mergiraf" = "latest"
+"conda:vim" = "latest" # prebuilt; .vimrc's osc52 package needs 9.1.1984+
 "github:theimpostor/osc" = "latest"
 bitwarden = "latest"
 "npm:corepack" = "latest"

@@ -4,8 +4,8 @@
 -- statusline, search behavior, and indentation are sourced verbatim
 -- from ~/.dotfiles/lib/vim/common/, exactly as plain vim sources them, so
 -- `vim` and `nvim` feel the same. What lives here is only the part plain vim
--- cannot do: LSP, completion, schema validation, and Claude Code IDE
--- integration.
+-- cannot do the same way: LSP, completion, schema validation, Claude Code IDE
+-- integration, and the OSC 52 clipboard over SSH.
 --
 -- Plain vim stays untouched and lightweight. Use it for quick edits; use nvim
 -- when you want the IDE.
@@ -46,3 +46,4 @@ require('z.whichkey')
 require('z.lsp')
 require('z.completion')
 require('z.claudecode')
+require('z.clipboard')
