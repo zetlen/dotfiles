@@ -32,12 +32,7 @@ zsh-update-all() {
         cargo install-update -a
     }
 
-    _z_update__5_go_toolchain() {
-        go install github.com/Gelio/go-global-update@latest
-        go-global-update
-    }
-
-    _z_update__6_vim_plugins() {
+    _z_update__5_vim_plugins() {
         i_have vim && vim +PlugUpgrade +PlugUpdate +qall
         i_have nvim && nvim --headless -c 'lua vim.pack.update(nil, { force = true })' -c 'qa!'
     }
