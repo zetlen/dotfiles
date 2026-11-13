@@ -3,8 +3,6 @@ experimental = true
 yes = true
 legacy_version_file = true
 idiomatic_version_file_enable_tools = [
-  "crystal",
-  "elixir",
   "go",
   "java",
   "node",
@@ -20,3 +18,7 @@ idiomatic_version_file_enable_tools = [
 
 [settings.python]
 uv_venv_auto = true
+
+
+[settings.self_update]
+auto = true
