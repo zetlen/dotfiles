@@ -126,6 +126,10 @@ modelPresets:
   openrouter-auto:
     modelRoles:
       default: openrouter/openrouter/auto
+      slow: openrouter/openrouter/auto:high
+      smol: openrouter/~deepseek/deepseek-flash-latest
+      task: openrouter/~deepseek/deepseek-flash-latest
+      tiny: openrouter/~z-ai/glm-flash-latest
       judge: opencode-zen/jev-1.13-free
       image: openrouter/meta/muse-image
     defaultThinkingLevel: auto
