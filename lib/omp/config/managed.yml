@@ -176,3 +176,11 @@ modelPresets:
       tiny: openrouter/~openai/gpt-luna-latest
       slow: openrouter/~openai/gpt-astra-latest:high
     defaultThinkingLevel: auto
+  muse:
+    modelRoles:
+      default: openrouter/meta/muse-spark-1.3
+      task: openrouter/meta/muse-ember
+      smol: openrouter/meta/muse-ember
+      tiny: openrouter/meta/muse-ember
+      slow: openrouter/meta/muse-wonder:high
+    defaultThinkingLevel: auto
