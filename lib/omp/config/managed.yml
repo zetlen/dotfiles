@@ -151,3 +151,20 @@ modelPresets:
       slow: kimi-code/k3.1-pro:high
       advisor: anthropic/claude-fable-5-2:high
     defaultThinkingLevel: auto
+  gemini:
+    modelRoles:
+      default: openrouter/google/gemini-4-carbon
+      task: openrouter/google/gemini-4-hydrogen
+      smol: openrouter/google/gemini-4-hydrogen
+      tiny: openrouter/google/gemini-3.5-flash-lite
+      slow: openrouter/google/gemini-4-carbon:high
+    defaultThinkingLevel: auto
+  gemini-claude:
+    modelRoles:
+      default: openrouter/google/gemini-4-carbon
+      task: openrouter/google/gemini-4-hydrogen
+      smol: openrouter/google/gemini-4-hydrogen
+      tiny: openrouter/google/gemini-3.5-flash-lite
+      slow: openrouter/google/gemini-4-carbon:high
+      advisor: anthropic/claude-fable-5-2:high
+    defaultThinkingLevel: auto
