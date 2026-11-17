@@ -184,3 +184,12 @@ modelPresets:
       tiny: openrouter/meta/muse-ember
       slow: openrouter/meta/muse-wonder:high
     defaultThinkingLevel: auto
+  glm:
+    modelRoles:
+      default: openrouter/~z-ai/glm-latest
+      task: openrouter/~z-ai/glm-flash-latest
+      smol: openrouter/~z-ai/glm-flash-latest
+      tiny: openrouter/~z-ai/glm-flash-latest
+      vision: openrouter/~z-ai/glm-flash-latest
+      slow: openrouter/~z-ai/glm-latest:high
+    defaultThinkingLevel: auto
