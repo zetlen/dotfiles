@@ -153,18 +153,18 @@ modelPresets:
     defaultThinkingLevel: auto
   gemini:
     modelRoles:
-      default: openrouter/google/gemini-4-carbon
-      task: openrouter/google/gemini-4-hydrogen
-      smol: openrouter/google/gemini-4-hydrogen
+      default: openrouter/~google/gemini-pro-latest
+      task: openrouter/~google/gemini-flash-latest
+      smol: openrouter/~google/gemini-flash-latest
       tiny: openrouter/google/gemini-3.5-flash-lite
-      slow: openrouter/google/gemini-4-carbon:high
+      slow: openrouter/~google/gemini-pro-latest:high
     defaultThinkingLevel: auto
   gemini-claude:
     modelRoles:
-      default: openrouter/google/gemini-4-carbon
-      task: openrouter/google/gemini-4-hydrogen
-      smol: openrouter/google/gemini-4-hydrogen
+      default: openrouter/~google/gemini-pro-latest
+      task: openrouter/~google/gemini-flash-latest
+      smol: openrouter/~google/gemini-flash-latest
       tiny: openrouter/google/gemini-3.5-flash-lite
-      slow: openrouter/google/gemini-4-carbon:high
+      slow: openrouter/~google/gemini-pro-latest:high
       advisor: anthropic/claude-fable-5-2:high
     defaultThinkingLevel: auto
