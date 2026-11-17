@@ -1,11 +1,12 @@
 providers:
   openrouter:
     modelOverrides:
-      # OpenRouter's auto router reads its settings from the auto-router
+      # OpenRouter's auto routers read their settings from the auto-router
       # plugin in the request body. omp sends extraBody only on the Chat
       # Completions API, so this model must not use the Responses API.
-      # cost_tier low makes the router weigh estimated cost first.
-      openrouter/auto:
+      # cost_tier low makes Auto Code weigh estimated cost first.
+      # openrouter/auto has no override and runs its default tier.
+      openrouter/auto-code:
         api: openai-completions
         compat:
           extraBody:
