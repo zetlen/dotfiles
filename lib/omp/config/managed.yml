@@ -82,14 +82,20 @@ retry:
   fallbackChains:
     default:
       - opencode-zen/big-pickle
-    kimi-code/kimi-for-coding:
+    kimi-code/k3.1-pro:
       - anthropic/claude-opus-5-5
-    kimi-code/kimi-for-coding-highspeed:
+      - openrouter/~anthropic/claude-opus-latest
+    kimi-code/kimi-for-coding:
       - anthropic/claude-sonnet-5-5
-    kimi-code/k3:
-      - anthropic/claude-fable-5
-    kimi-code/kimi-k2-turbo-preview:
-      - anthropic/claude-haiku-4-5
+      - openrouter/~anthropic/claude-sonnet-latest
+    anthropic/claude-opus-5-5:
+      - openrouter/~anthropic/claude-opus-latest
+    anthropic/claude-sonnet-5-5:
+      - openrouter/~anthropic/claude-sonnet-latest
+    anthropic/claude-fable-5-2:
+      - openrouter/~anthropic/claude-fable-latest
+    anthropic/claude-haiku-5-5:
+      - openrouter/~anthropic/claude-haiku-latest
 steeringMode: one-at-a-time
 interruptMode: immediate
 error:
@@ -104,22 +110,22 @@ edit:
 modelPresets:
   claude:
     modelRoles:
-      task: anthropic/claude-sonnet-5-5
       default: anthropic/claude-opus-5-5
+      task: anthropic/claude-sonnet-5-5
       smol: anthropic/claude-sonnet-5-5
-      slow: anthropic/claude-fable-5:high
-      tiny: anthropic/claude-haiku-4-5
+      slow: anthropic/claude-fable-5-2:high
+      tiny: anthropic/claude-haiku-5-5
     defaultThinkingLevel: auto
   kimi:
     modelRoles:
-      default: kimi-code/kimi-for-coding
-      smol: kimi-code/kimi-k2.5
-      slow: kimi-code/k3:high
-      tiny: kimi-code/kimi-k2
+      default: kimi-code/k3.1-pro
+      smol: kimi-code/kimi-for-coding
+      slow: kimi-code/k3.1-pro:high
+      tiny: kimi-code/kimi-for-coding
     defaultThinkingLevel: auto
   openrouter-auto:
     modelRoles:
-      default: openrouter/auto
+      default: openrouter/openrouter/auto
       judge: opencode-zen/jev-1.13-free
       image: openrouter/meta/muse-image
     defaultThinkingLevel: auto
@@ -128,16 +134,16 @@ modelPresets:
       default: anthropic/claude-opus-5-5
       task: anthropic/claude-sonnet-5-5
       smol: anthropic/claude-sonnet-5-5
-      tiny: anthropic/claude-haiku-4-5
-      slow: kimi-code/k3:high
-      advisor: anthropic/claude-fable-5:high
+      tiny: anthropic/claude-haiku-5-5
+      slow: kimi-code/k3.1-pro:high
+      advisor: anthropic/claude-fable-5-2:high
     defaultThinkingLevel: auto
   kimi-claude:
     modelRoles:
-      default: kimi-code/kimi-for-coding
-      task: kimi-code/kimi-for-coding-highspeed
-      smol: kimi-code/kimi-for-coding-highspeed
-      tiny: kimi-code/kimi-k2-turbo-preview
-      slow: kimi-code/k3:high
-      advisor: anthropic/claude-fable-5:high
+      default: kimi-code/k3.1-pro
+      task: kimi-code/kimi-for-coding
+      smol: kimi-code/kimi-for-coding
+      tiny: kimi-code/kimi-for-coding
+      slow: kimi-code/k3.1-pro:high
+      advisor: anthropic/claude-fable-5-2:high
     defaultThinkingLevel: auto
