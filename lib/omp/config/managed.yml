@@ -168,3 +168,11 @@ modelPresets:
       slow: openrouter/~google/gemini-pro-latest:high
       advisor: anthropic/claude-fable-5-2:high
     defaultThinkingLevel: auto
+  gpt:
+    modelRoles:
+      default: openrouter/~openai/gpt-sol-latest
+      task: openrouter/~openai/gpt-terra-latest
+      smol: openrouter/~openai/gpt-terra-latest
+      tiny: openrouter/~openai/gpt-luna-latest
+      slow: openrouter/~openai/gpt-astra-latest:high
+    defaultThinkingLevel: auto
