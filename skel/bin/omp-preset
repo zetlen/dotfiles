@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+# Runs omp with one of the model presets saved in omp's config, for this run
+# only. /modelpreset inside omp writes the preset's roles into the global
+# config, which changes every later session. This passes the preset as a
+# --config overlay instead. Roles the preset leaves out keep their global
+# values.
+#
+# Other coding agents drive this command and read the screen through herdr,
+# so a second overlay strips the TUI to plain text: ASCII glyphs, no
+# animation or smooth streaming, no frames or colored markdown, and a
+# minimal status line. Vim mode is off so typed input is inserted, not read
+# as normal-mode commands.
+set -euo pipefail
+
+config="${PI_CODING_AGENT_DIR:-$HOME/.omp/agent}/config.yml"
+presets="$(yq '.modelPresets | keys | .[]' "$config")"
+
+if [ $# -eq 0 ]; then
+    echo "usage: ${0##*/} <preset> [omp arguments...]" >&2
+    echo "presets: ${presets//$'\n'/ }" >&2
+    exit 2
+fi
+
+name="$1"
+shift
+if [[ $'\n'"$presets"$'\n' != *$'\n'"$name"$'\n'* ]]; then
+    echo "${0##*/}: no model preset named \"$name\" in $config" >&2
+    echo "presets: ${presets//$'\n'/ }" >&2
+    exit 2
+fi
+
+sparse_ui='
+startup:
+  checkUpdate: false
+symbolPreset: ascii
+composer:
+  shape: borderless
+  tokenRate: false
+statusLine:
+  preset: minimal
+display:
+  shimmer: disabled
+  smoothStreaming: false
+  shellVisualization: false
+  cacheMissMarker: false
+tui:
+  motion: none
+  vimMode: false
+  colorfulMarkdown: false
+  autoGraph: "off"
+  hyperlinks: "off"
+  reactions: false
+terminal:
+  showProgress: false
+  showImages: false
+'
+
+# The overlay must be a regular file. omp reads it more than once, and a
+# pipe from process substitution is empty on the second read, which drops
+# the UI settings. The preset's keys and the UI keys never overlap, so the
+# two concatenate into one valid YAML document.
+overlay_dir="${XDG_CACHE_HOME:-$HOME/.cache}/omp-preset"
+mkdir -p "$overlay_dir"
+overlay="$overlay_dir/$name.yml"
+tmp="$(mktemp "$overlay_dir/.$name.XXXXXX")"
+{
+    NAME="$name" yq '.modelPresets[strenv(NAME)]' "$config"
+    printf '%s' "$sparse_ui"
+} >"$tmp"
+mv "$tmp" "$overlay"
+
+exec omp --config "$overlay" "$@"
