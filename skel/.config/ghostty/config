@@ -3,6 +3,8 @@ theme = Citruszest
 # Font
 font-family = Iosevka Term Slab
 font-size = 13.0
+font-feature = -calt, -liga, -dlig
+
 alpha-blending = linear-corrected
 
 # Cursor

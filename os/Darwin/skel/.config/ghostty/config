@@ -4,6 +4,7 @@ theme = Citruszest
 font-family = IosevkaTermSlab Nerd Font Propo
 font-size = 15.0
 alpha-blending = linear-corrected
+font-feature = -calt, -liga, -dlig
 
 # Cursor
 cursor-style-blink = true
