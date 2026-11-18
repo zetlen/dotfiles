@@ -5,3 +5,4 @@ modelRoles:
   tiny: kimi-code/kimi-for-coding
   task: kimi-code/kimi-for-coding
   advisor: anthropic/claude-fable-5-2:high
+  judge: opencode-zen/jev-1.13-free

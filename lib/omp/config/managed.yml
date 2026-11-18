@@ -115,6 +115,7 @@ modelPresets:
       smol: anthropic/claude-sonnet-5-5
       slow: anthropic/claude-fable-5-2:high
       tiny: anthropic/claude-haiku-5-5
+      judge: opencode-zen/jev-1.13-free
     defaultThinkingLevel: auto
   kimi:
     modelRoles:
@@ -122,6 +123,8 @@ modelPresets:
       smol: kimi-code/kimi-for-coding
       slow: kimi-code/k3.1-pro:high
       tiny: kimi-code/kimi-for-coding
+      judge: opencode-zen/jev-1.13-free
+      task: kimi-code/kimi-for-coding
     defaultThinkingLevel: auto
   openrouter-auto:
     modelRoles:
@@ -141,6 +144,7 @@ modelPresets:
       tiny: anthropic/claude-haiku-5-5
       slow: kimi-code/k3.1-pro:high
       advisor: anthropic/claude-fable-5-2:high
+      judge: opencode-zen/jev-1.13-free
     defaultThinkingLevel: auto
   kimi-claude:
     modelRoles:
@@ -150,6 +154,7 @@ modelPresets:
       tiny: kimi-code/kimi-for-coding
       slow: kimi-code/k3.1-pro:high
       advisor: anthropic/claude-fable-5-2:high
+      judge: opencode-zen/jev-1.13-free
     defaultThinkingLevel: auto
   gemini:
     modelRoles:
@@ -158,6 +163,7 @@ modelPresets:
       smol: openrouter/~google/gemini-flash-latest
       tiny: openrouter/google/gemini-3.5-flash-lite
       slow: openrouter/~google/gemini-pro-latest:high
+      judge: opencode-zen/jev-1.13-free
     defaultThinkingLevel: auto
   gemini-claude:
     modelRoles:
@@ -167,6 +173,7 @@ modelPresets:
       tiny: openrouter/google/gemini-3.5-flash-lite
       slow: openrouter/~google/gemini-pro-latest:high
       advisor: anthropic/claude-fable-5-2:high
+      judge: opencode-zen/jev-1.13-free
     defaultThinkingLevel: auto
   gpt:
     modelRoles:
@@ -175,6 +182,7 @@ modelPresets:
       smol: openrouter/~openai/gpt-terra-latest
       tiny: openrouter/~openai/gpt-luna-latest
       slow: openrouter/~openai/gpt-astra-latest:high
+      judge: opencode-zen/jev-1.13-free
     defaultThinkingLevel: auto
   muse:
     modelRoles:
@@ -183,6 +191,7 @@ modelPresets:
       smol: openrouter/meta/muse-ember
       tiny: openrouter/meta/muse-ember
       slow: openrouter/meta/muse-wonder:high
+      judge: opencode-zen/jev-1.13-free
     defaultThinkingLevel: auto
   glm:
     modelRoles:
@@ -192,4 +201,5 @@ modelPresets:
       tiny: openrouter/~z-ai/glm-flash-latest
       vision: openrouter/~z-ai/glm-flash-latest
       slow: openrouter/~z-ai/glm-latest:high
+      judge: opencode-zen/jev-1.13-free
     defaultThinkingLevel: auto
