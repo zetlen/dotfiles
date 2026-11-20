@@ -79,23 +79,16 @@ hideThinkingBlock: false
 proseOnlyThinking: false
 retry:
   usageAwareFallback: true
+  # Fallbacks stay on subscriptions or free models. omp switches models
+  # without asking once a quota is exhausted, so a pay-per-token entry here
+  # spends money silently.
   fallbackChains:
     default:
       - opencode-zen/big-pickle
     kimi-code/k3.1-pro:
       - anthropic/claude-opus-5-5
-      - openrouter/~anthropic/claude-opus-latest
     kimi-code/kimi-for-coding:
       - anthropic/claude-sonnet-5-5
-      - openrouter/~anthropic/claude-sonnet-latest
-    anthropic/claude-opus-5-5:
-      - openrouter/~anthropic/claude-opus-latest
-    anthropic/claude-sonnet-5-5:
-      - openrouter/~anthropic/claude-sonnet-latest
-    anthropic/claude-fable-5-2:
-      - openrouter/~anthropic/claude-fable-latest
-    anthropic/claude-haiku-5-5:
-      - openrouter/~anthropic/claude-haiku-latest
 steeringMode: one-at-a-time
 interruptMode: immediate
 error:
@@ -177,11 +170,10 @@ modelPresets:
     defaultThinkingLevel: auto
   gpt:
     modelRoles:
-      default: openrouter/~openai/gpt-sol-latest
-      task: openrouter/~openai/gpt-terra-latest
-      smol: openrouter/~openai/gpt-terra-latest
-      tiny: openrouter/~openai/gpt-luna-latest
-      slow: openrouter/~openai/gpt-astra-latest:high
+      default: openai-codex/gpt-6.2-sol
+      task: openai-codex/gpt-6.1-terra
+      smol: openai-codex/gpt-6-luna:auto
+      slow: openai-codex/gpt-6.2-astra:high
       judge: opencode-zen/jev-1.13-free
     defaultThinkingLevel: auto
   muse:
