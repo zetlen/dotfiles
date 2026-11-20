@@ -86,6 +86,9 @@ if [ -z "${__DOTFILES_PROFILE_LOADED:-}" ]; then
     export EDITOR="${EDITOR:-vim}"
     export PAGER="${PAGER:-less -R}"
 
+    # omp disables images inside herdr unless forced; herdr passes kitty graphics through.
+    export PI_FORCE_IMAGE_PROTOCOL="${PI_FORCE_IMAGE_PROTOCOL:-kitty}"
+
     __dotfiles_setup_path
 
     # Machine-local POSIX overrides (sensitive env exports, etc.). Kept out of
